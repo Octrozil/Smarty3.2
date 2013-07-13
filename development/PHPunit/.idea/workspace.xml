@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="62a83049-8ff4-4829-8a3e-123490d9225a" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AppendByRefTests.php" afterPath="$PROJECT_DIR$/AppendByRefTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AppendTests.php" afterPath="$PROJECT_DIR$/AppendTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ArrayTests.php" afterPath="$PROJECT_DIR$/ArrayTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AssignByRefTests.php" afterPath="$PROJECT_DIR$/AssignByRefTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AssignGlobalTests.php" afterPath="$PROJECT_DIR$/AssignGlobalTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AssignTests.php" afterPath="$PROJECT_DIR$/AssignTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AttributeTests.php" afterPath="$PROJECT_DIR$/AttributeTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AutoEscapeTests.php" afterPath="$PROJECT_DIR$/AutoEscapeTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CacheResourceCustomApcTests.php" afterPath="$PROJECT_DIR$/CacheResourceCustomApcTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CacheResourceCustomMemcacheTests.php" afterPath="$PROJECT_DIR$/CacheResourceCustomMemcacheTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CacheResourceCustomMysqlTests.php" afterPath="$PROJECT_DIR$/CacheResourceCustomMysqlTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CacheResourceCustomRegisteredTests.php" afterPath="$PROJECT_DIR$/CacheResourceCustomRegisteredTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CacheResourceFileTests.php" afterPath="$PROJECT_DIR$/CacheResourceFileTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CacheVariableTests.php" afterPath="$PROJECT_DIR$/CacheVariableTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CallbacksTests.php" afterPath="$PROJECT_DIR$/CallbacksTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ClearAllAssignTests.php" afterPath="$PROJECT_DIR$/ClearAllAssignTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ClearAssignTests.php" afterPath="$PROJECT_DIR$/ClearAssignTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ClearCacheTests.php" afterPath="$PROJECT_DIR$/ClearCacheTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ClearCompiledTests.php" afterPath="$PROJECT_DIR$/ClearCompiledTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ClosureTests.php" afterPath="$PROJECT_DIR$/ClosureTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CommentsTests.php" afterPath="$PROJECT_DIR$/CommentsTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileAppendTests.php" afterPath="$PROJECT_DIR$/CompileAppendTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileAssignTests.php" afterPath="$PROJECT_DIR$/CompileAssignTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileBlockExtendsTests.php" afterPath="$PROJECT_DIR$/CompileBlockExtendsTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileBlockPluginTests.php" afterPath="$PROJECT_DIR$/CompileBlockPluginTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileCaptureTests.php" afterPath="$PROJECT_DIR$/CompileCaptureTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileCompilerPluginTests.php" afterPath="$PROJECT_DIR$/CompileCompilerPluginTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileDebugTests.php" afterPath="$PROJECT_DIR$/CompileDebugTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileDelimiterTests.php" afterPath="$PROJECT_DIR$/CompileDelimiterTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileErrorTests.php" afterPath="$PROJECT_DIR$/CompileErrorTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileEvalTests.php" afterPath="$PROJECT_DIR$/CompileEvalTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileForTests.php" afterPath="$PROJECT_DIR$/CompileForTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileForeachTests.php" afterPath="$PROJECT_DIR$/CompileForeachTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileFunctionPluginTests.php" afterPath="$PROJECT_DIR$/CompileFunctionPluginTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileFunctionTests.php" afterPath="$PROJECT_DIR$/CompileFunctionTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileIfTests.php" afterPath="$PROJECT_DIR$/CompileIfTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileImportTests.php" afterPath="$PROJECT_DIR$/CompileImportTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileIncludePhpTests.php" afterPath="$PROJECT_DIR$/CompileIncludePhpTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileIncludeTests.php" afterPath="$PROJECT_DIR$/CompileIncludeTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileInsertTests.php" afterPath="$PROJECT_DIR$/CompileInsertTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileNocacheTests.php" afterPath="$PROJECT_DIR$/CompileNocacheTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompilePhpTests.php" afterPath="$PROJECT_DIR$/CompilePhpTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileRegisteredObjectFunctionTests.php" afterPath="$PROJECT_DIR$/CompileRegisteredObjectFunctionTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileSectionTests.php" afterPath="$PROJECT_DIR$/CompileSectionTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileSetfilterTests.php" afterPath="$PROJECT_DIR$/CompileSetfilterTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileStripTests.php" afterPath="$PROJECT_DIR$/CompileStripTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompileWhileTests.php" afterPath="$PROJECT_DIR$/CompileWhileTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompilerPluginTests.php" afterPath="$PROJECT_DIR$/CompilerPluginTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConfigVarTests.php" afterPath="$PROJECT_DIR$/ConfigVarTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConstantsTests.php" afterPath="$PROJECT_DIR$/ConstantsTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CoreTests.php" afterPath="$PROJECT_DIR$/CoreTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomResourceAmbiguousTests.php" afterPath="$PROJECT_DIR$/CustomResourceAmbiguousTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DefaultConfigHandlerTests.php" afterPath="$PROJECT_DIR$/DefaultConfigHandlerTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DefaultConfigVariableHandlerTests.php" afterPath="$PROJECT_DIR$/DefaultConfigVariableHandlerTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DefaultPluginHandlerTests.php" afterPath="$PROJECT_DIR$/DefaultPluginHandlerTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DefaultTemplateHandlerTests.php" afterPath="$PROJECT_DIR$/DefaultTemplateHandlerTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DefaultVariableHandlerTests.php" afterPath="$PROJECT_DIR$/DefaultVariableHandlerTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DelimiterTests.php" afterPath="$PROJECT_DIR$/DelimiterTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DoubleQuotedStringTests.php" afterPath="$PROJECT_DIR$/DoubleQuotedStringTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EvalResourceTests.php" afterPath="$PROJECT_DIR$/EvalResourceTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ExtendsResourceTests.php" afterPath="$PROJECT_DIR$/ExtendsResourceTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FileResourceTests.php" afterPath="$PROJECT_DIR$/FileResourceTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FilterTests.php" afterPath="$PROJECT_DIR$/FilterTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FunctionTests.php" afterPath="$PROJECT_DIR$/FunctionTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GetTemplateVarsTests.php" afterPath="$PROJECT_DIR$/GetTemplateVarsTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GetterSetterTests.php" afterPath="$PROJECT_DIR$/GetterSetterTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HttpModifiedSinceTests.php" afterPath="$PROJECT_DIR$/HttpModifiedSinceTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IndexedFileResourceTests.php" afterPath="$PROJECT_DIR$/IndexedFileResourceTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/InvokableTests.php" afterPath="$PROJECT_DIR$/InvokableTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LoadFilterTests.php" afterPath="$PROJECT_DIR$/LoadFilterTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MathTests.php" afterPath="$PROJECT_DIR$/MathTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModifierTests.php" afterPath="$PROJECT_DIR$/ModifierTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MuteExpectedErrorsTests.php" afterPath="$PROJECT_DIR$/MuteExpectedErrorsTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NamespaceTests.php" afterPath="$PROJECT_DIR$/NamespaceTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ObjectVariableTests.php" afterPath="$PROJECT_DIR$/ObjectVariableTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OutputFilterTrimWhitespaceTests.php" afterPath="$PROJECT_DIR$/OutputFilterTrimWhitespaceTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PhpResourceTests.php" afterPath="$PROJECT_DIR$/PhpResourceTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginBlockTextformatTests.php" afterPath="$PROJECT_DIR$/PluginBlockTextformatTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginChainedLoadTests.php" afterPath="$PROJECT_DIR$/PluginChainedLoadTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginFunctionFetchTests.php" afterPath="$PROJECT_DIR$/PluginFunctionFetchTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginFunctionHtmlCheckboxesTests.php" afterPath="$PROJECT_DIR$/PluginFunctionHtmlCheckboxesTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginFunctionHtmlImageTests.php" afterPath="$PROJECT_DIR$/PluginFunctionHtmlImageTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginFunctionHtmlOptionsTests.php" afterPath="$PROJECT_DIR$/PluginFunctionHtmlOptionsTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginFunctionHtmlRadiosTests.php" afterPath="$PROJECT_DIR$/PluginFunctionHtmlRadiosTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginFunctionHtmlSelectDateTests.php" afterPath="$PROJECT_DIR$/PluginFunctionHtmlSelectDateTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginFunctionHtmlSelectTimeTests.php" afterPath="$PROJECT_DIR$/PluginFunctionHtmlSelectTimeTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginFunctionMailtoTests.php" afterPath="$PROJECT_DIR$/PluginFunctionMailtoTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierCapitalizeTests.php" afterPath="$PROJECT_DIR$/PluginModifierCapitalizeTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierCharsetTests.php" afterPath="$PROJECT_DIR$/PluginModifierCharsetTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierCountCharactersTests.php" afterPath="$PROJECT_DIR$/PluginModifierCountCharactersTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierCountSentencesTests.php" afterPath="$PROJECT_DIR$/PluginModifierCountSentencesTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierCountWordsTests.php" afterPath="$PROJECT_DIR$/PluginModifierCountWordsTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierEscapeTests.php" afterPath="$PROJECT_DIR$/PluginModifierEscapeTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierLowerTests.php" afterPath="$PROJECT_DIR$/PluginModifierLowerTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierRegexReplaceTests.php" afterPath="$PROJECT_DIR$/PluginModifierRegexReplaceTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierSpacifyTests.php" afterPath="$PROJECT_DIR$/PluginModifierSpacifyTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierStripTests.php" afterPath="$PROJECT_DIR$/PluginModifierStripTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierTruncateTests.php" afterPath="$PROJECT_DIR$/PluginModifierTruncateTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierUnescapeTests.php" afterPath="$PROJECT_DIR$/PluginModifierUnescapeTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierUpperTests.php" afterPath="$PROJECT_DIR$/PluginModifierUpperTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PluginModifierWordwrapTests.php" afterPath="$PROJECT_DIR$/PluginModifierWordwrapTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PrintNocacheTests.php" afterPath="$PROJECT_DIR$/PrintNocacheTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ReflectionTests.php" afterPath="$PROJECT_DIR$/ReflectionTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RegisterBlockTests.php" afterPath="$PROJECT_DIR$/RegisterBlockTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RegisterCompilerFunctionTests.php" afterPath="$PROJECT_DIR$/RegisterCompilerFunctionTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RegisterFilterTests.php" afterPath="$PROJECT_DIR$/RegisterFilterTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RegisterFunctionTests.php" afterPath="$PROJECT_DIR$/RegisterFunctionTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RegisterModifierTests.php" afterPath="$PROJECT_DIR$/RegisterModifierTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RegisteredResourceTests.php" afterPath="$PROJECT_DIR$/RegisteredResourceTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ResourcePluginTests.php" afterPath="$PROJECT_DIR$/ResourcePluginTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RunTimeExceptionTests.php" afterPath="$PROJECT_DIR$/RunTimeExceptionTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SecurityTests.php" afterPath="$PROJECT_DIR$/SecurityTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SharedFunctionsTests.php" afterPath="$PROJECT_DIR$/SharedFunctionsTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SingleQuotedStringTests.php" afterPath="$PROJECT_DIR$/SingleQuotedStringTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SmartyBcTests.php" afterPath="$PROJECT_DIR$/SmartyBcTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SpacingTests.php" afterPath="$PROJECT_DIR$/SpacingTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StaticClassAccessTests.php" afterPath="$PROJECT_DIR$/StaticClassAccessTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StreamResourceTests.php" afterPath="$PROJECT_DIR$/StreamResourceTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StreamVariableTests.php" afterPath="$PROJECT_DIR$/StreamVariableTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StringResourceTests.php" afterPath="$PROJECT_DIR$/StringResourceTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TemplateExistsTests.php" afterPath="$PROJECT_DIR$/TemplateExistsTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TernaryTests.php" afterPath="$PROJECT_DIR$/TernaryTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VariableCachevalueTests.php" afterPath="$PROJECT_DIR$/VariableCachevalueTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VariableScopeTests.php" afterPath="$PROJECT_DIR$/VariableScopeTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VariableVariableTests.php" afterPath="$PROJECT_DIR$/VariableVariableTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WhitespaceControlTests.php" afterPath="$PROJECT_DIR$/WhitespaceControlTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XmlTests.php" afterPath="$PROJECT_DIR$/XmlTests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/helpers/_object_tostring.php" afterPath="$PROJECT_DIR$/helpers/_object_tostring.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/block.annotated_nocache.php" afterPath="$PROJECT_DIR$/PHPunitplugins/block.annotated_nocache.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/block.testblock.php" afterPath="$PROJECT_DIR$/PHPunitplugins/block.testblock.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/cacheresource.apctest.php" afterPath="$PROJECT_DIR$/PHPunitplugins/cacheresource.apctest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/cacheresource.memcachetest.php" afterPath="$PROJECT_DIR$/PHPunitplugins/cacheresource.memcachetest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/cacheresource.mysqltest.php" afterPath="$PROJECT_DIR$/PHPunitplugins/cacheresource.mysqltest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/coverage.xml" afterPath="$PROJECT_DIR$/coverage.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates_3/extendsall.tpl" afterPath="$PROJECT_DIR$/templates_3/extendsall.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/function.annotated_nocache.php" afterPath="$PROJECT_DIR$/PHPunitplugins/function.annotated_nocache.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/function.chain1.php" afterPath="$PROJECT_DIR$/PHPunitplugins/function.chain1.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/function.chain2.php" afterPath="$PROJECT_DIR$/PHPunitplugins/function.chain2.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/function.chain3.php" afterPath="$PROJECT_DIR$/PHPunitplugins/function.chain3.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/insert.insertplugintest.php" afterPath="$PROJECT_DIR$/PHPunitplugins/insert.insertplugintest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/helpers/namespaced_class.php" afterPath="$PROJECT_DIR$/helpers/namespaced_class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/phpunit-tests-coverage.bat" afterPath="$PROJECT_DIR$/phpunit-tests-coverage.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/phpunit-tests-single.bat" afterPath="$PROJECT_DIR$/phpunit-tests-single.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/phpunit-tests.bat" afterPath="$PROJECT_DIR$/phpunit-tests.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/resource.ambiguous.php" afterPath="$PROJECT_DIR$/PHPunitplugins/resource.ambiguous.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/resource.db.php" afterPath="$PROJECT_DIR$/PHPunitplugins/resource.db.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/resource.db2.php" afterPath="$PROJECT_DIR$/PHPunitplugins/resource.db2.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/resource.db3.php" afterPath="$PROJECT_DIR$/PHPunitplugins/resource.db3.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/resource.db4.php" afterPath="$PROJECT_DIR$/PHPunitplugins/resource.db4.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/resource.mysqlstest.php" afterPath="$PROJECT_DIR$/PHPunitplugins/resource.mysqlstest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPunitplugins/resource.mysqltest.php" afterPath="$PROJECT_DIR$/PHPunitplugins/resource.mysqltest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/script_block_tag.php" afterPath="$PROJECT_DIR$/scripts/script_block_tag.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/script_compiler_function_tag.php" afterPath="$PROJECT_DIR$/scripts/script_compiler_function_tag.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/script_default_static_modifier.php" afterPath="$PROJECT_DIR$/scripts/script_default_static_modifier.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/script_function_tag.php" afterPath="$PROJECT_DIR$/scripts/script_function_tag.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/script_modifier.php" afterPath="$PROJECT_DIR$/scripts/script_modifier.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartytests.php" afterPath="$PROJECT_DIR$/smartytests.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smartytestssingle.php" afterPath="$PROJECT_DIR$/smartytestssingle.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child_append.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child_append.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child_append_shorttag.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child_append_shorttag.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child_nested.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child_nested.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child_nested2.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child_nested2.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child_nested3.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child_nested3.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child_nested_hide.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child_nested_hide.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child_nested_hide_space.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child_nested_hide_space.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child_nested_include.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child_nested_include.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child_plugin.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child_plugin.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child_prepend.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child_prepend.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child_smartychild.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child_smartychild.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_child_smartychild2.tpl" afterPath="$PROJECT_DIR$/templates/test_block_child_smartychild2.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_grandchild.tpl" afterPath="$PROJECT_DIR$/templates/test_block_grandchild.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_grandchild_append.tpl" afterPath="$PROJECT_DIR$/templates/test_block_grandchild_append.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_grandchild_nested.tpl" afterPath="$PROJECT_DIR$/templates/test_block_grandchild_nested.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_grandchild_nested3.tpl" afterPath="$PROJECT_DIR$/templates/test_block_grandchild_nested3.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_grandchild_nested_include.tpl" afterPath="$PROJECT_DIR$/templates/test_block_grandchild_nested_include.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_grandchild_prepend.tpl" afterPath="$PROJECT_DIR$/templates/test_block_grandchild_prepend.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_grandchild_smartychild.tpl" afterPath="$PROJECT_DIR$/templates/test_block_grandchild_smartychild.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_include_parent.tpl" afterPath="$PROJECT_DIR$/templates/test_block_include_parent.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_include_start1.tpl" afterPath="$PROJECT_DIR$/templates/test_block_include_start1.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_include_start2.tpl" afterPath="$PROJECT_DIR$/templates/test_block_include_start2.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_include_start3.tpl" afterPath="$PROJECT_DIR$/templates/test_block_include_start3.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_parent.tpl" afterPath="$PROJECT_DIR$/templates/test_block_parent.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_parent_nested.tpl" afterPath="$PROJECT_DIR$/templates/test_block_parent_nested.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_parent_shorttag.tpl" afterPath="$PROJECT_DIR$/templates/test_block_parent_shorttag.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_parent_smartychild.tpl" afterPath="$PROJECT_DIR$/templates/test_block_parent_smartychild.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_section.tpl" afterPath="$PROJECT_DIR$/templates/test_block_section.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_block_section_resource.tpl" afterPath="$PROJECT_DIR$/templates/test_block_section_resource.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_import_nocache_section.tpl" afterPath="$PROJECT_DIR$/templates/test_import_nocache_section.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/test_runtime_exception_include.tpl" afterPath="$PROJECT_DIR$/templates/test_runtime_exception_include.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/whitespace.tpl" afterPath="$PROJECT_DIR$/templates/whitespace.tpl" />
+    </list>
+    <ignored path="PHPunit.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <file path="$PROJECT_DIR$/templates_c/5f48f1d770494915e377d243e63f247482e8b1bf_0.string.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440045" ignored="false" />
+    <file path="$PROJECT_DIR$/templates_c/7ab0590d03f4b0e2270691ef784b67295c1ad8f6_0.file.assign.tpl.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440046" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_assign.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440053" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_private_block_plugin.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440054" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifier.spacify.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440055" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_break.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440056" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440057" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_variablefilter.htmlspecialchars.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440058" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.exception.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440059" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_cacheresource_custom.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440060" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_append.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440061" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_block.textformat.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440062" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_filter_handler.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440062" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.noprint.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440063" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.count_sentences.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440063" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifier.unescape.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440064" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.html_select_time.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440064" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_resource_recompiled.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440065" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/RGraph.common.tooltips.js" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440066" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.html_image.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440067" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_private_inheritance_template.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440068" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_configfilelexer.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440069" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_foreach.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440071" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_cacheresource_keyvaluestore.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440072" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/demo_plugins_cacheresource.mysql.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440073" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifier.regex_replace.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440074" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/excanvas.compressed.js" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440075" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/index.dashboard.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440076" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_shared.mb_unicode.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440077" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_resource_custom.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440078" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_cacheresource.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440079" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/demo_plugins.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440080" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.count_paragraphs.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440081" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/demo_plugins_resource.mysql.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440082" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_outputfilter.trimwhitespace.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440083" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_private_registered_block.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440084" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.strip_tags.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440085" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/demo_plugins.dashboard.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440086" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_resource_extends.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440087" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_shared.make_timestamp.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440087" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.wordwrap.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440088" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_cacheresource_file.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440088" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_smartytemplatecompiler.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440089" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_resource_uncompiled.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440090" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.from_charset.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440090" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.indent.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440091" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_write_file.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440091" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.math.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440092" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs.dashboard.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440092" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.upper.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440093" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.html_table.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440093" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_utility.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440095" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.to_charset.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440096" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_continue.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440097" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_capture.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440098" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/RGraph.bar.js" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440098" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_section.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440099" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_extends.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440099" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_private_function_plugin.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440100" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_call.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440100" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/container-min.js" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440101" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.lower.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440101" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.count_characters.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440102" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_data.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440103" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/index.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440104" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifier.truncate.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440105" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.fetch.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440106" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.default.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440107" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/demo_plugins_resource.extendsall.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440108" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_shared.escape_special_chars.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440109" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/RGraph.scatter.js" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440110" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.count_words.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440111" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_eval.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440112" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.escape.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440113" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_if.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440114" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_setfilter.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440115" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/style.css" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440116" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_resource_file.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440117" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_debug.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440118" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/container.css" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440119" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_while.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440120" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_nocache.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440120" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_SmartyBC.class.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440121" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.html_checkboxes.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440122" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.counter.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440123" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_security.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440125" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.mailto.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440126" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_resource_eval.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440127" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_debug.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440128" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_private_registered_function.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440129" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_block.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440130" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_get_include_path.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440131" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_private_special_variable.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440132" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_resource_registered.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440133" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_private_print_expression.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440134" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.cat.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440135" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifier.escape.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440136" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins.dashboard.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440137" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_rdelim.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440138" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifier.replace.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440139" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_resource_stream.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440140" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_inheritance.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440141" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compilebase.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440142" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.string_format.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440143" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_private_compiler_plugin.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440144" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_shared.mb_str_replace.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440145" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_function.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440146" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/demo.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440147" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_import.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440148" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_for.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440149" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/demo_plugins_resource.mysqls.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440149" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifier.date_format.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440150" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/demo_plugins_cacheresource.apc.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440151" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins.dashboard.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440152" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.unescape.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440153" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_configfileparser.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440154" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_private_modifier.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440155" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_ldelim.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440156" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_content.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440157" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.html_options.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440158" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_shared.mb_wordwrap.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440159" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_private_object_block_function.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440160" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/demo_plugins_cacheresource.memcache.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440161" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440162" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifier.count_characters.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440163" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/demo.dashboard.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440164" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/yahoo-dom-event.js" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440165" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_private_object_function.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440166" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_include_php.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440167" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_resource_php.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440168" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.html_radios.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440169" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.html_select_date.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440170" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_config_load.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440171" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440172" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_configcompiler.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440173" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_function.cycle.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440174" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_include.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440175" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_resource_string.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440176" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifier.capitalize.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440178" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_sysplugins_smarty_internal_compile_insert.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440178" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/RGraph.common.core.js" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440179" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_plugins_modifiercompiler.strip.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440180" ignored="false" />
+    <file path="$PROJECT_DIR$/templates/sub/cache/^^a61d24c4704b3841bb2115d86d5bbfff007fcfa8.a61d24c4704b3841bb2115d86d5bbfff007fcfa8.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440191" ignored="false" />
+    <file path="$PROJECT_DIR$/templates/sub/templates_c/a61d24c4704b3841bb2115d86d5bbfff007fcfa8_0.string.cache.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440192" ignored="false" />
+    <file path="$PROJECT_DIR$/templates/sub/templates_c/a46a3db0cd2f5d3ff7ed6ce7095ba9fe28e787ca_0.file.relative.tpl.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440193" ignored="false" />
+    <file path="$PROJECT_DIR$/templates/sub/templates_c/119995006d23effd0094075d57df8ae43754e185_0.file.helloworld.tpl.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440194" ignored="false" />
+    <file path="$PROJECT_DIR$/templates/sub/templates_c/5f48f1d770494915e377d243e63f247482e8b1bf_0.string.cache.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440195" ignored="false" />
+    <file path="$PROJECT_DIR$/templates/sub/templates_c/a61d24c4704b3841bb2115d86d5bbfff007fcfa8_0.string.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440196" ignored="false" />
+    <file path="$PROJECT_DIR$/templates/sub/templates_c/5f48f1d770494915e377d243e63f247482e8b1bf_0.string.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440197" ignored="false" />
+    <file path="$PROJECT_DIR$/templates_c/622d318193b0c11ec00564d3f02a1de2da441161_0.file.xml.tpl.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440198" ignored="false" />
+    <file path="$PROJECT_DIR$/cache/^^a61d24c4704b3841bb2115d86d5bbfff007fcfa8.a61d24c4704b3841bb2115d86d5bbfff007fcfa8.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440199" ignored="false" />
+    <file path="$PROJECT_DIR$/templates_c/a61d24c4704b3841bb2115d86d5bbfff007fcfa8_0.string.cache.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440200" ignored="false" />
+    <file path="$PROJECT_DIR$/templates_c/5f48f1d770494915e377d243e63f247482e8b1bf_0.string.cache.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440201" ignored="false" />
+    <file path="$PROJECT_DIR$/coverage/libs_SmartyBC31.class.php.html" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440202" ignored="false" />
+    <file path="$PROJECT_DIR$/templates_c/622d318193b0c11ec00564d3f02a1de2da441161_0.file.xml.tpl.cache.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440203" ignored="false" />
+    <file path="$PROJECT_DIR$/templates_c/a61d24c4704b3841bb2115d86d5bbfff007fcfa8_0.string.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440204" ignored="false" />
+    <file path="$PROJECT_DIR$/cache/^^622d318193b0c11ec00564d3f02a1de2da441161.xml.tpl.php" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440205" ignored="false" />
+    <file path="$PROJECT_DIR$/PHPunitplugins/.idea/vcs.xml" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440206" ignored="false" />
+    <file path="$PROJECT_DIR$/PHPunitplugins/.idea/modules.xml" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440207" ignored="false" />
+    <file path="$PROJECT_DIR$/PHPunitplugins/.idea/workspace.xml" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440208" ignored="false" />
+    <file path="$PROJECT_DIR$/PHPunitplugins/.idea/misc.xml" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440209" ignored="false" />
+    <file path="$PROJECT_DIR$/PHPunitplugins/.idea/encodings.xml" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440210" ignored="false" />
+    <file path="$PROJECT_DIR$/PHPunitplugins/.idea/scopes/scope_settings.xml" changelist="62a83049-8ff4-4829-8a3e-123490d9225a" time="1366923440211" ignored="false" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="PHPunit" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="smartytests.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/smartytests.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="74" column="0" selection-start="2362" selection-end="2497" vertical-scroll-proportion="0.3898051">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="smartytestssingle.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smartytestssingle.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="78" column="0" selection-start="2671" selection-end="2671" vertical-scroll-proportion="-20.076923">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/smartytestssingle.php" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="48" />
+    <option name="y" value="95" />
+    <option name="width" value="1900" />
+    <option name="height" value="892" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents ProjectPane="true" />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PHPunit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="RunManager">
+    <list size="0" />
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="true" SSL_PROTOCOLS="all">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <configuration useDefault="true">C:\Users\Uwe Tews\AppData\Roaming\Subversion</configuration>
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\wamp\www\Smarty3.2.cm\development\PHPunit" />
+          <option name="myCopyRoot" value="C:\wamp\www\Smarty3.2.cm\development\PHPunit" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\wamp\www\Smarty3.2.cm\development\PHPunit" />
+          <option name="myCopyRoot" value="C:\wamp\www\Smarty3.2.cm\development\PHPunit" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="62a83049-8ff4-4829-8a3e-123490d9225a" name="Default" comment="" />
+      <created>1366923332312</created>
+      <updated>1366923332312</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="48" y="95" width="1900" height="892" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24972796" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="true" />
+    <option name="myTodoPanelSettings">
+      <value>
+        <are-packages-shown value="false" />
+        <are-modules-shown value="false" />
+        <flatten-packages value="false" />
+        <is-autoscroll-to-source value="false" />
+      </value>
+    </option>
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
+    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
+    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
+    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
+    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
+    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
+    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
+    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
+    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
+    <option name="LIMIT_HISTORY" value="true" />
+    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
+    <option name="UPDATE_FILTER_SCOPE_NAME" />
+    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
+    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/smartytestssingle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="0" selection-start="2671" selection-end="2671" vertical-scroll-proportion="-20.076923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smartytests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="0" selection-start="2362" selection-end="2497" vertical-scroll-proportion="0.3898051">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

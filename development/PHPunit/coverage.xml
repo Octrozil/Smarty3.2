@@ -1,0 +1,16 @@
+<phpunit stopOnFailure="false">
+
+    <filter>
+        <whitelist>
+            <directoryx suffix=".php">../../lib</directoryx>
+            <directoryx suffix=".php">../../demo</directoryx>
+            <exclude>
+                <file>../../demo/index.php</file>
+                <file>../../demo/info.php</file>
+                <directory suffix=".php">../../demo/cache</directory>
+                <directory suffix=".php">../../demo/templates_c</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+</phpunit>
