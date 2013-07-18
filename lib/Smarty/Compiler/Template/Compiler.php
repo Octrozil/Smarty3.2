@@ -1006,7 +1006,7 @@ class Smarty_Compiler_Template_Compiler extends Smarty_Compiler
                 $template_code->newline()->raw($inlinetpl_obj['code']);
                 unset(self::$merged_inline_content_classes[$key], $inlinetpl_obj);
             }
-            $template_code->php("\$class_name = '{$this->content_class}';")->newline();
+            $template_code->php("\$this->class_name = '{$this->content_class}';")->newline();
         }
 
         return $template_code;

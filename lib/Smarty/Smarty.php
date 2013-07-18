@@ -213,12 +213,6 @@ class Smarty extends Smarty_Variable_Methods
     public $auto_literal = true;
 
     /**
-     *  flag if template specific objs shall be cached during processing
-     * @var mixed
-     */
-    public $cache_objs = true;
-
-    /**
      * display error on not assigned variables
      * @var integer
      * @link <missing>
@@ -971,7 +965,7 @@ class Smarty extends Smarty_Variable_Methods
 
         if ($caching == self::CACHING_LIFETIME_CURRENT || $caching == self::CACHING_LIFETIME_SAVED) {
             $browser_cache_valid = false;
-            $_output = $tpl_obj->_loadCached($source, $compile_id, $cache_id, $caching)->getRenderedTemplate($scope_type, $data, $no_output_filter, $display);
+            $_output = $tpl_obj->_loadCachedTemplate($source, $tpl_obj->parent, $compile_id, $cache_id, $caching)->getRenderedTemplate($scope_type, $data, $no_output_filter, $display);
             if ($_output === true) {
                 $browser_cache_valid = true;
             }
@@ -984,10 +978,6 @@ class Smarty extends Smarty_Variable_Methods
         }
         if (isset($tpl_obj->error_reporting)) {
             error_reporting($_smarty_old_error_level);
-        }
-
-        if (!$tpl_obj->cache_objs) {
-            $tpl_obj->_deleteTemplateObj($tpl_obj);
         }
 
         // display or fetch
@@ -1071,7 +1061,7 @@ class Smarty extends Smarty_Variable_Methods
             // recompiled source can't be cached
             return false;
         }
-        $cached_obj = $tpl_obj->_loadCached($source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
+        $cached_obj = $tpl_obj->_loadCachedTemplate($source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
             isset($cache_id) ? $cache_id : $tpl_obj->cache_id, $this->caching);
         if (!$cached_obj->exists || !$cached_obj->isValid) {
             // cache does not exists or is outdated
@@ -1163,21 +1153,6 @@ class Smarty extends Smarty_Variable_Methods
         }
 
         return $source;
-    }
-
-    public function _deleteTemplateObj($tpl_obj = null)
-    {
-        if ($tpl_obj == null) {
-            //delete all cached objs
-            self::$_source_cache = array();
-        }
-        foreach (self::$_source_cache as $key => $foo) {
-            if ($tpl_obj == $foo['template']) {
-                // get rid of any thing which belong to this template
-                unset(self::$_source_cache[$tpl_obj->source->unique_resource]);
-                unset(self::$_source_cache[$key]);
-            }
-        }
     }
 
     /**
@@ -2395,29 +2370,42 @@ class Smarty extends Smarty_Variable_Methods
         $template_obj = $this->_loadResource(self::COMPILED)->populateResource($this, $source, $compile_id, $caching)->loadTemplate($this, $parent);
 
         // save in cache?
-        if ($this->cache_objs) {
+        if (is_object($template_obj)) {
             self::$template_cache[$source_key]['compiled'][$compiled_key] = get_class($template_obj);
         }
 
         return $template_obj;
     }
 
-    public function _getCachedTemplate(Smarty_Resource $source, $compile_id, $cache_id, $caching)
+    /**
+     *
+     * @params Smarty_Resource $source source resource
+     * @param Smarty_Resource $source
+     * @param Smarty|Smarty_Data|Smarty_Template_Class $parent parent object
+     * @params mixed $compile_id  compile id
+     * @params mixed $cache_id  compile id
+     * @params boolean $caching caching enabled ?
+     * @params boolean $isCacheCheck true to just check if cache is valid
+     * @return mixed Smarty_Template|false
+     */
+    public function _loadCachedTemplate(Smarty_Resource $source, $parent, $compile_id, $cache_id, $caching, $isCacheCheck = false)
     {
         // check runtime cache
         $source_key = $source->uid;
         $compiled_key = $compile_id ? $compile_id : '#null#';
         $cache_key = $cache_id ? $cache_id : '#null#';
         if (isset(self::$template_cache[$source_key]['cache'][$compiled_key][$cache_key])) {
-            return self::$template_cache[$source_key]['cache'][$compiled_key][$cache_key];
+            $class_name = self::$template_cache[$source_key]['cache'][$compiled_key][$cache_key];
+
+            return new $class_name($this, $parent,  $source);
         }
 
         // get cache template obj
-        $template_obj = $this->_loadResource(self::CACHE)->populateResource($this, $source, $compile_id, $cache_id, $caching)->loadTemplate($this);
+        $template_obj = $this->_loadResource(self::CACHE)->populateResource($this, $source, $compile_id, $cache_id, $caching)->loadTemplate($this, $parent, $isCacheCheck);
 
            // save in cache?
-            if ($this->cache_objs) {
-                self::$template_cache[$source_key]['cache'][$compiled_key][$cache_key] = $template_obj;
+            if (is_object($template_obj)) {
+                self::$template_cache[$source_key]['cache'][$compiled_key][$cache_key] = get_class($template_obj);
             }
 
             return $template_obj;

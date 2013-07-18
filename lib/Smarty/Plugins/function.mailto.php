@@ -51,7 +51,7 @@
  */
 function smarty_function_mailto($params, $tpl_obj)
 {
-    public static $_allowed_encoding = array('javascript' => true, 'javascript_charcode' => true, 'hex' => true, 'none' => true);
+    static $_allowed_encoding = array('javascript' => true, 'javascript_charcode' => true, 'hex' => true, 'none' => true);
     $extra = '';
 
     if (empty($params['address'])) {

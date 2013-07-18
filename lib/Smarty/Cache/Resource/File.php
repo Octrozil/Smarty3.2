@@ -168,7 +168,7 @@ class Smarty_Cache_Resource_File extends Smarty_Cache_Resource
         $_time = time();
 
         if (isset($resource_name)) {
-            $source = Smarty_Resource::loadSource($smarty, $resource_name);
+            $source = $smarty->_loadResource(Smarty::SOURCE, $resource_name);
             if ($source->exists) {
                 // set basename if not specified
                 $_basename = $source->getBasename($source);

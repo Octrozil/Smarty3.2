@@ -46,9 +46,9 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * assigns a Smarty variable
      *
-     * @param  array|string            $tpl_var the template variable name(s)
-     * @param  mixed                   $value   the value to assign
-     * @param  boolean                 $nocache if true any output of this variable will be not cached
+     * @param  array|string $tpl_var the template variable name(s)
+     * @param  mixed $value   the value to assign
+     * @param  boolean $nocache if true any output of this variable will be not cached
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function assign($tpl_var, $value = null, $nocache = false)
@@ -71,9 +71,9 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * assigns a Smarty variable to the current object and all parent elements
      *
-     * @param  array|string            $tpl_var the template variable name(s)
-     * @param  mixed                   $value   the value to assign
-     * @param  boolean                 $nocache if true any output of this variable will be not cached
+     * @param  array|string $tpl_var the template variable name(s)
+     * @param  mixed $value   the value to assign
+     * @param  boolean $nocache if true any output of this variable will be not cached
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function assignParents($tpl_var, $value = null, $nocache = false)
@@ -92,9 +92,9 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * assigns a global Smarty variable
      *
-     * @param  string                  $varname the global variable name
-     * @param  mixed                   $value   the value to assign
-     * @param  boolean                 $nocache if true any output of this variable will be not cached
+     * @param  string $varname the global variable name
+     * @param  mixed $value   the value to assign
+     * @param  boolean $nocache if true any output of this variable will be not cached
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function assignGlobal($varname, $value = null, $nocache = false)
@@ -112,12 +112,36 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     }
 
     /**
+     * assigns a variable hook
+     *
+     * @param  string $varname the variable name
+     * @param  callback $callback PHP callback to get variable value
+     * @param  boolean $nocache if true any output of this variable will be not cached
+     * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
+     */
+    public function assignCallback($varname, $callback, $nocache = false)
+    {
+        if ($varname != '') {
+            if (!is_callable($callback)) {
+                throw new Smarty_Exception("assignHook(): Hook for variable \"{$varname}\" not callable");
+            } else {
+                if (is_object($callback)) {
+                    $callback = array($callback, '__invoke');
+                }
+                $this->tpl_vars->$varname = new Smarty_Variable_Callback($varname, $callback, $nocache);
+            }
+        }
+        return $this;
+    }
+
+
+    /**
      * appends values to template variables
      *
-     * @param  array|string            $tpl_var the template variable name(s)
-     * @param  mixed                   $value   the value to append
-     * @param  boolean                 $merge   flag if array elements shall be merged
-     * @param  boolean                 $nocache if true any output of this variable will be not cached
+     * @param  array|string $tpl_var the template variable name(s)
+     * @param  mixed $value   the value to append
+     * @param  boolean $merge   flag if array elements shall be merged
+     * @param  boolean $nocache if true any output of this variable will be not cached
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function append($tpl_var, $value = null, $merge = false, $nocache = false)
@@ -175,7 +199,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * clear the given assigned template variable.
      *
-     * @param  string|array            $tpl_var the template variable(s) to clear
+     * @param  string|array $tpl_var the template variable(s) to clear
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function clearAssign($tpl_var)
@@ -207,8 +231,8 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * Returns a single or all template variables
      *
-     * @param  string  $varname        variable name or null
-     * @param  string  $_ptr           optional pointer to data object
+     * @param  string $varname        variable name or null
+     * @param  string $_ptr           optional pointer to data object
      * @param  boolean $search_parents include parent templates?
      * @return string  variable value or or array of variables
      */
@@ -254,11 +278,11 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * gets the object of a template variable
      *
-     * @param  string                   $varname        the name of the Smarty variable
-     * @param  object                   $_ptr           optional pointer to data object
-     * @param  boolean                  $search_parents search also in parent data
-     * @param  boolean                  $error_enable   enable error handling
-     * @param  null                     $property       optional requested variable property
+     * @param  string $varname        the name of the Smarty variable
+     * @param  object $_ptr           optional pointer to data object
+     * @param  boolean $search_parents search also in parent data
+     * @param  boolean $error_enable   enable error handling
+     * @param  null $property       optional requested variable property
      * @throws Smarty_Exception_Runtime
      * @return mixed                    Smarty_variable object|property of variable
      */
@@ -354,7 +378,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      * Returns a single or all config variables
      *
      * @param  string $varname        variable name or null
-     * @param  bool   $search_parents true to search also in parent templates
+     * @param  bool $search_parents true to search also in parent templates
      * @return string variable value or or array of variables
      */
     public function getConfigVars($varname = null, $search_parents = true)
@@ -388,7 +412,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * Deassigns a single or all config variables
      *
-     * @param  string                  $varname variable name or null
+     * @param  string $varname variable name or null
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function clearConfig($varname = null)
@@ -409,9 +433,9 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * load a config file, optionally load just selected sections
      *
-     * @param  string                  $config_file filename
-     * @param  mixed                   $sections    array of section names, single section or null
-     * @param  string                  $scope_type  template scope into which config file shall be loaded
+     * @param  string $config_file filename
+     * @param  mixed $sections    array of section names, single section or null
+     * @param  string $scope_type  template scope into which config file shall be loaded
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function configLoad($config_file, $sections = null, $scope_type = 'local')
@@ -429,7 +453,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * gets  a stream variable
      *
-     * @param  string           $variable the stream of the variable
+     * @param  string $variable the stream of the variable
      * @throws Smarty_Exception
      * @return mixed            the value of the stream variable
      */

@@ -209,6 +209,7 @@ class Smarty_Cache_Helper_Create extends Smarty_Exception_Magic
         $template_code->outdent()->php('}')->newline();
 
         $template_code->outdent()->php('}')->newline()->outdent()->php('}')->newline();
+        $template_code->php("\$this->class_name = '{$class}';")->newline();
 
         return $template_code;
     }

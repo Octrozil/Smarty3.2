@@ -41,8 +41,6 @@ class Smarty_Compiled_Resource_File extends Smarty_Compiled_Resource
         if ($this->exists) {
             // compiled template to see if it is still valid
             include $this->filepath;
-
-            return isset($class_name) ? $class_name : false;
         }
     }
 
@@ -106,7 +104,7 @@ class Smarty_Compiled_Resource_File extends Smarty_Compiled_Resource
         $compiletime_options = 0;
         $_dir_sep = $smarty->use_sub_dirs ? DS : '^';
         if (isset($template_resource)) {
-            $source = Smarty_Resource::loadSource($smarty, $template_resource);
+            $source = $smarty->_loadResource(Smarty::SOURCE, $template_resource);
 
             if ($source->exists) {
                 // set basename if not specified

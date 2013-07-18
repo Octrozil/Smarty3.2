@@ -32,6 +32,12 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
     public $timestamp = null;
 
     /**
+     * Resource Existence
+     * @var boolean
+     */
+    public $exists = false;
+
+    /**
      * Cache Is Valid
      * @var boolean
      */
@@ -227,11 +233,53 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
      * Load compiled template
      *
      * @param  Smarty           $tpl_obj template object
+     * @param Smarty|Smarty_Data|Smarty_Template_Class $parent parent object
+     * @params boolean $isCacheCheck true to just check if cache is valid
+     * @return mixed Smarty_Template|false
      * @throws Smarty_Exception
      */
-    public function loadTemplate($tpl_obj)
+    public function loadTemplate($tpl_obj, $parent, $isCacheCheck)
     {
+        if (isCacheCheck && (!$this->exists || !$this->caching || $tpl_obj->force_compile || $tpl_obj->force_cache || $this->source->recompiled)) {
+            return false;
+        }
+        $level = ob_get_level();
+            $isValid = false;
+            if ($this->exists && !$tpl_obj->force_compile && !$tpl_obj->force_cache) {
+                $this->process($tpl_obj);
+                $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
+                $class_name = $this->class_name;
+                $isValid = $class_name::$isValid;
+                if ($isCacheCheck) {
+                    return $isValid ? $template_obj : false;
+            }
+            if (!$isValid) {
+                if ($tpl_obj->debugging) {
+                    Smarty_Debug::start_compile($this->source);
+                }
+                $compiler = Smarty_Compiler::load($tpl_obj, $this->source, $this->caching);
+                $compiler->compileTemplateSource($this);
+                unset($compiler);
+                if ($tpl_obj->debugging) {
+                    Smarty_Debug::end_compile($this->source);
+                }
+                $this->process($tpl_obj);
+                $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
+                $class_name = $this->class_name;
+                $isValid = $class_name::$isValid;
+                if (!$isValid) {
+                    throw new Smarty_Exception("Unable to load compiled template file '{$this->filepath}");
+                }
+            }
     }
+catch (Exception $e) {
+while (ob_get_level() > $level) {
+ob_end_clean();
+}
+throw new Smarty_Exception_Runtime('resource ', -1, null, $e);
+}
+
+}
 
     /**
      * get rendered template output from cached template
