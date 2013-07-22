@@ -109,7 +109,7 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
     /**
      * Read the cached template and process header
      *
-     * @param  Smarty  $tpl_obj template object
+     * @param  Smarty $tpl_obj template object
      * @return boolean true or false if the cached content does not exist
      */
     abstract public function process(Smarty $tpl_obj);
@@ -117,8 +117,8 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
     /**
      * Write the rendered template output to cache
      *
-     * @param  Smarty  $tpl_obj template object
-     * @param  string  $content content to cache
+     * @param  Smarty $tpl_obj template object
+     * @param  string $content content to cache
      * @return boolean success
      */
     abstract public function writeCachedContent(Smarty $tpl_obj, $content);
@@ -126,7 +126,7 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
     /**
      * Empty cache
      *
-     * @param  Smarty  $smarty   Smarty object
+     * @param  Smarty $smarty   Smarty object
      * @param  integer $exp_time expiration time (number of seconds, not timestamp)
      * @return integer number of cache files deleted
      */
@@ -135,10 +135,10 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
     /**
      * Empty cache for a specific template
      *
-     * @param  Smarty  $smarty        Smarty object
-     * @param  string  $resource_name template name
-     * @param  string  $cache_id      cache id
-     * @param  string  $compile_id    compile id
+     * @param  Smarty $smarty        Smarty object
+     * @param  string $resource_name template name
+     * @param  string $cache_id      cache id
+     * @param  string $compile_id    compile id
      * @param  integer $exp_time      expiration time (number of seconds, not timestamp)
      * @return integer number of cache files deleted
      */
@@ -186,7 +186,7 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
      */
     public static function invalidLoadedCache(Smarty $smarty)
     {
-       foreach (Smarty::$resource_cache as $source_key => $foo) {
+        foreach (Smarty::$resource_cache as $source_key => $foo) {
             unset(Smarty::$resource_cache[$source_key]['cache']);
         }
     }
@@ -195,12 +195,12 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
      * Empty cache for a specific template
      *
      * @internal
-     * @param  string  $template_name template name
-     * @param  string  $cache_id      cache id
-     * @param  string  $compile_id    compile id
+     * @param  string $template_name template name
+     * @param  string $cache_id      cache id
+     * @param  string $compile_id    compile id
      * @param  integer $exp_time      expiration time
-     * @param  string  $type          resource type
-     * @param  Smarty  $smarty        Smarty object
+     * @param  string $type          resource type
+     * @param  Smarty $smarty        Smarty object
      * @return integer number of cache files deleted
      */
     public static function clearCache($template_name, $cache_id, $compile_id, $exp_time, $type, $smarty)
@@ -216,9 +216,9 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
      * Empty cache folder
      *
      * @api
-     * @param  Smarty  $smarty   Smarty object
+     * @param  Smarty $smarty   Smarty object
      * @param  integer $exp_time expiration time
-     * @param  string  $type     resource type
+     * @param  string $type     resource type
      * @return integer number of cache files deleted
      */
     public static function clearAllCache(Smarty $smarty, $exp_time = null, $type = null)
@@ -232,7 +232,7 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
     /**
      * Load compiled template
      *
-     * @param  Smarty           $tpl_obj template object
+     * @param  Smarty $tpl_obj template object
      * @param Smarty|Smarty_Data|Smarty_Template_Class $parent parent object
      * @params boolean $isCacheCheck true to just check if cache is valid
      * @return mixed Smarty_Template|false
@@ -243,7 +243,8 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
         if (isCacheCheck && (!$this->exists || !$this->caching || $tpl_obj->force_compile || $tpl_obj->force_cache || $this->source->recompiled)) {
             return false;
         }
-        $level = ob_get_level();
+        try {
+            $level = ob_get_level();
             $isValid = false;
             if ($this->exists && !$tpl_obj->force_compile && !$tpl_obj->force_cache) {
                 $this->process($tpl_obj);
@@ -252,44 +253,44 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
                 $isValid = $class_name::$isValid;
                 if ($isCacheCheck) {
                     return $isValid ? $template_obj : false;
-            }
-            if (!$isValid) {
-                if ($tpl_obj->debugging) {
-                    Smarty_Debug::start_compile($this->source);
                 }
-                $compiler = Smarty_Compiler::load($tpl_obj, $this->source, $this->caching);
-                $compiler->compileTemplateSource($this);
-                unset($compiler);
-                if ($tpl_obj->debugging) {
-                    Smarty_Debug::end_compile($this->source);
-                }
-                $this->process($tpl_obj);
-                $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
-                $class_name = $this->class_name;
-                $isValid = $class_name::$isValid;
                 if (!$isValid) {
-                    throw new Smarty_Exception("Unable to load compiled template file '{$this->filepath}");
+                    if ($tpl_obj->debugging) {
+                        Smarty_Debug::start_compile($this->source);
+                    }
+                    $compiler = Smarty_Compiler::load($tpl_obj, $this->source, $this->caching);
+                    $compiler->compileTemplateSource($this);
+                    unset($compiler);
+                    if ($tpl_obj->debugging) {
+                        Smarty_Debug::end_compile($this->source);
+                    }
+                    $this->process($tpl_obj);
+                    $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
+                    $class_name = $this->class_name;
+                    $isValid = $class_name::$isValid;
+                    if (!$isValid) {
+                        throw new Smarty_Exception("Unable to load compiled template file '{$this->filepath}");
+                    }
                 }
             }
-    }
-catch (Exception $e) {
-while (ob_get_level() > $level) {
-ob_end_clean();
-}
-throw new Smarty_Exception_Runtime('resource ', -1, null, $e);
-}
+        } catch (Exception $e) {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+            throw new Smarty_Exception_Runtime('resource ', -1, null, $e);
+        }
 
-}
+    }
 
     /**
      * get rendered template output from cached template
      *
-     * @param  Smarty                $tpl_obj          template object
+     * @param  Smarty $tpl_obj          template object
      * @param  Smarty_Variable_Scope $_scope
-     * @param  int                   $scope_type
-     * @param  array                 $data             array with variable names and values which must be assigned
-     * @param  bool                  $no_output_filter flag that output filter shall be ignored
-     * @param  bool                  $display
+     * @param  int $scope_type
+     * @param  array $data             array with variable names and values which must be assigned
+     * @param  bool $no_output_filter flag that output filter shall be ignored
+     * @param  bool $display
      * @throws Exception
      * @return bool|string
      */
@@ -333,7 +334,7 @@ throw new Smarty_Exception_Runtime('resource ', -1, null, $e);
                     $output = $this->source->getRenderedTemplate($tpl_obj, $_scope);
                 } else {
                     $output = $tpl_obj->_getCompiledTemplate($this->source, $this->compile_id, $this->caching)->getRenderedTemplate($tpl_obj, $_scope, $scope_type, $data, $no_output_filter);
-               }
+                }
                 // write to cache when necessary
                 if (!$this->source->recompiled) {
                     $output = self::$creator[0]->_createCacheFile($this, $tpl_obj, $output, $_scope, $no_output_filter);
@@ -383,7 +384,7 @@ throw new Smarty_Exception_Runtime('resource ', -1, null, $e);
      *
      *
      * @api
-     * @param  Smarty  $tpl_obj                  template object
+     * @param  Smarty $tpl_obj                  template object
      * @param  integer $_last_modified_timestamp browser cache timestamp
      * @return bool    true if browser cache is valid
      */
@@ -414,8 +415,8 @@ throw new Smarty_Exception_Runtime('resource ', -1, null, $e);
     /**
      * Write this cache object to handler
      *
-     * @param  Smarty  $tpl_obj template object
-     * @param  string  $content content to cache
+     * @param  Smarty $tpl_obj template object
+     * @param  string $content content to cache
      * @return boolean success
      */
     public function writeCache(Smarty $tpl_obj, $content)

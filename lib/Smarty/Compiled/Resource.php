@@ -91,64 +91,6 @@ class Smarty_Compiled_Resource extends Smarty_Exception_Magic
         return $this;
     }
 
-    /**
-     * get rendered template output from compiled template
-     *
-     * @param  Smarty                $tpl_obj          template object
-     * @param  Smarty_Variable_Scope $_scope           template variables
-     * @param  int                   $scope_type
-     * @param  null|array            $data
-     * @param  boolean               $no_output_filter true if output filter shall nit run
-     * @throws Exception
-     * @return string
-     */
-    public function getRenderedTemplate($tpl_obj, $_scope = null, $scope_type = Smarty::SCOPE_LOCAL, $data = null, $no_output_filter = true)
-    {
-        $_scope = $tpl_obj->_buildScope($_scope, $scope_type, $data);
-        $tpl_obj->cached_subtemplates = array();
-        try {
-            $level = ob_get_level();
-            if (empty($this->template_obj)) {
-                $this->loadContent($tpl_obj);
-            }
-            if ($tpl_obj->debugging) {
-                Smarty_Debug::start_render($this->source);
-            }
-            if (empty($this->template_obj)) {
-                throw new Smarty_Exception("Invalid compiled template for '{$this->source->template_resource}'");
-            }
-            array_unshift($tpl_obj->_capture_stack, array());
-            //
-            // render compiled template
-            //
-            $output = $this->template_obj->_renderTemplate($tpl_obj, $_scope);
-            // any unclosed {capture} tags ?
-            if (isset($tpl_obj->_capture_stack[0][0])) {
-                $tpl_obj->_capture_error();
-            }
-            array_shift($tpl_obj->_capture_stack);
-        } catch (Exception $e) {
-            while (ob_get_level() > $level) {
-                ob_end_clean();
-            }
-            throw $e;
-        }
-        if ($this->source->recompiled && empty($this->file_dependency[$this->source->uid])) {
-            $this->file_dependency[$this->source->uid] = array($this->source->filepath, $this->source->timestamp, $this->source->type);
-        }
-        if ($this->caching) {
-            Smarty_Cache_Resource::$creator[0]->_mergeFromCompiled($this);
-        }
-        if (!$no_output_filter && (isset($tpl_obj->autoload_filters['output']) || isset($tpl_obj->registered_filters['output']))) {
-            $output = Smarty_Misc_FilterHandler::runFilter('output', $output, $tpl_obj);
-        }
-
-        if ($tpl_obj->debugging) {
-            Smarty_Debug::end_render($this->source);
-        }
-
-        return $output;
-    }
 
     /**
      * Load compiled template
@@ -181,13 +123,16 @@ class Smarty_Compiled_Resource extends Smarty_Exception_Magic
 
             } else {
                 $isValid = false;
-                if ($this->exists && !$tpl_obj->force_compile) {
+                if ($this->exists && !$tpl_obj->force_compile && $this->timestamp >= $this->source->timestamp) {
+                    // load existing compiled template class
                     $this->process($tpl_obj);
                         $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
                         $class_name = $this->class_name;
+                        // existing class could got invalid
                         $isValid = $class_name::$isValid;
                 }
                 if (!$isValid) {
+                    // we must compile from source
                     if ($tpl_obj->debugging) {
                         Smarty_Debug::start_compile($this->source);
                     }

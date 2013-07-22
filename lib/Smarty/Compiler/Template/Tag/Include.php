@@ -203,9 +203,9 @@ class Smarty_Compiler_Template_Tag_Include extends Smarty_Compiler_Template_Tag
         }
         // was there an assign attribute
         if (isset($_assign)) {
-            $this->php("\$_scope->{$_assign} = new Smarty_Variable (\$this->_getSubTemplate ($include_file, \$_smarty_tpl, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope , \$_scope, $_class));")->newline();
+            $this->php("\$_scope->{$_assign} = new Smarty_Variable (\$this->_getSubTemplate ($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope , \$_scope, $_class));")->newline();
         } else {
-            $this->php("echo \$this->_getSubTemplate ($include_file, \$_smarty_tpl, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, \$_scope, $_class);")->newline();
+            $this->php("echo \$this->_getSubTemplate ($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, \$_scope, $_class);")->newline();
         }
 
         return $this->returnTagCode($compiler);

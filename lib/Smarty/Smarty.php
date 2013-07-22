@@ -973,7 +973,7 @@ class Smarty extends Smarty_Variable_Methods
             if ($source->uncompiled) {
                 $_output = $source->getRenderedTemplate($tpl_obj, $_scope, $scope_type, $data);
             } else {
-                $_output = $tpl_obj->_loadCompiledTemplate($source, $tpl_obj->parent, $compile_id)->getRenderedTemplate($scope_type, $data, $no_output_filter);
+                $_output = $tpl_obj->_loadCompiledTemplate($source, $parent, $compile_id)->getRenderedTemplate($scope_type, $data, $no_output_filter);
             }
         }
         if (isset($tpl_obj->error_reporting)) {

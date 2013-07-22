@@ -273,6 +273,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
      */
     public function _buildScope($scope_type = Smarty::SCOPE_LOCAL, $data = null)
     {
+        if (true) {
         switch ($scope_type) {
             case Smarty::SCOPE_LOCAL:
                 if ($this->parent == null) {
@@ -298,6 +299,9 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
                 }
                 $this->tpl_vars = $ptr->tpl_vars;
                 break;
+        }
+        } else {
+            $this->tpl_vars = $this->parent->tpl_vars;
         }
 
         // create special smarty variable
@@ -439,8 +443,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
     /**
      * Template code runtime function to get subtemplate content
      *
-     * @param  string                $tpl_obj_resource the resource handle of the template file
-     * @param  Smarty                $parent_tpl_obj   calling template object
+     * @param  string                $template_resource the resource handle of the template file
      * @param  mixed                 $cache_id         cache id to be used with this template
      * @param  mixed                 $compile_id       compile id to be used with this template
      * @param  integer               $caching          cache mode
@@ -451,12 +454,12 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
      * @param  string                $content_class    optional name of inline content class
      * @return string                template content
      */
-    public function _getSubTemplate($tpl_obj_resource, $parent_tpl_obj, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $scope_type, $_scope, $content_class = null)
+    public function _getSubTemplate($template_resource, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $scope_type, $_scope, $content_class = null)
     {
         if (isset($content_class)) {
             // clone new template object
             $tpl_obj = clone $parent_tpl_obj;
-            $tpl_obj->template_resource = $tpl_obj_resource;
+            $tpl_obj->template_resource = $template_resource;
             $tpl_obj->cache_id = $cache_id;
             $tpl_obj->compile_id = $compile_id;
             $tpl_obj->parent = $parent_tpl_obj;
@@ -470,11 +473,11 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
 
             return $result;
         } else {
-            if ($parent_tpl_obj->caching && $caching && $caching != Smarty::CACHING_NOCACHE_CODE) {
-                $parent_tpl_obj->cached_subtemplates[$tpl_obj_resource] = array($tpl_obj_resource, $cache_id, $compile_id, $caching, $cache_lifetime);
+            if ($this->tpl_obj->caching && $caching && $caching != Smarty::CACHING_NOCACHE_CODE) {
+                $this->tpl_obj->cached_subtemplates[$template_resource] = array($template_resource, $cache_id, $compile_id, $caching, $cache_lifetime);
             }
 
-            return $parent_tpl_obj->fetch($tpl_obj_resource, $cache_id, $compile_id, $parent_tpl_obj, false, true, $data, $scope_type, $caching, $cache_lifetime, $_scope);
+            return $this->tpl_obj->fetch($template_resource, $cache_id, $compile_id, $_scope, false, true, $data, $scope_type, $caching, $cache_lifetime);
         }
 
     }

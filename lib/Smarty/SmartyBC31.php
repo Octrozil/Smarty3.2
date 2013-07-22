@@ -122,5 +122,4 @@ class SmartyBC31 extends Smarty_Internal_Template
 
         return $this;
     }
-
 }
