@@ -7,7 +7,7 @@
     <target>.\Smarty3Doc</target>
   </transformer>
     <transformations>
-        <template name="responsive" />
+        <template name="abstract" />
     </transformations>
   <files>
     <directory>..\lib</directory>

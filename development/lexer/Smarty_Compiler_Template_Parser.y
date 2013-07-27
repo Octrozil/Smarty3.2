@@ -8,6 +8,7 @@
 * @subpackage Compiler
 * @author Uwe Tews
 */
+%stack_size 500
 %name TP_
 %declare_class {class Smarty_Compiler_Template_Parser extends Smarty_Exception_Magic}
 %include_class
