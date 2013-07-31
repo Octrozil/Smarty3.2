@@ -49,14 +49,14 @@ class Smarty_Cache_Resource_File extends Smarty_Cache_Resource
         $_compile_id = isset($tpl_obj->compile_id) ? preg_replace('![^\w\|]+!', '_', $tpl_obj->compile_id) : null;
         // if use_sub_dirs build subfolders
         if ($tpl_obj->use_sub_dirs) {
-            $_filepath = substr($this->source->uid, 0, 2) . '/'  . $this->source->uid . DS;
+            $_filepath = substr($this->source->uid, 0, 2) . '/'  . $this->source->uid . '/';
             if (isset($_cache_id)) {
                 $_cache_id_parts = explode('|', $_cache_id);
                 $_cache_id_last = count($_cache_id_parts) - 1;
                 $_cache_id_hash = md5($_cache_id_parts[$_cache_id_last]);
                 if ($_cache_id_last > 0) {
                     for ($i = 0; $i < $_cache_id_last; $i++) {
-                        $_filepath .= $_cache_id_parts[$i] . DS;
+                        $_filepath .= $_cache_id_parts[$i] . '/';
                     }
                 }
                 $_filepath .= substr($_cache_id_hash, 0, 2) . '/'
@@ -181,7 +181,7 @@ class Smarty_Cache_Resource_File extends Smarty_Cache_Resource
                 //                }
                 if ($smarty->use_sub_dirs) {
                     $_preg_file = preg_quote($_basename);
-                    $_dirtpl_obj = $_cache_dir . substr($source->uid, 0, 2) . '/'  . $source->uid . DS;
+                    $_dirtpl_obj = $_cache_dir . substr($source->uid, 0, 2) . '/'  . $source->uid . '/';
                     // does subdir for template exits?
                     if (!is_dir($_dirtpl_obj)) {
                         return 0;
@@ -224,7 +224,7 @@ class Smarty_Cache_Resource_File extends Smarty_Cache_Resource
                 // lower levels of structured cache_id
                 if ($_cache_id_last > 0) {
                     for ($i = 0; $i < $_cache_id_last; $i++) {
-                        $_dir_cache_id .= $_cache_id_parts[$i] . DS;
+                        $_dir_cache_id .= $_cache_id_parts[$i] . '/';
                     }
                 }
                 // hash for highest level of cache_id
@@ -233,7 +233,7 @@ class Smarty_Cache_Resource_File extends Smarty_Cache_Resource
                     . substr($_cache_id_hash, 4, 2) . '/' ;
                 $_preg_cache_id2 = preg_quote($_cache_id_parts[$_cache_id_last]);
                 // add highest level
-                $_dir_cache_id .= $_cache_id_parts[$_cache_id_last] . DS;
+                $_dir_cache_id .= $_cache_id_parts[$_cache_id_last] . '/';
             }
             // loop over templates
             foreach ($_dir_array as $dir) {
