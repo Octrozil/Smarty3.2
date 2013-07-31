@@ -280,6 +280,10 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
                     $this->tpl_vars = new Smarty_Variable_Scope();
                     break;
                 }
+                if ($this->parent instanceof Smarty_Variable_Scope) {
+                    $this->tpl_vars =  clone $this->parent;
+                    break;
+                }
                 if ($this->parent->usage == Smarty::IS_SMARTY || $this->parent->usage == Smarty::IS_TEMPLATE) {
                     $this->tpl_vars = clone $this->parent->tpl_vars;
                     break;

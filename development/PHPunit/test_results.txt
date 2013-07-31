@@ -215,7 +215,7 @@ ok 76 - FileResourceTests::testGetRenderedTemplate
 not ok 77 - Error: FileResourceTests::testSmartyIsCachedPrepare
 not ok 78 - Error: FileResourceTests::testSmartyIsCached
 ok 79 - FileResourceTests::testSmartyIsCachedCachingDisabled
-ok 80 - FileResourceTests::testRelativeInclude
+not ok 80 - Error: FileResourceTests::testRelativeInclude
 not ok 81 - Error: FileResourceTests::testRelativeIncludeSub
 not ok 82 - Failure: FileResourceTests::testRelativeIncludeFail
   ---
@@ -224,164 +224,29 @@ not ok 82 - Failure: FileResourceTests::testRelativeIncludeFail
   ...
 not ok 83 - Failure: FileResourceTests::testRelativeIncludeFailOtherDir
   ---
-  message: 'Exception for unknown relative filepath has not been raised.'
+  message: 'Failed asserting that <string:Unassigned template variable ''usage''> contains "Unable to load template".'
   severity: fail
   ...
-ok 84 - FileResourceTests::testRelativeFetch
-ok 85 - FileResourceTests::testRelativeFetchCwd
-ok 86 - FileResourceTests::testRelativity
-ok 87 - FileResourceTests::testRelativityCwd
-ok 88 - FileResourceTests::testRelativityPrecedence
-not ok 89 - Failure: FileResourceTests::testRelativityRelRel
-  ---
-  message: foo.tpl
-  severity: fail
-  data:
-    got: relativity
-    expected: theory
-  ...
-not ok 90 - Failure: FileResourceTests::testRelativityRelRel1
-  ---
-  message: foo.tpl
-  severity: fail
-  data:
-    got: relativity
-    expected: theory
-  ...
-ok 91 - FileResourceTests::testFinalCleanup
-ok 92 - DoubleQuotedStringTests::testSimpleDoubleQuotedString
-ok 93 - DoubleQuotedStringTests::testTagsInDoubleQuotedString
-ok 94 - DoubleQuotedStringTests::testVarsInDoubleQuotedString1
-ok 95 - DoubleQuotedStringTests::testVarsInDoubleQuotedString2
-ok 96 - DoubleQuotedStringTests::testVarsBacktickInDoubleQuotedString1
-ok 97 - DoubleQuotedStringTests::testVarsBacktickInDoubleQuotedString2
-ok 98 - DoubleQuotedStringTests::testVariableVarsBacktickInDoubleQuotedString
-not ok 99 - Error: DoubleQuotedStringTests::testArrayVarsBacktickInDoubleQuotedString1
-not ok 100 - Error: DoubleQuotedStringTests::testArrayVarsBacktickInDoubleQuotedString2
-ok 101 - DoubleQuotedStringTests::testExpressionBacktickInDoubleQuotedString
-not ok 102 - Error: DoubleQuotedStringTests::testSmartytagInDoubleQuotedString1
-not ok 103 - Error: DoubleQuotedStringTests::testSmartytagInDoubleQuotedString2
-not ok 104 - Error: DoubleQuotedStringTests::testSmartyBlockTagInDoubleQuotedString1
-ok 105 - DoubleQuotedStringTests::testVarsDelimiterInDoubleQuotedString
-ok 106 - DoubleQuotedStringTests::testEscapedQuotesInDoubleQuotedString
-ok 107 - DoubleQuotedStringTests::testSingleQuotesInDoubleQuotedString
-not ok 108 - Error: DoubleQuotedStringTests::testSingleQuoteTagsInDoubleQuotedString
-ok 109 - DoubleQuotedStringTests::testEmptyDoubleQuotedString
-ok 110 - CompileAssignTests::testAssignOld1
-ok 111 - CompileAssignTests::testAssignOld2
-ok 112 - CompileAssignTests::testAssignOld3
-ok 113 - CompileAssignTests::testAssignOld4
-ok 114 - CompileAssignTests::testAssignOld5
-ok 115 - CompileAssignTests::testAssignOld6
-ok 116 - CompileAssignTests::testAssignOld7
-ok 117 - CompileAssignTests::testAssignOld8
-ok 118 - CompileAssignTests::testAssignOld9
-ok 119 - CompileAssignTests::testAssignShort1
-ok 120 - CompileAssignTests::testAssignShort2
-ok 121 - CompileAssignTests::testAssignNew1
-ok 122 - CompileAssignTests::testAssignNew2
-ok 123 - CompileAssignTests::testAssignNew3
-ok 124 - CompileAssignTests::testAssignNew4
-ok 125 - CompileAssignTests::testAssignNew5
-ok 126 - CompileAssignTests::testAssignNew6
-ok 127 - CompileAssignTests::testAssignNew7
-ok 128 - CompileAssignTests::testAssignArrayAppend
-ok 129 - CompileAssignTests::testAssignArrayAppend2
-not ok 130 - Error: CompileAssignTests::testAssignArrayAppend3
-not ok 131 - Error: CompileAssignTests::testAssignNestedArray
-not ok 132 - Failure: AttributeTests::testRequiredAttributeVar
-  ---
-  message: 'Failed asserting that <string:resource > contains "missing "var" attribute".'
-  severity: fail
-  ...
-not ok 133 - Failure: AttributeTests::testUnexpectedAttribute
-  ---
-  message: 'Failed asserting that <string:resource > contains "unexpected "bar" attribute".'
-  severity: fail
-  ...
-not ok 134 - Failure: AttributeTests::testIllegalOptionValue
-  ---
-  message: 'Failed asserting that <string:resource > contains "illegal value of option flag".'
-  severity: fail
-  ...
-not ok 135 - Failure: AttributeTests::testTooManyShorthands
-  ---
-  message: 'Failed asserting that <string:resource > contains "too many shorthand attributes".'
-  severity: fail
-  ...
-ok 136 - AppendByRefTests::testAppendByRef
-ok 137 - AppendByRefTests::testSmarty2AppendByRef
-ok 138 - AppendByRefTests::testAppendByRefUnassigned
-ok 139 - AppendByRefTests::testSmarty2AppendByRefUnassigned
-ok 140 - AppendByRefTests::testAppendByRefMerge
-ok 141 - AppendTests::testAppend
-ok 142 - AppendTests::testAppendUnassigned
-ok 143 - AppendTests::testAppendMerge
-ok 144 - AppendTests::testAppendArrayMerge
-ok 145 - AppendTests::testArrayAppend
-ok 146 - AppendTests::testArrayAppendArrayMerge
-ok 147 - ArrayTests::testSimpleArrayDefinition
-ok 148 - ArrayTests::testSmarty2ArrayAccess
-ok 149 - ArrayTests::testSmarty3ArrayAccess
-ok 150 - ArrayTests::testIndexedArrayDefinition
-ok 151 - ArrayTests::testNestedArray
-ok 152 - ArrayTests::testArrayMath1
-ok 153 - ArrayTests::testArrayMath2
-ok 154 - ArrayTests::testArrayMath3
-ok 155 - ArrayTests::testArrayMath4
-ok 156 - ArrayTests::testArrayMath5
-ok 157 - ArrayTests::testArrayMath6
-ok 158 - ArrayTests::testArrayVariableIndex1
-ok 159 - ArrayTests::testArrayVariableIndex2
-ok 160 - ArrayTests::testArrayVariableIndex3
-ok 161 - ArrayTests::testArrayVariableIndex4
-ok 162 - AssignByRefTests::testSimpleAssignByRef
-ok 163 - AssignByRefTests::testSmarty2AssignByRef
-not ok 164 - Failure: AssignByRefTests::testSmarty2AssignByRef2
-  ---
-  message: 'Failed asserting that two strings are equal.'
-  severity: fail
-  data:
-    got: bar
-    expected: newbar
-  ...
-ok 165 - AssignGlobalTests::testAssignGlobalGetGlobal
-ok 166 - AssignGlobalTests::testAssignGlobalGetGlobalArray
-not ok 167 - Error: AssignGlobalTests::testAssignGlobalTag
-ok 168 - AssignGlobalTests::testGlobalVarArrayTag
-ok 169 - AssignTests::testSimpleAssign
-ok 170 - AssignTests::testArrayAssign
-ok 171 - AssignTests::testParents
-not ok 172 - Failure: AutoEscapeTests::testAutoEscape
-  ---
-  message: 'Failed asserting that two strings are equal.'
-  severity: fail
-  data:
-    got: '<a@b.c>'
-    expected: '&lt;a@b.c&gt;'
-  ...
-not ok 173 - Error: CacheResourceCustomMysqlTests::testGetCachedFilepathSubDirs
-not ok 174 - Error: CacheResourceCustomMysqlTests::testGetCachedFilepathCacheId
-not ok 175 - Error: CacheResourceCustomMysqlTests::testGetCachedFilepathCompileId
-not ok 176 - Error: CacheResourceCustomMysqlTests::testGetCachedFilepathCacheIdCompileId
+not ok 84 - Error: FileResourceTests::testRelativeFetch
 
-Fatal error: Call to a member function _loadPlugin() on a non-object in C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php on line 2491
+Fatal error: __clone method called on non-object in C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php on line 461
 
 Call Stack:
-    0.0006     232392   1. {main}() C:\wamp\bin\php\php5.4.3\phpunit:0
-    0.2572     542208   2. PHPUnit_TextUI_Command::main() C:\wamp\bin\php\php5.4.3\phpunit:49
-    0.2572     547664   3. PHPUnit_TextUI_Command->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\Command.php:129
-    1.1676   23235344   4. PHPUnit_TextUI_TestRunner->doRun() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\Command.php:188
-    1.1720   23375792   5. PHPUnit_Framework_TestSuite->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\TestRunner.php:305
-    3.5183   35048680   6. PHPUnit_Framework_TestSuite->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:693
-    7.6956   35199056   7. PHPUnit_Framework_TestSuite->runTest() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:733
-    7.6956   35199056   8. PHPUnit_Framework_TestCase->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:757
-    7.6957   35199008   9. PHPUnit_Framework_TestResult->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:576
-    7.6957   35200016  10. PHPUnit_Framework_TestCase->runBare() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestResult.php:666
-    8.7310   35218608  11. PHPUnit_Framework_TestCase->runTest() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:628
-    8.7311   35219416  12. ReflectionMethod->invokeArgs() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:738
-    8.7311   35219448  13. CacheResourceCustomMysqlTests->testClearCacheAllCacheIdCompileId() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:738
-    8.7311   35219688  14. Smarty->clearAllCache() C:\wamp\www\Smarty3.2\development\PHPunit\CacheResourceCustomMysqlTests.php:115
-    8.7311   35219784  15. Smarty_Cache_Resource::clearAllCache() C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1599
-    8.7311   35219832  16. Smarty->_loadResource() C:\wamp\www\Smarty3.2\lib\Smarty\Cache\Resource.php:220
+    0.0007     232568   1. {main}() C:\wamp\bin\php\php5.4.3\phpunit:0
+    0.3215     542368   2. PHPUnit_TextUI_Command::main() C:\wamp\bin\php\php5.4.3\phpunit:49
+    0.3216     547840   3. PHPUnit_TextUI_Command->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\Command.php:129
+    1.8944   23249648   4. PHPUnit_TextUI_TestRunner->doRun() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\Command.php:188
+    1.9105   23390096   5. PHPUnit_Framework_TestSuite->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\TestRunner.php:305
+    2.4924   29712768   6. PHPUnit_Framework_TestSuite->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:693
+    3.6469   31276264   7. PHPUnit_Framework_TestSuite->runTest() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:733
+    3.6469   31276264   8. PHPUnit_Framework_TestCase->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:757
+    3.6470   31276216   9. PHPUnit_Framework_TestResult->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:576
+    3.6470   31277224  10. PHPUnit_Framework_TestCase->runBare() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestResult.php:666
+    3.6474   31300216  11. PHPUnit_Framework_TestCase->runTest() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:628
+    3.6474   31300992  12. ReflectionMethod->invokeArgs() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:738
+    3.6474   31301024  13. FileResourceTests->testRelativeFetchCwd() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:738
+    3.6477   31295976  14. Smarty->fetch() C:\wamp\www\Smarty3.2\development\PHPunit\FileResourceTests.php:416
+    3.6541   31320520  15. Smarty_Template_Class->getRenderedTemplate() C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:976
+    3.6542   31322600  16. _SmartyTemplate_51e327f4610392_68796809->_renderTemplate() C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+    3.6542   31339664  17. Smarty_Template_Class->_getSubTemplate() C:\wamp\www\Smarty3.2\development\PHPunit\templates\sub\templates_c\a46a3db0cd2f5d3ff7ed6ce7095ba9fe28e787ca_0.file.relative.tpl.php:18
 

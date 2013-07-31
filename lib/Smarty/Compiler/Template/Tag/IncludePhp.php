@@ -71,7 +71,7 @@ class Smarty_Compiler_Template_Tag_IncludePhp extends Smarty_Compiler_Template_T
             }
             if (!empty($_dir)) {
                 foreach ((array) $_dir as $_script_dir) {
-                    $_script_dir = rtrim($_script_dir, '/\\') . DS;
+                    $_script_dir = rtrim($_script_dir, '/\\') . '/' ;
                     if (file_exists($_script_dir . $_file)) {
                         $_filepath = $_script_dir . $_file;
                         break;

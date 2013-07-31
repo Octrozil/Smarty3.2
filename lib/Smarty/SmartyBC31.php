@@ -1,4 +1,45 @@
 <?php
+/**
+ * define shorthand directory separator constant
+ */
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+
+/**
+ * set SMARTY_DIR to absolute path to Smarty library files.
+ * Sets SMARTY_DIR only if user application has not already defined it.
+ */
+if (!defined('SMARTY_DIR')) {
+    define('SMARTY_DIR', dirname(__FILE__) . DS);
+}
+
+/**
+ * set SMARTY_SYSPLUGINS_DIR to absolute path to Smarty internal plugins.
+ * Sets SMARTY_SYSPLUGINS_DIR only if user application has not already defined it.
+ */
+if (!defined('SMARTY_SYSPLUGINS_DIR')) {
+    define('SMARTY_SYSPLUGINS_DIR', SMARTY_DIR . 'sysplugins' . DS);
+}
+if (!defined('SMARTY_PLUGINS_DIR')) {
+    define('SMARTY_PLUGINS_DIR', SMARTY_DIR . 'plugins' . DS);
+}
+if (!defined('SMARTY_MBSTRING')) {
+    define('SMARTY_MBSTRING', function_exists('mb_split'));
+}
+if (!defined('SMARTY_RESOURCE_CHAR_SET')) {
+    // UTF-8 can only be done properly when mbstring is available!
+    /**
+     * @deprecated in favor of Smarty::$_CHARSET
+     */
+    define('SMARTY_RESOURCE_CHAR_SET', SMARTY_MBSTRING ? 'UTF-8' : 'ISO-8859-1');
+}
+if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
+    /**
+     * @deprecated in favor of Smarty::$_DATE_FORMAT
+     */
+    define('SMARTY_RESOURCE_DATE_FORMAT', '%b %e, %Y');
+}
 
 /**
  * Project:     Smarty: the PHP compiling template engine
@@ -55,6 +96,21 @@ class Smarty_Internal_Template extends Smarty
  */
 class SmartyBC31 extends Smarty_Internal_Template
 {
+    /**
+     * Flag denoting if Multibyte String functions are available
+     */
+    public static $_MBSTRING = SMARTY_MBSTRING;
+
+    /**
+     * The character set to adhere to (e.g. "UTF-8")
+     */
+    public static $_CHARSET = SMARTY_RESOURCE_CHAR_SET;
+
+    /**
+     * The date format to be used internally
+     * (accepts date() and strftime())
+     */
+    public static $_DATE_FORMAT = SMARTY_RESOURCE_DATE_FORMAT;
 
     /**
      * <<magic>> Generic getter.

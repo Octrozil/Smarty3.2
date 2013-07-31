@@ -31,32 +31,6 @@
  * @subpackage Smarty
  * @version 3.2-DEV
  */
-/**
- * define shorthand directory separator constant
- */
-if (!defined('DS')) {
-    define('DS', DIRECTORY_SEPARATOR);
-}
-
-if (!defined('SMARTY_PLUGINS_DIR')) {
-    define('SMARTY_PLUGINS_DIR', dirname(__FILE__) . DS . 'Plugins' . DS);
-}
-if (!defined('SMARTY_MBSTRING')) {
-    define('SMARTY_MBSTRING', function_exists('mb_split'));
-}
-if (!defined('SMARTY_RESOURCE_CHAR_SET')) {
-    // UTF-8 can only be done properly when mbstring is available!
-    /**
-     * @deprecated in favor of Smarty::$_CHARSET
-     */
-    define('SMARTY_RESOURCE_CHAR_SET', SMARTY_MBSTRING ? 'UTF-8' : 'ISO-8859-1');
-}
-if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
-    /**
-     * @deprecated in favor of Smarty::$_DATE_FORMAT
-     */
-    define('SMARTY_RESOURCE_DATE_FORMAT', '%b %e, %Y');
-}
 
 /**
  * This is the main Smarty class
@@ -179,18 +153,18 @@ class Smarty extends Smarty_Variable_Methods
     /**
      * Flag denoting if Multibyte String functions are available
      */
-    public static $_MBSTRING = SMARTY_MBSTRING;
+    public static $_MBSTRING = true;
 
     /**
      * The character set to adhere to (e.g. "UTF-8")
      */
-    public static $_CHARSET = SMARTY_RESOURCE_CHAR_SET;
+    public static $_CHARSET = "UTF-8";
 
     /**
      * The date format to be used internally
      * (accepts date() and strftime())
      */
-    public static $_DATE_FORMAT = SMARTY_RESOURCE_DATE_FORMAT;
+    public static $_DATE_FORMAT = '%b %e, %Y';
 
     /**
      * Flag denoting if PCRE should run in UTF-8 mode
@@ -894,11 +868,11 @@ class Smarty extends Smarty_Variable_Methods
         }
         $this->start_time = microtime(true);
         // set default dirs
-        $this->setTemplateDir('.' . DS . 'templates' . DS)
-            ->setCompileDir('.' . DS . 'templates_c' . DS)
-            ->setPluginsDir(SMARTY_PLUGINS_DIR)
-            ->setCacheDir('.' . DS . 'cache' . DS)
-            ->setConfigDir('.' . DS . 'configs' . DS);
+        $this->setTemplateDir('./templates/')
+            ->setCompileDir('./templates_c/')
+            ->setPluginsDir(dirname(__FILE__) . '/Plugins/')
+            ->setCacheDir('./cache/')
+            ->setConfigDir('./configs/');
 
         $this->debug_tpl = 'file:' . dirname(__FILE__) . '/debug.tpl';
         $this->error_tpl = 'file:' . dirname(__FILE__) . '/error.tpl';
@@ -1643,7 +1617,7 @@ class Smarty extends Smarty_Variable_Methods
     {
         $this->template_dir = array();
         foreach ((array) $template_dir as $k => $v) {
-            $this->template_dir[$k] = rtrim($v, '/\\') . DS;
+            $this->template_dir[$k] = rtrim($v, '/\\') . '/' ;
         }
 
         $this->joined_template_dir = join(DIRECTORY_SEPARATOR, $this->template_dir);
@@ -1668,18 +1642,18 @@ class Smarty extends Smarty_Variable_Methods
             foreach ($template_dir as $k => $v) {
                 if (is_int($k)) {
                     // indexes are not merged but appended
-                    $this->template_dir[] = rtrim($v, '/\\') . DS;
+                    $this->template_dir[] = rtrim($v, '/\\') . '/' ;
                 } else {
                     // string indexes are overridden
-                    $this->template_dir[$k] = rtrim($v, '/\\') . DS;
+                    $this->template_dir[$k] = rtrim($v, '/\\') . '/' ;
                 }
             }
         } elseif ($key !== null) {
             // override directory at specified index
-            $this->template_dir[$key] = rtrim($template_dir, '/\\') . DS;
+            $this->template_dir[$key] = rtrim($template_dir, '/\\') . '/' ;
         } else {
             // append new directory
-            $this->template_dir[] = rtrim($template_dir, '/\\') . DS;
+            $this->template_dir[] = rtrim($template_dir, '/\\') . '/' ;
         }
         $this->joined_template_dir = join(DIRECTORY_SEPARATOR, $this->template_dir);
 
@@ -1713,7 +1687,7 @@ class Smarty extends Smarty_Variable_Methods
     {
         $this->config_dir = array();
         foreach ((array) $config_dir as $k => $v) {
-            $this->config_dir[$k] = rtrim($v, '/\\') . DS;
+            $this->config_dir[$k] = rtrim($v, '/\\') . '/' ;
         }
 
         $this->joined_config_dir = join(DIRECTORY_SEPARATOR, $this->config_dir);
@@ -1738,18 +1712,18 @@ class Smarty extends Smarty_Variable_Methods
             foreach ($config_dir as $k => $v) {
                 if (is_int($k)) {
                     // indexes are not merged but appended
-                    $this->config_dir[] = rtrim($v, '/\\') . DS;
+                    $this->config_dir[] = rtrim($v, '/\\') . '/' ;
                 } else {
                     // string indexes are overridden
-                    $this->config_dir[$k] = rtrim($v, '/\\') . DS;
+                    $this->config_dir[$k] = rtrim($v, '/\\') . '/' ;
                 }
             }
         } elseif ($key !== null) {
             // override directory at specified index
-            $this->config_dir[$key] = rtrim($config_dir, '/\\') . DS;
+            $this->config_dir[$key] = rtrim($config_dir, '/\\') . '/' ;
         } else {
             // append new directory
-            $this->config_dir[] = rtrim($config_dir, '/\\') . DS;
+            $this->config_dir[] = rtrim($config_dir, '/\\') . '/' ;
         }
 
         $this->joined_config_dir = join(DIRECTORY_SEPARATOR, $this->config_dir);
@@ -1785,7 +1759,7 @@ class Smarty extends Smarty_Variable_Methods
     {
         $this->plugins_dir = array();
         foreach ((array) $plugins_dir as $k => $v) {
-            $this->plugins_dir[$k] = rtrim($v, '/\\') . DS;
+            $this->plugins_dir[$k] = rtrim($v, '/\\') . '/' ;
         }
 
         return $this;
@@ -1807,15 +1781,15 @@ class Smarty extends Smarty_Variable_Methods
             foreach ($plugins_dir as $k => $v) {
                 if (is_int($k)) {
                     // indexes are not merged but appended
-                    $this->plugins_dir[] = rtrim($v, '/\\') . DS;
+                    $this->plugins_dir[] = rtrim($v, '/\\') . '/' ;
                 } else {
                     // string indexes are overridden
-                    $this->plugins_dir[$k] = rtrim($v, '/\\') . DS;
+                    $this->plugins_dir[$k] = rtrim($v, '/\\') . '/' ;
                 }
             }
         } else {
             // append new directory
-            $this->plugins_dir[] = rtrim($plugins_dir, '/\\') . DS;
+            $this->plugins_dir[] = rtrim($plugins_dir, '/\\') . '/' ;
         }
 
         $this->plugins_dir = array_unique($this->plugins_dir);
@@ -1843,7 +1817,7 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function setCompileDir($compile_dir)
     {
-        $this->compile_dir = rtrim($compile_dir, '/\\') . DS;
+        $this->compile_dir = rtrim($compile_dir, '/\\') . '/' ;
         if (!isset(self::$_muted_directories[$this->compile_dir])) {
             self::$_muted_directories[$this->compile_dir] = null;
         }
@@ -1871,7 +1845,7 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function setCacheDir($cache_dir)
     {
-        $this->cache_dir = rtrim($cache_dir, '/\\') . DS;
+        $this->cache_dir = rtrim($cache_dir, '/\\') . '/' ;
         if (!isset(self::$_muted_directories[$this->cache_dir])) {
             self::$_muted_directories[$this->cache_dir] = null;
         }
@@ -2466,17 +2440,17 @@ class Smarty extends Smarty_Variable_Methods
             $resource_class = $class_prefix[$res_type] . '_' . ucfirst($type);
             if (class_exists($resource_class, false)) {
                 $res_obj = new $resource_class();
-            } elseif (isset($tpl_obj->registered_resources[$res_type][$type])) {
-                if ($tpl_obj->registered_resources[$res_type][$type] instanceof $class_prefix[$res_type]) {
-                    $res_obj = clone $tpl_obj->registered_resources[$res_type][$type];
+            } elseif (isset($this->registered_resources[$res_type][$type])) {
+                if ($this->registered_resources[$res_type][$type] instanceof $class_prefix[$res_type]) {
+                    $res_obj = clone $this->registered_resources[$res_type][$type];
                 } else {
                     return new Smarty_Resource_Registered();
                 }
             } elseif (is_file($file = Smarty_Autoloader::$smarty_path . str_replace('_', '/', $resource_class) . '.php')) {
                 // try Smarty core Rescource
                 require $file;
-                $res_obj = new $resource_class($tpl_obj);
-            } elseif ($tpl_obj->_loadPlugin($resource_class)) {
+                $res_obj = new $resource_class($this);
+            } elseif ($this->_loadPlugin($resource_class)) {
                 if (class_exists($resource_class, false)) {
                     $res_obj = new $resource_class();
                 } elseif ($res_type == Smarty::SOURCE) {
@@ -2484,7 +2458,7 @@ class Smarty extends Smarty_Variable_Methods
                      * @TODO  This must be rewritten
                      *
                      */
-                    $tpl_obj->registerResource($type, array(
+                    $this->registerResource($type, array(
                         "smarty_resource_{$type}_source",
                         "smarty_resource_{$type}_timestamp",
                         "smarty_resource_{$type}_secure",
@@ -2500,8 +2474,8 @@ class Smarty extends Smarty_Variable_Methods
                 $_known_stream = stream_get_wrappers();
                 if (in_array($type, $_known_stream)) {
                     // is known stream
-                    if (is_object($tpl_obj->security_policy)) {
-                        $tpl_obj->security_policy->isTrustedStream($type);
+                    if (is_object($this->security_policy)) {
+                        $this->security_policy->isTrustedStream($type);
                     }
                     $res_obj = new Smarty_Resource_Stream();
                 }

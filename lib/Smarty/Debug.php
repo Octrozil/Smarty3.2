@@ -144,6 +144,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
         $tpl_obj->force_compile = false;
         $tpl_obj->caching = false;
         $tpl_obj->disableSecurity();
+        $tpl_obj->debugging_ctrl = 'NONE';
         $tpl_obj->cache_id = null;
         $tpl_obj->compile_id = null;
         $tpl_obj->parent = null;

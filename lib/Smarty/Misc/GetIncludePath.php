@@ -32,8 +32,8 @@ class Smarty_Misc_GetIncludePath
         }
 
         foreach ($_include_path as $_path) {
-            if (file_exists($_path . DS . $filepath)) {
-                return $_path . DS . $filepath;
+            if (file_exists($_path . '/' . $filepath)) {
+                return $_path . '/' . $filepath;
             }
         }
 

@@ -260,9 +260,9 @@ class Smarty_Error_Debug extends Smarty
         }
 
         $constants = array(
-            'SMARTY_DIR' => realpath(dirname(__FILE__) . '/..') . DS,
-            'SMARTY_SYSPLUGINS_DIR' => dirname(__FILE__) . DS,
-            'SMARTY_PLUGINS_DIR' => realpath(dirname(__FILE__) . '/../plugins') . DS,
+            'SMARTY_DIR' => realpath(dirname(__FILE__) . '/..') . '/' ,
+            'SMARTY_SYSPLUGINS_DIR' => dirname(__FILE__) . '/' ,
+            'SMARTY_PLUGINS_DIR' => realpath(dirname(__FILE__) . '/../plugins') . '/' ,
             'SMARTY_MBSTRING' => function_exists('mb_split'),
             'SMARTY_RESOURCE_CHAR_SET' => function_exists('mb_split') ? 'UTF-8' : 'ISO-8859-1',
             'SMARTY_RESOURCE_DATE_FORMAT' => '%b %e, %Y',
@@ -568,7 +568,7 @@ class Smarty_Error_Debug extends Smarty
 
                 $name = $parts[1];
                 $_name = "smarty_{$type}_{$name}";
-                $realpath = $dir['realpath'] . DS . $file->getFilename();
+                $realpath = $dir['realpath'] . '/' . $file->getFilename();
                 $function = $this->reflectedFunctionFromFile($_name, $realpath);
 
                 $autoload = false;

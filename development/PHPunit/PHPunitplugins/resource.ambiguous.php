@@ -14,7 +14,7 @@ class Smarty_Resource_Ambiguous extends Smarty_Resource_File
 
     public function __construct($directory)
     {
-        $this->directory = rtrim($directory, "/\\") . DS;
+        $this->directory = rtrim($directory, "/\\") . '/';
     }
 
     public function setSegment($segment)
@@ -31,7 +31,7 @@ class Smarty_Resource_Ambiguous extends Smarty_Resource_File
     {
         $segment = '';
         if ($this->segment) {
-            $segment = rtrim($this->segment, "/\\") . DS;
+            $segment = rtrim($this->segment, "/\\") . '/';
         }
 
         $source->filepath = $this->directory . $segment . $source->name;

@@ -19,11 +19,11 @@ class SmartyTests
 
     protected static function _init($smarty)
     {
-        $smarty->setTemplateDir('.' . DS . 'templates' . DS);
-        $smarty->setCompileDir('.' . DS . 'templates_c' . DS);
+        $smarty->setTemplateDir('./templates/');
+        $smarty->setCompileDir('./templates_c/');
         $smarty->setPluginsDir(SMARTY_PLUGINS_DIR);
-        $smarty->setCacheDir('.' . DS . 'cache' . DS);
-        $smarty->setConfigDir('.' . DS . 'configs' . DS);
+        $smarty->setCacheDir('./cache/');
+        $smarty->setConfigDir('./configs/');
         $smarty->tpl_vars = new Smarty_Variable_Scope($smarty, null,  Smarty::IS_SMARTY, 'Smarty root');
         $smarty->template_functions = array();
         $smarty->force_compile = false;

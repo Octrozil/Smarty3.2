@@ -56,12 +56,12 @@ class Smarty_Compiled_Resource_File extends Smarty_Compiled_Resource
         $_filepath = $this->source->uid . '_' . $smarty->compiletime_options;
         // if use_sub_dirs, break file into directories
         if ($smarty->use_sub_dirs) {
-            $_filepath = substr($_filepath, 0, 2) . DS
-                . substr($_filepath, 2, 2) . DS
-                . substr($_filepath, 4, 2) . DS
+            $_filepath = substr($_filepath, 0, 2) . '/'
+                . substr($_filepath, 2, 2) . '/'
+                . substr($_filepath, 4, 2) . '/'
                 . $_filepath;
         }
-        $_compile_dir_sep = $smarty->use_sub_dirs ? DS : '^';
+        $_compile_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
         if (isset($_compile_id)) {
             $_filepath = $_compile_id . $_compile_dir_sep . $_filepath;
         }
@@ -102,7 +102,7 @@ class Smarty_Compiled_Resource_File extends Smarty_Compiled_Resource
         $_compile_dir = $smarty->getCompileDir();
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
         $compiletime_options = 0;
-        $_dir_sep = $smarty->use_sub_dirs ? DS : '^';
+        $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
         if (isset($template_resource)) {
             $source = $smarty->_loadResource(Smarty::SOURCE, $template_resource);
 

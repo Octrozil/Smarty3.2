@@ -240,7 +240,7 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
      */
     public function loadTemplate($tpl_obj, $parent, $isCacheCheck)
     {
-        if (isCacheCheck && (!$this->exists || !$this->caching || $tpl_obj->force_compile || $tpl_obj->force_cache || $this->source->recompiled)) {
+        if ($isCacheCheck && (!$this->exists || !$this->caching || $tpl_obj->force_compile || $tpl_obj->force_cache || $this->source->recompiled)) {
             return false;
         }
         try {

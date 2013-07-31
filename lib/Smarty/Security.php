@@ -454,7 +454,7 @@ class Smarty_Security
                 return true;
             }
             // abort if we've reached root
-            if (($pos = strrpos($directory, DS)) === false || !isset($directory[1])) {
+            if (($pos = strrpos($directory, '/')) === false || !isset($directory[1])) {
                 break;
             }
             // bubble up one level
@@ -529,7 +529,7 @@ class Smarty_Security
                 return true;
             }
             // abort if we've reached root
-            if (($pos = strrpos($directory, DS)) === false || !isset($directory[2])) {
+            if (($pos = strrpos($directory, '/')) === false || !isset($directory[2])) {
                 break;
             }
             // bubble up one level

@@ -66,19 +66,19 @@ class Smarty_Resource_File extends Smarty_Resource
             if ($tpl_obj->parent->source->type != 'file' && $tpl_obj->parent->source->type != 'extends' && !$tpl_obj->parent->allow_relative_path) {
                 throw new Smarty_Exception("Template '{$file}' cannot be relative to template of resource type '{$tpl_obj->parent->source->type}'");
             }
-            $file = dirname($tpl_obj->parent->source->filepath) . DS . $file;
+            $file = dirname($tpl_obj->parent->source->filepath) . '/'  . $file;
             $_file_exact_match = true;
             if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
                 // the path gained from the parent template is relative to the current working directory
                 // as expansions (like include_path) have already been done
-                $file = getcwd() . DS . $file;
+                $file = getcwd() . '/'  . $file;
             }
         }
 
         // resolve relative path
         if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
             // don't we all just love windows?
-            $_path = DS . trim(str_replace('\\', '/', $file), '/');
+            $_path = '/' . trim(str_replace('\\', '/', $file), '/');
             $_was_relative = true;
         } else {
             // don't we all just love windows?
@@ -86,10 +86,10 @@ class Smarty_Resource_File extends Smarty_Resource
         }
         $_path = $this->normalizePath($_path, false);
 
-        if (DS != '/') {
+//        if (DS != '/') {   TODO
             // don't we all just love windows?
             $_path = str_replace('/', '\\', $_path);
-        }
+//        }
         // revert to relative
         if (isset($_was_relative)) {
             $_path = substr($_path, 1);
@@ -223,10 +223,13 @@ class Smarty_Resource_File extends Smarty_Resource
             $_path = substr_replace($_path, '', $_pos, $_parent + 3 - $_pos);
         }
 
-        if ($ds && DS != '/') {
+        /**
+         * TODO  can this be removed???
+        if ($ds && DIRECTORY_SEPARATOR != '/') {
             // don't we all just love windows?
             $_path = str_replace('/', '\\', $_path);
         }
+         */
 
         return $_path;
     }
