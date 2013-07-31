@@ -175,6 +175,11 @@ class Smarty extends Smarty_Variable_Methods
      * Flag denoting if operating system is windows
      */
     public static $_IS_WINDOWS = false;
+
+    /**
+     * Folder of Smarty build in plugins
+     */
+    public static $_SMARTY_PLUGINS_DIR = null;
     /** #@+
      * variables
      */
@@ -868,9 +873,12 @@ class Smarty extends Smarty_Variable_Methods
         }
         $this->start_time = microtime(true);
         // set default dirs
+        if (!isset(self::$_SMARTY_PLUGINS_DIR)) {
+            self::$_SMARTY_PLUGINS_DIR = dirname(__FILE__) . '/Plugins/';
+        }
         $this->setTemplateDir('./templates/')
             ->setCompileDir('./templates_c/')
-            ->setPluginsDir(dirname(__FILE__) . '/Plugins/')
+            ->setPluginsDir(self::$_SMARTY_PLUGINS_DIR)
             ->setCacheDir('./cache/')
             ->setConfigDir('./configs/');
 
@@ -1751,7 +1759,6 @@ class Smarty extends Smarty_Variable_Methods
      * Set plugins directory
      *
      * @api
-     * Adds {@link SMARTY_PLUGINS_DIR} if not specified
      * @param  string|array $plugins_dir directory(s) of plugins
      * @return Smarty       current Smarty instance for chaining
      */
@@ -2032,7 +2039,7 @@ class Smarty extends Smarty_Variable_Methods
         // add SMARTY_PLUGINS_DIR if not present
         $_plugins_dir = $this->getPluginsDir();
         if (!$this->disable_core_plugins) {
-            $_plugins_dir[] = SMARTY_PLUGINS_DIR;
+            $_plugins_dir[] = self::$_SMARTY_PLUGINS_DIR;
         }
 
         // loop through plugin dirs and find the plugin

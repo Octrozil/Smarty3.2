@@ -38,7 +38,7 @@
  */
 function smarty_function_html_image($params, $tpl_obj)
 {
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    require_once(Smarty::$_SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
     $alt = '';
     $file = '';

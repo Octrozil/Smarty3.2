@@ -642,7 +642,7 @@ class Smarty_Misc_Utility
             echo "Testing plugin files...\n";
         }
         // test if core plugins are available
-        $source = SMARTY_PLUGINS_DIR;
+        $source = Smarty::$_SMARTY_PLUGINS_DIR;
         if (is_dir($source)) {
             $expected = array(
                 "block.textformat.php" => true,
@@ -715,7 +715,7 @@ class Smarty_Misc_Utility
             }
         } else {
             $status = false;
-            $message = "FAILED: " . SMARTY_PLUGINS_DIR . ' is not a directory';
+            $message = "FAILED: " . Smarty::$_SMARTY_PLUGINS_DIR . ' is not a directory';
             if ($errors === null) {
                 echo $message . ".\n";
             } else {

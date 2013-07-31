@@ -30,10 +30,10 @@ function smarty_modifiercompiler_wordwrap(Smarty_Compiler $compiler, $input, $co
     $function = 'wordwrap';
     if (Smarty::$_MBSTRING) {
         if ($compiler->tag_nocache | $compiler->nocache) {
-            $compiler->required_plugins['nocache']['wordwrap']['modifier']['file'] = SMARTY_PLUGINS_DIR . 'shared.mb_wordwrap.php';
+            $compiler->required_plugins['nocache']['wordwrap']['modifier']['file'] = Smarty::$_SMARTY_PLUGINS_DIR . 'shared.mb_wordwrap.php';
             $compiler->required_plugins['nocache']['wordwrap']['modifier']['function'] = 'smarty_mb_wordwrap';
         } else {
-            $compiler->required_plugins['compiled']['wordwrap']['modifier']['file'] = SMARTY_PLUGINS_DIR . 'shared.mb_wordwrap.php';
+            $compiler->required_plugins['compiled']['wordwrap']['modifier']['file'] = Smarty::$_SMARTY_PLUGINS_DIR . 'shared.mb_wordwrap.php';
             $compiler->required_plugins['compiled']['wordwrap']['modifier']['function'] = 'smarty_mb_wordwrap';
         }
         $function = 'smarty_mb_wordwrap';

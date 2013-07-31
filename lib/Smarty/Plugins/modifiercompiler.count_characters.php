@@ -40,10 +40,10 @@ function smarty_modifiercompiler_count_characters(Smarty_Compiler $compiler, $in
     }
     // could not optimize |count_characters, so fallback to regular plugin
     if ($compiler->tag_nocache | $compiler->nocache) {
-        $compiler->required_plugins['nocache']['escape']['modifier']['file'] = SMARTY_PLUGINS_DIR . 'modifier.count_characters';
+        $compiler->required_plugins['nocache']['escape']['modifier']['file'] = Smarty::$_SMARTY_PLUGINS_DIR . 'modifier.count_characters';
         $compiler->required_plugins['nocache']['escape']['modifier']['function'] = 'smarty_modifier_count_characters';
     } else {
-        $compiler->required_plugins['compiled']['escape']['modifier']['file'] = SMARTY_PLUGINS_DIR . 'modifier.count_characters.php';
+        $compiler->required_plugins['compiled']['escape']['modifier']['file'] = Smarty::$_SMARTY_PLUGINS_DIR . 'modifier.count_characters.php';
         $compiler->required_plugins['compiled']['escape']['modifier']['function'] = 'smarty_modifier_count_characters';
     }
 

@@ -449,7 +449,7 @@ class Smarty_Error_Debug extends Smarty
 
         $_plugins_dir = $this->smarty->getPluginsDir();
         if (!$this->smarty->disable_core_plugins) {
-            $_plugins_dir[] = SMARTY_PLUGINS_DIR;
+            $_plugins_dir[] = Smarty::$_SMARTY_PLUGINS_DIR;
         }
 
         foreach ($_plugins_dir as $key => $path) {

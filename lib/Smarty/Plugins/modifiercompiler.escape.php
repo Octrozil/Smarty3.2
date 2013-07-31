@@ -92,10 +92,10 @@ function smarty_modifiercompiler_escape(Smarty_Compiler $compiler, $input, $esc_
 
     // could not optimize |escape call, so fallback to regular plugin
     if ($compiler->tag_nocache | $compiler->nocache) {
-        $compiler->required_plugins['nocache']['escape']['modifier']['file'] = SMARTY_PLUGINS_DIR . 'modifier.escape.php';
+        $compiler->required_plugins['nocache']['escape']['modifier']['file'] = Smarty::$_SMARTY_PLUGINS_DIR . 'modifier.escape.php';
         $compiler->required_plugins['nocache']['escape']['modifier']['function'] = 'smarty_modifier_escape';
     } else {
-        $compiler->required_plugins['compiled']['escape']['modifier']['file'] = SMARTY_PLUGINS_DIR . 'modifier.escape.php';
+        $compiler->required_plugins['compiled']['escape']['modifier']['file'] = Smarty::$_SMARTY_PLUGINS_DIR . 'modifier.escape.php';
         $compiler->required_plugins['compiled']['escape']['modifier']['function'] = 'smarty_modifier_escape';
     }
 

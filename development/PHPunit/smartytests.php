@@ -28,7 +28,7 @@ class smartytests extends PHPUnit_Framework_TestSuite
     {
         $smarty->setTemplateDir('./templates/');
         $smarty->setCompileDir('./templates_c/');
-        $smarty->setPluginsDir(SMARTY_PLUGINS_DIR);
+        $smarty->setPluginsDir(Smarty::$_SMARTY_PLUGINS_DIR);
         $smarty->setCacheDir('./cache/');
         $smarty->setConfigDir('./configs/');
         $smarty->tpl_vars =new Smarty_Variable_Scope($smarty, null, Smarty::IS_SMARTY, 'Smarty root');

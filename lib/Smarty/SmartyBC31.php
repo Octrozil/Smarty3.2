@@ -113,6 +113,11 @@ class SmartyBC31 extends Smarty_Internal_Template
     public static $_DATE_FORMAT = SMARTY_RESOURCE_DATE_FORMAT;
 
     /**
+     * Folder of Smarty build in plugins
+     */
+    public static $_SMARTY_PLUGINS_DIR = SMARTY_PLUGINS_DIR;
+
+    /**
      * <<magic>> Generic getter.
      * Get Smarty or Template property
      *

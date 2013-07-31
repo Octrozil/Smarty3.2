@@ -117,7 +117,7 @@ function smarty_modifier_escape(Smarty $tpl_obj, $string, $esc_type = 'html', $c
         case 'hexentity':
             $return = '';
             if (Smarty::$_MBSTRING) {
-                require_once(SMARTY_PLUGINS_DIR . 'shared.mb_unicode.php');
+                require_once(Smarty::$_SMARTY_PLUGINS_DIR . 'shared.mb_unicode.php');
                 $return = '';
                 foreach (smarty_mb_to_unicode($string, Smarty::$_CHARSET) as $unicode) {
                     $return .= '&#x' . strtoupper(dechex($unicode)) . ';';
@@ -136,7 +136,7 @@ function smarty_modifier_escape(Smarty $tpl_obj, $string, $esc_type = 'html', $c
         case 'decentity':
             $return = '';
             if (Smarty::$_MBSTRING) {
-                require_once(SMARTY_PLUGINS_DIR . 'shared.mb_unicode.php');
+                require_once(Smarty::$_SMARTY_PLUGINS_DIR . 'shared.mb_unicode.php');
                 $return = '';
                 foreach (smarty_mb_to_unicode($string, Smarty::$_CHARSET) as $unicode) {
                     $return .= '&#' . $unicode . ';';
@@ -158,7 +158,7 @@ function smarty_modifier_escape(Smarty $tpl_obj, $string, $esc_type = 'html', $c
 
         case 'mail':
             if (Smarty::$_MBSTRING) {
-                require_once(SMARTY_PLUGINS_DIR . 'shared.mb_str_replace.php');
+                require_once(Smarty::$_SMARTY_PLUGINS_DIR . 'shared.mb_str_replace.php');
 
                 return smarty_mb_str_replace(array('@', '.'), array(' [AT] ', ' [DOT] '), $string);
             }
@@ -169,7 +169,7 @@ function smarty_modifier_escape(Smarty $tpl_obj, $string, $esc_type = 'html', $c
             // escape non-standard chars, such as ms document quotes
             $return = '';
             if (Smarty::$_MBSTRING) {
-                require_once(SMARTY_PLUGINS_DIR . 'shared.mb_unicode.php');
+                require_once(Smarty::$_SMARTY_PLUGINS_DIR . 'shared.mb_unicode.php');
                 foreach (smarty_mb_to_unicode($string, Smarty::$_CHARSET) as $unicode) {
                     if ($unicode >= 126) {
                         $return .= '&#' . $unicode . ';';

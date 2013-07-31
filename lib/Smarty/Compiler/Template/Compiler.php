@@ -416,7 +416,9 @@ class Smarty_Compiler_Template_Compiler extends Smarty_Compiler
         }
         // compile locking
         if ($this->tpl_obj->compile_locking && !$this->source->recompiled) {
-            if ($saved_timestamp = $compiled->timestamp) {
+            $saved_timestamp = $compiled->timestamp;
+            // touch old compiled template if file did exists
+            if ($compiled->timestamp !== false) {
                 touch($compiled->filepath);
             }
         }
