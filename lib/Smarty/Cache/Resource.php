@@ -251,6 +251,7 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
                 $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
                 $class_name = $this->class_name;
                 $isValid = $class_name::$isValid;
+            }
                 if ($isCacheCheck) {
                     return $isValid ? $template_obj : false;
                 }
