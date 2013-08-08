@@ -10,7 +10,7 @@
 */
 %stack_size 500
 %name TP_
-%declare_class {class Smarty_Compiler_Template_Parser extends Smarty_Exception_Magic}
+%declare_class {class Smarty_Compiler_Template_PHP_Parser extends Smarty_Exception_Magic}
 %include_class
 {
     const Err1 = "Security error: Call to private object member not allowed";
