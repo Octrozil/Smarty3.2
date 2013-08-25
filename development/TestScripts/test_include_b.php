@@ -15,7 +15,7 @@ function _get_time()
 
 $start = _get_time();
 
-require '../../distribution/libs/Smarty.class.php';
+require_once '../../lib/Smarty/Autoloader.php';
 
 $smarty = new Smarty;
 //set_time_limit(90);

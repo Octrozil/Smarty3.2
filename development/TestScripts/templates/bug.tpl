@@ -1,5 +1,1 @@
-hallo
-{$foo}
-
-du
-jjjj
+{ $foo}

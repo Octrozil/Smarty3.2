@@ -1,0 +1,1505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8dafd3f9-e37f-450b-a1a0-7ab8ba48a632" name="Default" comment="Initial upload">
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\cache\^^622d318193b0c11ec00564d3f02a1de2da441161.xml.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\cache\^^a61d24c4704b3841bb2115d86d5bbfff007fcfa8.a61d24c4704b3841bb2115d86d5bbfff007fcfa8.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3_pear.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3_pear.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3_pear_File.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3_pear_File.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3_pear_File_Iterator.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3_pear_File_Iterator.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3_pear_File_Iterator.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3_pear_File_Iterator_Factory.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3_pear_Text.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3_pear_Text.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\bin_php_php5.4.3_pear_Text_Template.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\butter.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\cacheresource.apc.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\cacheresource.memcache.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\cacheresource.mysql.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\chameleon.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\close12_1.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\container.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\directory.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\file.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\glass.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\index.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\resource.extendsall.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\resource.mysql.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\resource.mysqls.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\scarlet_red.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\snow.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\style.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_demo.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_demo.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_demo_plugins.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_demo_plugins.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_demo_plugins_cacheresource.mysql.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_CacheResourceCustomApcTests.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_CacheResourceCustomMemcacheTests.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_CompilePhpTests.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_NamespaceTests.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_PHPunitplugins.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_PHPunitplugins.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_PHPunitplugins_block.testblock.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_PHPunitplugins_cacheresource.mysqltest.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_PHPunitplugins_compiler.test.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_PHPunitplugins_function.chain1.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_PHPunitplugins_function.chain2.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_PHPunitplugins_function.chain3.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_PHPunitplugins_insert.insertplugintest.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_PHPunitplugins_resource.ambiguous.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_PHPunitplugins_resource.db2.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_RegisteredResourceTests.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_buh.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_buh.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_buh_8d.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_buh_8d.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_buh_8d_c2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_buh_8d_c2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_buh_8d_c2_08.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_buh_8d_c2_08.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo_22.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo_22.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo_22_4e.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo_22_4e.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo_22_4e_25.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo_22_4e_25.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo_37.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo_37.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo_37_b5.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo_37_b5.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo_37_b5_1d.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_4b_4bf4a289c4129184fbd543f317e3a064a0574e1c_foo_37_b5_1d.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache___622d318193b0c11ec00564d3f02a1de2da441161.xml.tpl.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache___a61d24c4704b3841bb2115d86d5bbfff007fcfa8.a61d24c4704b3841bb2115d86d5bbfff007fcfa8.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_e2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_e2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_e2_e25cbb8ac5c3cc46f30db491f1315473c7d95752.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_e2_e25cbb8ac5c3cc46f30db491f1315473c7d95752.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_e2_e25cbb8ac5c3cc46f30db491f1315473c7d95752_foo.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_e2_e25cbb8ac5c3cc46f30db491f1315473c7d95752_foo.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_e2_e25cbb8ac5c3cc46f30db491f1315473c7d95752_foo_37.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_e2_e25cbb8ac5c3cc46f30db491f1315473c7d95752_foo_37.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_e2_e25cbb8ac5c3cc46f30db491f1315473c7d95752_foo_37_b5.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_e2_e25cbb8ac5c3cc46f30db491f1315473c7d95752_foo_37_b5.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_e2_e25cbb8ac5c3cc46f30db491f1315473c7d95752_foo_37_b5_1d.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_cache_e2_e25cbb8ac5c3cc46f30db491f1315473c7d95752_foo_37_b5_1d.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_helpers.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_helpers.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_helpers__object_tostring.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_scripts.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_scripts.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_scripts_script_block_tag.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_scripts_script_compiler_function_tag.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_scripts_script_default_static_modifier.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_scripts_script_function_tag.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_scripts_script_modifier.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_smartytests.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_4b.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_4b.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_4b_f4.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_4b_f4.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_4b_f4_a2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_4b_f4_a2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_5f48f1d770494915e377d243e63f247482e8b1bf_0.string.cache.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_5f48f1d770494915e377d243e63f247482e8b1bf_0.string.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_622d318193b0c11ec00564d3f02a1de2da441161_0.file.xml.tpl.cache.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_622d318193b0c11ec00564d3f02a1de2da441161_0.file.xml.tpl.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_645522cd57565c081dc85607a98eb6135ca7b84f_0.file.assign.global.tpl.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_6f.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_6f.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_6f_8c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_6f_8c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_6f_8c_28.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_6f_8c_28.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_7ab0590d03f4b0e2270691ef784b67295c1ad8f6_0.file.assign.tpl.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_84e26627682853100dd26c373bda360efe3dd4cb_0.file.assign.parent.tpl.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_8d0e795f16cf7dca37a30a29c4e07176ee9c6d20_0.file.assign.root.tpl.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_a61d24c4704b3841bb2115d86d5bbfff007fcfa8_0.string.cache.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_a61d24c4704b3841bb2115d86d5bbfff007fcfa8_0.string.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_bar.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_bar.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_bar_4b.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_bar_4b.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_bar_4b_f4.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_bar_4b_f4.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_bar_4b_f4_a2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_bar_4b_f4_a2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar2_4b.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar2_4b.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar2_4b_f4.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar2_4b_f4.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar2_4b_f4_a2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar2_4b_f4_a2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar_4b.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar_4b.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar_4b_f4.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar_4b_f4.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar_4b_f4_a2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar_4b_f4_a2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar_e2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar_e2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar_e2_5c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar_e2_5c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar_e2_5c_bb.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_blar_e2_5c_bb.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_4b.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_4b.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_4b_f4.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_4b_f4.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_4b_f4_a2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_4b_f4_a2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_6f.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_6f.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_6f_8c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_6f_8c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_6f_8c_28.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_6f_8c_28.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_e2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_e2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_e2_5c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_e2_5c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_e2_5c_bb.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_e2_5c_bb.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_f9.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_f9.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_f9_83.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_f9_83.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_f9_83_3c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile1_f9_83_3c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_4b.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_4b.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_4b_f4.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_4b_f4.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_4b_f4_a2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_4b_f4_a2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_6f.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_6f.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_6f_8c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_6f_8c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_6f_8c_28.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_6f_8c_28.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_e2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_e2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_e2_5c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_e2_5c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_e2_5c_bb.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_e2_5c_bb.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_f9.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_f9.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_f9_83.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_f9_83.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_f9_83_3c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_compile2_f9_83_3c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_e2.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_e2.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_e2_5c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_e2_5c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_e2_5c_bb.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_e2_5c_bb.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_f9.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_f9.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_f9_83.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_f9_83.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_f9_83_3c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_c_f9_83_3c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_sub.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_sub.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_sub_templates_c.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_sub_templates_c.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_sub_templates_c_8920ee950c8dc35873491e54359caa80708f10d1_0.file.helloworld.tpl.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_development_PHPunit_templates_sub_templates_c_a46a3db0cd2f5d3ff7ed6ce7095ba9fe28e787ca_0.file.relative.tpl.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Autoloader.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Cache.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Cache.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Cache_Helper.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Cache_Helper.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Cache_Helper_Create.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Cache_Resource.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Cache_Resource.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Cache_Resource.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Cache_Resource_Custom.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Cache_Resource_File.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiled.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiled.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiled_Resource.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiled_Resource.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiled_Resource.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiled_Resource_File.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Code.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Config.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Config.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Config_Compiler.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Config_Lexer.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Config_Parser.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Compiler.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Lexer.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Parser.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Append.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Assign.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Block.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Break.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Call.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Capture.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Continue.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Debug.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Eval.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Extends.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_For.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Foreach.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Function.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_If.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Import.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Include.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Insert.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Internal.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Internal.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Internal_Modifier.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Internal_ObjectBlockFunction.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Internal_ObjectFunction.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Internal_PluginBlock.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Internal_PluginCompiler.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Internal_PluginFunction.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Internal_PrintExpression.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Internal_RegisteredBlock.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Internal_RegisteredFunction.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Internal_SpecialVariable.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Ldelim.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Nocache.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Rdelim.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Section.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_Setfilter.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Compiler_Template_Tag_While.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Debug.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Exception.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Exception.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Exception.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Exception_Compiler.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Exception_Magic.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Exception_Runtime.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Misc.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Misc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Misc_FilterHandler.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Misc_WriteFile.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_block.textformat.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_function.counter.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_function.exception.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_function.fetch.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_function.html_checkboxes.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_function.html_options.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_function.html_radios.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_function.html_select_date.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_function.html_select_time.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_function.mailto.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_function.math.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifier.capitalize.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifier.escape.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifier.regex_replace.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifier.replace.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifier.spacify.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifier.truncate.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifiercompiler.count_characters.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifiercompiler.count_sentences.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifiercompiler.count_words.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifiercompiler.default.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifiercompiler.escape.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifiercompiler.from_charset.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifiercompiler.lower.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifiercompiler.strip.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifiercompiler.to_charset.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifiercompiler.unescape.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifiercompiler.upper.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_modifiercompiler.wordwrap.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_outputfilter.trimwhitespace.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_shared.escape_special_chars.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_shared.make_timestamp.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_shared.mb_str_replace.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_shared.mb_unicode.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_shared.mb_wordwrap.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Plugins_variablefilter.htmlspecialchars.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Resource.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Resource.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Resource.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Resource_Eval.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Resource_Extends.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Resource_File.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Resource_Php.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Resource_Recompiled.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Resource_String.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Security.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Smarty.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_SmartyBC.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_SmartyBC31.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Template.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Template.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Template_Class.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Template_Inheritance.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Variable.dashboard.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Variable.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\coverage\www_Smarty3.2_lib_Smarty_Variable_Methods.php.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\templates\CompileBlockExtendsTests.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\templates_c\5f48f1d770494915e377d243e63f247482e8b1bf_0.string.cache.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\templates_c\5f48f1d770494915e377d243e63f247482e8b1bf_0.string.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\templates_c\622d318193b0c11ec00564d3f02a1de2da441161_0.file.xml.tpl.cache.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\templates_c\622d318193b0c11ec00564d3f02a1de2da441161_0.file.xml.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\templates_c\645522cd57565c081dc85607a98eb6135ca7b84f_0.file.assign.global.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\templates_c\7ab0590d03f4b0e2270691ef784b67295c1ad8f6_0.file.assign.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\templates_c\84e26627682853100dd26c373bda360efe3dd4cb_0.file.assign.parent.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\templates_c\8d0e795f16cf7dca37a30a29c4e07176ee9c6d20_0.file.assign.root.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\templates_c\a61d24c4704b3841bb2115d86d5bbfff007fcfa8_0.string.cache.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\PHPunit\templates_c\a61d24c4704b3841bb2115d86d5bbfff007fcfa8_0.string.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\css\bootstrap-responsive.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\css\bootstrap-responsive.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\css\bootstrap.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\css\bootstrap.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\css\jquery.iviewer.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\css\prettify.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\apple-touch-icon-114x114.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\apple-touch-icon-72x72.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\apple-touch-icon.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\glyphicons-halflings-white.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\glyphicons-halflings.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\arrow_down.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\arrow_right.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\class.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\constant.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\file-php.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\file.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\folder.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\function.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\icon-folder-open-big.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\icon-th-big.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\icon_template.svg" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\interface.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\method.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\ok.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\property.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\search.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\variable.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\view_source.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\visibility_private.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\visibility_protected.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\icons\visibility_public.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\iviewer\grab.cur" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\iviewer\hand.cur" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\iviewer\iviewer.rotate_left.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\iviewer\iviewer.rotate_right.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\iviewer\iviewer.zoom_fit.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\iviewer\iviewer.zoom_fit2.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\iviewer\iviewer.zoom_in.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\iviewer\iviewer.zoom_in2.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\iviewer\iviewer.zoom_out.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\iviewer\iviewer.zoom_out2.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\iviewer\iviewer.zoom_zero.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\iviewer\iviewer.zoom_zero2.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\img\loader.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\Smarty3Doc\phpdoc-cache-1e\phpdoc-cache-file_9fe6d889384f631d246261f63d0ff532.dat" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\development\TestScripts\templates_c\7af8fdcf4f2c5995dfbbb95a1a7fbb9a9152004d_0.file.test_parser.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Smarty\Tag.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/TestScripts/templates_c/9a9f485ff6ed4f0961fc80196b7316710d191ab3_0.file.debug.tpl.php" afterPath="$PROJECT_DIR$/development/TestScripts/templates_c/9a9f485ff6ed4f0961fc80196b7316710d191ab3_0.file.debug.tpl.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/TestScripts/templates/bug.tpl" afterPath="$PROJECT_DIR$/development/TestScripts/templates/bug.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/TestScripts/templates/include0.tpl" afterPath="$PROJECT_DIR$/development/TestScripts/templates/include0.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/TestScripts/templates/include1.tpl" afterPath="$PROJECT_DIR$/development/TestScripts/templates/include1.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-a3/phpdoc-cache-file_0478f9c91c670541a240f23aeec0b44d.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-a3/phpdoc-cache-file_0478f9c91c670541a240f23aeec0b44d.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-c2/phpdoc-cache-file_15fe8f4727d62360784009c0de081ac3.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-c2/phpdoc-cache-file_15fe8f4727d62360784009c0de081ac3.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-b7/phpdoc-cache-file_167489676eeebf7aec34cf929b492d64.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-b7/phpdoc-cache-file_167489676eeebf7aec34cf929b492d64.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-ff/phpdoc-cache-file_22ba06db0e41c70e2fb21f6d48d4df52.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-ff/phpdoc-cache-file_22ba06db0e41c70e2fb21f6d48d4df52.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-f2/phpdoc-cache-file_23b481eb0795612646482ee92288e2fb.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-f2/phpdoc-cache-file_23b481eb0795612646482ee92288e2fb.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-f2/phpdoc-cache-file_260bca71122e1634f784dee12c68c0da.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-f2/phpdoc-cache-file_260bca71122e1634f784dee12c68c0da.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-d1/phpdoc-cache-file_272f59d5ec0d8626a08369832b8fe51f.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-d1/phpdoc-cache-file_272f59d5ec0d8626a08369832b8fe51f.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-62/phpdoc-cache-file_2bc6ed35e411919aa669c3389bb305a9.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-62/phpdoc-cache-file_2bc6ed35e411919aa669c3389bb305a9.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-83/phpdoc-cache-file_3239d17abd1eb57b92f51e9c40cde586.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-83/phpdoc-cache-file_3239d17abd1eb57b92f51e9c40cde586.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-4f/phpdoc-cache-file_3a3d01fc01d6a88456a54153ee8e2812.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-4f/phpdoc-cache-file_3a3d01fc01d6a88456a54153ee8e2812.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-13/phpdoc-cache-file_3b961d12071fb75d7a465d252e9435f4.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-13/phpdoc-cache-file_3b961d12071fb75d7a465d252e9435f4.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-18/phpdoc-cache-file_3c6866e5c1eee8590019844b402e8f11.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-18/phpdoc-cache-file_3c6866e5c1eee8590019844b402e8f11.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-e9/phpdoc-cache-file_43ffd756bdd3e74be403540229807835.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-e9/phpdoc-cache-file_43ffd756bdd3e74be403540229807835.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-8a/phpdoc-cache-file_46f5c0cfa0e8138a3841fcb32da9af90.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-8a/phpdoc-cache-file_46f5c0cfa0e8138a3841fcb32da9af90.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-83/phpdoc-cache-file_46fd58ee8d8af5139d055a951cb436de.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-83/phpdoc-cache-file_46fd58ee8d8af5139d055a951cb436de.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-7f/phpdoc-cache-file_489a1c53fdb488ce7fa9926d7defd18c.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-7f/phpdoc-cache-file_489a1c53fdb488ce7fa9926d7defd18c.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-5e/phpdoc-cache-file_4a1a587546254e0af053f2280f012ba4.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-5e/phpdoc-cache-file_4a1a587546254e0af053f2280f012ba4.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-b8/phpdoc-cache-file_4b3cc0300987a08a29ff9f4aaad92cf2.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-b8/phpdoc-cache-file_4b3cc0300987a08a29ff9f4aaad92cf2.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-d1/phpdoc-cache-file_576dbd37197f93110f956375e2795ce0.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-d1/phpdoc-cache-file_576dbd37197f93110f956375e2795ce0.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-19/phpdoc-cache-file_5980faf7cd158b12356c51be4122e1c1.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-19/phpdoc-cache-file_5980faf7cd158b12356c51be4122e1c1.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-9f/phpdoc-cache-file_5aad84a40ec9dc625e465f51d8408e3f.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-9f/phpdoc-cache-file_5aad84a40ec9dc625e465f51d8408e3f.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-b4/phpdoc-cache-file_5c964f9c7d78f438f8c8134f07af641a.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-b4/phpdoc-cache-file_5c964f9c7d78f438f8c8134f07af641a.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-78/phpdoc-cache-file_5f214d5c8669ae6d6f041518914d1adb.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-78/phpdoc-cache-file_5f214d5c8669ae6d6f041518914d1adb.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-8c/phpdoc-cache-file_6b18b8a1bd5d63d34d2376a9ab03e4a5.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-8c/phpdoc-cache-file_6b18b8a1bd5d63d34d2376a9ab03e4a5.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-98/phpdoc-cache-file_6bbb31cdcdd8ac995283f473392a1920.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-98/phpdoc-cache-file_6bbb31cdcdd8ac995283f473392a1920.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-db/phpdoc-cache-file_6c12fccd012ddb0686e3ce9134ff9a63.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-db/phpdoc-cache-file_6c12fccd012ddb0686e3ce9134ff9a63.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-b1/phpdoc-cache-file_6ed2a9f60ef6cdc647b28ddc2244993c.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-b1/phpdoc-cache-file_6ed2a9f60ef6cdc647b28ddc2244993c.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-e5/phpdoc-cache-file_6f6e66286970950298af6d4ff2d05ccd.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-e5/phpdoc-cache-file_6f6e66286970950298af6d4ff2d05ccd.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-39/phpdoc-cache-file_73eeee43678da9b5776f3080dc54176d.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-39/phpdoc-cache-file_73eeee43678da9b5776f3080dc54176d.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-ec/phpdoc-cache-file_7720ed3b1feed9987c7501b5e0608f12.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-ec/phpdoc-cache-file_7720ed3b1feed9987c7501b5e0608f12.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-97/phpdoc-cache-file_79ba68b8a36565d5d33a4fb2c3afe889.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-97/phpdoc-cache-file_79ba68b8a36565d5d33a4fb2c3afe889.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-22/phpdoc-cache-file_8379ff7ec97c99fd23ad754d1427fe2b.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-22/phpdoc-cache-file_8379ff7ec97c99fd23ad754d1427fe2b.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-55/phpdoc-cache-file_91dcdf8fd1214e796a96b65b08e99197.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-55/phpdoc-cache-file_91dcdf8fd1214e796a96b65b08e99197.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-3c/phpdoc-cache-file_95da24c42336748544fbbe8775de2018.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-3c/phpdoc-cache-file_95da24c42336748544fbbe8775de2018.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-d0/phpdoc-cache-file_9d343e2a447f8d362ea8eda81f101d86.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-d0/phpdoc-cache-file_9d343e2a447f8d362ea8eda81f101d86.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-93/phpdoc-cache-file_a3dcd5fce6d0322347c311b3c37abb24.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-93/phpdoc-cache-file_a3dcd5fce6d0322347c311b3c37abb24.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-bb/phpdoc-cache-file_a5271e287c922a843e3966e52bf8769f.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-bb/phpdoc-cache-file_a5271e287c922a843e3966e52bf8769f.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-70/phpdoc-cache-file_b399fbc9a153bb6aee4753de577ae209.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-70/phpdoc-cache-file_b399fbc9a153bb6aee4753de577ae209.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-fa/phpdoc-cache-file_bb67211698b17fc57912963d5eba7402.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-fa/phpdoc-cache-file_bb67211698b17fc57912963d5eba7402.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-67/phpdoc-cache-file_bbaa2e6f696960d86ae842f9d6d6a29d.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-67/phpdoc-cache-file_bbaa2e6f696960d86ae842f9d6d6a29d.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-10/phpdoc-cache-file_c0a000a74ba9d6fbb1338a30824c0cfe.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-10/phpdoc-cache-file_c0a000a74ba9d6fbb1338a30824c0cfe.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-ea/phpdoc-cache-file_c93598ef2d34145c3376a7a5b1b380ea.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-ea/phpdoc-cache-file_c93598ef2d34145c3376a7a5b1b380ea.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-8d/phpdoc-cache-file_c988121641b4cd19dc91b89a61ed8b15.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-8d/phpdoc-cache-file_c988121641b4cd19dc91b89a61ed8b15.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-2c/phpdoc-cache-file_ccc47b756e7990b8b1faeae8242051b5.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-2c/phpdoc-cache-file_ccc47b756e7990b8b1faeae8242051b5.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-58/phpdoc-cache-file_cd73108ec9e8122de2f720fc57ca5146.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-58/phpdoc-cache-file_cd73108ec9e8122de2f720fc57ca5146.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-40/phpdoc-cache-file_cdd1e0836147391c59642c6edf0ac521.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-40/phpdoc-cache-file_cdd1e0836147391c59642c6edf0ac521.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-61/phpdoc-cache-file_d4650cb8e7bc31ac521883c28a822b75.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-61/phpdoc-cache-file_d4650cb8e7bc31ac521883c28a822b75.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-c0/phpdoc-cache-file_d5c4346f023696fe34b9dd8768c3b3c5.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-c0/phpdoc-cache-file_d5c4346f023696fe34b9dd8768c3b3c5.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-80/phpdoc-cache-file_dc1b9a7c245b24ba51e7694600a4148c.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-80/phpdoc-cache-file_dc1b9a7c245b24ba51e7694600a4148c.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-66/phpdoc-cache-file_de7b84fe3ec70e620ec12b5531132cdd.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-66/phpdoc-cache-file_de7b84fe3ec70e620ec12b5531132cdd.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-9a/phpdoc-cache-file_e090484c254a78b79ad6e01b98ae358b.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-9a/phpdoc-cache-file_e090484c254a78b79ad6e01b98ae358b.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-69/phpdoc-cache-file_e0c011800c23980ff2d3f917cea80d33.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-69/phpdoc-cache-file_e0c011800c23980ff2d3f917cea80d33.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-15/phpdoc-cache-file_e5c302379e144be94bbe234872742729.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-15/phpdoc-cache-file_e5c302379e144be94bbe234872742729.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-e2/phpdoc-cache-file_e9e925241c29c6f8c5a8845e7cefcb86.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-e2/phpdoc-cache-file_e9e925241c29c6f8c5a8845e7cefcb86.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-af/phpdoc-cache-file_ef5d9b4d62f1e316effa0db90afbea4e.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-af/phpdoc-cache-file_ef5d9b4d62f1e316effa0db90afbea4e.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-01/phpdoc-cache-file_efaba96261fdc5afaf81559827d1e1b9.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-01/phpdoc-cache-file_efaba96261fdc5afaf81559827d1e1b9.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-7d/phpdoc-cache-file_f40ad2a0a3e02c02f6eb199ed5624205.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-7d/phpdoc-cache-file_f40ad2a0a3e02c02f6eb199ed5624205.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-1f/phpdoc-cache-file_f638ec4116462414650e9a5f1855b87e.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-1f/phpdoc-cache-file_f638ec4116462414650e9a5f1855b87e.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-a8/phpdoc-cache-file_fde4ccff416a623798d9d4f9b96ec8af.dat" afterPath="$PROJECT_DIR$/development/Smarty3Doc/phpdoc-cache-a8/phpdoc-cache-file_fde4ccff416a623798d9d4f9b96ec8af.dat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/structure.xml" afterPath="$PROJECT_DIR$/development/Smarty3Doc/structure.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/Smarty3Doc/css/template.css" afterPath="$PROJECT_DIR$/development/Smarty3Doc/css/template.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/TestScripts/test.php" afterPath="$PROJECT_DIR$/development/TestScripts/test.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/TestScripts/test_bug.php" afterPath="$PROJECT_DIR$/development/TestScripts/test_bug.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/TestScripts/test_extend.php" afterPath="$PROJECT_DIR$/development/TestScripts/test_extend.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/TestScripts/test_extendbug.php" afterPath="$PROJECT_DIR$/development/TestScripts/test_extendbug.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/TestScripts/test_include.php" afterPath="$PROJECT_DIR$/development/TestScripts/test_include.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/TestScripts/test_include_b.php" afterPath="$PROJECT_DIR$/development/TestScripts/test_include_b.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/development/TestScripts/testclone.php" afterPath="$PROJECT_DIR$/development/TestScripts/testclone.php" />
+    </list>
+    <ignored path="Smarty3.2.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <file path="/Dummy.txt" changelist="8dafd3f9-e37f-450b-a1a0-7ab8ba48a632" time="1377471942678" ignored="false" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Smarty3.2$ClearAllAssignTests.coverage" NAME="ClearAllAssignTests Coverage Results" MODIFIED="1377469595593" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Smarty3.2$coverage.coverage" NAME="coverage Coverage Results" MODIFIED="1377469656845" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DatabaseView">
+    <flatten value="false" />
+    <groupTables value="false" />
+    <sortChildren value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="Smarty3.2" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="ide-phpunit.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Temp/ide-phpunit.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="264" column="0" selection-start="7329" selection-end="7329" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Autoload.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/Autoload.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="58" column="0" selection-start="2424" selection-end="2424" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Configuration.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/Util/Configuration.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="187" column="0" selection-start="6549" selection-end="6549" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClearAllAssignTests.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/development/PHPunit/ClearAllAssignTests.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Getopt.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/Util/Getopt.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="109" column="0" selection-start="3801" selection-end="3801" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Command.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/TextUI/Command.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="618" column="0" selection-start="19826" selection-end="19826" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestListener.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/Framework/TestListener.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="57" column="0" selection-start="2420" selection-end="2420" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Printer.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/Util/Printer.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="58" column="0" selection-start="2471" selection-end="2471" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResultPrinter.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/TextUI/ResultPrinter.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="59" column="0" selection-start="2457" selection-end="2457" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Filesystem.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/Util/Filesystem.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="134" column="0" selection-start="4426" selection-end="4426" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Uwe Tews" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/development/lexer/Create_Template_PHP_Parser.php" />
+        <option value="$PROJECT_DIR$/lib/Smarty/Resource/Js.php" />
+        <option value="$PROJECT_DIR$/development/TestScripts/test_extend.php" />
+        <option value="$PROJECT_DIR$/lib/Smarty/Exception.php" />
+        <option value="$PROJECT_DIR$/lib/Smarty/Cache/Resource.php" />
+        <option value="$PROJECT_DIR$/lib/Smarty/Smarty.php" />
+        <option value="$PROJECT_DIR$/lib/Smarty/Autoloader.php" />
+        <option value="$PROJECT_DIR$/development/lexer/Smarty_Compiler_Template_Lexer.php" />
+        <option value="$PROJECT_DIR$/development/lexer/LexerGenerator/Parser.php" />
+        <option value="$PROJECT_DIR$/lib/Smarty/Compiler/Config/Compiler.php" />
+        <option value="$PROJECT_DIR$/lib/Smarty/Compiler/Template/Javascript/Compiler.php" />
+        <option value="$PROJECT_DIR$/lib/Smarty/Compiler/Template/Php/Compiler.php" />
+        <option value="$PROJECT_DIR$/development/lexer/Smarty_Compiler_Template_PHP_Parser.y" />
+        <option value="$PROJECT_DIR$/development/lexer/Smarty_Compiler_Template_PHP_Parser.php" />
+        <option value="$PROJECT_DIR$/development/lexer/Smarty_Compiler_Template_Lexer.plex" />
+        <option value="$USER_HOME$/AppData/Local/Temp/ide-phpunit.php" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpDebugGeneral" xdebug_debug_port="9005" break_at_first_line="true" />
+  <component name="PhpServers">
+    <option name="servers">
+      <server host="localhost" name="local" />
+      <server name="Unnamed" />
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="54" />
+  <component name="PhpXdebugProxy" host="127.0.0.1" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="188" />
+    <option name="y" value="307" />
+    <option name="width" value="1663" />
+    <option name="height" value="838" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents ProjectPane="true" />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smarty3.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smarty3.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smarty3.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smarty3.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smarty3.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smarty" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smarty3.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smarty3.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="development" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smarty3.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smarty3.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="development" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PHPunit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smarty3.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Smarty3.2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="development" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lexer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Smarty3.2">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Smarty3.2">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="lib/Smarty">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Smarty3.2">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="lib/Smarty">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Template">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Smarty3.2">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="lib/Smarty">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Compiler">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Smarty3.2">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="lib/Smarty">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Compiler">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Template">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Php">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Smarty3.2">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="lib/Smarty">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Compiler">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Template">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Smarty3.2">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="development">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="Smarty3.2">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="development">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="lexer">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="202" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="231" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="224" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/development/PHPunit/coverage.xml" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="232" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="906" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="899" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="225" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="223" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FullScreen" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="options.lastSelected" value="Configurable.PHP.PHPUnit" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="PublishConfig">
+    <servers>
+      <server id="08917b8d-9db4-4885-a463-22d4848b1c6c">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </server>
+      <server id="37b012a6-214b-4109-9382-0141ec890371">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </server>
+    </servers>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\Smarty3.2\development\lexer" />
+      <recent name="C:\wamp\www\Smarty3.2\development\PHPunit" />
+      <recent name="C:\wamp\www\Smarty3.2\development\PHPunit\templates" />
+      <recent name="C:\wamp\www\Smarty3.2\lib\Smarty\Resource" />
+      <recent name="C:\wamp\www\Smarty3.2\lib\Smarty\Plugins" />
+    </key>
+  </component>
+  <component name="RestClientSettings">
+    <option name="REQUEST_HISTORY">
+      <list>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8080" />
+          <option name="urlPath" value="/resources" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="PHPUnit.coverage">
+    <configuration default="false" name="test.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/development/TestScripts/test.php">
+      <RunnerSettings RunnerId="PhpRunner" />
+      <RunnerSettings RunnerId="PhpScriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpScriptDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="testclone.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/development/TestScripts/testclone.php">
+      <RunnerSettings RunnerId="PhpRunner" />
+      <RunnerSettings RunnerId="PhpScriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpScriptDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="test2.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/development/TestScripts/test2.php">
+      <RunnerSettings RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="test_extend.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/development/TestScripts/test_extend.php">
+      <RunnerSettings RunnerId="PhpRunner" />
+      <RunnerSettings RunnerId="PhpScriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpScriptDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ClearAllAssignTests" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="ClearAllAssignTests" configuration_file="$PROJECT_DIR$/development/PHPunit/coverage.xml" file="$PROJECT_DIR$/development/PHPunit/ClearAllAssignTests.php" scope="Class" use_alternative_configuration_file="true" />
+      <RunnerSettings RunnerId="PhpUnitCoverageRunner" />
+      <ConfigurationWrapper RunnerId="PhpUnitCoverageRunner" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner class="smartytests" configuration_file="$PROJECT_DIR$/development/PHPunit/coverage.xml" file="$PROJECT_DIR$/development/PHPunit/smartytests.php" scope="Class" use_alternative_configuration_file="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpHttpRequestRunConfigurationType" factoryName="PHP HTTP Request">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug" server_name="local" session_id="gggg">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="XSLT" factoryName="XSLT">
+      <option name="myOutputFile" />
+      <option name="myOpenOutputFile" value="false" />
+      <option name="myOpenInBrowser" value="false" />
+      <option name="mySmartErrorHandling" value="true" />
+      <option name="myRunnerPort" value="34873" />
+      <option name="myVmArguments" />
+      <option name="myWorkingDirectory" />
+      <option name="myModule" />
+      <option name="myJdk" />
+      <parameters />
+      <OutputType value="CONSOLE" save-to-file="false" />
+      <FileType name="XML" />
+      <JdkChoice value="FROM_MODULE" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
+    <configuration default="true" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
+      <option name="VM_PARAMETERS" value="" />
+      <option name="USER_CFG_CLASS" />
+      <option name="CONTEXT_PROVIDER" />
+      <method />
+    </configuration>
+    <configuration default="false" name="test_bug.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/development/TestScripts/test_bug.php">
+      <RunnerSettings RunnerId="PhpRunner" />
+      <RunnerSettings RunnerId="PhpScriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpScriptDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="coverage" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner class="smartytests" configuration_file="$PROJECT_DIR$/development/PHPunit/coverage.xml" file="$PROJECT_DIR$/development/PHPunit/smartytests.php" scope="Class" use_alternative_configuration_file="true" />
+      <RunnerSettings RunnerId="PhpRunner" />
+      <RunnerSettings RunnerId="PhpUnitCoverageRunner" />
+      <RunnerSettings RunnerId="PhpUnitDebugRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpUnitCoverageRunner" />
+      <ConfigurationWrapper RunnerId="PhpUnitDebugRunner" />
+      <method />
+    </configuration>
+    <list size="7">
+      <item index="0" class="java.lang.String" itemvalue="PHP Script.test_bug.php" />
+      <item index="1" class="java.lang.String" itemvalue="PHPUnit.coverage" />
+      <item index="2" class="java.lang.String" itemvalue="PHP Script.test.php" />
+      <item index="3" class="java.lang.String" itemvalue="PHP Script.testclone.php" />
+      <item index="4" class="java.lang.String" itemvalue="PHP Script.test2.php" />
+      <item index="5" class="java.lang.String" itemvalue="PHP Script.test_extend.php" />
+      <item index="6" class="java.lang.String" itemvalue="PHPUnit.ClearAllAssignTests" />
+    </list>
+    <recent_temporary>
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="PHPUnit.ClearAllAssignTests" />
+        <item index="1" class="java.lang.String" itemvalue="PHP Script.test_extend.php" />
+        <item index="2" class="java.lang.String" itemvalue="PHP Script.test.php" />
+        <item index="3" class="java.lang.String" itemvalue="PHP Script.test2.php" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8dafd3f9-e37f-450b-a1a0-7ab8ba48a632" name="Default" comment="" />
+      <created>1372793146189</created>
+      <updated>1372793146189</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Initial upload">
+      <created>1373756948170</created>
+      <updated>1373756948170</updated>
+    </task>
+    <task id="LOCAL-00002" summary="commit to backup">
+      <created>1374175163286</created>
+      <updated>1374175163287</updated>
+    </task>
+    <task id="LOCAL-00003" summary="backup 22.7.2013">
+      <created>1374517645580</created>
+      <updated>1374517645580</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update PHPunit tests">
+      <created>1374909697986</created>
+      <updated>1374909697986</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Update registered objects">
+      <created>1374926759861</created>
+      <updated>1374926759861</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Remove SMARTY_xxxx and DS constants">
+      <created>1375274057921</created>
+      <updated>1375274057921</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Remove DS and SMARTY_xxx constants">
+      <created>1375293786129</created>
+      <updated>1375293786129</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Remove DS and SMARTY_xxx constants">
+      <created>1375293943668</created>
+      <updated>1375293943668</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Change compiler folder structure">
+      <created>1375996818791</created>
+      <updated>1375996818791</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Change compiler folder structure">
+      <created>1375996849237</created>
+      <updated>1375996849237</updated>
+    </task>
+    <task id="LOCAL-00011" summary="backup 25.8.2013">
+      <created>1377396473081</created>
+      <updated>1377396473081</updated>
+    </task>
+    <task id="LOCAL-00012" summary="2. backup 25.8.2013">
+      <created>1377398317200</created>
+      <updated>1377398317200</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Backup 26.8.2013">
+      <created>1377471054178</created>
+      <updated>1377471054178</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="188" y="307" width="1663" height="838" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328125" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32884097" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24938424" sideWeight="0.6738545" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2979388" sideWeight="0.6253687" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38382354" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24984385" sideWeight="0.5006227" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37411097" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32658958" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18352601" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Duplicates" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962137" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3988355" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <option name="myTodoPanelSettings">
+      <value>
+        <are-packages-shown value="false" />
+        <are-modules-shown value="false" />
+        <flatten-packages value="false" />
+        <is-autoscroll-to-source value="false" />
+      </value>
+    </option>
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
+    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
+    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
+    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
+    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
+    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
+    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
+    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
+    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
+    <option name="LIMIT_HISTORY" value="true" />
+    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
+    <option name="UPDATE_FILTER_SCOPE_NAME" />
+    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
+    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" value="Backup 26.8.2013" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+    <MESSAGE value="Initial upload" />
+    <MESSAGE value="commit to backup" />
+    <MESSAGE value="backup 22.7.2013" />
+    <MESSAGE value="update PHPunit tests" />
+    <MESSAGE value="Update registered objects" />
+    <MESSAGE value="Remove SMARTY_xxxx and DS constants" />
+    <MESSAGE value="Remove DS and SMARTY_xxx constants" />
+    <MESSAGE value="Change compiler folder structure" />
+    <MESSAGE value="backup 25.8.2013" />
+    <MESSAGE value="2. backup 25.8.2013" />
+    <MESSAGE value="Backup 26.8.2013" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/development/TestScripts/test_bug.php</url>
+          <line>16</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/development/TestScripts/test_bug.php</url>
+          <line>22</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/development/TestScripts/test_bug.php</url>
+          <line>21</line>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/development/TestScripts/test_bug.php</url>
+          <line>87</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/development/TestScripts/test_extend.php</url>
+          <line>7</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+      </breakpoints>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="87" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/development/lexer/Smarty_Compiler_Template_PHP_Parser.out">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/development/lexer/Smarty_Compiler_Template_Lexer.plex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="666" column="2" selection-start="18142" selection-end="18142" vertical-scroll-proportion="9.359664" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/development/lexer/Smarty_Compiler_Template_PHP_Parser.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2297" column="29" selection-start="111503" selection-end="111503" vertical-scroll-proportion="410.5" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/development/lexer/Smarty_Compiler_Template_PHP_Parser.y">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="802" column="0" selection-start="23445" selection-end="23445" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Smarty/Resource/File.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="0" selection-start="764" selection-end="764" vertical-scroll-proportion="-4.923077" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHP/Timer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="149" column="0" selection-start="4545" selection-end="4545" vertical-scroll-proportion="-6.769231" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/TextUI/ResultPrinter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="0" selection-start="2457" selection-end="2457" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/Util/Printer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="0" selection-start="2471" selection-end="2471" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/Framework/TestListener.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="0" selection-start="2420" selection-end="2420" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/ide-phpunit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="264" column="0" selection-start="7329" selection-end="7329" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/Util/Getopt.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="109" column="0" selection-start="3801" selection-end="3801" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/TextUI/Command.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="618" column="0" selection-start="19826" selection-end="19826" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/Util/Filesystem.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="134" column="0" selection-start="4426" selection-end="4426" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/Autoload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="0" selection-start="2424" selection-end="2424" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../bin/php/php5.4.3/pear/PHPUnit/Util/Configuration.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="187" column="0" selection-start="6549" selection-end="6549" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/development/PHPunit/ClearAllAssignTests.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
+

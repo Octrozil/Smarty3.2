@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty 3.2-DEV, created on 2013-07-13 22:08:53 compiled from "C:\wamp\www\Smarty3.2\lib\Smarty\debug.tpl" */
-if (!class_exists('_SmartyTemplate_51e1cff59a0cb5_57732955',false)) {
-    class _SmartyTemplate_51e1cff59a0cb5_57732955 extends Smarty_Template_Class {
+<?php /* Smarty version Smarty 3.2-DEV, created on 2013-08-13 22:05:55 compiled from "C:\wamp\www\Smarty3.2\lib\Smarty\debug.tpl" */
+if (!class_exists('_SmartyTemplate_520aadc30c6cb7_58993155',false)) {
+    class _SmartyTemplate_520aadc30c6cb7_58993155 extends Smarty_Template_Class {
         public $version = 'Smarty 3.2-DEV';
         public $has_nocache_code = false;
         public $file_dependency = array(
@@ -174,4 +174,4 @@ if (!class_exists('_SmartyTemplate_51e1cff59a0cb5_57732955',false)) {
         }
     }
 }
-$class_name = '_SmartyTemplate_51e1cff59a0cb5_57732955';
+$this->class_name = '_SmartyTemplate_520aadc30c6cb7_58993155';

@@ -6,7 +6,7 @@
  * @package SmartyTestScripts
  */
 
-require '../../distribution/libs/Smarty.class.php';
+require_once '../../lib/Smarty/Autoloader.php';
 
 $smarty = new Smarty;
 

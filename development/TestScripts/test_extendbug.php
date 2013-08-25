@@ -21,5 +21,5 @@ $theme = 'default.tpl';
 $view = 'create.tpl';
 
 //$smarty->display('extends:' . $theme . '|' . $view, null, null);
-$smarty->template_dir = array('.' . DS . 'templates' . DS . 'mypro' . DS . 'mycod' . DS, '.' . DS . 'templates' . DS . 'mypro' . DS, '.' . DS . 'templates' . DS);
+$smarty->template_dir = array('./templates/mypro/mycod/', './templates/mypro/', './templates/');
 $smarty->display('extends:defaultbody.tpl|probody.tpl|codbody.tpl');

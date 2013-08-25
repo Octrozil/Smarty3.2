@@ -5,7 +5,7 @@
  * @package SmartyTestScripts
  */
 
-require '../../distribution/libs/Smarty.class.php';
+require_once '../../lib/Smarty/Autoloader.php';
 function prefilter($content)
 {
     return str_replace('%%%uwe%%', '%tews%', $content);
@@ -15,7 +15,7 @@ $smarty = new Smarty;
 $smarty->addPluginsDir('./plugins');
 $smarty->debugging = true;
 //$smarty->force_compile = true;
-$smarty->caching = 1;
+//$smarty->caching = 1;
 $smarty->cache_lifetime = 100;
 $smarty->loadFilter('post', 'trimwhitespace');
 if (!$smarty->isCached('test_block.tpl')) {

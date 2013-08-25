@@ -1,4 +1,5 @@
 <ul>
   {$values}
-  {include file="include2.tpl"}
+    {$values = $values +1}
+    {include file="include2.tpl"}
 </ul>
