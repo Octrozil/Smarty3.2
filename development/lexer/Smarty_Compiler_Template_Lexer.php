@@ -10,7 +10,7 @@
 /**
 * Smarty Template Lexer
 */
-class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
+class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
 {
     public $data = null;
     public $counter = null;
@@ -22,6 +22,7 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     public $line_offset = 0;
     public $state = 1;
     public $compiler;
+    public $parser_class;
     Public $ldel;
     Public $rdel;
     Public $rdel_length;
@@ -189,14 +190,16 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r1_1($yy_subpatterns)
     {
 
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEMPLATEINIT;
+     $parser_class = $this->parser_class;
+     $this->token = $parser_class::TP_TEMPLATEINIT;
      $this->yypushstate(self::TEXT);
     }
     function yy_r1_2($yy_subpatterns)
     {
 
      $this->value = '';
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEMPLATEINIT;
+     $parser_class = $this->parser_class;
+     $this->token = $parser_class::TP_TEMPLATEINIT;
      $this->yypushstate(self::TEXT);
     }
 
@@ -281,49 +284,56 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r2_1($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $parser_class = $this->parser_class;
+     $this->token = $parser_class::TP_TEXT;
     }
     function yy_r2_2($yy_subpatterns)
     {
 
-    $this->token = Smarty_Compiler_Template_PHP_Parser::TP_STRIPON;
+    $parser_class = $this->parser_class;
+    $this->token = $parser_class::TP_STRIPON;
     }
     function yy_r2_3($yy_subpatterns)
     {
 
+  $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal) {
-    $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+    $this->token = $parser_class::TP_TEXT;
   } else {
-    $this->token = Smarty_Compiler_Template_PHP_Parser::TP_STRIPON;
+    $this->token = $parser_class::TP_STRIPON;
   }
     }
     function yy_r2_4($yy_subpatterns)
     {
 
-    $this->token = Smarty_Compiler_Template_PHP_Parser::TP_STRIPOFF;
+    $parser_class = $this->parser_class;
+    $this->token = $parser_class::TP_STRIPOFF;
     }
     function yy_r2_5($yy_subpatterns)
     {
 
+  $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal) {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-    $this->token = Smarty_Compiler_Template_PHP_Parser::TP_STRIPOFF;
+    $this->token = $parser_class::TP_STRIPOFF;
   }
     }
     function yy_r2_6($yy_subpatterns)
     {
 
-   $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LITERALSTART;
+   $parser_class = $this->parser_class;
+   $this->token = $parser_class::TP_LITERALSTART;
    $this->yypushstate(self::LITERAL);
     }
     function yy_r2_7($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal) {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELSLASH;
+     $this->token = $parser_class::TP_LDELSLASH;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -331,10 +341,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r2_9($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELIF;
+     $this->token = $parser_class::TP_LDELIF;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -342,10 +353,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r2_12($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELFOR;
+     $this->token = $parser_class::TP_LDELFOR;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -353,10 +365,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r2_14($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELFOREACH;
+     $this->token = $parser_class::TP_LDELFOREACH;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -364,10 +377,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r2_16($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELSETFILTER;
+     $this->token = $parser_class::TP_LDELSETFILTER;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -375,10 +389,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r2_18($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal) {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDEL;
+     $this->token = $parser_class::TP_LDEL;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -386,52 +401,60 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r2_20($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELSLASH;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LDELSLASH;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
     }
     function yy_r2_22($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDEL;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LDEL;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
     }
     function yy_r2_24($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if (in_array($this->value, Array('<?', '<?=', '<?php'))) {
-    $this->token = Smarty_Compiler_Template_PHP_Parser::TP_PHPSTARTTAG;
+    $this->token = $parser_class::TP_PHPSTARTTAG;
   } elseif ($this->value == '<?xml') {
-      $this->token = Smarty_Compiler_Template_PHP_Parser::TP_XMLTAG;
+      $this->token = $parser_class::TP_XMLTAG;
   } else {
-    $this->token = Smarty_Compiler_Template_PHP_Parser::TP_FAKEPHPSTARTTAG;
+    $this->token = $parser_class::TP_FAKEPHPSTARTTAG;
     $this->value = substr($this->value, 0, 2);
   }
      }
     function yy_r2_25($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_PHPENDTAG;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_PHPENDTAG;
     }
     function yy_r2_26($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_TEXT;
     }
     function yy_r2_28($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ASPSTARTTAG;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ASPSTARTTAG;
     }
     function yy_r2_29($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ASPENDTAG;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ASPENDTAG;
     }
     function yy_r2_30($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->mbstring_overload) {
     $to = mb_strlen($this->data,'latin1');
   } else {
@@ -446,7 +469,7 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
   } else {
   $this->value = substr($this->data,$this->counter,$to-$this->counter);
   }
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+  $this->token = $parser_class::TP_TEXT;
     }
 
 
@@ -580,15 +603,17 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r3_1($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_SINGLEQUOTESTRING;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_SINGLEQUOTESTRING;
     }
     function yy_r3_2($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal) {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELSLASH;
+     $this->token = $parser_class::TP_LDELSLASH;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -596,10 +621,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r3_4($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELIF;
+     $this->token = $parser_class::TP_LDELIF;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -607,10 +633,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r3_7($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELFOR;
+     $this->token = $parser_class::TP_LDELFOR;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -618,10 +645,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r3_9($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELFOREACH;
+     $this->token = $parser_class::TP_LDELFOREACH;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -629,10 +657,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r3_11($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal) {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDEL;
+     $this->token = $parser_class::TP_LDEL;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -640,337 +669,401 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r3_13($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_RDEL;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_RDEL;
   $this->yypopstate();
     }
     function yy_r3_15($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELSLASH;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LDELSLASH;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
     }
     function yy_r3_17($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDEL;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LDEL;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
     }
     function yy_r3_19($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_RDEL;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_RDEL;
      $this->yypopstate();
     }
     function yy_r3_21($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_COMMENT;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_COMMENT;
     }
     function yy_r3_24($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ISIN;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ISIN;
     }
     function yy_r3_25($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_AS;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_AS;
     }
     function yy_r3_26($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TO;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_TO;
     }
     function yy_r3_27($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_STEP;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_STEP;
     }
     function yy_r3_28($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_INSTANCEOF;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_INSTANCEOF;
     }
     function yy_r3_29($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_IDENTITY;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_IDENTITY;
     }
     function yy_r3_30($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_NONEIDENTITY;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_NONEIDENTITY;
     }
     function yy_r3_31($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_EQUALS;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_EQUALS;
     }
     function yy_r3_32($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_NOTEQUALS;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_NOTEQUALS;
     }
     function yy_r3_34($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_GREATEREQUAL;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_GREATEREQUAL;
     }
     function yy_r3_36($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LESSEQUAL;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LESSEQUAL;
     }
     function yy_r3_38($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_GREATERTHAN;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_GREATERTHAN;
     }
     function yy_r3_39($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LESSTHAN;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LESSTHAN;
     }
     function yy_r3_40($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_MOD;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_MOD;
     }
     function yy_r3_41($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_NOT;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_NOT;
     }
     function yy_r3_42($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LAND;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LAND;
     }
     function yy_r3_43($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LOR;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LOR;
     }
     function yy_r3_44($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LXOR;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LXOR;
     }
     function yy_r3_45($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ISODDBY;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ISODDBY;
     }
     function yy_r3_46($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ISNOTODDBY;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ISNOTODDBY;
     }
     function yy_r3_47($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ISODD;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ISODD;
     }
     function yy_r3_48($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ISNOTODD;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ISNOTODD;
     }
     function yy_r3_49($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ISEVENBY;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ISEVENBY;
     }
     function yy_r3_50($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ISNOTEVENBY;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ISNOTEVENBY;
     }
     function yy_r3_51($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ISEVEN;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ISEVEN;
     }
     function yy_r3_52($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ISNOTEVEN;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ISNOTEVEN;
     }
     function yy_r3_53($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ISDIVBY;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ISDIVBY;
     }
     function yy_r3_54($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ISNOTDIVBY;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ISNOTDIVBY;
     }
     function yy_r3_55($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TYPECAST;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_TYPECAST;
     }
     function yy_r3_59($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_OPENP;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_OPENP;
     }
     function yy_r3_60($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_CLOSEP;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_CLOSEP;
     }
     function yy_r3_61($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_OPENB;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_OPENB;
     }
     function yy_r3_62($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_CLOSEB;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_CLOSEB;
     }
     function yy_r3_63($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_PTR; 
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_PTR;
     }
     function yy_r3_64($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_APTR;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_APTR;
     }
     function yy_r3_65($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_EQUAL;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_EQUAL;
     }
     function yy_r3_66($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_UNIMATH;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_UNIMATH;
     }
     function yy_r3_68($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_MATH;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_MATH;
     }
     function yy_r3_70($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_IDINCDEC;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_IDINCDEC;
     }
     function yy_r3_72($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_DOLLAR;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_DOLLAR;
     }
     function yy_r3_73($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_SEMICOLON;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_SEMICOLON;
     }
     function yy_r3_74($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_DOUBLECOLON;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_DOUBLECOLON;
     }
     function yy_r3_75($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_COLON;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_COLON;
     }
     function yy_r3_76($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_AT;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_AT;
     }
     function yy_r3_77($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_HATCH;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_HATCH;
     }
     function yy_r3_78($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_QUOTE;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_QUOTE;
   $this->yypushstate(self::DOUBLEQUOTEDSTRING);
     }
     function yy_r3_79($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_BACKTICK;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_BACKTICK;
   $this->yypopstate();
     }
     function yy_r3_80($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_VERT;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_VERT;
     }
     function yy_r3_81($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_DOT;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_DOT;
     }
     function yy_r3_82($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_COMMA;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_COMMA;
     }
     function yy_r3_83($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ANDSYM;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ANDSYM;
     }
     function yy_r3_84($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_QMARK;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_QMARK;
     }
     function yy_r3_85($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_HEX;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_HEX;
     }
     function yy_r3_86($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   // resolve conflicts with shorttag and right_delimiter starting with '='
   if (substr($this->data, $this->counter + strlen($this->value) - 1, $this->rdel_length) == $this->compiler->tpl_obj->right_delimiter) {
      preg_match("/\s+/",$this->value,$match);
      $this->value = $match[0];
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_SPACE;
+     $this->token = $parser_class::TP_SPACE;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ATTR;
+     $this->token = $parser_class::TP_ATTR;
   }
     }
     function yy_r3_87($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ID;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ID;
     }
     function yy_r3_88($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_INTEGER;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_INTEGER;
     }
     function yy_r3_89($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_SPACE;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_SPACE;
     }
     function yy_r3_90($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_NAMESPACE;     
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_NAMESPACE;
     }
     function yy_r3_92($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_TEXT;
     }
 
 
@@ -1042,43 +1135,50 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r4_1($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LITERALSTART;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LITERALSTART;
   $this->yypushstate(self::LITERAL);
     }
     function yy_r4_2($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LITERALEND;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LITERALEND;
   $this->yypopstate();
     }
     function yy_r4_3($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if (in_array($this->value, Array('<?', '<?=', '<?php'))) {
-    $this->token = Smarty_Compiler_Template_PHP_Parser::TP_PHPSTARTTAG;
+    $this->token = $parser_class::TP_PHPSTARTTAG;
    } else {
-    $this->token = Smarty_Compiler_Template_PHP_Parser::TP_FAKEPHPSTARTTAG;
+    $this->token = $parser_class::TP_FAKEPHPSTARTTAG;
     $this->value = substr($this->value, 0, 2);
    }
     }
     function yy_r4_4($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_PHPENDTAG;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_PHPENDTAG;
     }
     function yy_r4_5($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ASPSTARTTAG;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ASPSTARTTAG;
     }
     function yy_r4_6($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_ASPENDTAG;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_ASPENDTAG;
     }
     function yy_r4_7($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->mbstring_overload) {
     $to = mb_strlen($this->data,'latin1');
   } else {
@@ -1095,7 +1195,7 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
   } else {
     $this->value = substr($this->data,$this->counter,$to-$this->counter);
   }
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LITERAL;
+  $this->token = $parser_class::TP_LITERAL;
     }
 
 
@@ -1172,10 +1272,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r5_1($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal) {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELSLASH;
+     $this->token = $parser_class::TP_LDELSLASH;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -1183,10 +1284,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r5_3($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELIF;
+     $this->token = $parser_class::TP_LDELIF;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -1194,10 +1296,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r5_6($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELFOR;
+     $this->token = $parser_class::TP_LDELFOR;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -1205,10 +1308,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r5_8($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELFOREACH;
+     $this->token = $parser_class::TP_LDELFOREACH;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -1216,10 +1320,11 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r5_10($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->compiler->tpl_obj->auto_literal) {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDEL;
+     $this->token = $parser_class::TP_LDEL;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
   }
@@ -1227,27 +1332,31 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r5_12($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDELSLASH;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LDELSLASH;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
     }
     function yy_r5_14($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_LDEL;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_LDEL;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line + $this->line_offset;
     }
     function yy_r5_16($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_QUOTE;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_QUOTE;
   $this->yypopstate();
     }
     function yy_r5_17($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_BACKTICK;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_BACKTICK;
   $this->value = substr($this->value,0,-1);
   $this->yypushstate(self::SMARTY);
   $this->taglineno = $this->line + $this->line_offset;
@@ -1255,21 +1364,25 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
     function yy_r5_18($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_DOLLARID;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_DOLLARID;
     }
     function yy_r5_19($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_TEXT;
     }
     function yy_r5_20($yy_subpatterns)
     {
 
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+     $parser_class = $this->parser_class;
+  $this->token = $parser_class::TP_TEXT;
     }
     function yy_r5_24($yy_subpatterns)
     {
 
+     $parser_class = $this->parser_class;
   if ($this->mbstring_overload) {
     $to = mb_strlen($this->data,'latin1');
   } else {
@@ -1280,7 +1393,7 @@ class Smarty_Compiler_Template_PHP_Lexer extends Smarty_Exception_Magic
   } else {
   $this->value = substr($this->data,$this->counter,$to-$this->counter);
   }
-  $this->token = Smarty_Compiler_Template_PHP_Parser::TP_TEXT;
+  $this->token = $parser_class::TP_TEXT;
     }
 
 }

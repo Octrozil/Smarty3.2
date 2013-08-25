@@ -16,7 +16,7 @@
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Function extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Function extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**
@@ -79,7 +79,7 @@ class Smarty_Compiler_Template_PHP_Tag_Function extends Smarty_Compiler_Template
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Functionclose extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Functionclose extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**

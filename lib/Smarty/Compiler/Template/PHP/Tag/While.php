@@ -16,7 +16,7 @@
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_While extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_While extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**
@@ -83,7 +83,7 @@ class Smarty_Compiler_Template_PHP_Tag_While extends Smarty_Compiler_Template_PH
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Whileclose extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Whileclose extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**

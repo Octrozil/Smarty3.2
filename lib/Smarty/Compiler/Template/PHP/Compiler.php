@@ -16,7 +16,7 @@
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Compiler extends Smarty_Compiler
+class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
 {
 
     /**
@@ -665,7 +665,7 @@ class Smarty_Compiler_Template_PHP_Compiler extends Smarty_Compiler
      * lazy loads internal compile plugin for tag and calls the compile method
      *
      * compile objects cached for reuse.
-     * class name format:  Smarty_Compiler_Template_PHP_Tag_TagName
+     * class name format:  Smarty_Compiler_Template_Php_Tag_TagName
      *
      * @param  string $tag    tag name
      * @param  array  $args   list of tag attributes
@@ -683,7 +683,7 @@ class Smarty_Compiler_Template_PHP_Compiler extends Smarty_Compiler
         }
         // check if tag allowed by security
         if (!isset($this->tpl_obj->security_policy) || $this->tpl_obj->security_policy->isTrustedTag($tag, $this)) {
-            $class = 'Smarty_Compiler_Template_PHP_Tag_' . $tag;
+            $class = 'Smarty_Compiler_Template_Php_Tag_' . $tag;
             if (!class_exists($class, false)) {
                 if (is_file($file = SMARTY_DIR . str_replace(array('_', "\0"), array('/', ''), $class) . '.php')) {
                     require $file;
@@ -928,7 +928,7 @@ class Smarty_Compiler_Template_PHP_Compiler extends Smarty_Compiler
         } else {
             $line = $line - $this->line_offset;
         }
-        throw new Smarty_Exception_Compiler($msg, $line, $this->source);
+        throw new Smarty_Exception_Compiler($msg, $line, $this->source, $this->lex);
     }
 
     /**

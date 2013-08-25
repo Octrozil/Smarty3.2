@@ -71,6 +71,24 @@ class Smarty_Resource extends Smarty_Exception_Magic
     public $uid = false;
 
     /**
+     * Resource compiler class
+     * if null default is used
+     */
+    public $compiler_class = null;
+
+    /**
+     * Resource lexer class
+     * if null default is used
+     */
+    public $lexer_class = null;
+
+   /**
+     * Resource lexer class
+     * if null default is used
+     */
+    public $parser_class = null;
+
+    /**
      * array of extends components
      *
      * @var array

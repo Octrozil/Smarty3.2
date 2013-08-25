@@ -14,7 +14,7 @@
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag extends Smarty_Compiler_Code
+class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
 {
 
     /**

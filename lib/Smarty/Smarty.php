@@ -624,6 +624,42 @@ class Smarty extends Smarty_Variable_Methods
     public $default_config_type = 'file';
 
     /**
+     * Template compiler class
+     * @var string
+     */
+    public $template_compiler_class = 'Smarty_Compiler_Template_Php_Compiler';
+
+    /**
+     * Template lexer class
+     * @var string
+     */
+    public $template_lexer_class = 'Smarty_Compiler_Template_Lexer';
+
+    /**
+     * Template parser class
+     * @var string
+     */
+    public $template_parser_class = 'Smarty_Compiler_Template_Php_Parser';
+
+    /**
+     * Config compiler class
+     * @var string
+     */
+    public $config_compiler_class = 'Smarty_Compiler_Config_Compiler';
+
+    /**
+     * Config lexer class
+     * @var string
+     */
+    public $config_lexer_class = 'Smarty_Compiler_Config_Compiler';
+
+    /**
+     * Config parser class
+     * @var string
+     */
+    public $config_parser_class = 'Smarty_Compiler_Config_Compiler';
+
+    /**
      * cached source objects
      * @var array
      * @internal
@@ -1043,7 +1079,7 @@ class Smarty extends Smarty_Variable_Methods
             // recompiled source can't be cached
             return false;
         }
-        $cached_obj = $tpl_obj->_loadCachedTemplate($source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
+        $cached_obj = $tpl_obj->_loadCachedTemplate($source, $tpl_obj->parent, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
             isset($cache_id) ? $cache_id : $tpl_obj->cache_id, $this->caching);
         if (!$cached_obj->exists || !$cached_obj->isValid) {
             // cache does not exists or is outdated

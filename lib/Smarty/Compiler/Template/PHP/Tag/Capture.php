@@ -16,7 +16,7 @@
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Capture extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Capture extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**
@@ -78,7 +78,7 @@ class Smarty_Compiler_Template_PHP_Tag_Capture extends Smarty_Compiler_Template_
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_CaptureClose extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_CaptureClose extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**
@@ -97,7 +97,7 @@ class Smarty_Compiler_Template_PHP_Tag_CaptureClose extends Smarty_Compiler_Temp
             $compiler->tag_nocache = true;
         }
 
-        list($buffer, $assign, $append, $compiler->nocache) = array_pop(Smarty_Compiler_Template_PHP_Tag_Capture::$_capture_stack);
+        list($buffer, $assign, $append, $compiler->nocache) = array_pop(Smarty_Compiler_Template_Php_Tag_Capture::$_capture_stack);
 
         $this->iniTagCode($compiler);
 

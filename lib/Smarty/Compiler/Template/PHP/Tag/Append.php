@@ -16,7 +16,7 @@
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Append extends Smarty_Compiler_Template_PHP_Tag_Assign
+class Smarty_Compiler_Template_Php_Tag_Append extends Smarty_Compiler_Template_Php_Tag_Assign
 {
 
     /**

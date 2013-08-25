@@ -16,7 +16,7 @@
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Internal_PluginCompiler extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Internal_PluginCompiler extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**
@@ -122,7 +122,7 @@ class Smarty_Compiler_Template_PHP_Tag_Internal_PluginCompiler extends Smarty_Co
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Internal_PluginCompilerClose extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Internal_PluginCompilerClose extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**

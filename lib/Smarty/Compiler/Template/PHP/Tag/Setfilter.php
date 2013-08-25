@@ -16,7 +16,7 @@
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Setfilter extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Setfilter extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**
@@ -45,7 +45,7 @@ class Smarty_Compiler_Template_PHP_Tag_Setfilter extends Smarty_Compiler_Templat
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Setfilterclose extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Setfilterclose extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**

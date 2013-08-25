@@ -16,7 +16,7 @@
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Foreach extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**
@@ -181,7 +181,7 @@ class Smarty_Compiler_Template_PHP_Tag_Foreach extends Smarty_Compiler_Template_
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Foreachelse extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Foreachelse extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**
@@ -216,7 +216,7 @@ class Smarty_Compiler_Template_PHP_Tag_Foreachelse extends Smarty_Compiler_Templ
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Foreachclose extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Foreachclose extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**

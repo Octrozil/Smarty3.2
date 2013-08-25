@@ -156,7 +156,7 @@ class Smarty_Compiled_Resource extends Smarty_Exception_Magic
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
-            throw new Smarty_Exception_Runtime('resource ', -1, null, $e);
+            throw new Smarty_Exception_Runtime('resource ', -1, null, null, $e);
         }
 
         return $template_obj;

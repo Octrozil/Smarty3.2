@@ -20,6 +20,7 @@ class Smarty_Exception extends Exception
     public $lineno;
     public $filename;
     public $source;
+    public $lex;
     protected $rawMessage;
     protected $previous;
 
@@ -40,7 +41,7 @@ class Smarty_Exception extends Exception
      * @param Smarty_Resource $source   The template source object
      * @param Exception       $previous The previous exception
      */
-    public function __construct($message, $lineno = -1, $source =  null, Exception $previous = null)
+    public function __construct($message, $lineno = -1, $source =  null, $lex =  null, Exception $previous = null)
     {
         if (version_compare(PHP_VERSION, '5.3.0', '<')) {
             $this->previous = $previous;
@@ -51,6 +52,7 @@ class Smarty_Exception extends Exception
 
         $this->lineno = $lineno;
         $this->source = $source;
+        $this->lex = $lex;
 
         if ($this->source !== null) {
             $this->filename = $this->source->type . ':' . $this->source->filepath;
@@ -168,7 +170,11 @@ class Smarty_Exception extends Exception
         }
 
         if ($dot) {
-            $this->message .= '.';
+            $this->message .= '.<br>';
+        }
+        if ($this->lex) {
+            $match = preg_split("/\n/", $this->lex->data);
+            $this->message .= ' "' . trim(preg_replace('![\t\r\n]+!', ' ', $match[$this->lineno - 1])) . '" ';
         }
     }
 

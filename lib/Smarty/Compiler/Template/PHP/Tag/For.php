@@ -16,7 +16,7 @@
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_For extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_For extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**
@@ -94,7 +94,7 @@ class Smarty_Compiler_Template_PHP_Tag_For extends Smarty_Compiler_Template_PHP_
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Forelse extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Forelse extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**
@@ -129,7 +129,7 @@ class Smarty_Compiler_Template_PHP_Tag_Forelse extends Smarty_Compiler_Template_
  *
  * @package Compiler
  */
-class Smarty_Compiler_Template_PHP_Tag_Forclose extends Smarty_Compiler_Template_PHP_Tag
+class Smarty_Compiler_Template_Php_Tag_Forclose extends Smarty_Compiler_Template_Php_Tag
 {
 
     /**
