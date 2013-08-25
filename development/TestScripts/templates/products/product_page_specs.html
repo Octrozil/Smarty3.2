@@ -1,0 +1,110 @@
+<table class="input">
+    <colgroup>
+        <col width="30"/>
+        <col width="300"/>
+        <col width="300"/>
+    </colgroup>
+    <tr>
+        <th><img src="{$aConfig.staticurl}hardware.info/images/icons/minimize.png" alt=""/></th>
+        <th colspan="2">{$aGuiTexts.General}</th>
+    </tr>
+    <tr class="{cycle values='odd,even'}">
+        <td>&nbsp;</td>
+        <td>Merk</td>
+        <td>{$GeneralInfo.sBrandName|escape}</td>
+    </tr>
+    <tr class="{cycle values='odd,even'}">
+        <td>&nbsp;</td>
+        <td>Productnaam</td>
+        <td>{$GeneralInfo.sProductName|escape}</td>
+    </tr>
+    <tr class="{cycle values='odd,even'}">
+        <td>&nbsp;</td>
+        <td>Productcode</td>
+        <td>{$GeneralInfo.sProductCode|escape}</td>
+    </tr>
+    {if $GeneralInfo.iEAN}
+    <tr class="{cycle values='odd,even'}">
+        <td>&nbsp;</td>
+        <td>EAN code</td>
+        <td>{$GeneralInfo.iEAN}</td>
+    </tr>
+    {/if}
+    <tr class="{cycle values='odd,even'}">
+        <td>&nbsp;</td>
+        <td>Getest door</td>
+        <td>{$GeneralInfo.sAuthorName|escape}</td>
+    </tr>
+</table>
+<br/>
+
+<table class="input">
+    <colgroup>
+        <col width="30"/>
+        <col width="300"/>
+        <col width="270"/>
+        <col width="30"/>
+    </colgroup>
+
+    {assign var="iLastCatId" value=-1}
+    {foreach key=iSpecId item=Spec from=$Specs}
+
+    {if $Spec.iSpecType <> $smarty.const.TYPE_BENCHMARK}
+
+    {assign var="value" value=$SpecValues[$iProductId][$Spec.iSpecId].sSpecValue}
+    {if $value != null}
+    {if $iLastCatId != $Spec.iCatId}
+    <tr>
+        <th><img src="{$aConfig.staticurl}hardware.info/images/icons/minimize.png" alt=""/></th>
+        <th colspan="3">{$SpecCats[$Spec.iCatId].sCatName|escape}</th>
+    </tr>
+    {/if}
+    <tr class="{cycle values=" odd
+    ,even"}">
+    <td>&nbsp;</td>
+    <td>{$Spec.sSpecName}</td>
+    <td>
+        {if $Spec.iSpecType == $smarty.const.TYPE_MULTIPLE_CHOICE}
+        {assign var="mcvalue" value=$MCOptions[$value].sMcName}
+        {if $mcvalue == "-"}<img src="{$aConfig.Path.icons}cross.png" alt="{$aGuiTexts.Boolean_No}"
+                                 title="{$aGuiTexts.Boolean_No}"/>{else}{$mcvalue}{/if}
+        {elseif $Spec.iSpecType == $smarty.const.TYPE_BOOLEAN}
+        {if $value == 1}<img src="{$aConfig.Path.icons}tick.png" alt="{$aGuiTexts.Boolean_Yes}"
+                             title="{$aGuiTexts.Boolean_Yes}"/>{else}<img src="{$aConfig.Path.icons}cross.png"
+                                                                          alt="{$aGuiTexts.Boolean_No}"
+                                                                          title="{$aGuiTexts.Boolean_No}"/>{/if}
+        {elseif $Spec.iSpecType == $smarty.const.TYPE_NUMBER && $Spec.iUnitId == $smarty.const.UNIT_BOOL}
+        {if $value == 1}<img src="{$aConfig.Path.icons}tick.png" alt="{$aGuiTexts.Boolean_Yes}"
+                             title="{$aGuiTexts.Boolean_Yes}"/>{else}<img src="{$aConfig.Path.icons}cross.png"
+                                                                          alt="{$aGuiTexts.Boolean_No}"
+                                                                          title="{$aGuiTexts.Boolean_No}"/>{/if}
+        {elseif $Spec.iSpecType == $smarty.const.TYPE_NUMBER && $Spec.iUnitId == $smarty.const.UNIT_HWI}
+        {section name="unit_hwi" loop=$value start=0}<img src="{$aConfig.Path.images}h-transp.gif"/>{/section}
+        {elseif $value == "-"}
+        <img src="{$aConfig.Path.icons}cross.png" alt="{$aGuiTexts.Boolean_No}" title="{$aGuiTexts.Boolean_No}"/>
+        {elseif $value && $Spec.iUnitId == $smarty.const.UNIT_EURO}
+        {$Units[$Spec.iUnitId].sUnitName} {$value}
+        {else}{$value}{if $value} {$Units[$Spec.iUnitId].sUnitName}{/if}
+        {/if}
+    </td>
+    <td>
+        {if ($Spec.iSpecType == $smarty.const.TYPE_MULTIPLE_CHOICE || $Spec.iSpecType == $smarty.const.TYPE_BOOLEAN ||
+        $Spec.iSpecType == $smarty.const.TYPE_NUMBER)}
+        <a href="{$aConfig.baseurl}{$sLanguage}/productdb/{$aProductGroup.sEncryptedId}/{$iSpecId}/{$value}/viewbyspec/"><img
+                src="{$aConfig.Path.icons}database_go.png" alt="{$aGuiTexts.Find_Same_Specs}"
+                title="{$aGuiTexts.Find_Same_Specs}"/></a>
+        {/if}
+    </td>
+    </tr>
+    {assign var="iLastCatId" value=$Spec.iCatId}
+    {/if}
+
+    {/if}
+
+    {/foreach}
+</table>
+{if $GeneralInfo.sProductLink}
+<div class="productLink"><img src="{$aConfig.Path.icons}world_go.png" alt=""/> <a
+        href="{$GeneralInfo.sProductLink|escape}" target="_blank">Klik hier voor de specificaties van dit product op de
+    website van de fabrikant.</a></div>
+{/if}

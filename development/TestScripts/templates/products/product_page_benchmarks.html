@@ -1,0 +1,69 @@
+<table class="input">
+    <colgroup>
+        <col width="30"/>
+        <col width="300"/>
+        <col width="270"/>
+        <col width="30"/>
+    </colgroup>
+    {assign var="iLastCatId" value=-1}
+    {foreach array_reverse($Specs) as $Spec}
+
+    {if $Spec.iSpecType == $smarty.const.TYPE_BENCHMARK}
+
+    {assign var="value" value=$SpecValues[$iProductId][$Spec.iSpecId].sSpecValue}
+    {if $value != null}
+    {if $iLastCatId != $Spec.iCatId}
+    <tr>
+        <th><img src="{$aConfig.staticurl}hardware.info/images/icons/minimize.png" alt=""/></th>
+        <th>{$SpecCats[$Spec.iCatId].sCatName|escape}</th>
+        <th colspan="2" class="testResults">Toon grafiek van testresultaten <img
+                src="{$aConfig.Path.icons}arrow_turn_left.png" alt=""/></th>
+    </tr>
+    {/if}
+    <tr class="{cycle values=" odd
+    ,even"}">
+    <td>{if $Spec.sSpecDescription}<a onmouseover="popup_text('{$Spec.sSpecName} {$Spec.sSpecDescription|escape:" html"}}');this.onmousemove=popup;"
+        onmouseout="kill_popup();"><img src="{$aConfig.staticurl}hardware.info/images/icons/mark.png" alt=""/></a>{else}&nbsp;{/if}
+    </td>
+    <td>{$Spec.sSpecName} {$Spec.iSpecId}</td>
+    <td>
+        {if $Spec.iSpecType == $smarty.const.TYPE_MULTIPLE_CHOICE}
+        {assign var="mcvalue" value=$MCOptions[$value].sMcName}
+        {if $mcvalue == "-"}<img src="{$aConfig.Path.icons}cross.png" alt="{$aGuiTexts.Boolean_No}"
+                                 title="{$aGuiTexts.Boolean_No}"/>{else}{$mcvalue}{/if}
+        {elseif $Spec.iSpecType == $smarty.const.TYPE_BOOLEAN}
+        {if $value == 1}<img src="{$aConfig.Path.icons}tick.png" alt="{$aGuiTexts.Boolean_Yes}"
+                             title="{$aGuiTexts.Boolean_Yes}"/>{else}<img src="{$aConfig.Path.icons}cross.png"
+                                                                          alt="{$aGuiTexts.Boolean_No}"
+                                                                          title="{$aGuiTexts.Boolean_No}"/>{/if}
+        {elseif $Spec.iSpecType == $smarty.const.TYPE_NUMBER && $Spec.iUnitId == $smarty.const.UNIT_BOOL}
+        {if $value == 1}<img src="{$aConfig.Path.icons}tick.png" alt="{$aGuiTexts.Boolean_Yes}"
+                             title="{$aGuiTexts.Boolean_Yes}"/>{else}<img src="{$aConfig.Path.icons}cross.png"
+                                                                          alt="{$aGuiTexts.Boolean_No}"
+                                                                          title="{$aGuiTexts.Boolean_No}"/>{/if}
+        {elseif $Spec.iSpecType == $smarty.const.TYPE_NUMBER && $Spec.iUnitId == $smarty.const.UNIT_HWI}
+        {section name="unit_hwi" loop=$value start=0}<img src="{$aConfig.Path.images}h-transp.gif"/>{/section}
+        {elseif $value == "-"}<img src="{$aConfig.Path.icons}cross.png" alt="{$aGuiTexts.Boolean_No}"
+                                   title="{$aGuiTexts.Boolean_No}"/>
+        {elseif $value && $Spec.iUnitId == $smarty.const.UNIT_EURO}
+        {$Units[$Spec.iUnitId].sUnitName} {$value}
+        {else}
+        {$value}{if $value} {$Units[$Spec.iUnitId].sUnitName}{/if}
+        {/if}
+    </td>
+    <td>
+        {*{if $Spec.sSpecDescription}<a
+            onmouseover="popup_text('{$aGuiTexts.Tested_With} {$TestConfigs[$Spec.iTcId]|escape:" html"}');this.onmousemove=popup;"
+        onmouseout="kill_popup();"><img src="{$aConfig.staticurl}hardware.info/images/icons/mark.png" alt=""/></a>{else}&nbsp;{/if}*}
+        <a href="{$aConfig.baseurl}{$sLanguage}/productdb/{$Spec.iSpecId}/{$iProductId}/viewbenchmarks/{$iProductId}"><img
+                src="{$aConfig.Path.icons}chart_bar.png" alt="{$aGuiTexts.Graph}"/></a>
+    </td>
+    </tr>
+    {assign var="iLastCatId" value=$Spec.iCatId}
+    {/if}
+
+    {/if}
+
+    {/foreach}
+    jaj
+</table>

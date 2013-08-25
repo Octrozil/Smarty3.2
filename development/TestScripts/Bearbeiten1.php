@@ -1,0 +1,95 @@
+<?php
+$St = '(1+(2+(3*(x+3)*x+2)*x+4)*x+5)+3*(2*x+4)';
+# PASST EINMAL
+if (preg_match_all('/  \(  [^()]*  \)  /x', $St, $Tr)) {
+    print "{$Tr[0][0]}\r\n{$Tr[0][1]}\r\n";
+} else {
+    print "nix\r\n";
+}
+
+print "---------------\r\n";
+
+print "PASST ZWEIMAL\r\n";
+if (preg_match_all('/
+     \(  [^()]*
+         \(  [^()]*   \)
+         [^()]*
+     \)  /x', $St, $Tr)
+) {
+    print "{$Tr[0][0]}\r\n{$Tr[0][1]}\r\n";
+} else {
+    print "nix\r\n";
+}
+
+print "---------------\r\n";
+
+$S2 = '((a+)*(c+d))';
+print "PASST EIN- ODER ZWEIMAL\r\n";
+if (preg_match_all('/
+     \(  (?: [^()]* | \(  [^()]*   \) )*
+     \)  /x', $S2, $Tr)
+) {
+    print "{$Tr[0][0]}\r\n{$Tr[0][1]}\r\n";
+} else {
+    print "nix\r\n";
+}
+
+print "---------------\r\n";
+
+print "PASST EIN- ODER ZWEIMAL\r\n";
+if (preg_match_all('/
+     \(  (?: [^()]* | \(  [^()]*   \) )*
+     \)  /x', $St, $Tr)
+) {
+    print "{$Tr[0][0]}\r\n{$Tr[0][1]}\r\n";
+} else {
+    print "nix\r\n";
+}
+
+print "---------------\r\n";
+
+print "PASST BIS DREIMAL\r\n";
+if (preg_match_all('/
+     \(  (?: [^()]* | \(  (?: [^()]* | \([^()]*\) )+  \) )+
+     \)  /x', $St, $Tr)
+) {
+    print "{$Tr[0][0]}\r\n{$Tr[0][1]}\r\n";
+} else {
+    print "nix\r\n";
+}
+
+print "---------------\r\n";
+
+print "PASST EINMAL ODER ZWEIMAL\r\n";
+if (preg_match_all('/
+     \(  (?: [^()]*  | \(  [^()]*   \)  )+
+     \)  /x', $St, $Tr)
+) {
+    print "{$Tr[0][0]}\r\n{$Tr[0][1]}\r\n";
+} else {
+    print "nix\r\n";
+}
+print "---------------\r\n";
+
+if (preg_match_all('/
+     \(  (?: [^()]*  | (?R)  )*
+         [^()]*
+     \)  /x', $St, $Tr)
+) {
+    print "{$Tr[0][0]}\r\n{$Tr[0][1]}\r\n";
+} else {
+    print "nix\r\n";
+}
+print "---------------\r\n";
+
+if (preg_match('/\(
+                     ( (?>[^()]+) | (?R) )*
+                  \)
+                 /x', $St, $Tr)
+) {
+    print "$Tr[0]\r\n";
+} else {
+    print "nix\r\n";
+}
+
+$fg = fgets(STDIN);

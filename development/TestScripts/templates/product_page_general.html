@@ -1,0 +1,62 @@
+<div id="mainContent">
+
+    <div id="productGeneral">
+        <img src="{$aProduct.sThumb}" class="thumb productPageThumb" alt="{$aProduct.sFullProductName|escape}"/>
+
+        <h1>{$aProduct.sFullProductName|escape}</h1>
+        {if count($SpecValues)}
+        {strip}
+        <h4>
+            {foreach $aPrimarySpecs as $aSpec}
+            {if $SpecValues[$iProductId][$aSpec.iSpecId].sSpecValue}
+            {if !$aSpec@first}, {/if}{$aSpec.sSpecName}:&nbsp;
+            {assign var="value" value=$SpecValues[$iProductId][$aSpec.iSpecId].sSpecValue}
+            {if $aSpec.iSpecType == $smarty.const.TYPE_MULTIPLE_CHOICE}
+            {assign var="mcvalue" value=$MCOptions[$value].sMcName}
+            {if $mcvalue == "-"}<img src="{$aConfig.Path.icons}cross.png" alt="{$aGuiTexts.Boolean_No}"
+                                     title="{$aGuiTexts.Boolean_No}"/>{elseif $mcvalue}{$mcvalue}{else}?{/if}
+            {elseif $aSpec.iSpecType == $smarty.const.TYPE_BOOLEAN}
+            {if $value == 1}{$aGuiTexts.Boolean_Yes}{else}{$aGuiTexts.Boolean_No}{/if}
+            {elseif $aSpec.iSpecType == $smarty.const.TYPE_NUMBER && $aSpec.iUnitId == $smarty.const.UNIT_HWI}
+            {section name="unit_hwi" loop=$value start=0}<img src="{$aConfig.Path.images}h-transp.gif" alt="H"/>{/section}
+            {elseif $value == "-"}
+            {$aGuiTexts.Boolean_No}
+            {elseif $value && $aSpec.iUnitId == $smarty.const.UNIT_EURO}
+            {$Units[$aSpec.iUnitId].sUnitName} {$value}
+            {elseif $value}
+            {$value}{if $value} {$Units[$aSpec.iUnitId].sUnitName}{/if}
+            {/if}
+            {/if}
+            {/foreach}
+        </h4>
+        {/strip}
+        {/if}
+        <p>{$aGuiTexts.ProductAvailability}</p>
+    </div>
+
+    <ul id="productTabs">
+        <li><a href="#overview">Overzicht</a></li>
+        <li><a href="#specs">Specificaties</a></li>
+        <li><a href="#benchmarks">Testresultaten</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#users">Gebruikers</a></li>
+        <li><a href="#overclock">Overklok</a></li>
+        <li><a href="#compatible">Compatibiliteit</a></li>
+        <li><a href="#prices">Prijzen</a></li>
+    </ul>
+    <script type="text/javascript">loadProductTabs();</script>
+
+    <div id="productPages">
+        <div id="product_overview" class="hidden">Overzicht</div>
+        <div id="product_specs" class="hidden">{include file="products/product_page_specs.html"}</div>
+        <div id="product_benchmarks" class="hidden">{include file="products/product_page_benchmarks.html"}</div>
+        <div id="product_reviews">{include file="products/product_page_reviews.html"}</div>
+        <div id="product_users" class="hidden">Gebruikers</div>
+        <div id="product_overclock" class="hidden">Overklok</div>
+        <div id="product_compatible" class="hidden">Compatible</div>
+        <div id="product_prices" class="hidden">Prijzen</div>
+    </div>
+
+</div>
+<div id="sideBar">
+</div>

@@ -1,0 +1,1 @@
+{php} echo memory_get_peak_usage().'<br/>'.(microtime()-$_SESSION['REQUEST_TIME']); {/php}

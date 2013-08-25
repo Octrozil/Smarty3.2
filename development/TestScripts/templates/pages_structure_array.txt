@@ -1,0 +1,30 @@
+Array
+(
+    [0] => Array
+        (
+            [name] => Order Of The Stick
+            [link] => /order_of_the_stick.html
+            [path] => 001_order_of_the_stick.tpl
+            [type] => page
+            [sort] => 001Order Of The Stick
+        )
+
+    [1] => Array
+        (
+            [name] => Simons Cat
+            [link] => /simons_cat.html
+            [path] => 005_simons_cat.tpl
+            [type] => page
+            [sort] => 005Simons Cat
+        )
+
+    [2] => Array
+        (
+            [name] => Girl Genius
+            [link] => /girl_genius.html
+            [path] => 010_girl_genius.tpl
+            [type] => page
+            [sort] => 010Girl Genius
+        )
+
+)

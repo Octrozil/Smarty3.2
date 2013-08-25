@@ -1,0 +1,1 @@
+{include file='bug_child.tpl'}

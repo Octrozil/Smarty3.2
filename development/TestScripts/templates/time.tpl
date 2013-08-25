@@ -1,0 +1,1 @@
+included - time:  {$smarty.now nocache}

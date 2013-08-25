@@ -1,0 +1,2 @@
+
+Parse error: syntax error, unexpected T_FUNCTION, expecting ')' in C:\wamp\www\Smarty_3_1_DEV\development\TestScripts\compress\src\phpcompactor.php on line 27

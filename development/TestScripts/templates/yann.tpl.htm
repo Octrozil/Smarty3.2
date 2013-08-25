@@ -1,0 +1,374 @@
+{*
+object $parent_class : Classe parente qui inclu ce listing, sert pour la charte graphique à appliquer, et le masquage de la colonne correspondant à la clé primaire du parent
+(Exemple: masquer la colonne société si on liste les affaires avec comme provenance parent_class->table==societe)
+object $current_class : Classe courante qui inclu ce listing
+boolean $display_key_columns : permet de forcer l'affichage des colonnes des clé (id_societe, id_owner...) (FALSE par défaut)
+string div : definit le nom du div qui contient les infos du select_all
+array $fk : clés étrangères de filtrage
+array(societe.id_societe=>678)
+string $onglet_custom : Permet d'appeler le template d'un onglet spécial
+string $saTitle : Titre de select_all, permet de forcer un titre particulier (utile pour écrire par exemple dans certains cas "Element enfant", plutoto qu'avoir un titre générique "Element")
+*}
+
+{if $current_class}
+{if ATF::$html->template_exists("`$current_class->table`_select_all.tpl.htm")}
+{include file="`$current_class->table`_select_all.tpl.htm"}
+{else}
+{if ATF::$html->template_exists("{$current_class->table}_select_all_prefix.tpl.htm")}
+{include file="{$current_class->table}_select_all_prefix.tpl.htm" entete=true}
+{else}
+{if !$div}
+{$div="gsa_{$parent_class->table|default:$current_class->table}_{$current_class->table}"} {* Balise div de référence pour cette pagination *}
+{/if}
+{* si l'on choisit un filtre dans un onglet, il faut conserver la notion de parent, pour ne pas afficher la colonne de la clé étrangère si l'on se situe sur le select de ce dernier *}
+{if !$parent_class && $classe_parent}
+{$parent_class=ATF::$classe_parent()}
+{/if}
+{$template="generic_select_all"} {* Fichier template Smarty utilisé *}
+{$q=$smarty.session.pager->create($div,null,true)}
+{$view=$smarty.session.user->infos.custom.columns[$current_class->table]|default:$current_class->view} {* Vue du filtre, sinon vue perso *}
+{$q->setLimit($q->limit.limit|default:30)->reset('field')->addField($current_class->colonnes_simples($smarty.session,false,$view))->setLimit($smarty.post.limit)->end()} {* Requêteur associé *}
+{* Clés étrangères de filtrage éventuel *}
+{if $fk}
+{$q->reset('where')->end()}
+{foreach from=$fk key=field item=value}
+{* on ajoute la clé de l'élément courant si il existe pour l'ajouter aux URL d'update et d'insert *}
+{*if $current_class->fk_from($field) == $current_class->table}
+{$foreign_key=util::keyEncoder($value)}
+{elseif $current_class->fk_from($field)*}
+{if $current_class->fk_from($field)}
+{if $url_extra}
+{$url_extra="{$url_extra}&{$field|ireplace:"{$current_class->table}.":""}={util::keyEncoder($value)}"}
+{else}
+{$url_extra="{$field|ireplace:"{$current_class->table}.":""}={util::keyEncoder($value)}"}
+{/if}
+{/if}
+{* on ajoute les conditions lié aux FK défini au requeteur *}
+{$q->addCondition($field,$value)->end()}
+{/foreach}
+{/if}
+{$current_class->setQuerier($q)} {* On applique ce requêteur à la classe courante *}
+{$data=$q->query($current_class->select_data($smarty.session,$function))} {* Requête *}
+{$extra="table={$current_class->name()|urlencode}&function={$function}"}
+
+{if $define_div}
+<div id="{$div}_data" class="onglet">
+{/if}
+<a name="{$current_class->table}"></a>
+
+<div class="tabPager">
+    <div class="tabModule">
+        {png_image src=$current_class->icone(16) height="16" width="16"}
+        <a id="{$current_class->table}_switch" href="javascript:;"
+           onclick="if ($('{$div}_content')) { if ($('{$div}_content').visible()) $('{$current_class->table}_switch2').show(); else $('{$current_class->table}_switch2').hide(); Effect.toggle('{$div}_content', 'blind', { duration: .5 }); }">
+            {$saTitle|default:$locUser->trans($current_class->table,module)}
+        </a>
+        &nbsp;
+        <a id="{$current_class->table}_switch2" href="javascript:;"
+           onclick="if ($('{$div}_content')) Effect.toggle('{$div}_content', 'blind', { duration: .5 }); this.hide();">
+            {png_image src="images/icones/bottom.png" height="16" width="16"}
+        </a>
+    </div>
+    <div id="{$div}_pager" class="pagerPager" onmouseover="ATF.showPaging(this)" onmouseout="ATF.hidePaging(this)">
+        {include file="pager.tpl.htm"}
+    </div>
+    <div class="pagerSearch">
+        {include file="pager_search.tpl.htm" res="pager_search{$div}"|res
+        fields="`$current_class->table`.`$current_class->table`" onkeyup=true}
+    </div>
+
+    {if $locUser->privilege($current_class->name(),'filter_select')}
+    <div class="pagerFilter">
+        {include file="pager_filter.tpl.htm" res="pager_filter{$div}"|res table=$current_class->table onglet="{$div}"}
+    </div>
+    {/if}
+    {if $q->nb_rows>0 && $current_class->gmap && $locUser->privilege($current_class->name(),'geolocalisation')}
+    <div class="pagerGeoloc">
+        {include file="pager_gmap.tpl.htm"}
+    </div>
+    {/if}
+    {if $locUser->privilege($current_class->name(),'view')}
+    <div class="pagerColumn">
+        {include file="pager_column.tpl.htm" onglet="{$div}"}
+    </div>
+    {/if}
+    {if $locUser->privilege($current_class->name(),'export')}
+    <div class="pagerExport">
+        {include file="pager_export.tpl.htm" onglet="{$div}"}
+    </div>
+    {/if}
+    {if ATF::$html->template_exists("{$current_class->table}_select_all_header.tpl.htm")}
+    {include file="{$current_class->table}_select_all_header.tpl.htm"}
+    {/if}
+</div>
+<hr class="spacer_{$current_class->table}"/>
+{/if}
+
+{if $q->nb_rows>0 && $current_class->gmap && $locUser->privilege($current_class->name(),'geolocalisation')}
+<div id="{$div}GMapContainer" style="padding:0 1em; display:none;">
+    <div id="{$div}GMap" style="width:100%; height:300px;"></div>
+</div>
+{/if}
+
+<div id="{$div}_content" class="tabContent" style="display:none">
+{if $q->nb_rows>0}
+{$colonnes_simples=$current_class->colonnes_simples($smarty.session,true,$view)}
+<table class="listing_table_{$current_class->table}">
+    <caption>
+        {$caption}
+    </caption>
+    <colgroup>
+        {if $locUser->privilege($current_class->name(),'delete')}
+        <col class="icone"/>
+        {/if}
+        {if $locUser->privilege($current_class->name(),'update') && !$current_class->no_update}
+        <col class="icone"/>
+        {/if}
+        {if $locUser->privilege($current_class->name(),'select')}
+        <col class="icone"/>
+        {/if}
+        {foreach from=$colonnes_simples key=field item=field_column}
+        {if $field_column.custom || util::isNotPrimaryKeyField($field,$parent_class->table,$current_class->table) ||
+        $display_key_columns===true} {* N'affiche pas les colonnes des clés primaires retournées dans le listing *}
+        <col
+        {* class="{$view.align[$field]|default:"left"}Align"*} />
+        {/if}
+        {/foreach}
+    </colgroup>
+    {if ATF::$html->template_exists("{$current_class->table}_{$onglet_custom}_select_all_custom.tpl.htm")}
+    {include file="{$current_class->table}_{$onglet_custom}_select_all_custom.tpl.htm" entete=true}
+    {elseif ATF::$html->template_exists("{$current_class->table}_select_all_custom.tpl.htm")}
+    {include file="{$current_class->table}_select_all_custom.tpl.htm" entete=true}
+    {else}
+    <thead>
+    <tr>
+        {if $locUser->privilege($current_class->name(),'delete')}
+        <th>
+            {if $locUser->privilege($current_class->name(),'delete') && !$current_class->no_update}
+            <a class="deleteBtn" href="javascript:;"
+               onclick="var ids=ATF.getListingSelected('{$current_class->table}'); if (ids && confirm('{$locUser->trans(Etes_vous_sur)}')) ATF.tpl2div('{$current_class->name()|urlencode},delete.ajax',ids+'&div={$div}&template=generic_select_all&strict=1');">
+                {png_image src="images/icones/delete.png" height="16" width="16"}
+            </a>
+            {/if}
+        </th>
+        {/if}
+        {if $locUser->privilege($current_class->name(),'update') && !$current_class->no_update}
+        <th></th>
+        {/if}
+        {if $locUser->privilege($current_class->name(),'select')}
+        <th>
+            {if $locUser->privilege($current_class->name(),'insert') && !$current_class->no_insert}
+            <a class="insertBtn" href="javascript:;"
+               onclick="ATF.tpl2div('{$current_class->name()|urlencode}-insert{*if $foreign_key}-{$foreign_key}{/if*}.div'{if $url_extra},'{$url_extra}'{/if});">
+                {png_image src="images/icones/insert.png" height="16" width="16"}
+            </a>
+            {/if}
+        </th>
+        {/if}
+        {foreach from=$colonnes_simples key=field item=field_column}
+        {if $field_column.custom || util::isNotPrimaryKeyField($field,$parent_class->table,$current_class->table) ||
+        $display_key_columns===true} {* N'affiche pas les colonnes des clés primaires retournées dans le listing *}
+        <th class="{$view.align[$field]|default:$field_column.align|default:" left
+        "}Align">
+        {if $field_column.nosort} {* Ne pas pouvoir trier une colonne *}
+        {$locUser->trans($field,$current_class->table)}
+        {else}
+        {include file="href_order.tpl.htm" text=$locUser->trans($field,$current_class->table) order=$field
+        strtoupper=true}
+        {/if}
+        </th>
+        {/if}
+        {/foreach}
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        {if $locUser->privilege($current_class->name(),'delete')}
+        <td valign="top">
+            {if $locUser->privilege($current_class->name(),'delete') && !$current_class->no_update}
+            <a class="deleteBtn" href="javascript:;"
+               onclick="var ids=ATF.getListingSelected('{$current_class->table}'); if (ids && confirm('{$locUser->trans(Etes_vous_sur)}')) ATF.tpl2div('{$current_class->name()|urlencode},delete.ajax',ids+'&div={$div}&template=generic_select_all&strict=1');">
+                {png_image src="images/icones/delete.png" height="16" width="16"}
+            </a>
+            {/if}
+        </td>
+        {/if}
+        {if $locUser->privilege($current_class->name(),'update') && !$current_class->no_update}
+        <td></td>
+        {/if}
+        {if $locUser->privilege($current_class->name(),'select')}
+        <td></td>
+        {/if}
+        {foreach from=$colonnes_simples key=field item=field_column}
+
+        {if $field_column.custom || util::isNotPrimaryKeyField($field,$parent_class->table,$current_class->table) ||
+        $display_key_columns===true} {* N'affiche pas les colonnes des clés primaires retournées dans le listing *}
+        <td class="{$view.align[$field]|default:$field_column.align|default:" left
+        "}Align" valign="top">
+        {if $field_column.aggregate}
+        {foreach from=$current_class->select_aggregate($field,$field_column.aggregate) key=aggregat item=aggr_value}
+        {if !$aggr_value@first}
+        <br/>
+        {/if}
+        {$locUser->trans($aggregat,aggregat)} {$view.prefix[$field]|default:$field_column.prefix}
+        {if ATF::$html->template_exists("{$current_class->table}-{$field}-select_all.tpl.htm")} {* Afin de pouvoir
+        gérer un template particulier pour un champ, mais uniquement pour le select_all ! *}
+        {include file="{$current_class->table}-{$field}-select_all.tpl.htm" item=[$field=>$aggr_value]
+        aggregat=true}
+        {elseif ATF::$html->template_exists("{$current_class->table}-{$field}.tpl.htm")} {* Afin de pouvoir gérer un
+        template particulier pour un champ ! *}
+        {include file="{$current_class->table}-{$field}.tpl.htm" item=[$field=>$aggr_value] aggregat=true}
+        {elseif ATF::$html->template_exists("generic-{$field}.tpl.htm")} {* Afin de pouvoir gérer un template
+        générique pour un champ ! *}
+        {include file="generic-{$field}.tpl.htm" item=[$field=>$aggr_value] aggregat=true}
+        {else}
+        {$aggr_value|default:0|number_format:2:".":" "}
+        {/if}
+        {$view.suffix[$field]|default:$field_column.suffix}
+        {/foreach}
+        {/if}
+        </td>
+        {/if}
+        {/foreach}
+    </tr>
+    </tfoot>
+    <tbody>
+    {foreach from=$data key=key item=item}
+    <tr class="listing_{$item@index%2}{strip}
+                                        {if ATF::$html->template_exists("
+    {$current_class->table}-select_all-TR.tpl.htm")}
+    {include file="{$current_class->table}-select_all-TR.tpl.htm"}
+    {/if}
+    {/strip}" id="{$item["{$current_class->table}.id_{$current_class->table}"]|id2md5}">
+    {if $locUser->privilege($current_class->name(),'delete')}
+    <td>
+        <input type="checkbox" class="check_select_row" value="{$item["{$current_class->table}.id_{$current_class->table}"]|id2md5}"
+        />
+    </td>
+    {/if}
+    {if $locUser->privilege($current_class->name(),'update') && !$current_class->no_update}
+    <td>
+        <a class="updateBtn"
+           href="javascript:;"
+        {if $current_class->is_active('update',$item["{$current_class->table}.id_{$current_class->table}"])}
+        onclick="ATF.tpl2div('{$current_class->name()|urlencode}-update-{$item["{$current_class->table}.id_{$current_class->table}"]|id2md5}.div{if
+        $url_extra},{$url_extra}{/if}');">
+        {png_image src="images/icones/update.png" height="16" width="16"}
+        {else}
+        onclick="Modalbox.show('
+        <div>{$locUser->trans("modification_impossible_`$current_class->table`")}</div>
+        ', { title: '{$locUser->trans('modification_impossible')}' });">
+        {png_image src="images/icones/update_inactive.png" height="16" width="16"}
+        {/if}
+        </a>
+    </td>
+    {/if}
+    {if $locUser->privilege($current_class->name(),'select')}
+    <td>
+        <a class="selectBtn" href="{$current_class->name()}-select-{$item["{$current_class->table}.id_{$current_class->table}"]|id2md5}.html">
+        {png_image src="images/icones/select.png" height="16" width="16"}
+        </a>
+    </td>
+    {/if}
+    {foreach from=$colonnes_simples key=field item=field_column}
+    {if $field_column.custom || util::isNotPrimaryKeyField($field,$parent_class->table,$current_class->table) ||
+    $display_key_columns===true} {* N'affiche pas les colonnes des clés primaires retournées dans le listing *}
+    <td class="{$view.align[$field]|default:$field_column.align|default:" left
+    "}Align">
+    {$view.prefix[$field]|default:$field_column.prefix}
+    {if $field_column.type=="file"}
+    {if ATF::$html->template_exists("{$current_class->table}-{$field}_fichier_joint.tpl.htm")}
+    {include file="{$current_class->table}-{$field}_fichier_joint.tpl.htm"}
+    {else}
+    {include file="generic_fichier_joint.tpl.htm"}
+    {/if}
+    {elseif ATF::$html->template_exists("{$current_class->table}-{$field}-select_all.tpl.htm")} {* Afin de pouvoir
+    gérer un template particulier pour un champ, mais uniquement pour le select_all ! *}
+    {include file="{$current_class->table}-{$field}-select_all.tpl.htm"}
+    {elseif ATF::$html->template_exists("{$current_class->table}-{$field}.tpl.htm")} {* Afin de pouvoir gérer un
+    template particulier pour un champ ! *}
+    {include file="{$current_class->table}-{$field}.tpl.htm"}
+    {elseif ATF::$html->template_exists("generic-{$field}.tpl.htm")} {* Afin de pouvoir gérer un template générique
+    pour un champ ! *}
+    {include file="generic-{$field}.tpl.htm"}
+    {elseif $item[$field]} {* Seulement si on a une valeur *}
+    {include file="href.tpl.htm"
+    linkmode="href"
+    link=$current_class->fk_from($field)
+    text=$item[$field]
+    id=$item["{$field}_fk"]|default:$item["{$current_class->table}.id_{$current_class->table}"]
+    table=ATF::getClass($current_class->fk_from($field,false,true))->name()
+    truncate=128}
+    {/if}
+    {$view.suffix[$field]|default:$field_column.suffix}
+    </td>
+    {/if}
+    {/foreach}
+    </tr>
+    {/foreach}
+    </tbody>
+    {/if}
+</table>
+{else}
+<div id="noItemNotFound">
+    <div>
+        {if $q->search}
+        {$locUser->trans(select_all_search_no_item)|mt:[keyword=>"&quot;<span
+            class='searchSelectionFound'>{$q->search}</span>&quot;",module=>"<span
+            class='searchSelectionFound'>{$locUser->trans($current_class->table,module)}</span>"]}
+        {else}
+        {$locUser->trans(select_all_no_item)|mt:[module=>"<span class='searchSelectionFound'>{$locUser->trans($current_class->table,module)}</span>"]}
+        {/if}
+    </div>
+    {if $locUser->privilege($current_class->name(),'insert') && !$current_class->no_insert}
+    <div>
+        <a href="javascript:;"
+           onclick="ATF.tpl2div('{$current_class->name()|urlencode}-insert{*if $foreign_key}-{$foreign_key}{/if*}.div'{if $url_extra},'{$url_extra}'{/if});">
+            {$locUser->trans(cliquez_ici_pour_creer_un_item)}
+        </a>
+    </div>
+    {/if}
+</div>
+{/if}
+</div>
+{if $define_div}
+</div>
+{/if}
+{/if}
+{if ATF::$html->template_exists("{$current_class->table}_select_all_suffix.tpl.htm")}
+{include file="{$current_class->table}_select_all_suffix.tpl.htm" entete=true}
+{/if}
+<script type="text/javascript">/*<![CDATA[*/
+{
+    if !$parent_class || $parent_class - > name() === $current_class - > name() || $parent_class - > onglets[$current_class - > table].opened}
+    if ($('{$div}_content')) {
+        Effect.toggle('{$div}_content', 'blind', { duration: .2 });
+        $('{$current_class->table}_switch2').hide();
+    }
+    {
+        /if}
+        {
+            foreach
+            from = [select, update, delete, insert]
+            item = item
+        }
+        $$('table.listing_table_{$current_class->table} a.{$item}Btn').each(function (element) {
+            var opt = {
+                position: 'rightTop', attach: true, arrow: true, borderSize: 4, radius: 4, css: 'ex3', fadeDuration: .25, delay: .5
+            };
+            Stip.add(element, '{$locUser->trans("generic_select_all_{$item}")|mt:[module=>$locUser->trans($current_class->table,module)]|escape:htmlall}', opt);
+        });
+        {
+            /foreach}
+
+            if ($('quickActionContainer')) {
+                $('quickActionContainer').show()
+            }
+/*]]>*/</script>
+{else}
+{if ATF::$html->template_exists("{$smarty.get.table}_select_all.tpl.htm")}
+{include file="{$smarty.get.table}_select_all.tpl.htm"}
+{else}
+{include file="listing_enfants.tpl.htm" table=$smarty.get.table}
+{/if}
+{/if}

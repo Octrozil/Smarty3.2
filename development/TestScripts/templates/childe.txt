@@ -1,0 +1,6 @@
+
+blall sn
+dmdm {include 'bug1.tpl'} hjdhej
+{counter nocache}
+fejnf 
+gr rgj

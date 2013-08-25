@@ -1,0 +1,1 @@
+{include file="in1.tpl" inline=true}

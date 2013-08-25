@@ -1,0 +1,5 @@
+hallo
+{$foo}
+
+du
+jjjj

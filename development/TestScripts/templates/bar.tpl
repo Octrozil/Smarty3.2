@@ -1,0 +1,1 @@
+{include file='foo.tpl' foo=$foo}

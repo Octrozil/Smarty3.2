@@ -1,0 +1,1 @@
+Test 3 says {$example} {$x} {$y}<br/>

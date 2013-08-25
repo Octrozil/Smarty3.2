@@ -1,0 +1,1 @@
+{block name='content'}{block name="title"}[title placeholder]{/block}{block name="body"}[content]{/block}{/block}

@@ -1,0 +1,6 @@
+<h1>Hardware.Info reviews</h1>
+<hr/>
+{foreach $aProductReviews as $aReview}
+<p style="overflow: hidden;"><img class="thumb redactionThumb" src="{$aReview.sTeaser}" alt=""/><h2>
+    {$aReview.sArticleTitle|escape}</h2></p>
+{/foreach}
