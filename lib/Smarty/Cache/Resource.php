@@ -260,7 +260,7 @@ abstract class Smarty_Cache_Resource extends Smarty_Exception_Magic
                     Smarty_Debug::start_compile($this->source);
                 }
                 $compiler = Smarty_Compiler::load($tpl_obj, $this->source, $this->caching);
-                $compiler->compileTemplateSource($this);
+                $compiler->compileTemplateSource($tpl_obj->compiled);
                 unset($compiler);
                 if ($tpl_obj->debugging) {
                     Smarty_Debug::end_compile($this->source);

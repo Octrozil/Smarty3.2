@@ -1,6 +1,6 @@
 TAP version 13
 ok 1 - CoreTests::test_loadPluginErrorReturn
-not ok 2 - Error: CoreTests::test_loadPluginSmartyInternalDebug
+ok 2 - CoreTests::test_loadPluginSmartyInternalDebug
 ok 3 - CoreTests::test_loadPluginSmartyPluginCounter
 not ok 4 - Error: ClearCompiledTests::testClearAll
 not ok 5 - Error: ClearCompiledTests::testSubsClearAll
@@ -129,7 +129,7 @@ ok 101 - DoubleQuotedStringTests::testExpressionBacktickInDoubleQuotedString
 not ok 102 - Error: DoubleQuotedStringTests::testSmartytagInDoubleQuotedString1
 not ok 103 - Error: DoubleQuotedStringTests::testSmartytagInDoubleQuotedString2
 not ok 104 - Error: DoubleQuotedStringTests::testSmartyBlockTagInDoubleQuotedString1
-ok 105 - DoubleQuotedStringTests::testVarsDelimiterInDoubleQuotedString
+not ok 105 - Error: DoubleQuotedStringTests::testVarsDelimiterInDoubleQuotedString
 ok 106 - DoubleQuotedStringTests::testEscapedQuotesInDoubleQuotedString
 ok 107 - DoubleQuotedStringTests::testSingleQuotesInDoubleQuotedString
 not ok 108 - Error: DoubleQuotedStringTests::testSingleQuoteTagsInDoubleQuotedString
@@ -141,8 +141,8 @@ ok 113 - CompileAssignTests::testAssignOld4
 not ok 114 - Error: CompileAssignTests::testAssignOld5
 ok 115 - CompileAssignTests::testAssignOld6
 ok 116 - CompileAssignTests::testAssignOld7
-ok 117 - CompileAssignTests::testAssignOld8
-ok 118 - CompileAssignTests::testAssignOld9
+not ok 117 - Error: CompileAssignTests::testAssignOld8
+not ok 118 - Error: CompileAssignTests::testAssignOld9
 ok 119 - CompileAssignTests::testAssignShort1
 ok 120 - CompileAssignTests::testAssignShort2
 ok 121 - CompileAssignTests::testAssignNew1
@@ -150,10 +150,10 @@ ok 122 - CompileAssignTests::testAssignNew2
 not ok 123 - Error: CompileAssignTests::testAssignNew3
 ok 124 - CompileAssignTests::testAssignNew4
 ok 125 - CompileAssignTests::testAssignNew5
-ok 126 - CompileAssignTests::testAssignNew6
-ok 127 - CompileAssignTests::testAssignNew7
-ok 128 - CompileAssignTests::testAssignArrayAppend
-ok 129 - CompileAssignTests::testAssignArrayAppend2
+not ok 126 - Error: CompileAssignTests::testAssignNew6
+not ok 127 - Error: CompileAssignTests::testAssignNew7
+not ok 128 - Error: CompileAssignTests::testAssignArrayAppend
+not ok 129 - Error: CompileAssignTests::testAssignArrayAppend2
 not ok 130 - Error: CompileAssignTests::testAssignArrayAppend3
 not ok 131 - Error: CompileAssignTests::testAssignNestedArray
 not ok 132 - Failure: AttributeTests::testRequiredAttributeVar
@@ -187,7 +187,7 @@ ok 143 - AppendTests::testAppendMerge
 ok 144 - AppendTests::testAppendArrayMerge
 ok 145 - AppendTests::testArrayAppend
 ok 146 - AppendTests::testArrayAppendArrayMerge
-ok 147 - ArrayTests::testSimpleArrayDefinition
+not ok 147 - Error: ArrayTests::testSimpleArrayDefinition
 ok 148 - ArrayTests::testSmarty2ArrayAccess
 ok 149 - ArrayTests::testSmarty3ArrayAccess
 ok 150 - ArrayTests::testIndexedArrayDefinition
@@ -198,10 +198,10 @@ not ok 154 - Error: ArrayTests::testArrayMath3
 not ok 155 - Error: ArrayTests::testArrayMath4
 not ok 156 - Error: ArrayTests::testArrayMath5
 not ok 157 - Error: ArrayTests::testArrayMath6
-ok 158 - ArrayTests::testArrayVariableIndex1
-ok 159 - ArrayTests::testArrayVariableIndex2
-ok 160 - ArrayTests::testArrayVariableIndex3
-ok 161 - ArrayTests::testArrayVariableIndex4
+not ok 158 - Error: ArrayTests::testArrayVariableIndex1
+not ok 159 - Error: ArrayTests::testArrayVariableIndex2
+not ok 160 - Error: ArrayTests::testArrayVariableIndex3
+not ok 161 - Error: ArrayTests::testArrayVariableIndex4
 ok 162 - AssignByRefTests::testSimpleAssignByRef
 ok 163 - AssignByRefTests::testSmarty2AssignByRef
 ok 164 - AssignByRefTests::testSmarty2AssignByRef2
@@ -229,7 +229,7 @@ not ok 185 - Error: CacheResourceCustomMysqlTests::testClearCacheCacheIdCompileI
 not ok 186 - Error: CacheResourceCustomMysqlTests::testClearCacheCacheIdCompileId5Sub
 not ok 187 - Error: CacheResourceCustomMysqlTests::testClearCacheCacheFile
 not ok 188 - Error: CacheResourceCustomMysqlTests::testClearCacheCacheFileSub
-not ok 189 - Error: CacheResourceCustomMysqlTests::testFinalCleanup2
+ok 189 - CacheResourceCustomMysqlTests::testFinalCleanup2
 not ok 190 - Error: CacheResourceCustomRegisteredTests::testGetCachedFilepathSubDirs
 not ok 191 - Error: CacheResourceCustomRegisteredTests::testGetCachedFilepathCacheId
 not ok 192 - Error: CacheResourceCustomRegisteredTests::testGetCachedFilepathCompileId
@@ -281,7 +281,7 @@ ok 237 - ClearAssignTests::testSmarty2ClearAssign
 ok 238 - ClearAssignTests::testArrayClearAssign
 ok 239 - ClearAssignTests::testSmarty2ArrayClearAssign
 ok 240 - ClosureTests::testPluginFunction
-ok 241 - ClosureTests::testPluginBlock
+not ok 241 - Error: ClosureTests::testPluginBlock
 ok 242 - ClosureTests::testPluginModifier
 ok 243 - ClosureTests::testPluginModifierCompiler
 ok 244 - ClosureTests::testFilterPre
@@ -309,380 +309,339 @@ not ok 247 - Failure: ClosureTests::testFilterVariable
     got: foo
     expected: 'foo[closure-filter-variable]'
   ...
-not ok 248 - Error: CommentsTests::testSimpleComment1
-not ok 249 - Error: CommentsTests::testSimpleComment2
-not ok 250 - Error: CommentsTests::testSimpleComment3
-not ok 251 - Error: CommentsTests::testSimpleComment4
-not ok 252 - Error: CommentsTests::testSimpleComment5
-not ok 253 - Error: CommentsTests::testTextComment1
-not ok 254 - Error: CommentsTests::testTextComment2
-not ok 255 - Error: CommentsTests::testTextComment3
-not ok 256 - Error: CommentsTests::testTextComment4
-not ok 257 - Error: CommentsTests::testTextComment5
-ok 258 - CompileAppendTests::testAppend1
-ok 259 - CompileAppendTests::testAppend2
-not ok 260 - Error: CompileBlockExtendsTests::testBlockDefault1
-not ok 261 - Error: CompileBlockExtendsTests::testBlockDefault2
-not ok 262 - Error: CompileBlockExtendsTests::testCompileBlockParent
-not ok 263 - Error: CompileBlockExtendsTests::testCompileBlockChild
-not ok 264 - Error: CompileBlockExtendsTests::testCompileBlockChildPrepend
-not ok 265 - Error: CompileBlockExtendsTests::testCompileBlockChildAppend
-not ok 266 - Error: CompileBlockExtendsTests::testCompileBlockChildAppendShortag
-not ok 267 - Error: CompileBlockExtendsTests::testCompileBlockChildSmartyChild
-not ok 268 - Error: CompileBlockExtendsTests::testCompileBlockChildSmartyParent
-not ok 269 - Error: CompileBlockExtendsTests::testCompileBlockChildPlugin
-not ok 270 - Error: CompileBlockExtendsTests::testCompileBlockParentNested
-not ok 271 - Error: CompileBlockExtendsTests::testCompileBlockChildNested
-not ok 272 - Error: CompileBlockExtendsTests::testCompileBlockChildNestedInclude
-not ok 273 - Error: CompileBlockExtendsTests::testCompileBlockGrandChild
-not ok 274 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildPrepend
-not ok 275 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildSmartyChild
-not ok 276 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildAppend
-not ok 277 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildNested
-not ok 278 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildNested3
-not ok 279 - Error: CompileBlockExtendsTests::testCompileBlockChildNestedHide
-not ok 280 - Error: CompileBlockExtendsTests::testCompileBlockChildNestedHideAutoLiteralFalse
-not ok 281 - Error: CompileBlockExtendsTests::testCompileBlockStartSubTemplates
-not ok 282 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildMustCompile1
-not ok 283 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildMustCompile2
-not ok 284 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildMustCompile3
-not ok 285 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildMustCompile4
-not ok 286 - Error: CompileBlockExtendsTests::testCompileBlockSection
-not ok 287 - Error: CompileBlockExtendsTests::testCompileBlockRoot
-not ok 288 - Error: CompileBlockExtendsTests::testCompileBlockRoot2
-not ok 289 - Error: CompileBlockExtendsTests::testCompileBlockNocacheMain1
-not ok 290 - Error: CompileBlockExtendsTests::testCompileBlockNocacheMain2
-not ok 291 - Error: CompileBlockExtendsTests::testCompileBlockNocacheChild1
-not ok 292 - Error: CompileBlockExtendsTests::testCompileBlockNocacheChild2
-not ok 293 - Error: CompileBlockExtendsTests::testCompileBlockIssue127
-ok 294 - CompileBlockPluginTests::testBlockPluginNoAssign
-not ok 295 - Error: CompileBlockPluginTests::testBlockPluginAssign
-ok 296 - CompileBlockPluginTests::testBlockPluginFromTemplateFile
-ok 297 - CompileBlockPluginTests::testBlockPluginFromCompiledTemplateFile
-not ok 298 - Error: CompileBlockPluginTests::testBlockPluginFromTemplateFileCache
-ok 299 - CompileBlockPluginTests::testBlockPluginRegisteredFunction
-ok 300 - CompileBlockPluginTests::testBlockPluginRepeat
-ok 301 - CompileBlockPluginTests::testBlockPluginRepeatModidier1
-ok 302 - CompileBlockPluginTests::testBlockPluginRepeatModidier2
-ok 303 - CompileCaptureTests::testCapture1
-not ok 304 - Failure: CompileCaptureTests::testCapture2
+ok 248 - CommentsTests::testSimpleComment1
+ok 249 - CommentsTests::testSimpleComment2
+ok 250 - CommentsTests::testSimpleComment3
+ok 251 - CommentsTests::testSimpleComment4
+ok 252 - CommentsTests::testSimpleComment5
+ok 253 - CommentsTests::testTextComment1
+ok 254 - CommentsTests::testTextComment2
+ok 255 - CommentsTests::testTextComment3
+ok 256 - CommentsTests::testTextComment4
+ok 257 - CommentsTests::testTextComment5
+not ok 258 - Error: CompileAppendTests::testAppend1
+not ok 259 - Error: CompileAppendTests::testAppend2
+not ok 260 - Error: CompileBlockExtendsTests::testBlockDefault_000_1
+not ok 261 - Error: CompileBlockExtendsTests::testBlockDefault_000_2
+not ok 262 - Error: CompileBlockExtendsTests::testCompileBlockParent_001
+not ok 263 - Error: CompileBlockExtendsTests::testCompileBlockChild_002
+not ok 264 - Error: CompileBlockExtendsTests::testCompileBlockChildPrepend_003
+not ok 265 - Error: CompileBlockExtendsTests::testCompileBlockChildAppend_004
+not ok 266 - Error: CompileBlockExtendsTests::testCompileBlockChildAppendShortag_005
+not ok 267 - Error: CompileBlockExtendsTests::testCompileBlockChildSmartyChild_006
+not ok 268 - Error: CompileBlockExtendsTests::testCompileBlockChildSmartyParent_007
+not ok 269 - Error: CompileBlockExtendsTests::testCompileBlockChildPlugin_008
+not ok 270 - Error: CompileBlockExtendsTests::testCompileBlockParentNested_009
+not ok 271 - Error: CompileBlockExtendsTests::testCompileBlockChildNested_010
+not ok 272 - Error: CompileBlockExtendsTests::testCompileBlockChildNestedInclude_011
+not ok 273 - Error: CompileBlockExtendsTests::testCompileBlockGrandChild_012
+not ok 274 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildPrepend_013
+not ok 275 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildSmartyChild_014
+not ok 276 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildAppend_015
+not ok 277 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildNested_016
+not ok 278 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildNested_017
+not ok 279 - Error: CompileBlockExtendsTests::testCompileBlockChildNestedHide_018
+not ok 280 - Error: CompileBlockExtendsTests::testCompileBlockChildNestedHideAutoLiteralFalse_019
+not ok 281 - Error: CompileBlockExtendsTests::testCompileBlockStartSubTemplates_020
+not ok 282 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildMustCompile_021_1
+not ok 283 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildMustCompile_021_2
+not ok 284 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildMustCompile_021_3
+not ok 285 - Error: CompileBlockExtendsTests::testCompileBlockGrandChildMustCompile_021_4
+not ok 286 - Error: CompileBlockExtendsTests::testDirt_022
+not ok 287 - Error: CompileBlockExtendsTests::testChildStrip_023
+not ok 288 - Error: CompileBlockExtendsTests::testNotExistingChildBlock_024
+not ok 289 - Failure: CompileBlockExtendsTests::testSmartyBlockChildOutsideBlock_025
   ---
-  message: 'Failed asserting that two strings are equal.'
+  message: 'Failed asserting that <string:resource > contains "used outside".'
   severity: fail
-  data:
-    got: bar
-    expected: 'hello world'
   ...
-ok 305 - CompileCaptureTests::testCapture3
-not ok 306 - Error: CompileCaptureTests::testCapture4
-ok 307 - CompileCaptureTests::testCapture5
-ok 308 - CompileCaptureTests::testCapture6
-not ok 309 - Error: CompileCaptureTests::testCapture7
-not ok 310 - Error: CompileCaptureTests::testCapture8
-not ok 311 - Error: CompileCaptureTests::testCompileCaptureNocache1
-not ok 312 - Error: CompileCaptureTests::testCompileCaptureNocache2
-ok 313 - CompileCompilerPluginTests::testCompilerPluginFromTemplateFile
-ok 314 - CompileCompilerPluginTests::testCompilerPluginFromCompiledTemplateFile
-not ok 315 - Error: CompileDebugTests::testDebugTag
-hello worldnot ok 316 - Error: CompileDebugTests::testDebugProperty
-ok 317 - CompileDelimiterTests::testLeftDelimiter
-ok 318 - CompileDelimiterTests::testRightDelimiter
-not ok 319 - Failure: CompileErrorTests::testNoneExistingTemplateError
+not ok 290 - Failure: CompileBlockExtendsTests::testSmartyBlockParentOutsideBlock_026
+  ---
+  message: 'Failed asserting that <string:resource > contains "used outside".'
+  severity: fail
+  ...
+not ok 291 - Failure: CompileBlockExtendsTests::testSmartyBlockParentInParent_027
+  ---
+  message: 'Failed asserting that <string:resource > contains "in parent template".'
+  severity: fail
+  ...
+not ok 292 - Failure: CompileBlockExtendsTests::testVariableExtends_028
+  ---
+  message: 'Failed asserting that <string:resource > contains "variable template file name not allowed".'
+  severity: fail
+  ...
+not ok 293 - Failure: CompileBlockExtendsTests::testVariableExtends_029
+  ---
+  message: 'Failed asserting that <string:resource > contains "variable template file names not allow within {block} tags".'
+  severity: fail
+  ...
+not ok 294 - Error: CompileBlockExtendsTests::testNocacheBlock_030_1
+not ok 295 - Error: CompileBlockExtendsTests::testNocacheBlock_030_2
+not ok 296 - Error: CompileBlockPluginTests::testBlockPluginNoAssign
+not ok 297 - Error: CompileBlockPluginTests::testBlockPluginAssign
+not ok 298 - Error: CompileBlockPluginTests::testBlockPluginFromTemplateFile
+not ok 299 - Error: CompileBlockPluginTests::testBlockPluginFromCompiledTemplateFile
+not ok 300 - Error: CompileBlockPluginTests::testBlockPluginFromTemplateFileCache
+not ok 301 - Error: CompileBlockPluginTests::testBlockPluginRegisteredFunction
+not ok 302 - Error: CompileBlockPluginTests::testBlockPluginRepeat
+ok 303 - CompileBlockPluginTests::testBlockPluginRepeatModidier1
+ok 304 - CompileBlockPluginTests::testBlockPluginRepeatModidier2
+not ok 305 - Error: CompileCaptureTests::testCapture1
+not ok 306 - Error: CompileCaptureTests::testCapture2
+not ok 307 - Error: CompileCaptureTests::testCapture3
+not ok 308 - Error: CompileCaptureTests::testCapture4
+not ok 309 - Error: CompileCaptureTests::testCapture5
+not ok 310 - Error: CompileCaptureTests::testCapture6
+not ok 311 - Error: CompileCaptureTests::testCapture7
+not ok 312 - Error: CompileCaptureTests::testCapture8
+not ok 313 - Error: CompileCaptureTests::testCompileCaptureNocache1
+not ok 314 - Error: CompileCaptureTests::testCompileCaptureNocache2
+ok 315 - CompileCompilerPluginTests::testCompilerPluginFromTemplateFile
+ok 316 - CompileCompilerPluginTests::testCompilerPluginFromCompiledTemplateFile
+not ok 317 - Error: CompileDebugTests::testDebugTag
+hello worldnot ok 318 - Error: CompileDebugTests::testDebugProperty
+ok 319 - CompileDelimiterTests::testLeftDelimiter
+ok 320 - CompileDelimiterTests::testRightDelimiter
+not ok 321 - Failure: CompileErrorTests::testNoneExistingTemplateError
   ---
   message: 'Failed asserting that <string:Undefined variable: source> contains "Unable to load template".'
   severity: fail
   ...
-not ok 320 - Failure: CompileErrorTests::testUnknownTagError
+not ok 322 - Failure: CompileErrorTests::testUnknownTagError
   ---
   message: 'Failed asserting that <string:resource > contains "unknown tag ''{unknown...}''".'
   severity: fail
   ...
-not ok 321 - Failure: CompileErrorTests::testUnclosedTagError
+not ok 323 - Failure: CompileErrorTests::testUnclosedTagError
   ---
   message: 'Failed asserting that <string:resource > contains "unclosed {if} tag".'
   severity: fail
   ...
-not ok 322 - Failure: CompileErrorTests::testSyntaxError
+not ok 324 - Failure: CompileErrorTests::testSyntaxError
   ---
   message: 'Failed asserting that <string:resource > contains "<b>Syntax Error</b> in template <b>''599a9cf0e3623a3206bd02a0f5c151d5f5f3f69e''".'
   severity: fail
   ...
-ok 323 - CompileErrorTests::testEmptyTemplate
-ok 324 - CompileEvalTests::testEval1
-not ok 325 - Error: CompileEvalTests::testEval2
-ok 326 - CompileEvalTests::testEval3
-ok 327 - CompileForTests::testFor1
-ok 328 - CompileForTests::testFor2
-not ok 329 - Failure: CompileForTests::testFor3
-  ---
-  message: 'Failed asserting that two strings are equal.'
-  severity: fail
-  data:
-    got: ' else '
-    expected: else
-  ...
-ok 330 - CompileForTests::testFor4
-not ok 331 - Failure: CompileForTests::testFor5
-  ---
-  message: 'Failed asserting that two strings are equal.'
-  severity: fail
-  data:
-    got: ' else '
-    expected: else
-  ...
-ok 332 - CompileForTests::testFor6
-ok 333 - CompileForTests::testFor7
-ok 334 - CompileForTests::testFor8
-ok 335 - CompileForTests::testFor9
-ok 336 - CompileForTests::testFor10
-ok 337 - CompileForTests::testFor11
-ok 338 - CompileForTests::testFor12
-ok 339 - CompileForTests::testFor13
-ok 340 - CompileForTests::testFor14
-not ok 341 - Error: CompileForTests::testForNocacheVar1
-not ok 342 - Error: CompileForTests::testForNocacheVar2
-not ok 343 - Error: CompileForTests::testForNocacheTag1
-not ok 344 - Error: CompileForTests::testForNocacheTag2
-not ok 345 - Error: CompileForTests::testForCache1
-not ok 346 - Error: CompileForTests::testForCache2
-ok 347 - CompileForeachTests::testForeach
-ok 348 - CompileForeachTests::testForeachBreak
-ok 349 - CompileForeachTests::testForeachContinue
-ok 350 - CompileForeachTests::testForeachNotElse
-not ok 351 - Failure: CompileForeachTests::testForeachElse
-  ---
-  message: 'Failed asserting that two strings are equal.'
-  severity: fail
-  data:
-    got: ' else '
-    expected: else
-  ...
-ok 352 - CompileForeachTests::testForeachKey
-ok 353 - CompileForeachTests::testForeachKeyProperty
-ok 354 - CompileForeachTests::testForeachTotal
-ok 355 - CompileForeachTests::testForeachTotalProperty
-ok 356 - CompileForeachTests::testForeachIndexIteration
-ok 357 - CompileForeachTests::testForeachIndexIterationProperty
-ok 358 - CompileForeachTests::testForeachFirstLast
-ok 359 - CompileForeachTests::testForeachFirstLastProperty
-ok 360 - CompileForeachTests::testForeachShowTrue
-ok 361 - CompileForeachTests::testForeachShowTrueProperty
-not ok 362 - Failure: CompileForeachTests::testForeachShowFalse
-  ---
-  message: 'Failed asserting that two strings are equal.'
-  severity: fail
-  data:
-    got: ' else  noshow'
-    expected: 'else noshow'
-  ...
-not ok 363 - Failure: CompileForeachTests::testForeachShowFalseProperty
-  ---
-  message: 'Failed asserting that two strings are equal.'
-  severity: fail
-  data:
-    got: ' else  noshow'
-    expected: 'else noshow'
-  ...
-ok 364 - CompileForeachTests::testForeachShorttags
-ok 365 - CompileForeachTests::testNewForeach
-ok 366 - CompileForeachTests::testNewForeachNotElse
-not ok 367 - Failure: CompileForeachTests::testNewForeachElse
-  ---
-  message: 'Failed asserting that two strings are equal.'
-  severity: fail
-  data:
-    got: ' else '
-    expected: else
-  ...
-ok 368 - CompileForeachTests::testNewForeachKey
-ok 369 - CompileForeachTests::testNewForeachKeyProperty
-not ok 370 - Error: CompileForeachTests::testForeachNocacheVar1
-not ok 371 - Error: CompileForeachTests::testForeachNocacheVar2
-not ok 372 - Error: CompileForeachTests::testForeachNocacheTag1
-not ok 373 - Error: CompileForeachTests::testForeachNocacheTag2
-not ok 374 - Error: CompileForeachTests::testForeachCache1
-not ok 375 - Error: CompileForeachTests::testForeachCache2
-ok 376 - CompileFunctionPluginTests::testFunctionPluginFromTemplateFile
-ok 377 - CompileFunctionPluginTests::testFunctionPluginFromCompiledTemplateFile
-ok 378 - CompileFunctionPluginTests::testFunctionPluginRegisteredFunction
-ok 379 - CompileFunctionPluginTests::testFunctionPluginParRegisteredFunction
-ok 380 - CompileFunctionPluginTests::testMultiLineTags
-not ok 381 - Error: CompileFunctionTests::testSimpleFunction
-not ok 382 - Error: CompileFunctionTests::testSimpleFunction2
-not ok 383 - Error: CompileFunctionTests::testOverwriteDefaultFunction
-not ok 384 - Error: CompileFunctionTests::testRecursiveFunction
-not ok 385 - Error: CompileFunctionTests::testInheritedFunction
-not ok 386 - Error: CompileFunctionTests::testDefineFunctionInclude
-not ok 387 - Error: CompileFunctionTests::testExternalDefinedFunction
-not ok 388 - Error: CompileFunctionTests::testExternalDefinedFunctionCached1
-not ok 389 - Error: CompileFunctionTests::testExternalDefinedFunctionCached2
-not ok 390 - Error: CompileFunctionTests::testExternalDefinedFunctionNocachedCall1
-not ok 391 - Error: CompileFunctionTests::testExternalDefinedFunctionNocachedCall2
-ok 392 - CompileIfTests::testIf1
-ok 393 - CompileIfTests::testElseif1
-ok 394 - CompileIfTests::testIf2
-ok 395 - CompileIfTests::testIf3
-ok 396 - CompileIfTests::testIf4
-ok 397 - CompileIfTests::testIfTrue
-ok 398 - CompileIfTests::testIfFalse
-ok 399 - CompileIfTests::testIfNot1
-ok 400 - CompileIfTests::testIfNot2
-ok 401 - CompileIfTests::testIfEQ1
-ok 402 - CompileIfTests::testIfEQ2
-ok 403 - CompileIfTests::testIfEQ3
-ok 404 - CompileIfTests::testIfEQ4
-ok 405 - CompileIfTests::testIfIdentity1
-ok 406 - CompileIfTests::testIfIdentity2
-ok 407 - CompileIfTests::testIfNotIdentity1
-ok 408 - CompileIfTests::testIfNotIdentity2
-ok 409 - CompileIfTests::testIfGT1
-ok 410 - CompileIfTests::testIfGT2
-ok 411 - CompileIfTests::testIfGT3
-ok 412 - CompileIfTests::testIfGT4
-ok 413 - CompileIfTests::testIfGE1
-ok 414 - CompileIfTests::testIfGE2
-ok 415 - CompileIfTests::testIfGE3
-ok 416 - CompileIfTests::testIfGE4
-ok 417 - CompileIfTests::testIfLT1
-ok 418 - CompileIfTests::testIfLT2
-ok 419 - CompileIfTests::testIfLT3
-ok 420 - CompileIfTests::testIfLT4
-ok 421 - CompileIfTests::testIfLE1
-ok 422 - CompileIfTests::testIfLE2
-ok 423 - CompileIfTests::testIfLE3
-ok 424 - CompileIfTests::testIfLE4
-ok 425 - CompileIfTests::testIfNE1
-ok 426 - CompileIfTests::testIfNE2
-ok 427 - CompileIfTests::testIfNE3
-ok 428 - CompileIfTests::testIfNE4
-ok 429 - CompileIfTests::testIfIdent1
-ok 430 - CompileIfTests::testIfIdent2
-ok 431 - CompileIfTests::testIfAnd1
-ok 432 - CompileIfTests::testIfAnd2
-ok 433 - CompileIfTests::testIfAnd3
-ok 434 - CompileIfTests::testIfAnd4
-ok 435 - CompileIfTests::testIfOr1
-ok 436 - CompileIfTests::testIfOr2
-ok 437 - CompileIfTests::testIfOr3
-ok 438 - CompileIfTests::testIfOr4
-ok 439 - CompileIfTests::testIfAndOR4
-ok 440 - CompileIfTests::testIfIsDivBy
-ok 441 - CompileIfTests::testIfIsNotDivBy
-ok 442 - CompileIfTests::testIfIsEven
-ok 443 - CompileIfTests::testIfIsNotEven
-ok 444 - CompileIfTests::testIfIsOdd
-ok 445 - CompileIfTests::testIfIsNotOdd
-ok 446 - CompileIfTests::testIfIsOddBy
-ok 447 - CompileIfTests::testIfIsNotOddBy
-ok 448 - CompileIfTests::testIfIsEvenBy
-ok 449 - CompileIfTests::testIfIsNotEvenBy
-ok 450 - CompileIfTests::testIfFunc1
-ok 451 - CompileIfTests::testIfFunc2
-ok 452 - CompileIfTests::testIfFunc3
-not ok 453 - Failure: CompileIfTests::testIfFunc4
-  ---
-  message: 'Failed asserting that two strings are equal.'
-  severity: fail
-  data:
-    got: no
-    expected: yes
-  ...
-ok 454 - CompileIfTests::testIfStatement1
-ok 455 - CompileIfTests::testIfStatement2
-ok 456 - CompileIfTests::testIfVariable1
-ok 457 - CompileIfTests::testIfVariable2
-ok 458 - CompileIfTests::testIfVariableInc1
-not ok 459 - Error: CompileImportTests::testImportStandard
-not ok 460 - Error: CompileImportTests::testImportNocacheSection1
-not ok 461 - Error: CompileImportTests::testImportNocacheSection2
-not ok 462 - Error: CompileImportTests::testImportNocacheTag1
-not ok 463 - Error: CompileImportTests::testImportNocacheTag2
-not ok 464 - Error: CompileIncludePhpTests::testIncludePhpStringFileName
-not ok 465 - Error: CompileIncludePhpTests::testIncludePhpVariableFileName
-not ok 466 - Error: CompileIncludePhpTests::testIncludePhpVariableFileNameShortag
-ok 467 - CompileIncludeTests::testIncludeStandard
-ok 468 - CompileIncludeTests::testIncludeAssign1
-ok 469 - CompileIncludeTests::testIncludeAssign2
-ok 470 - CompileIncludeTests::testIncludePassVars
-ok 471 - CompileIncludeTests::testIncludeLocalScope
-not ok 472 - Error: CompileIncludeTests::testIncludeParentScope
-ok 473 - CompileIncludeTests::testIncludeRootScope
-not ok 474 - Error: CompileIncludeTests::testRecursiveIncludes1
-not ok 475 - Error: CompileIncludeTests::testRecursiveIncludes2
-not ok 476 - Error: CompileIncludeTests::testRecursiveIncludes3
-ok 477 - CompileInsertTests::testInsertFunctionSingle
-ok 478 - CompileInsertTests::testInsertFunctionDouble
-not ok 479 - Error: CompileInsertTests::testInsertFunctionVariableName
-not ok 480 - Error: CompileInsertTests::testInsertPlugin
-not ok 481 - Error: CompileInsertTests::testInsertPluginCaching1
-not ok 482 - Error: CompileInsertTests::testInsertPluginCaching2
-not ok 483 - Error: CompileInsertTests::testInsertPluginCaching3
-ok 484 - CompileInsertTests::testInsertPluginCaching4
-not ok 485 - Error: CompileInsertTests::testInsertFunctionAssign
-ok 486 - CompileInsertTests::testInsertFunctionAssignNoOutput
-not ok 487 - Error: CompileInsertTests::testInsertPluginAssign
-not ok 488 - Failure: CompileInsertTests::testInsertFunctionNoneExistingFunction
+ok 325 - CompileErrorTests::testEmptyTemplate
+ok 326 - CompileEvalTests::testEval1
+not ok 327 - Error: CompileEvalTests::testEval2
+ok 328 - CompileEvalTests::testEval3
+not ok 329 - Error: CompileForTests::testFor1
+not ok 330 - Error: CompileForTests::testFor2
+not ok 331 - Error: CompileForTests::testFor3
+not ok 332 - Error: CompileForTests::testFor4
+not ok 333 - Error: CompileForTests::testFor5
+not ok 334 - Error: CompileForTests::testFor6
+not ok 335 - Error: CompileForTests::testFor7
+not ok 336 - Error: CompileForTests::testFor8
+not ok 337 - Error: CompileForTests::testFor9
+not ok 338 - Error: CompileForTests::testFor10
+not ok 339 - Error: CompileForTests::testFor11
+not ok 340 - Error: CompileForTests::testFor12
+not ok 341 - Error: CompileForTests::testFor13
+not ok 342 - Error: CompileForTests::testFor14
+not ok 343 - Error: CompileForTests::testForNocacheVar1
+not ok 344 - Error: CompileForTests::testForNocacheVar2
+not ok 345 - Error: CompileForTests::testForNocacheTag1
+not ok 346 - Error: CompileForTests::testForNocacheTag2
+not ok 347 - Error: CompileForTests::testForCache1
+not ok 348 - Error: CompileForTests::testForCache2
+not ok 349 - Error: CompileForeachTests::testForeach
+not ok 350 - Error: CompileForeachTests::testForeachBreak
+not ok 351 - Error: CompileForeachTests::testForeachContinue
+not ok 352 - Error: CompileForeachTests::testForeachNotElse
+not ok 353 - Error: CompileForeachTests::testForeachElse
+not ok 354 - Error: CompileForeachTests::testForeachKey
+not ok 355 - Error: CompileForeachTests::testForeachKeyProperty
+not ok 356 - Error: CompileForeachTests::testForeachTotal
+not ok 357 - Error: CompileForeachTests::testForeachTotalProperty
+not ok 358 - Error: CompileForeachTests::testForeachIndexIteration
+not ok 359 - Error: CompileForeachTests::testForeachIndexIterationProperty
+not ok 360 - Error: CompileForeachTests::testForeachFirstLast
+not ok 361 - Error: CompileForeachTests::testForeachFirstLastProperty
+not ok 362 - Error: CompileForeachTests::testForeachShowTrue
+not ok 363 - Error: CompileForeachTests::testForeachShowTrueProperty
+not ok 364 - Error: CompileForeachTests::testForeachShowFalse
+not ok 365 - Error: CompileForeachTests::testForeachShowFalseProperty
+not ok 366 - Error: CompileForeachTests::testForeachShorttags
+not ok 367 - Error: CompileForeachTests::testNewForeach
+not ok 368 - Error: CompileForeachTests::testNewForeachNotElse
+not ok 369 - Error: CompileForeachTests::testNewForeachElse
+not ok 370 - Error: CompileForeachTests::testNewForeachKey
+not ok 371 - Error: CompileForeachTests::testNewForeachKeyProperty
+not ok 372 - Error: CompileForeachTests::testForeachNocacheVar1
+not ok 373 - Error: CompileForeachTests::testForeachNocacheVar2
+not ok 374 - Error: CompileForeachTests::testForeachNocacheTag1
+not ok 375 - Error: CompileForeachTests::testForeachNocacheTag2
+not ok 376 - Error: CompileForeachTests::testForeachCache1
+not ok 377 - Error: CompileForeachTests::testForeachCache2
+ok 378 - CompileFunctionPluginTests::testFunctionPluginFromTemplateFile
+ok 379 - CompileFunctionPluginTests::testFunctionPluginFromCompiledTemplateFile
+ok 380 - CompileFunctionPluginTests::testFunctionPluginRegisteredFunction
+ok 381 - CompileFunctionPluginTests::testFunctionPluginParRegisteredFunction
+ok 382 - CompileFunctionPluginTests::testMultiLineTags
+not ok 383 - Error: CompileFunctionTests::testSimpleFunction
+not ok 384 - Error: CompileFunctionTests::testSimpleFunction2
+not ok 385 - Error: CompileFunctionTests::testOverwriteDefaultFunction
+not ok 386 - Error: CompileFunctionTests::testRecursiveFunction
+not ok 387 - Error: CompileFunctionTests::testInheritedFunction
+not ok 388 - Error: CompileFunctionTests::testDefineFunctionInclude
+not ok 389 - Error: CompileFunctionTests::testExternalDefinedFunction
+not ok 390 - Error: CompileFunctionTests::testExternalDefinedFunctionCached1
+not ok 391 - Error: CompileFunctionTests::testExternalDefinedFunctionCached2
+not ok 392 - Error: CompileFunctionTests::testExternalDefinedFunctionNocachedCall1
+not ok 393 - Error: CompileFunctionTests::testExternalDefinedFunctionNocachedCall2
+not ok 394 - Error: CompileIfTests::testIf1
+not ok 395 - Error: CompileIfTests::testElseif1
+not ok 396 - Error: CompileIfTests::testIf2
+not ok 397 - Error: CompileIfTests::testIf3
+not ok 398 - Error: CompileIfTests::testIf4
+not ok 399 - Error: CompileIfTests::testIfTrue
+not ok 400 - Error: CompileIfTests::testIfFalse
+not ok 401 - Error: CompileIfTests::testIfNot1
+not ok 402 - Error: CompileIfTests::testIfNot2
+not ok 403 - Error: CompileIfTests::testIfEQ1
+not ok 404 - Error: CompileIfTests::testIfEQ2
+not ok 405 - Error: CompileIfTests::testIfEQ3
+not ok 406 - Error: CompileIfTests::testIfEQ4
+not ok 407 - Error: CompileIfTests::testIfIdentity1
+not ok 408 - Error: CompileIfTests::testIfIdentity2
+not ok 409 - Error: CompileIfTests::testIfNotIdentity1
+not ok 410 - Error: CompileIfTests::testIfNotIdentity2
+not ok 411 - Error: CompileIfTests::testIfGT1
+not ok 412 - Error: CompileIfTests::testIfGT2
+not ok 413 - Error: CompileIfTests::testIfGT3
+not ok 414 - Error: CompileIfTests::testIfGT4
+not ok 415 - Error: CompileIfTests::testIfGE1
+not ok 416 - Error: CompileIfTests::testIfGE2
+not ok 417 - Error: CompileIfTests::testIfGE3
+not ok 418 - Error: CompileIfTests::testIfGE4
+not ok 419 - Error: CompileIfTests::testIfLT1
+not ok 420 - Error: CompileIfTests::testIfLT2
+not ok 421 - Error: CompileIfTests::testIfLT3
+not ok 422 - Error: CompileIfTests::testIfLT4
+not ok 423 - Error: CompileIfTests::testIfLE1
+not ok 424 - Error: CompileIfTests::testIfLE2
+not ok 425 - Error: CompileIfTests::testIfLE3
+not ok 426 - Error: CompileIfTests::testIfLE4
+not ok 427 - Error: CompileIfTests::testIfNE1
+not ok 428 - Error: CompileIfTests::testIfNE2
+not ok 429 - Error: CompileIfTests::testIfNE3
+not ok 430 - Error: CompileIfTests::testIfNE4
+not ok 431 - Error: CompileIfTests::testIfIdent1
+not ok 432 - Error: CompileIfTests::testIfIdent2
+not ok 433 - Error: CompileIfTests::testIfAnd1
+not ok 434 - Error: CompileIfTests::testIfAnd2
+not ok 435 - Error: CompileIfTests::testIfAnd3
+not ok 436 - Error: CompileIfTests::testIfAnd4
+not ok 437 - Error: CompileIfTests::testIfOr1
+not ok 438 - Error: CompileIfTests::testIfOr2
+not ok 439 - Error: CompileIfTests::testIfOr3
+not ok 440 - Error: CompileIfTests::testIfOr4
+not ok 441 - Error: CompileIfTests::testIfAndOR4
+not ok 442 - Error: CompileIfTests::testIfIsDivBy
+not ok 443 - Error: CompileIfTests::testIfIsNotDivBy
+not ok 444 - Error: CompileIfTests::testIfIsEven
+not ok 445 - Error: CompileIfTests::testIfIsNotEven
+not ok 446 - Error: CompileIfTests::testIfIsOdd
+not ok 447 - Error: CompileIfTests::testIfIsNotOdd
+not ok 448 - Error: CompileIfTests::testIfIsOddBy
+not ok 449 - Error: CompileIfTests::testIfIsNotOddBy
+not ok 450 - Error: CompileIfTests::testIfIsEvenBy
+not ok 451 - Error: CompileIfTests::testIfIsNotEvenBy
+not ok 452 - Error: CompileIfTests::testIfFunc1
+not ok 453 - Error: CompileIfTests::testIfFunc2
+not ok 454 - Error: CompileIfTests::testIfFunc3
+not ok 455 - Error: CompileIfTests::testIfFunc4
+not ok 456 - Error: CompileIfTests::testIfStatement1
+not ok 457 - Error: CompileIfTests::testIfStatement2
+not ok 458 - Error: CompileIfTests::testIfVariable1
+not ok 459 - Error: CompileIfTests::testIfVariable2
+not ok 460 - Error: CompileIfTests::testIfVariableInc1
+not ok 461 - Error: CompileImportTests::testImportStandard
+not ok 462 - Error: CompileImportTests::testImportNocacheSection1
+not ok 463 - Error: CompileImportTests::testImportNocacheSection2
+not ok 464 - Error: CompileImportTests::testImportNocacheTag1
+not ok 465 - Error: CompileImportTests::testImportNocacheTag2
+not ok 466 - Error: CompileIncludePhpTests::testIncludePhpStringFileName
+not ok 467 - Error: CompileIncludePhpTests::testIncludePhpVariableFileName
+not ok 468 - Error: CompileIncludePhpTests::testIncludePhpVariableFileNameShortag
+ok 469 - CompileIncludeTests::testIncludeStandard
+ok 470 - CompileIncludeTests::testIncludeAssign1
+ok 471 - CompileIncludeTests::testIncludeAssign2
+ok 472 - CompileIncludeTests::testIncludePassVars
+ok 473 - CompileIncludeTests::testIncludeLocalScope
+not ok 474 - Error: CompileIncludeTests::testIncludeParentScope
+ok 475 - CompileIncludeTests::testIncludeRootScope
+not ok 476 - Error: CompileIncludeTests::testRecursiveIncludes1
+not ok 477 - Error: CompileIncludeTests::testRecursiveIncludes2
+not ok 478 - Error: CompileIncludeTests::testRecursiveIncludes3
+ok 479 - CompileInsertTests::testInsertFunctionSingle
+ok 480 - CompileInsertTests::testInsertFunctionDouble
+not ok 481 - Error: CompileInsertTests::testInsertFunctionVariableName
+not ok 482 - Error: CompileInsertTests::testInsertPlugin
+not ok 483 - Error: CompileInsertTests::testInsertPluginCaching1
+not ok 484 - Error: CompileInsertTests::testInsertPluginCaching2
+not ok 485 - Error: CompileInsertTests::testInsertPluginCaching3
+ok 486 - CompileInsertTests::testInsertPluginCaching4
+not ok 487 - Error: CompileInsertTests::testInsertFunctionAssign
+ok 488 - CompileInsertTests::testInsertFunctionAssignNoOutput
+not ok 489 - Error: CompileInsertTests::testInsertPluginAssign
+not ok 490 - Failure: CompileInsertTests::testInsertFunctionNoneExistingFunction
   ---
   message: 'Failed asserting that <string:resource > contains "{insert} no function or plugin found for ''mustfail''".'
   severity: fail
   ...
-not ok 489 - Failure: CompileInsertTests::testInsertFunctionNoneExistingScript
+not ok 491 - Failure: CompileInsertTests::testInsertFunctionNoneExistingScript
   ---
   message: 'Failed asserting that <string:resource > contains "missing script file".'
   severity: fail
   ...
-not ok 490 - Error: CompileNocacheTests::testNocacheCachingNo
-not ok 491 - Error: CompileNocacheTests::testNocacheCachingYes1
-not ok 492 - Error: CompileNocacheTests::testNocacheCachingYes2
-not ok 493 - Error: CompileRegisteredObjectFunctionTests::testRegisteredObjectFunction
-not ok 494 - Error: CompileRegisteredObjectFunctionTests::testRegisteredObjectFunctionModifier
-ok 495 - CompileRegisteredObjectFunctionTests::testRegisteredObjectBlockFunction
-ok 496 - CompileRegisteredObjectFunctionTests::testRegisteredObjectBlockFunctionModifier1
-ok 497 - CompileRegisteredObjectFunctionTests::testRegisteredObjectBlockFunctionModifier2
-ok 498 - CompileSectionTests::testSection1
-ok 499 - CompileSectionTests::testSection2
-not ok 500 - Failure: CompileSectionTests::testSection3
-  ---
-  message: 'Failed asserting that two strings are equal.'
-  severity: fail
-  data:
-    got: ' else '
-    expected: else
-  ...
-ok 501 - CompileSectionTests::testSection4
-ok 502 - CompileSectionTests::testSection6
-ok 503 - CompileSectionTests::testSection7
-not ok 504 - Error: CompileSetfilterTests::testNestedSetfilter
-ok 505 - CompileStripTests::testStrip
-not ok 506 - Error: CompileWhileTests::testWhileCondition
-not ok 507 - Error: CompileWhileTests::testWhileStatement
+not ok 492 - Error: CompileNocacheTests::testNocacheCachingNo
+not ok 493 - Error: CompileNocacheTests::testNocacheCachingYes1
+not ok 494 - Error: CompileNocacheTests::testNocacheCachingYes2
+not ok 495 - Error: CompileRegisteredObjectFunctionTests::testRegisteredObjectFunction
+not ok 496 - Error: CompileRegisteredObjectFunctionTests::testRegisteredObjectFunctionModifier
+not ok 497 - Error: CompileRegisteredObjectFunctionTests::testRegisteredObjectBlockFunction
 
-Fatal error: Smarty_Autoloader::autoload(): Failed opening required 'C:\wamp\www\Smarty3.2\lib/Smarty/Compiler/Template/Tag.php' (include_path='.;C:\wamp\bin\php\php5.4.3\pear') in C:\wamp\www\Smarty3.2\lib\Smarty\Autoloader.php on line 62
+Parse error: syntax error, unexpected end of file in C:\wamp\www\Smarty3.2\lib\Smarty\Compiled\Resource.php(117) : eval()'d code on line 43
 
 Call Stack:
     0.0014     232568   1. {main}() C:\wamp\bin\php\php5.4.3\phpunit:0
-    0.6040     542368   2. PHPUnit_TextUI_Command::main() C:\wamp\bin\php\php5.4.3\phpunit:49
-    0.6041     547840   3. PHPUnit_TextUI_Command->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\Command.php:129
-    2.5261   23252976   4. PHPUnit_TextUI_TestRunner->doRun() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\Command.php:188
-    2.5361   23393424   5. PHPUnit_Framework_TestSuite->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\TestRunner.php:305
-   63.8410   61172880   6. PHPUnit_Framework_TestSuite->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:693
-   63.8411   61173368   7. PHPUnit_Framework_TestSuite->runTest() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:733
-   63.8411   61173368   8. PHPUnit_Framework_TestCase->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:757
-   63.8412   61174440   9. PHPUnit_Framework_TestResult->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:576
-   63.8413   61175448  10. PHPUnit_Framework_TestCase->runBare() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestResult.php:666
-   63.8422   61204536  11. PHPUnit_Framework_TestCase->runTest() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:628
-   63.8422   61205824  12. ReflectionMethod->invokeArgs() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:738
-   63.8422   61205856  13. CompilerPluginTests->testCompilerPlugin() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:738
-   63.8422   61206352  14. Smarty->fetch() C:\wamp\www\Smarty3.2\development\PHPunit\CompilerPluginTests.php:31
-   63.8423   61208176  15. Smarty->_LoadCompiledTemplate() C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:994
-   63.8427   61209416  16. Smarty_Compiled_Resource->loadTemplate() C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2387
-   63.8428   61215016  17. Smarty_Compiler_Template_Php_Compiler->compileTemplate() C:\wamp\www\Smarty3.2\lib\Smarty\Compiled\Resource.php:113
-   63.8430   61233688  18. Smarty_Compiler_Template_Php_Compiler->doCompile() C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:484
-   63.8451   61236648  19. Smarty_Compiler_Template_PHP_Parser->doParse() C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:378
-   63.8459   61236344  20. Smarty_Compiler_Template_PHP_Parser->yy_reduce() C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:3226
-   63.8459   61236440  21. Smarty_Compiler_Template_PHP_Parser->yy_r37() C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:3113
-   63.8459   61236440  22. Smarty_Compiler_Template_Php_Compiler->compileTag() C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2341
-   63.8485   61237280  23. Smarty->_loadPlugin() C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:590
-   63.8499   61247912  24. require_once('C:\wamp\www\Smarty3.2\development\PHPunit\PHPunitplugins\compiler.test.php') C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2089
-   63.8500   61248280  25. Smarty_Autoloader::autoload() C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:0
+    0.5997     542368   2. PHPUnit_TextUI_Command::main() C:\wamp\bin\php\php5.4.3\phpunit:49
+    0.5998     547840   3. PHPUnit_TextUI_Command->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\Command.php:129
+    2.4762   23193024   4. PHPUnit_TextUI_TestRunner->doRun() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\Command.php:188
+    2.4866   23333472   5. PHPUnit_Framework_TestSuite->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\TestRunner.php:305
+   81.9965   71845840   6. PHPUnit_Framework_TestSuite->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:693
+   82.0239   72261952   7. PHPUnit_Framework_TestSuite->runTest() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:733
+   82.0239   72261952   8. PHPUnit_Framework_TestCase->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:757
+   82.0240   72261904   9. PHPUnit_Framework_TestResult->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:576
+   82.0241   72262912  10. PHPUnit_Framework_TestCase->runBare() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestResult.php:666
+   82.0250   72288224  11. PHPUnit_Framework_TestCase->runTest() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:628
+   82.0250   72289056  12. ReflectionMethod->invokeArgs() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:738
+   82.0250   72289088  13. CompileRegisteredObjectFunctionTests->testRegisteredObjectBlockFunctionModifier1() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:738
+   82.0252   72291856  14. Smarty->fetch() C:\wamp\www\Smarty3.2\development\PHPunit\CompileRegisteredObjectFunctionTests.php:59
+   82.0252   72292192  15. Smarty->_LoadCompiledTemplate() C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:994
+   82.0256   72293432  16. Smarty_Compiled_Resource->loadTemplate() C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2388
+
+
+Fatal error: Class '' not found in C:\wamp\www\Smarty3.2\lib\Smarty\Compiled\Resource.php on line 122
+
+Call Stack:
+    0.0014     232568   1. {main}() C:\wamp\bin\php\php5.4.3\phpunit:0
+    0.5997     542368   2. PHPUnit_TextUI_Command::main() C:\wamp\bin\php\php5.4.3\phpunit:49
+    0.5998     547840   3. PHPUnit_TextUI_Command->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\Command.php:129
+    2.4762   23193024   4. PHPUnit_TextUI_TestRunner->doRun() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\Command.php:188
+    2.4866   23333472   5. PHPUnit_Framework_TestSuite->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\TextUI\TestRunner.php:305
+   81.9965   71845840   6. PHPUnit_Framework_TestSuite->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:693
+   82.0239   72261952   7. PHPUnit_Framework_TestSuite->runTest() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:733
+   82.0239   72261952   8. PHPUnit_Framework_TestCase->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestSuite.php:757
+   82.0240   72261904   9. PHPUnit_Framework_TestResult->run() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:576
+   82.0241   72262912  10. PHPUnit_Framework_TestCase->runBare() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestResult.php:666
+   82.0250   72288224  11. PHPUnit_Framework_TestCase->runTest() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:628
+   82.0250   72289056  12. ReflectionMethod->invokeArgs() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:738
+   82.0250   72289088  13. CompileRegisteredObjectFunctionTests->testRegisteredObjectBlockFunctionModifier1() C:\wamp\bin\php\php5.4.3\pear\PHPUnit\Framework\TestCase.php:738
+   82.0252   72291856  14. Smarty->fetch() C:\wamp\www\Smarty3.2\development\PHPunit\CompileRegisteredObjectFunctionTests.php:59
+   82.0252   72292192  15. Smarty->_LoadCompiledTemplate() C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:994
+   82.0256   72293432  16. Smarty_Compiled_Resource->loadTemplate() C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2388
 

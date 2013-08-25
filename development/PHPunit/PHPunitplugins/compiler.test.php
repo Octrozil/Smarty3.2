@@ -1,6 +1,6 @@
 <?php
 // compiler.test.php
-class smarty_compiler_test extends Smarty_Compiler_Template_Tag
+class smarty_compiler_test extends Smarty_Compiler_Template_Php_Tag
 {
     public function compile($args, $compiler)
     {
@@ -16,7 +16,7 @@ class smarty_compiler_test extends Smarty_Compiler_Template_Tag
 }
 
 // compiler.testclose.php
-class smarty_compiler_testclose extends Smarty_Compiler_Template_Tag
+class smarty_compiler_testclose extends Smarty_Compiler_Template_Php_Tag
 {
     public function compile($args, $compiler)
     {

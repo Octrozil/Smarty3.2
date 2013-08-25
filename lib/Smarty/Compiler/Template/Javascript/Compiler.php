@@ -218,8 +218,8 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
     public $compiled_footer_code = null;
 
     /**
-
-    /**
+     *
+     * /**
      * plugins loaded by default plugin handler
      *
      * @var array
@@ -327,11 +327,11 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
     /**
      * Initialize compiler
      *
-     * @param string          $lexer_class  class name
-     * @param string          $parser_class class name
+     * @param string $lexer_class  class name
+     * @param string $parser_class class name
      * @param Smarty_Resource $source
-     * @param boolean         $caching      flag if caching enabled
-     * @param Smarty          $tpl_obj
+     * @param boolean $caching      flag if caching enabled
+     * @param Smarty $tpl_obj
      */
     public function __construct($lexer_class, $parser_class, $tpl_obj, $source, $caching)
     {
@@ -367,8 +367,10 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
           tags in the templates are replaces with PHP code,
           then written to compiled files. */
 
-        if ($this->tpl_obj->_parserdebug)
+        if ($this->tpl_obj->_parserdebug) {
             $this->parser->PrintTrace();
+            $this->lex->PrintTrace();
+        }
         // get tokens from lexer and parse them
         while ($this->lex->yylex()) {
             if ($this->tpl_obj->_parserdebug) {
@@ -510,8 +512,8 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
      * It executes the required compile plugin for the Smarty tag
      *
      * @param  string $tag       tag name
-     * @param  array  $args      array with tag attributes
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $args      array with tag attributes
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compileTag($tag, $args, $parameter = array())
@@ -596,7 +598,7 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
                     } else {
                         if ($function = $this->getPlugin($tag, $plugin_type)) {
                             if (!isset($this->tpl_obj->security_policy) || $this->tpl_obj->security_policy->isTrustedTag($tag, $this)) {
-                                return $this->compileCoreTag('Internal_Plugin'. ucfirst($plugin_type), $args, $parameter, $tag, $function);
+                                return $this->compileCoreTag('Internal_Plugin' . ucfirst($plugin_type), $args, $parameter, $tag, $function);
                             }
                         }
                     }
@@ -668,10 +670,10 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
      * class name format:  Smarty_Compiler_Template_Javascript_Tag_TagName
      *
      * @param  string $tag    tag name
-     * @param  array  $args   list of tag attributes
-     * @param  mixed  $param1 optional parameter
-     * @param  mixed  $param2 optional parameter
-     * @param  mixed  $param3 optional parameter
+     * @param  array $args   list of tag attributes
+     * @param  mixed $param1 optional parameter
+     * @param  mixed $param2 optional parameter
+     * @param  mixed $param3 optional parameter
      * @return string compiled code
      */
     public function compileCoreTag($tag, $args, $param1 = null, $param2 = null, $param3 = null)
@@ -685,10 +687,15 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
         if (!isset($this->tpl_obj->security_policy) || $this->tpl_obj->security_policy->isTrustedTag($tag, $this)) {
             $class = 'Smarty_Compiler_Template_Javascript_Tag_' . $tag;
             if (!class_exists($class, false)) {
-                if (is_file($file = SMARTY_DIR . str_replace(array('_', "\0"), array('/', ''), $class) . '.php')) {
-                    require $file;
-                } else {
-                    return false;
+                if (!Smarty_Autoloader::autoload($class, true)) {
+                    if (substr($tag, -5) == 'close') {
+                        $base_class = substr($tag, 0, -5);
+                        if (!Smarty_Autoloader::autoload($base_class, true) || !class_exists($class, false)) {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
                 }
             }
             self::$_tag_objects[$tag] = new $class;
@@ -705,18 +712,19 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
      * @param  string $variable name of variable
      * @return string code
      */
-    public function compileVariable($variable)
+    public
+    function compileVariable($variable)
     {
-        if (strpos($variable,'(') === false) {
+        if (strpos($variable, '(') === false) {
             // not a variable variable
-            $var = trim($variable,'\'"');
-            $this->tag_nocache=$this->tag_nocache|$this->tpl_obj->getVariable($var, null, true, false, 'nocache');
+            $var = trim($variable, '\'"');
+            $this->tag_nocache = $this->tag_nocache | $this->tpl_obj->getVariable($var, null, true, false, 'nocache');
 //			    $this->compiler->tpl_obj->properties['variables'][$var] = $this->compiler->tag_nocache|$this->compiler->nocache;
         } else {
-            $var = '{'.$variable.'}';
+            $var = '{' . $variable . '}';
         }
 
-        return '$_scope->'. $var . '->value';
+        return '$_scope->' . $var . '->value';
     }
 
     /**
@@ -724,7 +732,8 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
      *
      * @return bool if text buffer not empty
      */
-    public function compileFlushText()
+    public
+    function compileFlushText()
     {
         if (!empty($this->text_buffer)) {
             $this->template_code->addSourceLineNo($this->lex->taglineno);
@@ -746,7 +755,8 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
      * @param  string $plugin_type type of plugin
      * @return string call name of function
      */
-    public function getPlugin($plugin_name, $plugin_type)
+    public
+    function getPlugin($plugin_name, $plugin_type)
     {
         $function = null;
         if ($this->caching && ($this->nocache || $this->tag_nocache)) {
@@ -800,11 +810,12 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
     /**
      * Check for plugins by default plugin handler
      *
-     * @param  string  $tag         name of tag
-     * @param  string  $plugin_type type of plugin
+     * @param  string $tag         name of tag
+     * @param  string $plugin_type type of plugin
      * @return boolean true if found
      */
-    public function getPluginFromDefaultHandler($tag, $plugin_type)
+    public
+    function getPluginFromDefaultHandler($tag, $plugin_type)
     {
         $callback = null;
         $script = null;
@@ -850,11 +861,12 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
      * If the content is compiled code and it should be not cached the code is injected
      * into the rendered output.
      *
-     * @param  string  $tagCode code of template element
+     * @param  string $tagCode code of template element
      * @param  boolean $is_code true if content is compiled code
      * @return string  content
      */
-    public function nocacheCode($tagCode, $is_code)
+    public
+    function nocacheCode($tagCode, $is_code)
     {
         // If the template is not evaluated and we have a nocache section and or a nocache tag
         if ($is_code && (!empty($this->prefix_code) || !empty($this->postfix_code) || !empty($tagCode->buffer))) {
@@ -874,7 +886,7 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
                     $code->mergeCode($prefix_code);
                 }
                 $code->mergeCode($tagCode);
-                 $this->template_code->php("echo \"/*%%SmartyNocache%%*/" . str_replace(array("^#^", "^##^"), array('"', '$'), addcslashes($code->buffer, "\0\t\"\$\\")) . "/*/%%SmartyNocache%%*/\";\n");
+                $this->template_code->php("echo \"/*%%SmartyNocache%%*/" . str_replace(array("^#^", "^##^"), array('"', '$'), addcslashes($code->buffer, "\0\t\"\$\\")) . "/*/%%SmartyNocache%%*/\";\n");
                 foreach ($this->postfix_code as $postfix_code) {
                     $this->template_code->mergeCode($postfix_code);
                 }
@@ -916,11 +928,12 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
      *
      * If parameter $msg contains a string this is used as error message
      *
-     * @param  string                    $msg  individual error message or null
-     * @param  string                    $line line-number
+     * @param  string $msg  individual error message or null
+     * @param  string $line line-number
      * @throws Smarty_Exception_Compiler when an unexpected token is found
      */
-    public function error($msg = null, $line = null)
+    public
+    function error($msg = null, $line = null)
     {
         // get template source line which has error
         if (!isset($line)) {
@@ -935,10 +948,11 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
      * Create Smarty content class for compiled template files
      *
      * @param  Smarty $tpl_obj    template object
-     * @param  bool   $noinstance flag if code for creating instance shall be suppressed
+     * @param  bool $noinstance flag if code for creating instance shall be suppressed
      * @return string
      */
-    public function _createSmartyContentClass(Smarty $tpl_obj, $noinstance = false)
+    public
+    function _createSmartyContentClass(Smarty $tpl_obj, $noinstance = false)
     {
         $template_code = new Smarty_Compiler_Code();
         $template_code->php("<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . " compiled from \"{$this->source->filepath}\" */")->newline();

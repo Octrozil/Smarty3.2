@@ -105,8 +105,10 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
         // init the lexer/parser to compile the config file
         $this->lex = new $this->lexer_class($_content, $this);
         $this->parser = new $this->parser_class($this->lex, $this);
-        if ($this->tpl_obj->_parserdebug)
+        if ($this->tpl_obj->_parserdebug) {
             $this->parser->PrintTrace();
+            $this->lex->PrintTrace();
+        }
         // get tokens from lexer and parse them
         while ($this->lex->yylex()) {
             if ($this->tpl_obj->_parserdebug)
@@ -152,7 +154,7 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
      *
      * If parameter $args contains a string this is used as error message
      *
-     * @param  string                    $args individual error message or null
+     * @param  string $args individual error message or null
      * @throws Smarty_Exception_Compiler
      */
     public function trigger_config_file_error($args = null)

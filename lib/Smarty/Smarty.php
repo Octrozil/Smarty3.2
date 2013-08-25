@@ -1513,7 +1513,6 @@ class Smarty extends Smarty_Variable_Methods
             }
             if (is_callable($_plugin)) {
                 $this->registered_filters[$type][$_filter_name] = $_plugin;
-
                 return true;
             }
         }
@@ -2049,16 +2048,18 @@ class Smarty extends Smarty_Variable_Methods
      * plugin filename format: plugintype.pluginname.php
      *
      * @internal
-     * @param  string           $plugin_name class plugin name to load
-     * @param  bool             $check       check if already loaded
+     * @param  string           $plugin_name    plugin or class name
+     * @param  bool             $check          check if already loaded
      * @throws Smarty_Exception
-     * @return string           |boolean filepath of loaded file or false
+     * @return string|boolean   filepath of loaded plugin | true if it was a Smarty core class || false if not found
      */
     public function _loadPlugin($plugin_name, $check = true)
     {
-        // if function or class exists, exit silently (already loaded)
-        if ($check && (is_callable($plugin_name) || class_exists($plugin_name, false))) {
-            return true;
+        if ($check) {
+            // if function or class exists, exit silently (already loaded)
+            if (is_callable($plugin_name) || class_exists($plugin_name, false) || Smarty_Autoloader::autoload($plugin_name, true)) {
+                return true;
+            }
         }
         // Plugin name is expected to be: Smarty_[Type]_[Name]
         $_name_parts = explode('_', $plugin_name, 3);
@@ -2489,10 +2490,6 @@ class Smarty extends Smarty_Variable_Methods
                 } else {
                     return new Smarty_Resource_Registered();
                 }
-            } elseif (is_file($file = Smarty_Autoloader::$smarty_path . str_replace('_', '/', $resource_class) . '.php')) {
-                // try Smarty core Rescource
-                require $file;
-                $res_obj = new $resource_class($this);
             } elseif ($this->_loadPlugin($resource_class)) {
                 if (class_exists($resource_class, false)) {
                     $res_obj = new $resource_class();
@@ -2716,7 +2713,8 @@ class Smarty extends Smarty_Variable_Methods
             case 'compiled':
                 return $this->_loadResource(self::COMPILED)->populateResource($this, $this->source, $this->compile_id, $this->caching);
             case 'cached':
-                return $this->_loadCached($this->source, $this->compile_id, $this->cache_id, $this->caching);
+                return $this->_loadCachedTemplate($this->source, $this->parent, $this->compile_id,
+                    $this->cache_id, $this->caching);
             case 'mustCompile':
                 return !$this->compiled->isValid;
 

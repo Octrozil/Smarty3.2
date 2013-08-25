@@ -29,20 +29,25 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
     Public $ldel_length;
     Public $mbstring_overload;
     private $heredoc_id_stack = Array();
+    public static $yyTraceFILE;
+    public static $yyTracePrompt;
+
     public $smarty_token_names = array (		// Text for parser error messages
-    				'IDENTITY'	=> '===',
-    				'NONEIDENTITY'	=> '!==',
-    				'EQUALS'	=> '==',
-    				'NOTEQUALS'	=> '!=',
-    				'GREATEREQUAL' => '(>=,ge)',
-    				'LESSEQUAL' => '(<=,le)',
-    				'GREATERTHAN' => '(>,gt)',
-    				'LESSTHAN' => '(<,lt)',
-    				'MOD' => '(%,mod)',
+                    'IFCOND'    => '(==,eq,!=,<>,neq,ne,>,gt,<,lt,>=,ge,gte,<=,le,lte,===,!==,%,mod)',
+//    				'IDENTITY'	=> '===',
+//    				'NONEIDENTITY'	=> '!==',
+//    				'EQUALS'	=> '==',
+//    				'NOTEQUALS'	=> '!=',
+//    				'GREATEREQUAL' => '(>=,ge)',
+//    				'LESSEQUAL' => '(<=,le)',
+//    				'GREATERTHAN' => '(>,gt)',
+//    				'LESSTHAN' => '(<,lt)',
+//    				'MOD' => '(%,mod)',
     				'NOT'			=> '(!,not)',
-    				'LAND'		=> '(&&,and)',
-    				'LOR'			=> '(||,or)',
-    				'LXOR'			=> 'xor',
+    				'LPO'		=> '(&&,and,||,or,xor)',
+//    				'LAND'		=> '(&&,and)',
+//    				'LOR'			=> '(|,,or)',
+//    				'LXOR'			=> 'xor',
     				'OPENP'		=> '(',
     				'CLOSEP'	=> ')',
     				'OPENB'		=> '[',
@@ -51,6 +56,7 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
     				'APTR'		=> '=>',
     				'EQUAL'		=> '=',
     				'NUMBER'	=> 'number',
+    				'INTEGER'	=> 'Integer',
     				'UNIMATH'	=> '+" , "-',
     				'MATH'		=> '*" , "/" , "%',
     				'SPACE'		=> ' ',
@@ -101,11 +107,17 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
         $this->mbstring_overload = ini_get('mbstring.func_overload') & 2;
      }
 
+    public static function PrintTrace()
+    {
+        self::$yyTraceFILE = fopen('php://output', 'w');
+        self::$yyTracePrompt = '<br>';
+    }
+
      function autoLiteral ($value) {
         if ($this->compiler->tpl_obj->auto_literal) {
-            if ($pos = strrpos($value, '-') {
+            if (false !== $pos = strrpos($value, '-')) {
                 $pos++;
-            } else if ($pos = strrpos($value, $this->compiler->tpl_obj->left_delimiter) {
+            } else if (false !== $pos = strrpos($value, $this->compiler->tpl_obj->left_delimiter)) {
                 $pos += strlen ($this->compiler->tpl_obj->left_delimiter);
             }
             if (isset($value[$pos]) && $value[$pos] == ' ') {
@@ -136,7 +148,7 @@ ldel = /(\s*SMARTYldel\-\-|[^\S\r\n]*SMARTYldel\-|SMARTYldel)\s*/
 rdel = /\s*(SMARTYrdel|--SMARTYrdel\s*|-SMARTYrdel[^\S\r\n]*)/
 slash = /\//
 integer = /\d+/
-hex =  /0[xX][0-9a-fA-F]+/
+number =  /0[xX][0-9a-fA-F]+|\d+\.\d*/
 comment = /\*([\S\s]*?)\*/
 math = /\s*(\*|\/|\%)\s*/
 idincdec = /\$[0-9]*[a-zA-Z_]\w*(\+\+|\-\-)/
@@ -168,15 +180,7 @@ attr = /\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\s*=\s*/
 id = /[0-9]*[a-zA-Z_]\w*/
 literal = /literal/
 strip = /strip/
-equals = /\s*==\s*|\s+eq\s+/
-notequals = /\s*!=\s*|\s*<>\s*|\s+(ne|neq)\s+/
-greaterthan = /\s*>\s*|\s+gt\s+/
-lessthan = /\s*<\s*|\s+lt\s+/
-greaterequal = /\s*>=\s*|\s+(ge|gte)\s+/
-lessequal = /\s*<=\s*|\s+(le|lte)\s+/
-mod = /\s+mod\s+/
-identity = /\s*===\s*/
-noneidentity = /\s*!==\s*/
+ifcond = /(\s*(>=|<=|===|==|!==|!=|<>|>|<)\s*)|(\s+(eq|neq|ne|gt|lt|ge|gte|le|lte|mod)\s+)/
 isoddby = /\s+is\s+odd\s+by\s+/
 isnotoddby = /\s+is\s+not\s+odd\s+by\s+/
 isodd = /\s+is\s+odd/
@@ -197,9 +201,7 @@ foreach = /foreach(?![^\s])/
 setfilter = /setfilter\s+/
 instanceof = /\s+instanceof\s+/
 not = /!\s*|not\s+/
-land = /\s*\&\&\s*|\s*and\s+/
-lor = /\s*\|\|\s*|\s*or\s+/
-lxor = /\s*xor\s+/
+lop = /\s*((\&\&|\|\|)\s*|(and|or|xor)\s+)/
 typecast = /\((int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)\)\s*/
 double_quote = /"/
 single_quote = /'/
@@ -209,13 +211,13 @@ any = /[\s\S]?/
 /*!lex2php
 %statename BOM
 bom {
-     $parser_class = $this->parser_class;
+     $parser_class = $this->parser_class = get_class($this->compiler->parser);
      $this->token = $parser_class::TP_TEMPLATEINIT;
      $this->yypushstate(self::TEXT);
 }
 any {
      $this->value = '';
-     $parser_class = $this->parser_class;
+     $parser_class = $this->parser_class = get_class($this->compiler->parser);
      $this->token = $parser_class::TP_TEMPLATEINIT;
      $this->yypushstate(self::TEXT);
 }
@@ -311,6 +313,7 @@ ldel comment rdel {
   }
 }
 ldel {
+  $parser_class = $this->parser_class;
   if ($this->autoLiteral($this->value)) {
     $this->token = $parser_class::TP_TEXT;
   } else {
@@ -407,57 +410,17 @@ instanceof {
   $parser_class = $this->parser_class;
   $this->token = $parser_class::TP_INSTANCEOF;
 }
-identity{
+ifcond{
   $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_IDENTITY;
-}
-noneidentity{
-  $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_NONEIDENTITY;
-}
-equals{
-  $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_EQUALS;
-}
-notequals{
-  $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_NOTEQUALS;
-}
-greaterequal{
-  $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_GREATEREQUAL;
-}
-lessequal{
-  $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_LESSEQUAL;
-}
-greaterthan{
-  $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_GREATERTHAN;
-}
-lessthan{
-  $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_LESSTHAN;
-}
-mod{
-  $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_MOD;
+  $this->token = $parser_class::TP_IFCOND;
 }
 not{
   $parser_class = $this->parser_class;
   $this->token = $parser_class::TP_NOT;
 }
-land {
+lop {
   $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_LAND;
-}
-lor {
-  $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_LOR;
-}
-lxor {
-  $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_LXOR;
+  $this->token = $parser_class::TP_LOP;
 }
 isoddby {
   $parser_class = $this->parser_class;
@@ -594,9 +557,9 @@ qmark {
   $parser_class = $this->parser_class;
   $this->token = $parser_class::TP_QMARK;
 }
-hex {
+number {
   $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_HEX;
+  $this->token = $parser_class::TP_NUMBER;
 }
 attr {
      $parser_class = $this->parser_class;
@@ -701,7 +664,7 @@ namespace {
   $this->token = $parser_class::TP_NAMESPACE;
 }
 text {
-     $parser_class = $this->parser_class;
+  $parser_class = $this->parser_class;
   $this->token = $parser_class::TP_TEXT;
 }
 */
@@ -769,8 +732,9 @@ ldel dollarid{
   if ($this->autoLiteral($this->value)) {
     $this->token = $parser_class::TP_TEXT;
   } else {
+     $this->token = $parser_class::TP_DQTAG;
      $this->yypushstate(self::SMARTY);
-     return true;
+     $this->value = '';
   }
 }
 ldel {
@@ -778,8 +742,9 @@ ldel {
   if ($this->autoLiteral($this->value)) {
     $this->token = $parser_class::TP_TEXT;
   } else {
+     $this->token = $parser_class::TP_DQTAG;
      $this->yypushstate(self::SMARTY);
-     return true;
+     $this->value = '';
   }
 }
 double_quote {

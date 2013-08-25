@@ -29,6 +29,11 @@ class Smarty_Autoloader
      * @var string realpath of smarty distribution
      */
     public static $smarty_path = null;
+    /**
+     * @var array of class names with special format
+     */
+    public static $rootClasses = array('Smarty' => 'Smarty/Smarty', 'SmartyBC' => 'Smarty/SmartyBC', 'SmartyBC3' => 'Smarty/SmartyBC3');
+    public static $checkFile = true;
 
     /**
      * Registers Smarty_Autoloader as an SPL autoloader.
@@ -47,20 +52,27 @@ class Smarty_Autoloader
 
     /**
      * Handles autoloading of classes.
-     *
-     * @param string $class A class name.
-     */
-    public static function autoload($class)
+     * 
+     * This function can also be called manually
+     * 
+     * @param string    $class          class name.
+     * @param bool      $check          this optional parameter must be set if autoload function is call manually
+    */
+    public static function autoload($class, $check = false)
     {
-        static $_rootClasses = array('Smarty' => true, 'SmartyBC' => true, 'SmartyBC3' => true);
         if (0 !== strpos($class, 'Smarty')) {
             return;
         }
-        if (isset($_rootClasses[$class])) {
-            require self::$smarty_path . 'Smarty/' . $class . '.php';
+        if (isset(self::$rootClasses[$class])) {
+            $file = self::$smarty_path . self::$rootClasses[$class] . '.php';
         } else {
-            require self::$smarty_path . str_replace('_', '/', $class) . '.php';
-//        require self::$smarty_path . str_replace(array('_', "\0"), array('/', ''), $class).'.php';
+            $file = self::$smarty_path . str_replace('_', '/', $class) . '.php';
+        }
+        if ((!(self::$checkFile || $check)) || file_exists($file)) {
+            require $file;
+            if ($check) {
+                return true;
+            }
         }
     }
 }

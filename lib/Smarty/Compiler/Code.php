@@ -117,7 +117,6 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
         }
         $this->mergeTraceBackInfo($code->traceback);
         $this->raw($code->buffer);
-
         return $this;
     }
 

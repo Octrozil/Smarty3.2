@@ -1337,18 +1337,28 @@ static public $yy_action = array(
 
     public function yypushstate($state)
     {
+        if (self::$yyTraceFILE) {
+             fprintf(self::$yyTraceFILE, "%sState push %d\n", self::$yyTracePrompt, $state);
+        }
         array_push($this->_yy_stack, $this->_yy_state);
         $this->_yy_state = $state;
     }
 
     public function yypopstate()
     {
-        $this->_yy_state = array_pop($this->_yy_stack);
+       $this->_yy_state = array_pop($this->_yy_stack);
+       if (self::$yyTraceFILE) {
+             fprintf(self::$yyTraceFILE, "%sState pop %d\n", self::$yyTracePrompt,  $this->_yy_state);
+        }
+
     }
 
     public function yybegin($state)
     {
-        $this->_yy_state = $state;
+        if (self::$yyTraceFILE) {
+             fprintf(self::$yyTraceFILE, "%sState set %d\n", self::$yyTracePrompt, $state);
+        }
+       $this->_yy_state = $state;
     }
 
 ');
@@ -1374,18 +1384,28 @@ static public $yy_action = array(
 
     public function yypushstate($state)
     {
+        if (self::$yyTraceFILE) {
+             fprintf(self::$yyTraceFILE, "%sState push %d\n", self::$yyTracePrompt, $state);
+        }
         array_push($this->_yy_stack, $this->_yy_state);
         $this->_yy_state = $state;
     }
 
     public function yypopstate()
     {
-        $this->_yy_state = array_pop($this->_yy_stack);
+       $this->_yy_state = array_pop($this->_yy_stack);
+       if (self::$yyTraceFILE) {
+             fprintf(self::$yyTraceFILE, "%sState pop %d\n", self::$yyTracePrompt,  $this->_yy_state);
+        }
+
     }
 
     public function yybegin($state)
     {
-        $this->_yy_state = $state;
+        if (self::$yyTraceFILE) {
+             fprintf(self::$yyTraceFILE, "%sState set %d\n", self::$yyTracePrompt, $state);
+        }
+       $this->_yy_state = $state;
     }
 
 ');
@@ -1417,18 +1437,28 @@ static public $yy_action = array(
 
     public function yypushstate($state)
     {
+        if (self::$yyTraceFILE) {
+             fprintf(self::$yyTraceFILE, "%sState push %d\n", self::$yyTracePrompt, $state);
+        }
         array_push($this->_yy_stack, $this->_yy_state);
         $this->_yy_state = $state;
     }
 
     public function yypopstate()
     {
-        $this->_yy_state = array_pop($this->_yy_stack);
+       $this->_yy_state = array_pop($this->_yy_stack);
+       if (self::$yyTraceFILE) {
+             fprintf(self::$yyTraceFILE, "%sState pop %d\n", self::$yyTracePrompt,  $this->_yy_state);
+        }
+
     }
 
     public function yybegin($state)
     {
-        $this->_yy_state = $state;
+        if (self::$yyTraceFILE) {
+             fprintf(self::$yyTraceFILE, "%sState set %d\n", self::$yyTracePrompt, $state);
+        }
+       $this->_yy_state = $state;
     }
 
 ');
@@ -1457,19 +1487,30 @@ static public $yy_action = array(
 
     public function yypushstate($state)
     {
+        if (self::$yyTraceFILE) {
+             fprintf(self::$yyTraceFILE, "%sState push %d\n", self::$yyTracePrompt, $state);
+        }
         array_push($this->_yy_stack, $this->_yy_state);
         $this->_yy_state = $state;
     }
 
     public function yypopstate()
     {
-        $this->_yy_state = array_pop($this->_yy_stack);
+       $this->_yy_state = array_pop($this->_yy_stack);
+       if (self::$yyTraceFILE) {
+             fprintf(self::$yyTraceFILE, "%sState pop %d\n", self::$yyTracePrompt,  $this->_yy_state);
+        }
+
     }
 
     public function yybegin($state)
     {
-        $this->_yy_state = $state;
+        if (self::$yyTraceFILE) {
+             fprintf(self::$yyTraceFILE, "%sState set %d\n", self::$yyTracePrompt, $state);
+        }
+       $this->_yy_state = $state;
     }
+
 
 ');
     if (strlen($this->yystack[$this->yyidx + -1]->minor)) {
