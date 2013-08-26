@@ -46,8 +46,8 @@ class Smarty_Compiler_Template_Javascript_Tag_IncludePhp extends Smarty_Compiler
     /**
      * Compiles code for the {include_php} tag
      *
-     * @param  array            $args     array with attributes from parser
-     * @param  object           $compiler compiler object
+     * @param  array $args     array with attributes from parser
+     * @param  object $compiler compiler object
      * @throws Smarty_Exception
      * @return string           compiled code
      */
@@ -70,8 +70,8 @@ class Smarty_Compiler_Template_Javascript_Tag_IncludePhp extends Smarty_Compiler
                 $_dir = $compiler->tpl_obj->trusted_dir;
             }
             if (!empty($_dir)) {
-                foreach ((array) $_dir as $_script_dir) {
-                    $_script_dir = rtrim($_script_dir, '/\\') . '/' ;
+                foreach ((array)$_dir as $_script_dir) {
+                    $_script_dir = rtrim($_script_dir, '/\\') . '/';
                     if (file_exists($_script_dir . $_file)) {
                         $_filepath = $_script_dir . $_file;
                         break;

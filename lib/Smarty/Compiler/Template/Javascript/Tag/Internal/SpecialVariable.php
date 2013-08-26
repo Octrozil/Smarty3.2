@@ -22,7 +22,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Internal_SpecialVariable extends S
     /**
      * Compiles code for the special $smarty variables
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
      * @param  string $parameter string with optional array indexes
      * @return string compiled code

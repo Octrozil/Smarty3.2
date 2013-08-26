@@ -45,7 +45,7 @@ class Smarty_Resource_File extends Smarty_Resource
     /**
      * build template filepath by traversing the template_dir array
      *
-     * @param  Smarty           $tpl_obj template object
+     * @param  Smarty $tpl_obj template object
      * @return string           fully qualified filepath
      * @throws Smarty_Exception if default template handler is registered but not callable
      */
@@ -66,12 +66,12 @@ class Smarty_Resource_File extends Smarty_Resource
             if ($tpl_obj->parent->source->type != 'file' && $tpl_obj->parent->source->type != 'extends' && !$tpl_obj->parent->allow_relative_path) {
                 throw new Smarty_Exception("Template '{$file}' cannot be relative to template of resource type '{$tpl_obj->parent->source->type}'");
             }
-            $file = dirname($tpl_obj->parent->source->filepath) . '/'  . $file;
+            $file = dirname($tpl_obj->parent->source->filepath) . '/' . $file;
             $_file_exact_match = true;
             if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
                 // the path gained from the parent template is relative to the current working directory
                 // as expansions (like include_path) have already been done
-                $file = getcwd() . '/'  . $file;
+                $file = getcwd() . '/' . $file;
             }
         }
 
@@ -87,8 +87,8 @@ class Smarty_Resource_File extends Smarty_Resource
         $_path = $this->normalizePath($_path, false);
 
 //        if (DS != '/') {   TODO
-            // don't we all just love windows?
-            $_path = str_replace('/', '\\', $_path);
+        // don't we all just love windows?
+        $_path = str_replace('/', '\\', $_path);
 //        }
         // revert to relative
         if (isset($_was_relative)) {
@@ -111,7 +111,7 @@ class Smarty_Resource_File extends Smarty_Resource
                 $_directory = $_directories[$match['key']];
             } elseif (is_numeric($match['key'])) {
                 // try numeric index
-                $match['key'] = (int) $match['key'];
+                $match['key'] = (int)$match['key'];
                 if (isset($_directories[$match['key']])) {
                     $_directory = $_directories[$match['key']];
                 } else {
@@ -190,7 +190,7 @@ class Smarty_Resource_File extends Smarty_Resource
     /**
      * Normalize Paths "foo/../bar" to "bar"
      *
-     * @param  string  $_path path to normalize
+     * @param  string $_path path to normalize
      * @param  boolean $ds    respect windows directory separator
      * @return string  normalized path
      */
@@ -226,8 +226,8 @@ class Smarty_Resource_File extends Smarty_Resource
         /**
          * TODO  can this be removed???
         if ($ds && DIRECTORY_SEPARATOR != '/') {
-            // don't we all just love windows?
-            $_path = str_replace('/', '\\', $_path);
+        // don't we all just love windows?
+        $_path = str_replace('/', '\\', $_path);
         }
          */
 

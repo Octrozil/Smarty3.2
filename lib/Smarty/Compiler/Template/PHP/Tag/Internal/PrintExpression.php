@@ -38,9 +38,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
     /**
      * Compiles code for gererting output from any expression
      *
-     * @param  array            $args      array with attributes from parser
-     * @param  object           $compiler  compiler object
-     * @param  array            $parameter array with compilation parameter
+     * @param  array $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array $parameter array with compilation parameter
      * @throws Smarty_Exception
      * @return string           compiled code
      */
@@ -107,7 +107,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
                 }
                 // auto loaded filters
                 if (isset($compiler->tpl_obj->autoload_filters[Smarty::FILTER_VARIABLE])) {
-                    foreach ((array) $compiler->tpl_obj->autoload_filters[Smarty::FILTER_VARIABLE] as $name) {
+                    foreach ((array)$compiler->tpl_obj->autoload_filters[Smarty::FILTER_VARIABLE] as $name) {
                         $result = $this->compile_output_filter($compiler, $name, $output);
                         if ($result !== false) {
                             $output = $result;

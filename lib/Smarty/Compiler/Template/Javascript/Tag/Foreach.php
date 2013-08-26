@@ -46,9 +46,9 @@ class Smarty_Compiler_Template_Javascript_Tag_Foreach extends Smarty_Compiler_Te
     /**
      * Compiles code for the {foreach} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -187,9 +187,9 @@ class Smarty_Compiler_Template_Javascript_Tag_Foreachelse extends Smarty_Compile
     /**
      * Compiles code for the {foreachelse} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -222,9 +222,9 @@ class Smarty_Compiler_Template_Javascript_Tag_Foreachclose extends Smarty_Compil
     /**
      * Compiles code for the {/foreach} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)

@@ -46,7 +46,7 @@ class Smarty_Compiler_Template_Javascript_Tag_ConfigLoad extends Smarty_Compiler
     /**
      * Compiles code for the {config_load} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

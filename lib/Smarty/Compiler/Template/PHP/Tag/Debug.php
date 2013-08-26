@@ -23,7 +23,7 @@ class Smarty_Compiler_Template_Php_Tag_Debug extends Smarty_Compiler_Template_Ph
     /**
      * Compiles code for the {debug} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

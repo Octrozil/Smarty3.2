@@ -34,7 +34,7 @@
 /**
  * @ignore
  */
-require_once (dirname(__FILE__) . '/SmartyBC31.php');
+require_once(dirname(__FILE__) . '/SmartyBC31.php');
 
 /**
  * Smarty Backward Compatibility Wrapper Class for Smarty 2
@@ -67,7 +67,7 @@ class SmartyBC extends SmartyBC31
      * wrapper for assign_by_ref
      *
      * @param string $tpl_var the template variable name
-     * @param mixed  &$value  the referenced value to assign
+     * @param mixed &$value  the referenced value to assign
      */
     public function assign_by_ref($tpl_var, &$value)
     {
@@ -77,8 +77,8 @@ class SmartyBC extends SmartyBC31
     /**
      * wrapper for append_by_ref
      *
-     * @param string  $tpl_var the template variable name
-     * @param mixed   &$value  the referenced value to append
+     * @param string $tpl_var the template variable name
+     * @param mixed &$value  the referenced value to append
      * @param boolean $merge   flag if array elements shall be merged
      */
     public function append_by_ref($tpl_var, &$value, $merge = false)
@@ -101,8 +101,8 @@ class SmartyBC extends SmartyBC31
      *
      * @param string $function      the name of the template function
      * @param string $function_impl the name of the PHP function to register
-     * @param bool   $cacheable
-     * @param mixed  $cache_attrs
+     * @param bool $cacheable
+     * @param mixed $cache_attrs
      */
     public function register_function($function, $function_impl, $cacheable = true, $cache_attrs = null)
     {
@@ -122,11 +122,11 @@ class SmartyBC extends SmartyBC31
     /**
      * Registers object to be used in templates
      *
-     * @param string  $object        name of template object
-     * @param object  $object_impl   the referenced PHP object to register
-     * @param array   $allowed       list of allowed methods (empty = all)
+     * @param string $object        name of template object
+     * @param object $object_impl   the referenced PHP object to register
+     * @param array $allowed       list of allowed methods (empty = all)
      * @param boolean $smarty_args   smarty argument format, else traditional
-     * @param array   $block_methods
+     * @param array $block_methods
      * @internal param array $block_functs list of methods that are block format
      */
     public function register_object($object, $object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
@@ -151,8 +151,8 @@ class SmartyBC extends SmartyBC31
      *
      * @param string $block       name of template block
      * @param string $block_impl  PHP function to register
-     * @param bool   $cacheable
-     * @param mixed  $cache_attrs
+     * @param bool $cacheable
+     * @param mixed $cache_attrs
      */
     public function register_block($block, $block_impl, $cacheable = true, $cache_attrs = null)
     {
@@ -174,7 +174,7 @@ class SmartyBC extends SmartyBC31
      *
      * @param string $function      name of template function
      * @param string $function_impl name of PHP function to register
-     * @param bool   $cacheable
+     * @param bool $cacheable
      */
     public function register_compiler_function($function, $function_impl, $cacheable = true)
     {
@@ -216,7 +216,7 @@ class SmartyBC extends SmartyBC31
      * Registers a resource to fetch a template
      *
      * @param string $type      name of resource
-     * @param array  $functions array of functions to handle resource
+     * @param array $functions array of functions to handle resource
      */
     public function register_resource($type, $functions)
     {
@@ -310,10 +310,10 @@ class SmartyBC extends SmartyBC31
     /**
      * clear cached content for the given template and cache id
      *
-     * @param  string  $tpl_file   name of template file
-     * @param  string  $cache_id   name of cache_id
-     * @param  string  $compile_id name of compile_id
-     * @param  string  $exp_time   expiration time
+     * @param  string $tpl_file   name of template file
+     * @param  string $cache_id   name of cache_id
+     * @param  string $compile_id name of compile_id
+     * @param  string $exp_time   expiration time
      * @return boolean
      */
     public function clear_cache($tpl_file = null, $cache_id = null, $compile_id = null, $exp_time = null)
@@ -324,7 +324,7 @@ class SmartyBC extends SmartyBC31
     /**
      * clear the entire contents of cache (all templates)
      *
-     * @param  string  $exp_time expire time
+     * @param  string $exp_time expire time
      * @return boolean
      */
     public function clear_all_cache($exp_time = null)
@@ -335,9 +335,9 @@ class SmartyBC extends SmartyBC31
     /**
      * test to see if valid cache exists for this template
      *
-     * @param  string  $tpl_file   name of template file
-     * @param  string  $cache_id
-     * @param  string  $compile_id
+     * @param  string $tpl_file   name of template file
+     * @param  string $cache_id
+     * @param  string $compile_id
      * @return boolean
      */
     public function is_cached($tpl_file, $cache_id = null, $compile_id = null)
@@ -358,9 +358,9 @@ class SmartyBC extends SmartyBC31
      * or all compiled template files if one is not specified.
      * This function is for advanced use only, not normally needed.
      *
-     * @param  string  $tpl_file
-     * @param  string  $compile_id
-     * @param  string  $exp_time
+     * @param  string $tpl_file
+     * @param  string $compile_id
+     * @param  string $exp_time
      * @return boolean results of {@link smarty_core_rm_auto()}
      */
     public function clear_compiled_tpl($tpl_file = null, $compile_id = null, $exp_time = null)
@@ -371,7 +371,7 @@ class SmartyBC extends SmartyBC31
     /**
      * Checks whether requested template exists.
      *
-     * @param  string  $tpl_file
+     * @param  string $tpl_file
      * @return boolean
      */
     public function template_exists($tpl_file)
@@ -437,7 +437,7 @@ class SmartyBC extends SmartyBC31
     /**
      * trigger Smarty error
      *
-     * @param string  $error_msg
+     * @param string $error_msg
      * @param integer $error_type
      */
     public function trigger_error($error_msg, $error_type = E_USER_WARNING)

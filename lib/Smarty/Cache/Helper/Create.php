@@ -85,7 +85,7 @@ class Smarty_Cache_Helper_Create extends Smarty_Exception_Magic
     /**
      * Find template object of cache file and return Smarty_template_Cached
      *
-     * @param  Smarty                 $tpl_obj current template
+     * @param  Smarty $tpl_obj current template
      * @return Smarty_template_Cached
      */
     public static function _getCachedObject($tpl_obj)
@@ -105,10 +105,10 @@ class Smarty_Cache_Helper_Create extends Smarty_Exception_Magic
      * Create new cache file
      *
      * @param $cache_obj            cache object
-     * @param  Smarty                $tpl_obj          current template
-     * @param  string                $output           cache file content
+     * @param  Smarty $tpl_obj          current template
+     * @param  string $output           cache file content
      * @param  Smarty_Variable_Scope $_scope
-     * @param  boolean               $no_output_filter flag that output shall not run through filter
+     * @param  boolean $no_output_filter flag that output shall not run through filter
      * @throws Exception
      * @return string
      */

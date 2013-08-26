@@ -22,9 +22,9 @@ class Smarty_Compiler_Template_Php_Tag_Assign extends Smarty_Compiler_Template_P
     /**
      * Compiles code for the {assign} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -67,7 +67,7 @@ class Smarty_Compiler_Template_Php_Tag_Assign extends Smarty_Compiler_Template_P
         $this->iniTagCode($compiler);
 
         if (isset($parameter['smarty_internal_index'])) {
-            $this->php("\$this->_createLocalArrayVariable({$_attr['var']}, \$_scope, {$_nocache});")->newline();
+            $this->php("\$this->_createLocalArrayVariable('{$_attr['var']}', \$_scope, {$_nocache});")->newline();
             $this->php("\$_scope->{$var}->value{$parameter['smarty_internal_index']} = {$_attr['value']};")->newline();
         } else {
             if ($compiler->tpl_obj instanceof SmartyBC) {

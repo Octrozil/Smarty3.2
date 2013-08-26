@@ -95,7 +95,7 @@ class Smarty_Compiled_Resource extends Smarty_Exception_Magic
     /**
      * Load compiled template
      *
-     * @param Smarty                                   $tpl_obj Smarty object
+     * @param Smarty $tpl_obj Smarty object
      * @param Smarty|Smarty_Data|Smarty_Template_Class $parent  parent object
      * @returns Smarty_Template_Class
      * @throws Smarty_Exception
@@ -126,10 +126,10 @@ class Smarty_Compiled_Resource extends Smarty_Exception_Magic
                 if ($this->exists && !$tpl_obj->force_compile && $this->timestamp >= $this->source->timestamp) {
                     // load existing compiled template class
                     $this->process($tpl_obj);
-                        $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
-                        $class_name = $this->class_name;
-                        // existing class could got invalid
-                        $isValid = $class_name::$isValid;
+                    $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
+                    $class_name = $this->class_name;
+                    // existing class could got invalid
+                    $isValid = $class_name::$isValid;
                 }
                 if (!$isValid) {
                     // we must compile from source
@@ -143,7 +143,7 @@ class Smarty_Compiled_Resource extends Smarty_Exception_Magic
                         Smarty_Debug::end_compile($this->source);
                     }
                     $this->process($tpl_obj);
-                        $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
+                    $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
                     $class_name = $this->class_name;
                     $isValid = $class_name::$isValid;
                     if (!$isValid) {
@@ -165,9 +165,9 @@ class Smarty_Compiled_Resource extends Smarty_Exception_Magic
     /**
      * Delete compiled template file
      *
-     * @param  Smarty  $smarty            smarty object
-     * @param  string  $template_resource template name
-     * @param  string  $compile_id        compile id
+     * @param  Smarty $smarty            smarty object
+     * @param  string $template_resource template name
+     * @param  string $compile_id        compile id
      * @param  integer $exp_time          expiration time
      * @return integer number of template files deleted
      */

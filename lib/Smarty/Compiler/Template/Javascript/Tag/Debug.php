@@ -23,7 +23,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Debug extends Smarty_Compiler_Temp
     /**
      * Compiles code for the {debug} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

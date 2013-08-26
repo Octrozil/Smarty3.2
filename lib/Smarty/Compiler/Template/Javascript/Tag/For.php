@@ -33,9 +33,9 @@ class Smarty_Compiler_Template_Javascript_Tag_For extends Smarty_Compiler_Templa
      * The parser is generating different sets of attribute by which this compiler can
      * determine which syntax is used.
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -100,9 +100,9 @@ class Smarty_Compiler_Template_Javascript_Tag_Forelse extends Smarty_Compiler_Te
     /**
      * Compiles code for the {forelse} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -135,9 +135,9 @@ class Smarty_Compiler_Template_Javascript_Tag_Forclose extends Smarty_Compiler_T
     /**
      * Compiles code for the {/for} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)

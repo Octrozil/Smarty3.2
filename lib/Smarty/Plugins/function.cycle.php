@@ -48,9 +48,9 @@ function smarty_function_cycle($params, $tpl_obj)
     static $cycle_vars;
 
     $name = (empty($params['name'])) ? 'default' : $params['name'];
-    $print = (isset($params['print'])) ? (bool) $params['print'] : true;
-    $advance = (isset($params['advance'])) ? (bool) $params['advance'] : true;
-    $reset = (isset($params['reset'])) ? (bool) $params['reset'] : false;
+    $print = (isset($params['print'])) ? (bool)$params['print'] : true;
+    $advance = (isset($params['advance'])) ? (bool)$params['advance'] : true;
+    $reset = (isset($params['reset'])) ? (bool)$params['reset'] : false;
 
     if (!isset($params['values'])) {
         if (!isset($cycle_vars[$name]['values'])) {

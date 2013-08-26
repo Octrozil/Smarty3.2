@@ -52,12 +52,12 @@ class Smarty_Autoloader
 
     /**
      * Handles autoloading of classes.
-     * 
+     *
      * This function can also be called manually
-     * 
-     * @param string    $class          class name.
-     * @param bool      $check          this optional parameter must be set if autoload function is call manually
-    */
+     *
+     * @param string $class          class name.
+     * @param bool $check          this optional parameter must be set if autoload function is call manually
+     */
     public static function autoload($class, $check = false)
     {
         if (0 !== strpos($class, 'Smarty')) {

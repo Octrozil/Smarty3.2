@@ -38,9 +38,9 @@ class Smarty_Compiler_Template_Php_Tag_Break extends Smarty_Compiler_Template_Ph
     /**
      * Compiles code for the {break} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)

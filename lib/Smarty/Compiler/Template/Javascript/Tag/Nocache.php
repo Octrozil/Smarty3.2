@@ -24,7 +24,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Nocache extends Smarty_Compiler_Te
      *
      * This tag does not generate compiled output. It only sets a compiler flag.
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return bool
      */
@@ -59,7 +59,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Nocacheclose extends Smarty_Compil
      *
      * This tag does not generate compiled output. It only sets a compiler flag.
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return bool
      */

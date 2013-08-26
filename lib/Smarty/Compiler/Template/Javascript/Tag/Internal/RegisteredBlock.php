@@ -30,9 +30,9 @@ class Smarty_Compiler_Template_Javascript_Tag_Internal_RegisteredBlock extends S
     /**
      * Compiles code for the execution of a block function
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @param  string $tag       name of block function
      * @return string compiled code
      */

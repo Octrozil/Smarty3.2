@@ -51,7 +51,7 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
      * populate Cached Object with meta data from Resource
      *
      * @param  Smarty_template_Cached $cached  cached object
-     * @param  Smarty                 $tpl_obj template object
+     * @param  Smarty $tpl_obj template object
      * @return void
      */
     public function populate(Smarty_template_Cached $cached, Smarty $tpl_obj)
@@ -76,14 +76,14 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
             return;
         }
         $cached->content = $content;
-        $cached->timestamp = (int) $timestamp;
+        $cached->timestamp = (int)$timestamp;
         $cached->exists = !!$cached->timestamp;
     }
 
     /**
      * Read the cached template and process the header
      *
-     * @param  Smarty                 $tpl_obj template object
+     * @param  Smarty $tpl_obj template object
      * @param  Smarty_template_Cached $cached  cached object
      * @return bool                   true or false if the cached content does not exist
      */
@@ -111,8 +111,8 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
     /**
      * Write the rendered template output to cache
      *
-     * @param  Smarty  $tpl_obj template object
-     * @param  string  $content content to cache
+     * @param  Smarty $tpl_obj template object
+     * @param  string $content content to cache
      * @return boolean success
      */
     public function writeCachedContent(Smarty $tpl_obj, $content)
@@ -127,7 +127,7 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
      *
      * {@internal the $exp_time argument is ignored altogether }}
      *
-     * @param  Smarty  $smarty   Smarty object
+     * @param  Smarty $smarty   Smarty object
      * @param  integer $exp_time expiration time [being ignored]
      * @return integer number of cache files deleted [always -1]
      * @uses purge() to clear the whole store
@@ -147,10 +147,10 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
      *
      * {@internal the $exp_time argument is ignored altogether}}
      *
-     * @param  Smarty  $smarty        Smarty object
-     * @param  string  $resource_name template name
-     * @param  string  $cache_id      cache id
-     * @param  string  $compile_id    compile id
+     * @param  Smarty $smarty        Smarty object
+     * @param  string $resource_name template name
+     * @param  string $cache_id      cache id
+     * @param  string $compile_id    compile id
      * @param  integer $exp_time      expiration time [being ignored]
      * @return integer number of cache files deleted [always -1]
      * @uses buildCachedFilepath() to generate the CacheID
@@ -207,13 +207,13 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
     /**
      * Fetch and prepare a cache object.
      *
-     * @param  string  $cid           CacheID to fetch
-     * @param  string  $resource_name template name
-     * @param  string  $cache_id      cache id
-     * @param  string  $compile_id    compile id
-     * @param  string  $content       cached content
+     * @param  string $cid           CacheID to fetch
+     * @param  string $resource_name template name
+     * @param  string $cache_id      cache id
+     * @param  string $compile_id    compile id
+     * @param  string $content       cached content
      * @param  integer &$timestamp    cached timestamp (epoch)
-     * @param  string  $resource_uid  resource's uid
+     * @param  string $resource_uid  resource's uid
      * @return boolean success
      */
     protected function fetch($cid, $resource_name = null, $cache_id = null, $compile_id = null, &$content = null, &$timestamp = null, $resource_uid = null)
@@ -243,7 +243,7 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
     protected function addMetaTimestamp(&$content)
     {
         $mt = explode(" ", microtime());
-        $ts = pack("NN", $mt[1], (int) ($mt[0] * 100000000));
+        $ts = pack("NN", $mt[1], (int)($mt[0] * 100000000));
         $content = $ts . $content;
     }
 
@@ -382,7 +382,7 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
     /**
      * Check is cache is locked for this template
      *
-     * @param  Smarty                 $smarty Smarty object
+     * @param  Smarty $smarty Smarty object
      * @param  Smarty_template_Cached $cached cached object
      * @return bool                   true or false if cache is locked
      */
@@ -397,7 +397,7 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
     /**
      * Lock cache for this template
      *
-     * @param  Smarty                 $smarty Smarty object
+     * @param  Smarty $smarty Smarty object
      * @param  Smarty_template_Cached $cached cached object
      * @return void
      */
@@ -411,7 +411,7 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
     /**
      * Unlock cache for this template
      *
-     * @param  Smarty                 $smarty Smarty object
+     * @param  Smarty $smarty Smarty object
      * @param  Smarty_template_Cached $cached cached object
      * @return void
      */
@@ -433,8 +433,8 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
     /**
      * Save values for a set of keys to cache
      *
-     * @param  array   $keys   list of values to save
-     * @param  int     $expire expiration time
+     * @param  array $keys   list of values to save
+     * @param  int $expire expiration time
      * @return boolean true on success, false on failure
      */
     abstract protected function write(array $keys, $expire = null);
@@ -442,7 +442,7 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
     /**
      * Remove values from cache
      *
-     * @param  array   $keys list of keys to delete
+     * @param  array $keys list of keys to delete
      * @return boolean true on success, false on failure
      */
     abstract protected function delete(array $keys);

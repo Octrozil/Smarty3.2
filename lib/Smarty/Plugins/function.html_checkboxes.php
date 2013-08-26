@@ -62,22 +62,22 @@ function smarty_function_html_checkboxes($params, $tpl_obj)
         switch ($_key) {
             case 'name':
             case 'separator':
-                $$_key = (string) $_val;
+                $$_key = (string)$_val;
                 break;
 
             case 'escape':
             case 'labels':
             case 'label_ids':
-                $$_key = (bool) $_val;
+                $$_key = (bool)$_val;
                 break;
 
             case 'options':
-                $$_key = (array) $_val;
+                $$_key = (array)$_val;
                 break;
 
             case 'values':
             case 'output':
-                $$_key = array_values((array) $_val);
+                $$_key = array_values((array)$_val);
                 break;
 
             case 'checked':
@@ -87,30 +87,30 @@ function smarty_function_html_checkboxes($params, $tpl_obj)
                     foreach ($_val as $_sel) {
                         if (is_object($_sel)) {
                             if (method_exists($_sel, "__toString")) {
-                                $_sel = smarty_function_escape_special_chars((string) $_sel->__toString());
+                                $_sel = smarty_function_escape_special_chars((string)$_sel->__toString());
                             } else {
                                 trigger_error("html_checkboxes: selected attribute contains an object of class '" . get_class($_sel) . "' without __toString() method", E_USER_NOTICE);
                                 continue;
                             }
                         } else {
-                            $_sel = smarty_function_escape_special_chars((string) $_sel);
+                            $_sel = smarty_function_escape_special_chars((string)$_sel);
                         }
                         $selected[$_sel] = true;
                     }
                 } elseif (is_object($_val)) {
                     if (method_exists($_val, "__toString")) {
-                        $selected = smarty_function_escape_special_chars((string) $_val->__toString());
+                        $selected = smarty_function_escape_special_chars((string)$_val->__toString());
                     } else {
                         trigger_error("html_checkboxes: selected attribute is an object of class '" . get_class($_val) . "' without __toString() method", E_USER_NOTICE);
                     }
                 } else {
-                    $selected = smarty_function_escape_special_chars((string) $_val);
+                    $selected = smarty_function_escape_special_chars((string)$_val);
                 }
                 break;
 
             case 'checkboxes':
                 trigger_error('html_checkboxes: the use of the "checkboxes" attribute is deprecated, use "options" instead', E_USER_WARNING);
-                $options = (array) $_val;
+                $options = (array)$_val;
                 break;
 
             case 'assign':
@@ -174,26 +174,26 @@ function smarty_function_html_checkboxes_output($name, $value, $output, $selecte
 
     if (is_object($value)) {
         if (method_exists($value, "__toString")) {
-            $value = (string) $value->__toString();
+            $value = (string)$value->__toString();
         } else {
             trigger_error("html_options: value is an object of class '" . get_class($value) . "' without __toString() method", E_USER_NOTICE);
 
             return '';
         }
     } else {
-        $value = (string) $value;
+        $value = (string)$value;
     }
 
     if (is_object($output)) {
         if (method_exists($output, "__toString")) {
-            $output = (string) $output->__toString();
+            $output = (string)$output->__toString();
         } else {
             trigger_error("html_options: output is an object of class '" . get_class($output) . "' without __toString() method", E_USER_NOTICE);
 
             return '';
         }
     } else {
-        $output = (string) $output;
+        $output = (string)$output;
     }
 
     if ($labels) {

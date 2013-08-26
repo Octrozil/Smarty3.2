@@ -31,8 +31,6 @@
     private $asp_tags = null;
     private $php_handling = null;
     private $security = null;
-    private $last_variable = null;
-    private $last_index = null;
     private $opMap = array('and' => '&&', 'or' => '||', 'eq' => '==', 'neq' => '!=', 'ne' => '!=', 'gt' => '>',
                             'lt' => '<', 'ge' => '>=', 'gte' => '>=', 'le' => '<=' , 'lte' => '<=', 'mod' => '%',
                             'not' => '!');
@@ -307,13 +305,13 @@ literal_element(res) ::= ASPENDTAG(et). {
 //    res = $this->compiler->compileTag('Internal_PrintExpression',array(),array('value'=>e));
 //}
 
-smartytag(res)   ::= LDEL expr(e) modifierlist(l) attributes(a). {
-    res = $this->compiler->compileTag('Internal_PrintExpression',a,array('value'=>e,l));
-}
-
-//smartytag(res)   ::= LDEL expr(e) attributes(a). {
-//    res = $this->compiler->compileTag('Internal_PrintExpression',a,array('value'=>e));
+//smartytag(res)   ::= LDEL expr(e) modifierlist(l) attributes(a). {
+//    res = $this->compiler->compileTag('Internal_PrintExpression',a,array('value'=>e,'modifierlist'=>l));
 //}
+
+smartytag(res)   ::= LDEL expr(e) attributes(a). {
+    res = $this->compiler->compileTag('Internal_PrintExpression',a,array('value'=>e));
+}
 
 //
 // Smarty tags start here
@@ -427,28 +425,28 @@ smartytag(res)   ::= LDELSETFILTER ID(m) modparameters(p). {
     res = $this->compiler->compileTag('setfilter',array(),array('modifier_list'=>array(array_merge(array(m),p))));
 }
 
-smartytag(res)   ::= LDELSETFILTER ID(m) modparameters(p) modifierlist(l). {
+smartytag(res)   ::= LDELSETFILTER ID(m) modparameters(p) modifierlist(l) RDEL. {
     res = $this->compiler->compileTag('setfilter',array(),array('modifier_list'=>array_merge(array(array_merge(array(m),p)),l)));
 }
 
                   
                   
                   // end of block tag  {/....}                  
-//smartytag(res)   ::= LDELSLASH ID(i). {
-//    res = $this->compiler->compileTag(i.'close',array());
-//}
+smartytag(res)   ::= LDELSLASH ID(i). {
+    res = $this->compiler->compileTag(i.'close',array());
+}
 
 smartytag(res)   ::= LDELSLASH ID(i) modifierlist(l). {
-    res = $this->compiler->compileTag(i.'close',array(),array(l));
+    res = $this->compiler->compileTag(i.'close',array(),array('modifierlist'=>l));
 }
 
                   // end of block object tag  {/....}                 
-//smartytag(res)   ::= LDELSLASH ID(i) PTR ID(m). {
-//    res = $this->compiler->compileTag(i.'close',array(),array('object_method'=>m));
-//}
+smartytag(res)   ::= LDELSLASH ID(i) PTR ID(m). {
+    res = $this->compiler->compileTag(i.'close',array(),array('object_method'=>m));
+}
 
 smartytag(res)   ::= LDELSLASH ID(i) PTR ID(m) modifierlist(l). {
-    res = $this->compiler->compileTag(i.'close',array(),array('object_method'=>m,l));
+    res = $this->compiler->compileTag(i.'close',array(),array('object_method'=>m,'modifierlist'=>l));
 }
 
 //
@@ -574,7 +572,7 @@ expr(res)        ::= expr(e) ANDSYM(m) value(v). {
 
                   // modifier
 expr(res)        ::= expr(e) modifierlist(l). {
-    res = $this->compiler->compileTag('Internal_Modifier',array(),array('value'=>e,l));
+    res = $this->compiler->compileTag('Internal_Modifier',array(),array('value'=>e,'modifierlist'=>l));
 }
 
 // if expression
@@ -775,12 +773,8 @@ value(res)       ::= NAMESPACE(c). {
     res = c;
 }
 
-value(res)    ::= varindexed(vi) static(s). {
-    if (vi['var'] == '\'smarty\'') {
-        res =  $this->compiler->compileTag('Internal_SpecialVariable',array(),vi['smarty_internal_index']).s;
-    } else {
-        res = $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'].s;
-    }
+value(res)    ::= DOLLAR ID(i) static(s). {
+    res = $this->compiler->compileVariable(i).s;
 }
 
                   // Smarty tag
@@ -795,12 +789,9 @@ value(res)       ::= smartytag(st). {
     res = '$_tmp'.$this->prefix_number;
 }
 
+
 value(res)       ::= value(v) modifierlist(l). {
-    if (l == '') {
-        res = v;
-    } else {
-        res = $this->compiler->compileTag('Internal_Modifier',array(),array('value'=>v,l));
-    }
+    res = $this->compiler->compileTag('Internal_Modifier',array(),array('value'=>v,'modifierlist'=>l));
 }
 
 
@@ -810,12 +801,8 @@ value(res)       ::= value(v) modifierlist(l). {
                   // Smarty variable (optional array)
 variable(res)    ::= varindexed(vi). {
     if (vi['var'] == '\'smarty\'') {
-        $smarty_var = $this->compiler->compileTag('Internal_SpecialVariable',array(),vi['smarty_internal_index']);
-        res = $smarty_var;
+        res = $this->compiler->compileTag('Internal_SpecialVariable',array(),vi['smarty_internal_index']);
     } else {
-        // used for array reset,next,prev,end,current 
-        $this->last_variable = vi['var'];
-        $this->last_index = vi['smarty_internal_index'];
         res = $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'];
     }
 }
@@ -1098,12 +1085,9 @@ params(res)       ::= . {
 //
 // modifier
 // 
-modifierlist(res) ::= . {
-    res = '';
-}
-modifierlist(res) ::= modifierlist(l). {
-    res = "'modifier_list'=>l";
-}
+//
+// modifier
+//
 modifierlist(res) ::= modifierlist(l) modifier(m) modparameters(p). {
     res = array_merge(l,array(array_merge(m,p)));
 }
@@ -1111,7 +1095,7 @@ modifierlist(res) ::= modifierlist(l) modifier(m) modparameters(p). {
 modifierlist(res) ::= modifier(m) modparameters(p). {
     res = array(array_merge(m,p));
 }
- 
+
 modifier(res)    ::= VERT AT ID(m). {
     res = array(m);
 }
@@ -1135,10 +1119,6 @@ modparameters(res)      ::= . {
 
                     // parameter expression
 modparameter(res) ::= COLON value(mp). {
-    res = array(mp);
-}
-
-modparameter(res) ::= COLON array(mp). {
     res = array(mp);
 }
 

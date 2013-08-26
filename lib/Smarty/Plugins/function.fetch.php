@@ -118,7 +118,7 @@ function smarty_function_fetch($params, $tpl_obj)
                         break;
                     case "proxy_port":
                         if (!preg_match('!\D!', $param_value)) {
-                            $proxy_port = (int) $param_value;
+                            $proxy_port = (int)$param_value;
                         } else {
                             trigger_error("[plugin] invalid value for attribute '" . $param_key . "'", E_USER_NOTICE);
 
@@ -137,7 +137,7 @@ function smarty_function_fetch($params, $tpl_obj)
                         break;
                     case "timeout":
                         if (!preg_match('!\D!', $param_value)) {
-                            $timeout = (int) $param_value;
+                            $timeout = (int)$param_value;
                         } else {
                             trigger_error("[plugin] invalid value for attribute '" . $param_key . "'", E_USER_NOTICE);
 

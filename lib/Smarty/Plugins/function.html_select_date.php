@@ -155,7 +155,7 @@ function smarty_function_html_select_date($params, $tpl_obj)
             case 'month_id':
             case 'day_id':
             case 'year_id':
-                $$_key = (string) $_value;
+                $$_key = (string)$_value;
                 break;
 
             case 'display_days':
@@ -163,7 +163,7 @@ function smarty_function_html_select_date($params, $tpl_obj)
             case 'display_years':
             case 'year_as_text':
             case 'reverse_years':
-                $$_key = (bool) $_value;
+                $$_key = (bool)$_value;
                 break;
 
             default:
@@ -213,13 +213,13 @@ function smarty_function_html_select_date($params, $tpl_obj)
         $key .= '_year';
         $t = $$key;
         if ($t === null) {
-            $$key = (int) $_current_year;
+            $$key = (int)$_current_year;
         } elseif ($t[0] == '+') {
-            $$key = (int) $_current_year + (int) trim(substr($t, 1));
+            $$key = (int)$_current_year + (int)trim(substr($t, 1));
         } elseif ($t[0] == '-') {
-            $$key = (int) $_current_year - (int) trim(substr($t, 1));
+            $$key = (int)$_current_year - (int)trim(substr($t, 1));
         } else {
-            $$key = (int) $$key;
+            $$key = (int)$$key;
         }
     }
 

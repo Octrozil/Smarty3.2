@@ -74,7 +74,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
 
     /**
      * Adds source line number
-     * @param  int                  $lineNo source line number
+     * @param  int $lineNo source line number
      * @return Smarty_Compiler_code
      */
     public function addSourceLineNo($lineNo)
@@ -91,7 +91,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
 
     /**
      * Merge trackeback
-     * @param  array                $traceback
+     * @param  array $traceback
      * @return Smarty_Compiler_code
      */
     public function mergeTraceBackInfo($traceback)
@@ -122,7 +122,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
 
     /**
      * Update buffer line number and offset
-     * @param  int                  $lineNo source line number
+     * @param  int $lineNo source line number
      * @return Smarty_Compiler_code
      */
     public function updateBufferInfo()
@@ -225,7 +225,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
      * Adds a quoted string to the compiled code.
      *
      * @param string $value The string
-    * @param bool $double_quote flag if double quotes shall be used
+     * @param bool $double_quote flag if double quotes shall be used
      * @return object the current instance
      */
     public function string($value, $double_quote = true)
@@ -235,8 +235,8 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
             if ($double_quote) {
                 $this->buffer .= sprintf('"%s"', addcslashes($value, "\0\n\r\t\"\$\\"));
             } else {
-                $this->buffer .= "'" . $value ."'";
-             }
+                $this->buffer .= "'" . $value . "'";
+            }
         } else {
             $i = 0;
             while (true) {
@@ -263,8 +263,8 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
     /**
      * Adds the PHP representation of a given value to the current buffer
      *
-     * @param  mixed  $value        The value to convert
-     * @param  bool   $double_qoute flag to use double quotes on strings
+     * @param  mixed $value        The value to convert
+     * @param  bool $double_qoute flag to use double quotes on strings
      * @return object the current instance
      */
     public function repr($value, $double_qoute = true)

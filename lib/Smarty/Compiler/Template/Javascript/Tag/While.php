@@ -22,9 +22,9 @@ class Smarty_Compiler_Template_Javascript_Tag_While extends Smarty_Compiler_Temp
     /**
      * Compiles code for the {while} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -89,7 +89,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Whileclose extends Smarty_Compiler
     /**
      * Compiles code for the {/while} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

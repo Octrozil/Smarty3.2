@@ -80,7 +80,7 @@ class Smarty_Resource_Php extends Smarty_Resource_File
     /**
      * Render and output the template (without using the compiler)
      *
-     * @param  Smarty           $tpl_obj template object
+     * @param  Smarty $tpl_obj template object
      * @return void
      * @throws Smarty_Exception if template cannot be loaded or allow_php_templates is disabled
      */

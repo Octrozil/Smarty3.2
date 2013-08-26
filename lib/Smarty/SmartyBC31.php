@@ -75,7 +75,7 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
 /**
  * @ignore
  */
-require_once (dirname(__FILE__) . '/Smarty.php');
+require_once(dirname(__FILE__) . '/Smarty.php');
 
 /**
  * Dummy Template class for Smarty 3.1 BC
@@ -121,7 +121,7 @@ class SmartyBC31 extends Smarty_Internal_Template
      * <<magic>> Generic getter.
      * Get Smarty or Template property
      *
-     * @param  string           $property_name property name
+     * @param  string $property_name property name
      * @throws Smarty_Exception
      * @return $this
      */
@@ -139,9 +139,9 @@ class SmartyBC31 extends Smarty_Internal_Template
      *  DEPRECATED FUNCTION
      * assigns values to template variables by reference
      *
-     * @param  string               $tpl_var the template variable name
-     * @param  mixed                &$value  the referenced value to assign
-     * @param  boolean              $nocache if true any output of this variable will be not cached
+     * @param  string $tpl_var the template variable name
+     * @param  mixed &$value  the referenced value to assign
+     * @param  boolean $nocache if true any output of this variable will be not cached
      * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template_) instance for chaining
      */
     public function assignByRef($tpl_var, &$value, $nocache = false)
@@ -158,9 +158,9 @@ class SmartyBC31 extends Smarty_Internal_Template
      *  DEPRECATED FUNCTION
      * appends values to template variables by reference
      *
-     * @param  string               $tpl_var the template variable name
-     * @param  mixed                &$value  the referenced value to append
-     * @param  boolean              $merge   flag if array elements shall be merged
+     * @param  string $tpl_var the template variable name
+     * @param  mixed &$value  the referenced value to append
+     * @param  boolean $merge   flag if array elements shall be merged
      * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template_) instance for chaining
      */
     public function appendByRef($tpl_var, &$value, $merge = false)
@@ -183,14 +183,15 @@ class SmartyBC31 extends Smarty_Internal_Template
 
         return $this;
     }
+
     /**
      * Registers object to be used in templates
      *
      * @param $object_name
-     * @param  string           $object        $object        the referenced PHP object to register
-     * @param  array            $allowed       list of allowed methods (empty = all)
-     * @param  boolean          $smarty_args   smarty argument format, else traditional
-     * @param  array            $block_methods list of block-methods
+     * @param  string $object        $object        the referenced PHP object to register
+     * @param  array $allowed       list of allowed methods (empty = all)
+     * @param  boolean $smarty_args   smarty argument format, else traditional
+     * @param  array $block_methods list of block-methods
      * @throws Smarty_Exception
      * @return Smarty
      */
@@ -201,7 +202,7 @@ class SmartyBC31 extends Smarty_Internal_Template
         }
         // test if allowed methods callable
         if (!empty($allowed)) {
-            foreach ((array) $allowed as $method) {
+            foreach ((array)$allowed as $method) {
                 if (!is_callable(array($object, $method)) && !property_exists($object_impl, $method)) {
                     throw new Smarty_Exception("registerObject(): Undefined method or property \"{$method}\"");
                 }
@@ -209,7 +210,7 @@ class SmartyBC31 extends Smarty_Internal_Template
         }
         // test if block methods callable
         if (!empty($block_methods)) {
-            foreach ((array) $block_methods as $method) {
+            foreach ((array)$block_methods as $method) {
                 if (!is_callable(array($object, $method))) {
                     throw new Smarty_Exception("registerObject(): Undefined method \"{$method}\"");
                 }
@@ -217,7 +218,7 @@ class SmartyBC31 extends Smarty_Internal_Template
         }
         // register the object
         $this->registered_objects[$object_name] =
-            array($object, (array) $allowed, (boolean) $smarty_args, (array) $block_methods);
+            array($object, (array)$allowed, (boolean)$smarty_args, (array)$block_methods);
 
         return $this;
     }
@@ -225,7 +226,7 @@ class SmartyBC31 extends Smarty_Internal_Template
     /**
      * return a reference to a registered object
      *
-     * @param  string           $name object name
+     * @param  string $name object name
      * @return object
      * @throws Smarty_Exception if no such object is found
      */

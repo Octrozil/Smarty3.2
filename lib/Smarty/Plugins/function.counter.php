@@ -36,7 +36,7 @@ function smarty_function_counter($params, $tpl_obj)
     $counter = & $counters[$name];
 
     if (isset($params['start'])) {
-        $counter['start'] = $counter['count'] = (int) $params['start'];
+        $counter['start'] = $counter['count'] = (int)$params['start'];
     }
 
     if (!empty($params['assign'])) {
@@ -48,7 +48,7 @@ function smarty_function_counter($params, $tpl_obj)
     }
 
     if (isset($params['print'])) {
-        $print = (bool) $params['print'];
+        $print = (bool)$params['print'];
     } else {
         $print = empty($counter['assign']);
     }

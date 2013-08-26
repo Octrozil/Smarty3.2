@@ -22,9 +22,9 @@ class Smarty_Compiler_Template_Javascript_Tag_Internal_Modifier extends Smarty_C
     /**
      * Compiles code for modifier execution
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -161,10 +161,10 @@ class Smarty_Compiler_Template_Javascript_Tag_Internal_Modifier extends Smarty_C
     /**
      * Check number of required modifier parameter oand optionally return context object
      *
-     * @param  string   $modifier modifier name
+     * @param  string $modifier modifier name
      * @param  callback $callback modifier callback
-     * @param  array    $params   parameter array
-     * @param  object   $compiler compiler object
+     * @param  array $params   parameter array
+     * @param  object $compiler compiler object
      * @return string   variable with context object or empty
      */
     private function testParameter($modifier, $callback, $params, $compiler)

@@ -46,8 +46,8 @@ class Smarty_Compiler_Template_Php_Tag_Block extends Smarty_Compiler_Template_Ph
     /**
      * Compiles code for the {block} tag
      *
-     * @param  array   $args     array with attributes from parser
-     * @param  object  $compiler compiler object
+     * @param  array $args     array with attributes from parser
+     * @param  object $compiler compiler object
      * @return boolean true
      */
     public function compile($args, $compiler)
@@ -73,7 +73,7 @@ class Smarty_Compiler_Template_Php_Tag_Block extends Smarty_Compiler_Template_Ph
             $compiler->block_name_index++;
             $int_name = $name . '_' . $compiler->block_name_index;
         }
-        array_unshift($compiler->block_nesting_info, array('name' => $name, 'int_name' => $int_name, 'function' => '_renderInteritanceBlock_' . $int_name .  '_' . str_replace('.', '_', uniqid('', true))));
+        array_unshift($compiler->block_nesting_info, array('name' => $name, 'int_name' => $int_name, 'function' => '_renderInteritanceBlock_' . $int_name . '_' . str_replace('.', '_', uniqid('', true))));
 
         $compiler->has_nocache_code = false;
         $compiler->has_code = false;
@@ -95,7 +95,7 @@ class Smarty_Compiler_Template_Php_Tag_Blockclose extends Smarty_Compiler_Templa
     /**
      * Compiles code for the {/block} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */
@@ -165,7 +165,7 @@ class Smarty_Compiler_Template_Php_Tag_Blockclose extends Smarty_Compiler_Templa
                 $code->iniTagCode($this);
                 $code->php("echo \$this->_getInheritanceBlock ('{$int_name}', \$_smarty_tpl, \$_scope, 1);")->newline();
                 $compiler->postfix_code[] = $code;
-             } else {
+            } else {
 //                $this->php("\$this->inheritance_blocks['$int_name']['valid'] = true;")->newline();
                 $this->php("echo \$this->_getInheritanceBlock ('{$int_name}', \$_smarty_tpl, \$_scope, 0);")->newline();
             }
@@ -198,7 +198,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Block_Parent extends Smarty_Comp
     /**
      * Compiles code for the {$smart.block.parent} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */
@@ -231,7 +231,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Block_Child extends Smarty_Compi
     /**
      * Compiles code for the {$smart.block.child} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

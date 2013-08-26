@@ -46,7 +46,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Section extends Smarty_Compiler_Te
     /**
      * Compiles code for the {section} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */
@@ -165,7 +165,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Sectionelse extends Smarty_Compile
     /**
      * Compiles code for the {sectionelse} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */
@@ -199,7 +199,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Sectionclose extends Smarty_Compil
     /**
      * Compiles code for the {/section} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

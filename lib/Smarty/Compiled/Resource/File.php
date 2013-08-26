@@ -91,10 +91,10 @@ class Smarty_Compiled_Resource_File extends Smarty_Compiled_Resource
     /**
      * Delete compiled template file
      *
-     * @param  string  $template_resource template name
-     * @param  string  $compile_id        compile id
+     * @param  string $template_resource template name
+     * @param  string $compile_id        compile id
      * @param  integer $exp_time          expiration time
-     * @param  Smarty  $smarty            Smarty instance
+     * @param  Smarty $smarty            Smarty instance
      * @return integer number of template files deleted
      */
     public function clear($template_resource, $compile_id, $exp_time, Smarty $smarty)
@@ -144,7 +144,7 @@ class Smarty_Compiled_Resource_File extends Smarty_Compiled_Resource
             if (substr($_file->getBasename(), 0, 1) == '.' || strpos($_file, '.svn') !== false)
                 continue;
 
-            $_filepath = (string) $_file;
+            $_filepath = (string)$_file;
 
             if ($_file->isDir()) {
                 if (!$_compile->isDot()) {
@@ -181,7 +181,7 @@ class Smarty_Compiled_Resource_File extends Smarty_Compiled_Resource
             unset(Smarty::$resource_cache[$source_key]['compiled']);
         }
 
-         return $_count;
+        return $_count;
     }
 
 }

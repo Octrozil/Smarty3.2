@@ -38,9 +38,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginCompiler extends Smarty_Co
     /**
      * Compiles code for the execution of function plugin
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @param  string $tag       name of function plugin
      * @param  string $function  PHP function name
      * @return string compiled code
@@ -144,9 +144,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginCompilerClose extends Smar
     /**
      * Compiles code for the execution of function plugin
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @param  string $tag       name of function plugin
      * @param  string $function  PHP function name
      * @return string compiled code

@@ -54,9 +54,9 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {include} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)

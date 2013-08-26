@@ -30,7 +30,7 @@ class Smarty_Resource_Extends extends Smarty_Resource
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param  Smarty           $tpl_obj template object
+     * @param  Smarty $tpl_obj template object
      * @throws Smarty_Exception
      */
     public function populate(Smarty $tpl_obj = null)

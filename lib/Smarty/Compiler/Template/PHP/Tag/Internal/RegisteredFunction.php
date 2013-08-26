@@ -30,9 +30,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredFunction extends Smart
     /**
      * Compiles code for the execution of a registered function
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @param  string $tag       name of function
      * @return string compiled code
      */

@@ -82,7 +82,7 @@ class Smarty_Resource extends Smarty_Exception_Magic
      */
     public $lexer_class = null;
 
-   /**
+    /**
      * Resource lexer class
      * if null default is used
      */
@@ -101,12 +101,12 @@ class Smarty_Resource extends Smarty_Exception_Magic
     /**
      * Populate source resource properties
      *
-     * @param  Smarty          $tpl_obj   template object
-     * @param  bool            $is_config is source for config file
-     * @param  bool            $error     create error it source does not exists
+     * @param  Smarty $tpl_obj   template object
+     * @param  bool $is_config is source for config file
+     * @param  bool $error     create error it source does not exists
      * @return Smarty_Resource
      */
-    public function populateResource($tpl_obj, $is_config =  false, $error = false)
+    public function populateResource($tpl_obj, $is_config = false, $error = false)
     {
         $this->usage = $is_config ? Smarty::IS_CONFIG : Smarty::IS_TEMPLATE;
         $this->populate($tpl_obj);
@@ -123,7 +123,7 @@ class Smarty_Resource extends Smarty_Exception_Magic
     /**
      * get rendered template output from compiled template
      *
-     * @param  Smarty  $tpl_obj          template object
+     * @param  Smarty $tpl_obj          template object
      * @param  boolean $no_output_filter true if output filter shall nit run
      * @return string
      */
@@ -199,8 +199,8 @@ class Smarty_Resource extends Smarty_Exception_Magic
     /**
      * <<magic>> Generic Setter.
      *
-     * @param  string           $property_name valid: timestamp, exists, content, template
-     * @param  mixed            $value         new value (is not checked)
+     * @param  string $property_name valid: timestamp, exists, content, template
+     * @param  mixed $value         new value (is not checked)
      * @throws Smarty_Exception if $property_name is not valid
      */
     public function __set($property_name, $value)
@@ -223,7 +223,7 @@ class Smarty_Resource extends Smarty_Exception_Magic
     /**
      * <<magic>> Generic getter.
      *
-     * @param  string           $property_name valid: timestamp, exists, content
+     * @param  string $property_name valid: timestamp, exists, content
      * @return mixed
      * @throws Smarty_Exception if $property_name is not valid
      */

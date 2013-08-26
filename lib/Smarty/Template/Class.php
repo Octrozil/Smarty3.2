@@ -159,7 +159,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
     /**
      * constructor
      *
-     * @param Smarty                                   $smarty Smarty object
+     * @param Smarty $smarty Smarty object
      * @param Smarty|Smarty_Data|Smarty_Template_Class $parent parent object
      * @params Smarty_Resource $source source resource
      */
@@ -213,9 +213,9 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
     /**
      * get rendered template output from compiled template
      *
-     * @param  int        $scope_type
+     * @param  int $scope_type
      * @param  null|array $data
-     * @param  boolean    $no_output_filter true if output filter shall nit run
+     * @param  boolean $no_output_filter true if output filter shall nit run
      * @throws Exception
      * @return string
      */
@@ -267,43 +267,43 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
      *
      *  runtime routine to create a new variable scope
      *
-     * @param  int                                         $scope_type
-     * @param  null                                        $data
+     * @param  int $scope_type
+     * @param  null $data
      * @return array|null|\Smarty_Variable_Scope|\stdClass
      */
     public function _buildScope($scope_type = Smarty::SCOPE_LOCAL, $data = null)
     {
         if (true) {
-        switch ($scope_type) {
-            case Smarty::SCOPE_LOCAL:
-                if ($this->parent == null) {
-                    $this->tpl_vars = new Smarty_Variable_Scope();
+            switch ($scope_type) {
+                case Smarty::SCOPE_LOCAL:
+                    if ($this->parent == null) {
+                        $this->tpl_vars = new Smarty_Variable_Scope();
+                        break;
+                    }
+                    if ($this->parent instanceof Smarty_Variable_Scope) {
+                        $this->tpl_vars = clone $this->parent;
+                        break;
+                    }
+                    if ($this->parent->usage == Smarty::IS_SMARTY || $this->parent->usage == Smarty::IS_TEMPLATE) {
+                        $this->tpl_vars = clone $this->parent->tpl_vars;
+                        break;
+                    }
+                    $this->tpl_vars = $this->_mergeScopes($this->parent);
                     break;
-                }
-                if ($this->parent instanceof Smarty_Variable_Scope) {
-                    $this->tpl_vars =  clone $this->parent;
+                case Smarty::SCOPE_PARENT:
+                    $this->tpl_vars = $this->parent->tpl_vars;
                     break;
-                }
-                if ($this->parent->usage == Smarty::IS_SMARTY || $this->parent->usage == Smarty::IS_TEMPLATE) {
-                    $this->tpl_vars = clone $this->parent->tpl_vars;
+                case Smarty::SCOPE_GLOBAL:
+                    $this->tpl_vars = Smarty::$global_tpl_vars;
                     break;
-                }
-                $this->tpl_vars = $this->_mergeScopes($this->parent);
-                break;
-            case Smarty::SCOPE_PARENT:
-                $this->tpl_vars = $this->parent->tpl_vars;
-                break;
-            case Smarty::SCOPE_GLOBAL:
-                $this->tpl_vars = Smarty::$global_tpl_vars;
-                break;
-            case Smarty::SCOPE_ROOT:
-                $ptr = $this;
-                while ($ptr->parent && $ptr->parent->usage == Smarty::IS_TEMPLATE) {
-                    $ptr = $ptr->parent;
-                }
-                $this->tpl_vars = $ptr->tpl_vars;
-                break;
-        }
+                case Smarty::SCOPE_ROOT:
+                    $ptr = $this;
+                    while ($ptr->parent && $ptr->parent->usage == Smarty::IS_TEMPLATE) {
+                        $ptr = $ptr->parent;
+                    }
+                    $this->tpl_vars = $ptr->tpl_vars;
+                    break;
+            }
         } else {
             $this->tpl_vars = $this->parent->tpl_vars;
         }
@@ -337,7 +337,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
         if ($ptr->parent) {
             $tpl_vars = $this->_mergeScopes($ptr->parent);
             foreach ($ptr->tpl_vars as $var => $data) {
-                    $tpl_vars->$var = $data;
+                $tpl_vars->$var = $data;
             }
 
             return $tpl_vars;
@@ -349,11 +349,11 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
     /**
      * Template runtime function to call a template function
      *
-     * @param  string                   $name    name of template function
-     * @param  Smarty                   $tpl_obj calling template object
-     * @param  Smarty_Variable_Scope    $_scope
-     * @param  array                    $params  array with calling parameter
-     * @param  string                   $assign  optional template variable for result
+     * @param  string $name    name of template function
+     * @param  Smarty $tpl_obj calling template object
+     * @param  Smarty_Variable_Scope $_scope
+     * @param  array $params  array with calling parameter
+     * @param  string $assign  optional template variable for result
      * @throws Smarty_Exception_Runtime
      * @return bool
      */
@@ -422,16 +422,17 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
     /**
      * Template code runtime function to create a local Smarty variable for array assignments
      *
-     * @param string                $tpl_var template variable name
+     * @param string $tpl_var template variable name
      * @param Smarty_Variable_Scope $_scope  variable scope
-     * @param bool                  $nocache cache mode of variable
+     * @param bool $nocache cache mode of variable
      */
     public function _createLocalArrayVariable($tpl_var, $_scope, $nocache = false)
     {
         if (isset($_scope->{$tpl_var})) {
             $_scope->{$tpl_var} = clone $_scope->{$tpl_var};
-        } elseif ($result = $_scope->___attributes->tpl_ptr->getVariable($tpl_var, $_scope->___attributes->tpl_ptr->parent, true, false)) {
-            $_scope->{$tpl_var} = clone $result;
+// TODO
+//        } elseif ($result = $_scope->___attributes->tpl_ptr->getVariable($tpl_var, $_scope->___attributes->tpl_ptr->parent, true, false)) {
+//            $_scope->{$tpl_var} = clone $result;
         } else {
             $_scope->{$tpl_var} = new Smarty_Variable(array(), $nocache);
 
@@ -447,15 +448,15 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
     /**
      * Template code runtime function to get subtemplate content
      *
-     * @param  string                $template_resource the resource handle of the template file
-     * @param  mixed                 $cache_id         cache id to be used with this template
-     * @param  mixed                 $compile_id       compile id to be used with this template
-     * @param  integer               $caching          cache mode
-     * @param  integer               $cache_lifetime   life time of cache data
-     * @param  array                 $data             array with parameter template variables
-     * @param  int                   $scope_type       scope in which {include} should execute
+     * @param  string $template_resource the resource handle of the template file
+     * @param  mixed $cache_id         cache id to be used with this template
+     * @param  mixed $compile_id       compile id to be used with this template
+     * @param  integer $caching          cache mode
+     * @param  integer $cache_lifetime   life time of cache data
+     * @param  array $data             array with parameter template variables
+     * @param  int $scope_type       scope in which {include} should execute
      * @param  Smarty_Variable_Scope $_scope
-     * @param  string                $content_class    optional name of inline content class
+     * @param  string $content_class    optional name of inline content class
      * @return string                template content
      */
     public function _getSubTemplate($template_resource, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $scope_type, $_scope, $content_class = null)
@@ -490,7 +491,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
      * [util function] to use either var_export or unserialize/serialize to generate code for the
      * cachevalue optionflag of {assign} tag
      *
-     * @param  mixed            $var Smarty variable value
+     * @param  mixed $var Smarty variable value
      * @throws Smarty_Exception
      * @return string           PHP inline code
      */
@@ -509,8 +510,8 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
     /**
      * callback used by _export_cache_value to check arrays recursively
      *
-     * @param  bool             $flag    status of previous elements
-     * @param  mixed            $element array element to check
+     * @param  bool $flag    status of previous elements
+     * @param  mixed $element array element to check
      * @throws Smarty_Exception
      * @return bool             status
      */
@@ -566,7 +567,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
             if ($tpl_obj->config_overwrite || !isset($tpl_vars->$var)) {
                 $tpl_vars->$var = $value;
             } else {
-                $tpl_vars->$var = array_merge((array) $tpl_vars->{$var}, (array) $value);
+                $tpl_vars->$var = array_merge((array)$tpl_vars->{$var}, (array)$value);
             }
         }
         if (isset($this->config_data['sections'][$tpl_obj->tpl_vars->___config_sections])) {
@@ -574,7 +575,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
                 if ($tpl_obj->config_overwrite || !isset($tpl_vars->$var)) {
                     $tpl_vars->$var = $value;
                 } else {
-                    $tpl_vars->$var = array_merge((array) $tpl_vars->{$var}, (array) $value);
+                    $tpl_vars->$var = array_merge((array)$tpl_vars->{$var}, (array)$value);
                 }
             }
         }

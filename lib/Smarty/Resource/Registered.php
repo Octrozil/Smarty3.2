@@ -60,7 +60,7 @@ class Smarty_Resource_Registered extends Smarty_Resource
         $time_stamp = false;
         call_user_func_array($this->smarty->registered_resources[Smarty::SOURCE][$this->type][0][1], array($this->name, &$time_stamp, $this->smarty));
 
-        return is_numeric($time_stamp) ? (int) $time_stamp : $time_stamp;
+        return is_numeric($time_stamp) ? (int)$time_stamp : $time_stamp;
     }
 
     /**

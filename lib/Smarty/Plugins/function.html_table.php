@@ -72,7 +72,7 @@ function smarty_function_html_table($params, $tpl_obj)
     foreach ($params as $_key => $_value) {
         switch ($_key) {
             case 'loop':
-                $$_key = (array) $_value;
+                $$_key = (array)$_value;
                 break;
 
             case 'cols':
@@ -83,14 +83,14 @@ function smarty_function_html_table($params, $tpl_obj)
                     $cols = explode(',', $_value);
                     $cols_count = count($cols);
                 } elseif (!empty($_value)) {
-                    $cols_count = (int) $_value;
+                    $cols_count = (int)$_value;
                 } else {
                     $cols_count = $cols;
                 }
                 break;
 
             case 'rows':
-                $$_key = (int) $_value;
+                $$_key = (int)$_value;
                 break;
 
             case 'table_attr':
@@ -99,7 +99,7 @@ function smarty_function_html_table($params, $tpl_obj)
             case 'vdir':
             case 'inner':
             case 'caption':
-                $$_key = (string) $_value;
+                $$_key = (string)$_value;
                 break;
 
             case 'tr_attr':

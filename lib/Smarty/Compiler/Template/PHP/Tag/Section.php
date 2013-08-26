@@ -46,7 +46,7 @@ class Smarty_Compiler_Template_Php_Tag_Section extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {section} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */
@@ -165,7 +165,7 @@ class Smarty_Compiler_Template_Php_Tag_Sectionelse extends Smarty_Compiler_Templ
     /**
      * Compiles code for the {sectionelse} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */
@@ -199,7 +199,7 @@ class Smarty_Compiler_Template_Php_Tag_Sectionclose extends Smarty_Compiler_Temp
     /**
      * Compiles code for the {/section} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

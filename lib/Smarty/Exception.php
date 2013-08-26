@@ -36,12 +36,12 @@ class Smarty_Exception extends Exception
      *
      * By default, automatic guessing is enabled.
      *
-     * @param string          $message  The error message
-     * @param integer         $lineno   The template line where the error occurred
+     * @param string $message  The error message
+     * @param integer $lineno   The template line where the error occurred
      * @param Smarty_Resource $source   The template source object
-     * @param Exception       $previous The previous exception
+     * @param Exception $previous The previous exception
      */
-    public function __construct($message, $lineno = -1, $source =  null, $lex =  null, Exception $previous = null)
+    public function __construct($message, $lineno = -1, $source = null, $lex = null, Exception $previous = null)
     {
         if (version_compare(PHP_VERSION, '5.3.0', '<')) {
             $this->previous = $previous;
@@ -131,7 +131,7 @@ class Smarty_Exception extends Exception
      * For PHP < 5.3.0, provides access to the getPrevious() method.
      *
      * @param string $method    The method name
-     * @param array  $arguments The parameters to be passed to the method
+     * @param array $arguments The parameters to be passed to the method
      *
      * @return Exception The previous exception or null
      *
@@ -192,7 +192,7 @@ class Smarty_Exception extends Exception
         foreach ($backtrace as $trace) {
             if (isset($trace['object']) && $trace['object'] instanceof Smarty_Template_Class) {
                 if (null === $this->filename || $this->filename == $trace['object']->source->filepath) {
-                    $trace_template= $trace;
+                    $trace_template = $trace;
                 }
             }
         }
@@ -217,7 +217,7 @@ class Smarty_Exception extends Exception
             $exceptions[] = $e;
         }
 
-      while ($e = array_pop($exceptions)) {
+        while ($e = array_pop($exceptions)) {
             $traces = $e->getTrace();
             while ($trace = array_shift($traces)) {
                 if (!isset($trace['file']) || !isset($trace['line']) || $file != $trace['file']) {

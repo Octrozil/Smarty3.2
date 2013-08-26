@@ -23,7 +23,7 @@ class Smarty_Compiler_Template_Php_Tag_Rdelim extends Smarty_Compiler_Template_P
      *
      * This tag does output the right delimiter.
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

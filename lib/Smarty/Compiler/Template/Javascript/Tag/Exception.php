@@ -38,7 +38,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Exception extends Smarty_Compiler_
     /**
      * Compiles the calls of user defined tags defined by {function}
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */
@@ -53,7 +53,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Exception extends Smarty_Compiler_
         } else {
             $message = "'User Exception'";
         }
-       // nocache option
+        // nocache option
         if ($_attr['nocache'] === true) {
             $compiler->tag_nocache = true;
         }

@@ -46,7 +46,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Insert extends Smarty_Compiler_Tem
     /**
      * Compiles code for the {insert} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */
@@ -86,8 +86,8 @@ class Smarty_Compiler_Template_Javascript_Tag_Insert extends Smarty_Compiler_Tem
                     $_dir = $compiler->tpl_obj->trusted_dir;
                 }
                 if (!empty($_dir)) {
-                    foreach ((array) $_dir as $_script_dir) {
-                        $_script_dir = rtrim($_script_dir, '/\\') . '/' ;
+                    foreach ((array)$_dir as $_script_dir) {
+                        $_script_dir = rtrim($_script_dir, '/\\') . '/';
                         if (file_exists($_script_dir . $_script)) {
                             $_filepath = $_script_dir . $_script;
                             break;

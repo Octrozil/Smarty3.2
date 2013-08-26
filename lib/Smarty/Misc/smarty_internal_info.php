@@ -192,7 +192,7 @@ class Smarty_Internal_Info
                         'func_overload' => array(
                             'name' => 'Function overload',
                             'href' => 'http://php.net/manual/en/mbstring.configuration.php#ini.mbstring.func-overload',
-                            'is_value' => (bool) (ini_get('mbstring.func_overload') & 2),
+                            'is_value' => (bool)(ini_get('mbstring.func_overload') & 2),
                             'best_value' => false,
                             'need_value' => null,
                         ),
@@ -225,9 +225,9 @@ class Smarty_Internal_Info
         }
 
         $constants = array(
-            'SMARTY_DIR' => realpath(dirname(__FILE__) . '/..') . '/' ,
-            'SMARTY_SYSPLUGINS_DIR' => dirname(__FILE__) . '/' ,
-            'SMARTY_PLUGINS_DIR' => realpath(dirname(__FILE__) . '/../plugins') . '/' ,
+            'SMARTY_DIR' => realpath(dirname(__FILE__) . '/..') . '/',
+            'SMARTY_SYSPLUGINS_DIR' => dirname(__FILE__) . '/',
+            'SMARTY_PLUGINS_DIR' => realpath(dirname(__FILE__) . '/../plugins') . '/',
             'SMARTY_MBSTRING' => function_exists('mb_split'),
             'SMARTY_RESOURCE_CHAR_SET' => function_exists('mb_split') ? 'UTF-8' : 'ISO-8859-1',
             'SMARTY_RESOURCE_DATE_FORMAT' => '%b %e, %Y',
@@ -883,23 +883,23 @@ class Smarty_Internal_Info
     {
         switch ($type) {
             case 'boolean':
-                $value = (boolean) $value;
+                $value = (boolean)$value;
                 break;
 
             case 'integer':
-                $value = (int) $value;
+                $value = (int)$value;
                 break;
 
             case 'float':
-                $value = (int) $value;
+                $value = (int)$value;
                 break;
 
             case 'array':
-                $value = (array) $value;
+                $value = (array)$value;
                 break;
 
             case 'string':
-                $value = (string) $value;
+                $value = (string)$value;
                 break;
 
             case 'callable':

@@ -55,7 +55,7 @@ class Smarty_Compiler_Template_Javascript_Tag extends Smarty_Compiler_Code
      * as valid
      *
      * @param  object $compiler   compiler object
-     * @param  array  $attributes attributes applied to the tag
+     * @param  array $attributes attributes applied to the tag
      * @return array  of mapped attributes for further processing
      */
     public function getAttributes($compiler, $attributes)
@@ -136,7 +136,7 @@ class Smarty_Compiler_Template_Javascript_Tag extends Smarty_Compiler_Code
      *
      * @param object $compiler compiler object
      * @param string $openTag  the opening tag's name
-     * @param mixed  $data     optional data saved
+     * @param mixed $data     optional data saved
      */
     public function openTag($compiler, $openTag, $data = null)
     {
@@ -148,7 +148,7 @@ class Smarty_Compiler_Template_Javascript_Tag extends Smarty_Compiler_Code
      *
      * Raise an error if this stack-top doesn't match with expected opening tags
      *
-     * @param  object       $compiler    compiler object
+     * @param  object $compiler    compiler object
      * @param  array|string $expectedTag the expected opening tag names
      * @return mixed        any type the opening tag's name or saved data
      */
@@ -158,7 +158,7 @@ class Smarty_Compiler_Template_Javascript_Tag extends Smarty_Compiler_Code
             // get stacked info
             list($_openTag, $_data) = array_pop($compiler->_tag_stack);
             // open tag must match with the expected ones
-            if (in_array($_openTag, (array) $expectedTag)) {
+            if (in_array($_openTag, (array)$expectedTag)) {
                 if (is_null($_data)) {
                     // return opening tag
                     return $_openTag;
@@ -246,10 +246,10 @@ class Smarty_Compiler_Template_Javascript_Tag extends Smarty_Compiler_Code
      * Get create plugin parameter string
      *
      * @param  callback $callback   of plugin
-     * @param  array    $params     parameter from template
-     * @param  object   $compiler   compiler object
-     * @param  boolean  $block      true if block plugin
-     * @param  null     $cache_attr
+     * @param  array $params     parameter from template
+     * @param  object $compiler   compiler object
+     * @param  boolean $block      true if block plugin
+     * @param  null $cache_attr
      * @return mixed    data
      */
     public function getPluginParameterString($callback, $params, $compiler, $block, $cache_attr = null)

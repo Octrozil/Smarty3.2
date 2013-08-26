@@ -22,8 +22,8 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
     /**
      * fetch template and its modification time from data source
      *
-     * @param string  $name    template name
-     * @param string  &$source template source
+     * @param string $name    template name
+     * @param string &$source template source
      * @param integer &$mtime  template modification timestamp (epoch)
      */
     abstract protected function fetch($name, &$source, &$mtime);
@@ -34,7 +34,7 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
      * {@internal implementing this method is optional.
      *  Only implement it if modification times can be accessed faster than loading the complete template source.}}
      *
-     * @param  string          $name template name
+     * @param  string $name template name
      * @return integer|boolean timestamp (epoch) the template was modified, or false if not found
      */
     protected function fetchTimestamp($name)

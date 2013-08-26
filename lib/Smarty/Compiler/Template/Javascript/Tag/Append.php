@@ -22,9 +22,9 @@ class Smarty_Compiler_Template_Javascript_Tag_Append extends Smarty_Compiler_Tem
     /**
      * Compiles code for the {append} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)

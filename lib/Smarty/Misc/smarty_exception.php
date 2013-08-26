@@ -71,7 +71,7 @@ class Smarty_Exception_Runtime extends Smarty_Exception
     {
         $this->message = $message;
         $this->object = $object;
-     }
+    }
 
     public function __toString()
     {

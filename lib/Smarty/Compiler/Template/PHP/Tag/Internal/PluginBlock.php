@@ -30,9 +30,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginBlock extends Smarty_Compi
     /**
      * Compiles code for the execution of block plugin
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @param  string $tag       name of block plugin
      * @param  string $function  PHP function name
      * @return string compiled code

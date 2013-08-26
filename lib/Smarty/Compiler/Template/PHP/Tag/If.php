@@ -22,9 +22,9 @@ class Smarty_Compiler_Template_Php_Tag_If extends Smarty_Compiler_Template_Php_T
     /**
      * Compiles code for the {if} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -56,7 +56,7 @@ class Smarty_Compiler_Template_Php_Tag_If extends Smarty_Compiler_Template_Php_T
             }
             if (is_array($parameter['if condition']['var'])) {
                 $this->php("if (!isset(\$_scope->{$var}) || !is_array(\$_scope->{$var}->value)) {")->newline()->indent();
-                $this->php("\$this->_createLocalArrayVariable(" . $parameter['if condition']['var']['var'] . ", \$_scope, {$_nocache});")->newline();
+                $this->php("\$this->_createLocalArrayVariable('" . $parameter['if condition']['var']['var'] . "', \$_scope, {$_nocache});")->newline();
                 $this->outdent()->php("}")->newline();
                 $this->php("if (\$_scope->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
             } else {
@@ -86,9 +86,9 @@ class Smarty_Compiler_Template_Php_Tag_Else extends Smarty_Compiler_Template_Php
     /**
      * Compiles code for the {else} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -117,9 +117,9 @@ class Smarty_Compiler_Template_Php_Tag_Elseif extends Smarty_Compiler_Template_P
     /**
      * Compiles code for the {elseif} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -159,7 +159,7 @@ class Smarty_Compiler_Template_Php_Tag_Elseif extends Smarty_Compiler_Template_P
                 if (is_array($parameter['if condition']['var'])) {
                     $this->outdent()->php("} else {")->newline()->indent();
                     $this->php("if (!isset(\$_scope->{$var}) || !is_array(\$_scope->{$var}->value)) {")->newline()->indent();
-                    $this->php("\$this->_createLocalArrayVariable(" . $parameter['if condition']['var']['var'] . ", \$_scope, {$_nocache});")->newline();
+                    $this->php("\$this->_createLocalArrayVariable('" . $parameter['if condition']['var']['var'] . "', \$_scope, {$_nocache});")->newline();
                     $this->outdent()->php("}")->newline();
                     $this->php("if (\$_scope->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
                 } else {
@@ -183,7 +183,7 @@ class Smarty_Compiler_Template_Php_Tag_Elseif extends Smarty_Compiler_Template_P
                     }
                     $compiler->prefix_code = array();
                     $this->php("if (!isset(\$_scope->{$var}) || !is_array(\$_scope->{$var}->value)) {")->newline()->indent();
-                    $this->php("\$this->_createLocalArrayVariable(" . $parameter['if condition']['var']['var'] . ", \$_scope, {$_nocache});")->newline();
+                    $this->php("\$this->_createLocalArrayVariable('" . $parameter['if condition']['var']['var'] . "', \$_scope, {$_nocache});")->newline();
                     $this->outdent()->php("}")->newline();
                     $this->php("if (\$_scope->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
                 } else {
@@ -224,9 +224,9 @@ class Smarty_Compiler_Template_Php_Tag_Ifclose extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {/if} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)

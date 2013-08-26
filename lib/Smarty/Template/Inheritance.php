@@ -22,12 +22,12 @@ class Smarty_Template_Inheritance extends Smarty_Template_Class
     /**
      * Template runtime function to fetch inheritance template
      *
-     * @param  string  $resource   the resource handle of the template file
-     * @param  mixed   $cache_id   cache id to be used with this template
-     * @param  mixed   $compile_id compile id to be used with this template
+     * @param  string $resource   the resource handle of the template file
+     * @param  mixed $cache_id   cache id to be used with this template
+     * @param  mixed $compile_id compile id to be used with this template
      * @param  integer $caching    cache mode
-     * @param  object  $parent     parent template object
-     * @param  bool    $is_child   is inheritance child template
+     * @param  object $parent     parent template object
+     * @param  bool $is_child   is inheritance child template
      * @return object
      */
     public function _getInheritanceTemplate($resource, $cache_id, $compile_id, $caching, $parent, $is_child = false)
@@ -42,12 +42,12 @@ class Smarty_Template_Inheritance extends Smarty_Template_Class
     /**
      * resolve inheritance for block an return content
      *
-     * @param  string                $name           name of block
-     * @param  object                $scope_tpl      blocks must be processed in this variable scope
+     * @param  string $name           name of block
+     * @param  object $scope_tpl      blocks must be processed in this variable scope
      * @param  Smarty_Variable_Scope $_scope         template variables
-     * @param  object                $current_tpl    calling template  (optional)
-     * @param  int                   $mode           mode of this call
-     * @param  boolean               $in_child_chain flag when inside child template chaim
+     * @param  object $current_tpl    calling template  (optional)
+     * @param  int $mode           mode of this call
+     * @param  boolean $in_child_chain flag when inside child template chaim
      * @return string                | boolean false
      */
     public function _getInheritanceBlock($name, $scope_tpl, $_scope, $current_tpl = null, $mode = 0, $in_child_chain = false)
@@ -93,13 +93,13 @@ class Smarty_Template_Inheritance extends Smarty_Template_Class
     /**
      * resolve inheritance for block in child  {$smarty.block.child}
      *
-     * @param  string                         $name           name of block
+     * @param  string $name           name of block
      * @param  Smarty_Internal_Variable_Scope $scope_tpl      blocks must be processed in this variable scope
-     * @param  Smarty_Variable_Scope          $_scope         template variables
-     * @param  int                            $mode           mode of this call
-     * @param  Smarty                         $current_tpl    calling template  (optional)
-     * @param  boolean                        $in_child_chain flag when inside child template chaim
-     * @param  null                           $parent_block
+     * @param  Smarty_Variable_Scope $_scope         template variables
+     * @param  int $mode           mode of this call
+     * @param  Smarty $current_tpl    calling template  (optional)
+     * @param  boolean $in_child_chain flag when inside child template chaim
+     * @param  null $parent_block
      * @return string                         | boolean false
      */
     public function _getInheritanceChildBlock($name, $scope_tpl, $_scope, $mode, $current_tpl = null, $in_child_chain = false, $parent_block = null)
@@ -165,8 +165,8 @@ class Smarty_Template_Inheritance extends Smarty_Template_Class
     /**
      * Fetch output of {$smarty.block.parent}
      *
-     * @param  string                $name      name of block
-     * @param  object                $scope_tpl blocks must be processed in this variable scope
+     * @param  string $name      name of block
+     * @param  object $scope_tpl blocks must be processed in this variable scope
      * @param  Smarty_Variable_Scope $_scope    template variables
      * @return string
      */
@@ -184,10 +184,10 @@ class Smarty_Template_Inheritance extends Smarty_Template_Class
     /**
      * Fetch output of single block  by name
      *
-     * @param  string                   $name        name of block
-     * @param  Smarty                   $scope_tpl   blocks must be processed in this variable scope
-     * @param  Smarty_Variable_Scope    $_scope      template variables
-     * @param  Smarty                   $current_tpl
+     * @param  string $name        name of block
+     * @param  Smarty $scope_tpl   blocks must be processed in this variable scope
+     * @param  Smarty_Variable_Scope $_scope      template variables
+     * @param  Smarty $current_tpl
      * @throws Smarty_Exception_Runtime
      * @return string
      */

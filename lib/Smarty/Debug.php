@@ -177,14 +177,14 @@ class Smarty_Debug extends Smarty_Variable_Methods
         $tpl_vars = array();
         // TODO Source Info
         foreach ($obj->tpl_vars as $key => $value) {
-                 if (strpos($key, '___config_var_') !== 0) {
-                    $tpl_vars[$key] = $value;
+            if (strpos($key, '___config_var_') !== 0) {
+                $tpl_vars[$key] = $value;
 //                    $tpl_vars[$key]->source = $obj->tpl_vars->___attributes->name;
-                } else {
-                    $key = substr($key, 14);
-                    $config_vars[$key] = $value;
+            } else {
+                $key = substr($key, 14);
+                $config_vars[$key] = $value;
 //                    $config_vars[$key]['source'] = $obj->source->type . ':' . $obj->source->name;
-                }
+            }
         }
 
         if (isset($obj->parent)) {
@@ -206,7 +206,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
             }
         }
 
-        return (object) array('tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
+        return (object)array('tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
     }
 
     /**
@@ -300,14 +300,14 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40, $root =
             } elseif (null === $var) {
                 $results = 'null';
             } else {
-                $results = htmlspecialchars((string) $var);
+                $results = htmlspecialchars((string)$var);
             }
             $results = '<i>' . $results . '</i>';
             break;
 
         case 'integer' :
         case 'float' :
-            $results = htmlspecialchars((string) $var);
+            $results = htmlspecialchars((string)$var);
             break;
 
         case 'string' :

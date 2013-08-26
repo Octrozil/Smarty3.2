@@ -52,11 +52,11 @@ class Smarty_Misc_Utility
     /**
      * Compile all template files
      *
-     * @param string  $extension     extension of template file names
+     * @param string $extension     extension of template file names
      * @param boolean $force_compile true to force recompilation of all templates
-     * @param int     $time_limit    set maximum execution time
-     * @param int     $max_errors    set maximum allowed errors
-     * @param Smarty  $smarty        Smarty instance
+     * @param int $time_limit    set maximum execution time
+     * @param int $max_errors    set maximum allowed errors
+     * @param Smarty $smarty        Smarty instance
      * @internal param string $extension template file name extension
      * @return integer number of template files compiled
      */
@@ -82,7 +82,7 @@ class Smarty_Misc_Utility
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
                     $_template_file = $_file;
                 } else {
-                    $_template_file = substr($_fileinfo->getPath(), strlen($_dir)) . '/'  . $_file;
+                    $_template_file = substr($_fileinfo->getPath(), strlen($_dir)) . '/' . $_file;
                 }
                 echo '<br>', $_dir, '---', $_template_file;
                 flush();
@@ -120,11 +120,11 @@ class Smarty_Misc_Utility
     /**
      * Compile all config files
      *
-     * @param  string  $extension     extension of config file names
-     * @param  bool    $force_compile force all to recompile
-     * @param  int     $time_limit    set maximum execution time
-     * @param  int     $max_errors    set maximum allowed errors
-     * @param  Smarty  $smarty        Smarty instance
+     * @param  string $extension     extension of config file names
+     * @param  bool $force_compile force all to recompile
+     * @param  int $time_limit    set maximum execution time
+     * @param  int $max_errors    set maximum allowed errors
+     * @param  Smarty $smarty        Smarty instance
      * @return integer number of config files compiled
      */
     public static function compileAllConfig($extension, $force_compile, $time_limit, $max_errors, Smarty $smarty)
@@ -149,7 +149,7 @@ class Smarty_Misc_Utility
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
                     $_config_file = $_file;
                 } else {
-                    $_config_file = substr($_fileinfo->getPath(), strlen($_dir)) . '/'  . $_file;
+                    $_config_file = substr($_fileinfo->getPath(), strlen($_dir)) . '/' . $_file;
                 }
                 echo '<br>', $_dir, '---', $_config_file;
                 flush();
@@ -206,7 +206,7 @@ class Smarty_Misc_Utility
      * If $errors is secified, the diagnostic report will be appended to the array, rather than being output.
      *
      * @param  Smarty $smarty Smarty instance to test
-     * @param  array  $errors array to push results into rather than outputting them
+     * @param  array $errors array to push results into rather than outputting them
      * @return bool   status, true if everything is fine, false else
      */
     public static function testInstall(Smarty $smarty, &$errors = null)

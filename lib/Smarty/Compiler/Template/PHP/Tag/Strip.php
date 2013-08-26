@@ -24,7 +24,7 @@ class Smarty_Compiler_Template_Php_Tag_Strip extends Smarty_Compiler_Template_Ph
      *
      * This tag does not generate compiled output. It only sets a compiler flag.
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return bool
      */
@@ -60,7 +60,7 @@ class Smarty_Compiler_Template_Php_Tag_Stripclose extends Smarty_Compiler_Templa
      *
      * This tag does not generate compiled output. It only sets a compiler flag.
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return bool
      */

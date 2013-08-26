@@ -22,9 +22,9 @@ class Smarty_Compiler_Template_Php_Tag_While extends Smarty_Compiler_Template_Ph
     /**
      * Compiles code for the {while} tag
      *
-     * @param  array  $args      array with attributes from parser
+     * @param  array $args      array with attributes from parser
      * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -59,7 +59,7 @@ class Smarty_Compiler_Template_Php_Tag_While extends Smarty_Compiler_Template_Ph
             }
             if (is_array($parameter['if condition']['var'])) {
                 $this->php("if (!isset(\$_scope->{$var}) || !is_array(\$_scope->{$var}->value)) {")->newline()->indent();
-                $this->php("\$this->_createLocalArrayVariable(" . $parameter['if condition']['var']['var'] . ", \$_scope, {$_nocache});")->newline();
+                $this->php("\$this->_createLocalArrayVariable('" . $parameter['if condition']['var']['var'] . ", \$_scope, {$_nocache});")->newline();
                 $this->outdent()->php("}")->newline();
                 $this->php("while (\$_scope->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
             } else {
@@ -89,7 +89,7 @@ class Smarty_Compiler_Template_Php_Tag_Whileclose extends Smarty_Compiler_Templa
     /**
      * Compiles code for the {/while} tag
      *
-     * @param  array  $args     array with attributes from parser
+     * @param  array $args     array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

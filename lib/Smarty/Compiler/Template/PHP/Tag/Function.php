@@ -46,9 +46,9 @@ class Smarty_Compiler_Template_Php_Tag_Function extends Smarty_Compiler_Template
     /**
      * Compiles code for the {function} tag
      *
-     * @param  array   $args      array with attributes from parser
-     * @param  object  $compiler  compiler object
-     * @param  array   $parameter array with compilation parameter
+     * @param  array $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array $parameter array with compilation parameter
      * @return boolean true
      */
     public function compile($args, $compiler, $parameter)
@@ -85,9 +85,9 @@ class Smarty_Compiler_Template_Php_Tag_Functionclose extends Smarty_Compiler_Tem
     /**
      * Compiles code for the {/function} tag
      *
-     * @param  array   $args      array with attributes from parser
-     * @param  object  $compiler  compiler object
-     * @param  array   $parameter array with compilation parameter
+     * @param  array $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array $parameter array with compilation parameter
      * @return boolean true
      */
     public function compile($args, $compiler, $parameter)
