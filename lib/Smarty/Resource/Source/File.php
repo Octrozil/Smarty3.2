@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Smarty Internal Plugin Resource File
+ * Smarty Resource Source File Plugin
  *
  *
  * @package TemplateResources
@@ -10,32 +10,32 @@
  */
 
 /**
- * Smarty Internal Plugin Resource File
+ * Smarty Resource Source File Plugin
  *
  * Implements the file system as resource for Smarty templates
  *
  *
  * @package TemplateResources
  */
-class Smarty_Resource_File extends Smarty_Resource
+class Smarty_Resource_Source_File extends Smarty_Resource_Source
 {
 
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty $tpl_obj template object
+     * @param Smarty $smarty Smarty object
      */
-    public function populate(Smarty $tpl_obj = null)
+    public function populate(Smarty $smarty)
     {
-        $this->filepath = $this->buildFilepath($tpl_obj);
+        $this->filepath = $this->buildFilepath($smarty);
 
         if ($this->filepath !== false) {
-            if (is_object($tpl_obj->security_policy)) {
-                $tpl_obj->security_policy->isTrustedResourceDir($this->filepath);
+            if (is_object($smarty->security_policy)) {
+                $smarty->security_policy->isTrustedResourceDir($this->filepath);
             }
 
             $this->uid = sha1($this->filepath);
-            if ($tpl_obj->compile_check && !isset($this->timestamp)) {
+            if ($smarty->compile_check && !isset($this->timestamp)) {
                 $this->timestamp = @filemtime($this->filepath);
                 $this->exists = !!$this->timestamp;
             }
@@ -45,28 +45,28 @@ class Smarty_Resource_File extends Smarty_Resource
     /**
      * build template filepath by traversing the template_dir array
      *
-     * @param  Smarty $tpl_obj template object
+     * @param  Smarty $smarty template object
      * @return string           fully qualified filepath
      * @throws Smarty_Exception if default template handler is registered but not callable
      */
-    public function buildFilepath(Smarty $tpl_obj = null)
+    public function buildFilepath(Smarty $smarty = null)
     {
         $file = $this->name;
         if ($this->usage == Smarty::IS_CONFIG) {
-            $_directories = $tpl_obj->getConfigDir();
-            $_default_handler = $tpl_obj->default_config_handler_func;
+            $_directories = $smarty->getConfigDir();
+            $_default_handler = $smarty->default_config_handler_func;
         } else {
-            $_directories = $tpl_obj->getTemplateDir();
-            $_default_handler = $tpl_obj->default_template_handler_func;
+            $_directories = $smarty->getTemplateDir();
+            $_default_handler = $smarty->default_template_handler_func;
         }
 
         // go relative to a given template?
         $_file_is_dotted = $file[0] == '.' && ($file[1] == '.' || $file[1] == '/' || $file[1] == "\\");
-        if ($tpl_obj && isset($tpl_obj->parent) && $tpl_obj->parent->usage == Smarty::IS_TEMPLATE && $_file_is_dotted) {
-            if ($tpl_obj->parent->source->type != 'file' && $tpl_obj->parent->source->type != 'extends' && !$tpl_obj->parent->allow_relative_path) {
-                throw new Smarty_Exception("Template '{$file}' cannot be relative to template of resource type '{$tpl_obj->parent->source->type}'");
+        if ($smarty && isset($smarty->parent) && $smarty->parent->usage == Smarty::IS_TEMPLATE && $_file_is_dotted) {
+            if ($smarty->parent->source->type != 'file' && $smarty->parent->source->type != 'extends' && !$smarty->parent->allow_relative_path) {
+                throw new Smarty_Exception("Template '{$file}' cannot be relative to template of resource type '{$smarty->parent->source->type}'");
             }
-            $file = dirname($tpl_obj->parent->source->filepath) . '/' . $file;
+            $file = dirname($smarty->parent->source->filepath) . '/' . $file;
             $_file_exact_match = true;
             if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
                 // the path gained from the parent template is relative to the current working directory
@@ -138,12 +138,12 @@ class Smarty_Resource_File extends Smarty_Resource
                 if ($this->fileExists($_filepath)) {
                     return $this->normalizePath($_filepath);
                 }
-                if ($tpl_obj->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_directory)) {
+                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_directory)) {
                     // try PHP include_path
                     if ($_stream_resolve_include_path) {
                         $_filepath = stream_resolve_include_path($_filepath);
                     } else {
-                        $_filepath = Smarty_Misc_GetIncludePath::getIncludePath($_filepath);
+                        $_filepath = $smarty->_getIncludePath($_filepath);
                     }
                     if ($_filepath !== false) {
                         if ($this->fileExists($_filepath)) {
@@ -162,22 +162,22 @@ class Smarty_Resource_File extends Smarty_Resource
         // no tpl file found
         if ($_default_handler) {
             if (!is_callable($_default_handler)) {
-                if ($tpl_obj->usage == Smarty::IS_CONFIG) {
+                if ($smarty->usage == Smarty::IS_CONFIG) {
                     throw new Smarty_Exception("Default config handler not callable");
                 } else {
                     throw new Smarty_Exception("Default template handler not callable");
                 }
             }
-            $_return = call_user_func_array($_default_handler, array($source->type, $source->name, &$_content, &$_timestamp, $tpl_obj));
+            $_return = call_user_func_array($_default_handler, array($this->type, $this->name, &$_content, &$_timestamp, $smarty));
             if (is_string($_return)) {
-                $source->timestamp = @filemtime($_return);
-                $source->exists = !!$source->timestamp;
+                $this->timestamp = @filemtime($_return);
+                $this->exists = !!$this->timestamp;
 
                 return $_return;
             } elseif ($_return === true) {
-                $source->content = $_content;
-                $source->timestamp = $_timestamp;
-                $source->exists = true;
+                $this->content = $_content;
+                $this->timestamp = $_timestamp;
+                $this->exists = true;
 
                 return $_filepath;
             }
@@ -240,7 +240,7 @@ class Smarty_Resource_File extends Smarty_Resource
      */
     public function populateTimestamp()
     {
-        $this->filepath = $this->buildFilepath($tpl_obj);
+        $this->filepath = $this->buildFilepath($smarty);
         $this->timestamp = @filemtime($this->filepath);
         $this->exists = !!$this->timestamp;
     }
@@ -255,7 +255,6 @@ class Smarty_Resource_File extends Smarty_Resource
         if ($this->exists) {
             return file_get_contents($this->filepath);
         }
-
         return false;
     }
 
@@ -272,6 +271,18 @@ class Smarty_Resource_File extends Smarty_Resource
         }
 
         return basename($_file);
+    }
+
+    /**
+     * test is file exists and save timestamp
+     *
+     * @param  string $file file name
+     * @return bool   true if file exists
+     */
+    public function fileExists($file)
+    {
+        $this->timestamp = @filemtime($file);
+        return $this->exists = !!$this->timestamp;
     }
 
 }

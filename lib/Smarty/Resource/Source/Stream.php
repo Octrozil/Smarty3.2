@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Smarty Internal Plugin Resource Stream
+ * Smarty Resource Source Stream Plugin
  *
  * Implements the streams as resource for Smarty template
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Smarty Internal Plugin Resource Stream
+ * Smarty Resource Source Stream Plugin
  *
  * Implements the streams as resource for Smarty template
  *
@@ -20,7 +20,7 @@
  *
  * @package TemplateResources
  */
-class Smarty_Resource_Stream extends Smarty_Resource_Recompiled
+class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_Recompiled
 {
 
     /**
@@ -51,7 +51,7 @@ class Smarty_Resource_Stream extends Smarty_Resource_Recompiled
     public function getContent()
     {
         $t = '';
-        // the availability of the stream has already been checked in Smarty_Resource::fetch()
+        // the availability of the stream has already been checked in Smarty_Source_Resource::fetch()
         $fp = fopen($this->filepath, 'r+');
         if ($fp) {
             while (!feof($fp) && ($current_line = fgets($fp)) !== false) {

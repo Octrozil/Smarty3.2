@@ -17,7 +17,7 @@
  *
  * @package Cacher
  */
-class Smarty_Cache_Resource_File extends Smarty_Cache_Resource
+class Smarty_Cache_Resource_File extends Smarty_Resource_Cache
 {
 
     /**
@@ -31,11 +31,18 @@ class Smarty_Cache_Resource_File extends Smarty_Cache_Resource
         $this->filepath = $this->buildFilepath($tpl_obj);
         $this->timestamp = @filemtime($this->filepath);
         $this->exists = !!$this->timestamp;
+    }
+
+    /**
+     * load compiled template class
+     *     * @return void
+     */
+    public function loadTemplateClass()
+    {
         if ($this->exists) {
             include $this->filepath;
         }
     }
-
     /**
      * build cache file filepath
      *
@@ -92,19 +99,6 @@ class Smarty_Cache_Resource_File extends Smarty_Cache_Resource
     {
         $this->timestamp = @filemtime($this->filepath);
         $this->exists = !!$this->timestamp;
-    }
-
-    /**
-     * Read the cached template and process its header
-     *
-     * @param  Smarty $tpl_obj template object
-     * @return bool   true or false if the cached content does not exist
-     */
-    public function process(Smarty $tpl_obj)
-    {
-        include $this->filepath;
-
-        return true;
     }
 
     /**
@@ -281,8 +275,10 @@ class Smarty_Cache_Resource_File extends Smarty_Cache_Resource
                             }
                             $_count += @unlink($path) ? 1 : 0;
                             $_deleted[$i] = true;
-                            // notify listeners of deleted file
-                            Smarty::triggerCallback('filesystem:delete', array($smarty, $path));
+                            if ($smarty->enable_trace) {
+                                // notify listeners of deleted file
+                                $smarty->triggerCallback('filesystem:delete', array($smarty, $path));
+                            }
                         }
                     }
                     unset($_cacheDirs, $_cacheDirs1);
@@ -328,8 +324,10 @@ class Smarty_Cache_Resource_File extends Smarty_Cache_Resource
                     }
                 }
                 $_count += @unlink($path) ? 1 : 0;
-                // notify listeners of deleted file
-                Smarty::triggerCallback('filesystem:delete', array($smarty, $path));
+                if ($smarty->enable_trace) {
+                    // notify listeners of deleted file
+                    $smarty->triggerCallback('filesystem:delete', array($smarty, $path));
+                }
             }
         }
 

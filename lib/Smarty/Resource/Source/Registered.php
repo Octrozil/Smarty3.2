@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Smarty Internal Plugin Resource Registered
+ * Smarty Resource Source Registered Plugin
  *
  *
  * @package TemplateResources
@@ -10,7 +10,7 @@
  */
 
 /**
- * Smarty Internal Plugin Resource Registered
+ * Smarty Resource Source Registered Plugin
  *
  * Implements the registered resource for Smarty template
  *
@@ -18,7 +18,7 @@
  * @package TemplateResources
  * @deprecated
  */
-class Smarty_Resource_Registered extends Smarty_Resource
+class Smarty_Resource_Source_Registered extends Smarty_Resource_Source
 {
 
     /**
@@ -76,8 +76,7 @@ class Smarty_Resource_Registered extends Smarty_Resource
         if (is_bool($t) && !$t) {
             throw new Smarty_Exception("Unable to read template {$this->type} '{$this->name}'");
         }
-
-        return $this->content;
+       return $this->content;
     }
 
     /**

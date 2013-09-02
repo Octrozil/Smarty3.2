@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Smarty Internal Plugin Javascript Resource File
+ * Smarty Resource Source Javascript File Plugin
  *
  *
  * @package TemplateResources
@@ -10,14 +10,14 @@
  */
 
 /**
- * Smarty Internal Plugin Javascript Resource File
+ * Smarty Resource Source Javascript File Plugin
  *
  * Implements the file system as resource for Smarty Javascript templates
  *
  *
  * @package TemplateResources
  */
-class Smarty_Resource_Js extends Smarty_Resource_File
+class Smarty_Resource_Source_Js extends Smarty_Resource_Source_File
 {
     /**
      * Resource compiler class

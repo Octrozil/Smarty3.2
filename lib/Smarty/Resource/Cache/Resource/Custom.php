@@ -14,7 +14,7 @@
  * @package Cacher
  * @author Rodney Rehm
  */
-abstract class Smarty_Cache_Resource_Custom extends Smarty_Cache_Resource
+abstract class Smarty_Cache_Resource_Custom extends Smarty_Resource_Cache
 {
 
     /**

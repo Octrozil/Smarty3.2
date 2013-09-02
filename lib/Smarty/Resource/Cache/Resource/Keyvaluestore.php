@@ -32,7 +32,7 @@
  * @package Cacher
  * @author Rodney Rehm
  */
-abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
+abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Resource_Cache
 {
 
     /**
@@ -178,7 +178,7 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Cache_Resource
     {
         $uid = '';
         if (isset($resource_name)) {
-            $source = Smarty_Resource::source(null, $smarty, $resource_name);
+            $source = Smarty_Source_Resource::source(null, $smarty, $resource_name);
             if ($source->exists) {
                 $uid = $source->uid;
             }

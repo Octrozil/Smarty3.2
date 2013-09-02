@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Smarty Internal Plugin Resource Eval
+ * Smarty Resource Source Eval Plugin
  *
  *
  * @package TemplateResources
@@ -10,7 +10,7 @@
  */
 
 /**
- * Smarty Internal Plugin Resource Eval
+ * Smarty Resource Source Eval Plugin
  *
  * Implements the strings as resource for Smarty template
  *
@@ -19,7 +19,7 @@
  *
  * @package TemplateResources
  */
-class Smarty_Resource_Eval extends Smarty_Resource_String
+class Smarty_Resource_Source_Eval extends Smarty_Resource_Source_String
 {
     /*
      * set recompiled flag

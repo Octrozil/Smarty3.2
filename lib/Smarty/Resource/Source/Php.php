@@ -1,7 +1,16 @@
 <?php
 
 /**
- * Smarty Internal Plugin Resource PHP
+ * Smarty Resource Source PHP File Plugin
+ *
+ *
+ * @package TemplateResources
+ * @author Uwe Tews
+ * @author Rodney Rehm
+ */
+
+/**
+ * Smarty Resource Source PHP File Plugin
  *
  * Implements the file system as resource for PHP templates
  *
@@ -10,7 +19,7 @@
  * @author Uwe Tews
  * @author Rodney Rehm
  */
-class Smarty_Resource_Php extends Smarty_Resource_File
+class Smarty_Resource_Source_Php extends Smarty_Resource_Source_File
 {
 
     /**

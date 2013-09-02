@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Smarty Internal Plugin Resource String
+ * Smarty Resource Source String Plugin
  *
  *
  * @package TemplateResources
@@ -10,7 +10,7 @@
  */
 
 /**
- * Smarty Internal Plugin Resource String
+ * Smarty Resource Source String Plugin
  *
  * Implements the strings as resource for Smarty template
  *
@@ -19,7 +19,7 @@
  *
  * @package TemplateResources
  */
-class Smarty_Resource_String extends Smarty_Resource
+class Smarty_Resource_Source_String extends Smarty_Resource_Source
 {
 
     /**
@@ -73,7 +73,6 @@ class Smarty_Resource_String extends Smarty_Resource
                 return urldecode(substr($string, 10));
             }
         }
-
         return $string;
     }
 

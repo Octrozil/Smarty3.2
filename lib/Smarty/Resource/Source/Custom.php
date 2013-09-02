@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Smarty Resource Plugin
+ * Smarty Resource Source Custom Class
  *
  *
  * @package TemplateResources
@@ -9,14 +9,14 @@
  */
 
 /**
- * Smarty Resource Plugin
+ * Smarty Smarty Resource Source Custom Class
  *
- * Wrapper Implementation for custom resource plugins
+ * Wrapper Implementation for custom source resource plugins
  *
  *
  * @package TemplateResources
  */
-abstract class Smarty_Resource_Custom extends Smarty_Resource
+abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source
 {
 
     /**

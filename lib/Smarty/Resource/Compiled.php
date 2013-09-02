@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Smarty Compiled Resource Plugin
+ * Smarty Resource Compiled Plugin
  *
  *
  * @package CompiledResources
@@ -9,13 +9,22 @@
  */
 
 /**
+ * Smarty Resource Compiled Plugin
  * Meta Data Container for Compiled Template Files
  *
  *
- * @property string $content compiled content
  */
-class Smarty_Compiled_Resource extends Smarty_Exception_Magic
+class Smarty_Resource_Compiled  extends Smarty_Exception_Magic
 {
+
+    /**
+     * compiled resource cache
+     *
+     * @var array
+     * @internal
+     */
+    public static $resource_cache = array();
+
     /**
      * resource filepath
      *
@@ -73,84 +82,120 @@ class Smarty_Compiled_Resource extends Smarty_Exception_Magic
     public $class_name = '';
 
     /**
-     * Populate compiled resource properties
+     * Load the compiled resource
      *
-     * @param Smarty $tpl_obj template object
-     * @params Smarty_Resource $source source resource
+     * @params Smarty_Source_Resource $source source resource
      * @params mixed $compile_id  compile id
      * @params boolean $caching caching enabled ?
-     * @return Smarty_Compiled_Resource
+     * @return Smarty_Resource_Compiled
      */
-    public function populateResource($tpl_obj, $source, $compile_id, $caching)
+    static function load(Smarty $smarty, Smarty_Resource_Source $source, $compile_id, $caching = false)
     {
-        $this->source = $source;
-        $this->compile_id = $compile_id;
-        $this->caching = $caching;
-        $this->populate($tpl_obj);
+        // check runtime cache
+        $source_key = $source->uid;
+        $compiled_key = $compile_id ? $compile_id : '#null#';
+        if ($caching) {
+            $compiled_key .= '#caching';
+        }
+        if (isset(self::$resource_cache[$source_key][$compiled_key])) {
+            return self::$resource_cache[$source_key][$compiled_key];
+        }
 
-        return $this;
+        $compiled = Smarty_Resource_Loader::load($smarty, Smarty_Resource_Loader::COMPILED);
+        $compiled->source = $source;
+        $compiled->compile_id = $compile_id;
+        $compiled->caching = $caching;
+        $compiled->populate($smarty);
+        return self::$resource_cache[$source_key][$compiled_key] = $compiled;
+   }
+
+    /**
+     * @param Smarty $tpl_obj
+     * @params Smarty_Source_Resource $source source resource
+     * @params mixed $compile_id  compile id
+     * @param Smarty $parent
+     * @param  int $scope_type
+     * @param  null|array $data
+     * @param  boolean $no_output_filter true if output filter shall nit run
+     * @return string html output
+     */
+    static function getRenderedTemplate($tpl_obj, $source, $compile_id, $parent, $scope_type = Smarty::SCOPE_LOCAL, $data = null, $no_output_filter = true) {
+        return self::load($tpl_obj, $source, $compile_id)->instanceTemplate($tpl_obj, $parent)->getRenderedTemplate($scope_type, $data, $no_output_filter);
     }
 
+    /**
+     * Instance compiled template
+     *
+     * @param Smarty                                    $smarty     Smarty object
+     * @param Smarty|Smarty_Data|Smarty_Template_Class  $parent     parent object
+     * @returns Smarty_Template_Class
+     */
+    function instanceTemplate($smarty, $parent) {
+        if ($this->class_name == '') {
+            return $this->loadTemplate($smarty, $parent);
+        } else {
+            return new $this->class_name($smarty, $parent, $this->source);
+        }
 
+    }
     /**
      * Load compiled template
      *
-     * @param Smarty $tpl_obj Smarty object
-     * @param Smarty|Smarty_Data|Smarty_Template_Class $parent  parent object
+     * @param Smarty                                    $smarty     Smarty object
+     * @param Smarty|Smarty_Data|Smarty_Template_Class  $parent     parent object
      * @returns Smarty_Template_Class
      * @throws Smarty_Exception
      */
-    public function loadTemplate($tpl_obj, $parent)
+    public function loadTemplate($smarty, $parent)
     {
         try {
             $level = ob_get_level();
             if ($this->source->recompiled) {
-                if ($tpl_obj->debugging) {
+                if ($smarty->debugging) {
                     Smarty_Debug::start_compile($this->source);
                 }
 
-                $compiler = Smarty_Compiler::load($tpl_obj, $this->source, $this->caching);
+                $compiler = Smarty_Compiler::load($smarty, $this->source, $this->caching);
                 $compiler->compileTemplate();
-                if ($tpl_obj->debugging) {
+                if ($smarty->debugging) {
                     Smarty_Debug::end_compile($this->source);
                 }
                 eval('?>' . $compiler->template_code->buffer);
                 unset($compiler);
-                if ($tpl_obj->debugging) {
+                if ($smarty->debugging) {
                     Smarty_Debug::end_compile($this->source);
                 }
-                $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
+                $template_obj = new $this->class_name($smarty, $parent, $this->source);
 
             } else {
                 $isValid = false;
-                if ($this->exists && !$tpl_obj->force_compile && $this->timestamp >= $this->source->timestamp) {
+                if ($this->exists && !$smarty->force_compile && $this->timestamp >= $this->source->timestamp) {
                     // load existing compiled template class
-                    $this->process($tpl_obj);
-                    $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
+                    $this->loadTemplateClass($this);
+                    $template_obj = new $this->class_name($smarty, $parent, $this->source);
                     $class_name = $this->class_name;
                     // existing class could got invalid
                     $isValid = $class_name::$isValid;
                 }
                 if (!$isValid) {
                     // we must compile from source
-                    if ($tpl_obj->debugging) {
+                    if ($smarty->debugging) {
                         Smarty_Debug::start_compile($this->source);
                     }
-                    $compiler = Smarty_Compiler::load($tpl_obj, $this->source, $this->caching);
+                    $compiler = Smarty_Compiler::load($smarty, $this->source, $this->caching);
                     $compiler->compileTemplateSource($this);
                     unset($compiler);
-                    if ($tpl_obj->debugging) {
+                    if ($smarty->debugging) {
                         Smarty_Debug::end_compile($this->source);
                     }
-                    $this->process($tpl_obj);
-                    $template_obj = new $this->class_name($tpl_obj, $parent, $this->source);
+                    $this->loadTemplateClass($this);
+                    $template_obj = new $this->class_name($smarty, $parent, $this->source);
                     $class_name = $this->class_name;
                     $isValid = $class_name::$isValid;
                     if (!$isValid) {
                         throw new Smarty_Exception("Unable to load compiled template file '{$this->filepath}");
                     }
                 }
-
             }
         } catch (Exception $e) {
             while (ob_get_level() > $level) {
@@ -158,7 +203,6 @@ class Smarty_Compiled_Resource extends Smarty_Exception_Magic
             }
             throw new Smarty_Exception_Runtime('resource ', -1, null, null, $e);
         }
-
         return $template_obj;
     }
 

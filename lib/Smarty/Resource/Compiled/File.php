@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Smarty Compiled Resource Plugin
+ * Smarty Resource Compiled File Plugin
  *
  *
  * @package CompiledResources
@@ -9,37 +9,33 @@
  */
 
 /**
+ * Smarty Resource Compiled File Plugin
  * Meta Data Container for Compiled Template Files
  *
- *
- * @property string $content compiled content
  */
-class Smarty_Compiled_Resource_File extends Smarty_Compiled_Resource
+class Smarty_Resource_Compiled_File extends Smarty_Resource_Compiled
 {
 
     /**
      * populate Compiled Resource Object with meta data from Resource
      *
-     * @param  Smarty $tpl_obj template object
+     * @param  Smarty                       $smarty     Smarty object
      * @return void
      */
-    public function populate($tpl_obj)
+    public function populate($smarty)
     {
-        $this->filepath = $this->buildFilepath($tpl_obj);
+        $this->filepath = $this->buildFilepath($smarty);
         $this->timestamp = @filemtime($this->filepath);
         $this->exists = !!$this->timestamp;
     }
 
     /**
-     * load and instance compiled template
-     *
-     * @param  Smarty $tpl_obj template object
-     * @return void
+     * load compiled template class
+     *     * @return void
      */
-    public function process($tpl_obj)
+    public function loadTemplateClass()
     {
         if ($this->exists) {
-            // compiled template to see if it is still valid
             include $this->filepath;
         }
     }
@@ -47,7 +43,7 @@ class Smarty_Compiled_Resource_File extends Smarty_Compiled_Resource
     /**
      * populate Compiled Object with compiled filepath
      *
-     * @param  Smarty $smarty template or cache object object
+     * @param  Smarty                       $smarty     Smarty object
      * @return string
      */
     public function buildFilepath($smarty)
@@ -76,7 +72,7 @@ class Smarty_Compiled_Resource_File extends Smarty_Compiled_Resource
         }
         $_compile_dir = $smarty->getCompileDir();
         // set basename if not specified
-        $_basename = $this->source->getBasename($this->source);
+        $_basename = $this->source->getBasename();
         if ($_basename === null) {
             $_basename = basename(preg_replace('![^\w\/]+!', '_', $this->source->name));
         }
@@ -91,22 +87,21 @@ class Smarty_Compiled_Resource_File extends Smarty_Compiled_Resource
     /**
      * Delete compiled template file
      *
+     * @param  Smarty $smarty            Smarty instance
      * @param  string $template_resource template name
      * @param  string $compile_id        compile id
      * @param  integer $exp_time          expiration time
-     * @param  Smarty $smarty            Smarty instance
      * @return integer number of template files deleted
      */
-    public function clear($template_resource, $compile_id, $exp_time, Smarty $smarty)
+    public function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time,  $is_config)
     {
         $_compile_dir = $smarty->getCompileDir();
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
         $compiletime_options = 0;
         $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
         if (isset($template_resource)) {
-            $source = $smarty->_loadResource(Smarty::SOURCE, $template_resource);
-
-            if ($source->exists) {
+            $source = Smarty_Resource_Source::load($smarty, $template_resource, $is_config);
+           if ($source->exists) {
                 // set basename if not specified
                 $_basename = $source->getBasename($source);
                 if ($_basename === null) {
@@ -171,17 +166,13 @@ class Smarty_Compiled_Resource_File extends Smarty_Compiled_Resource
 
                 if ($unlink && @unlink($_filepath)) {
                     $_count++;
-                    // notify listeners of deleted file
-                    Smarty::triggerCallback('filesystem:delete', array($smarty, $_filepath));
+                    if ($smarty->enable_trace) {
+                        // notify listeners of deleted file
+                        $smarty->triggerCallback('filesystem:delete', array($smarty, $path));
+                    }
                 }
             }
         }
-        // clear compiled cache
-        foreach (Smarty::$resource_cache as $source_key => $foo) {
-            unset(Smarty::$resource_cache[$source_key]['compiled']);
-        }
-
-        return $_count;
+       return $_count;
     }
-
 }

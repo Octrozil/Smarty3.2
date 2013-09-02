@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Smarty Internal Plugin Resource Extends
+ * Smarty Resource Source Extends Plugin
  *
  *
  * @package TemplateResources
@@ -10,14 +10,14 @@
  */
 
 /**
- * Smarty Internal Plugin Resource Extends
+ * Smarty Resource Source Extends Plugin
  *
  * Implements the file system as resource for Smarty which {extend}s a chain of template files templates
  *
  *
  * @package TemplateResources
  */
-class Smarty_Resource_Extends extends Smarty_Resource
+class Smarty_Resource_Source_Extends extends Smarty_Resource_Source
 {
 
     /**
@@ -40,7 +40,7 @@ class Smarty_Resource_Extends extends Smarty_Resource
         $components = explode('|', $this->name);
         $exists = true;
         foreach ($components as $component) {
-            $s = Smarty_Resource::loadSource($tpl_obj, $component);
+            $s = Smarty_Source_Resource::loadSource($tpl_obj, $component);
             if ($s->type == 'php') {
                 throw new Smarty_Exception("Resource type {$s->type} cannot be used with the extends resource type");
             }
