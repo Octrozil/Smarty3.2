@@ -4,7 +4,7 @@
  * Smarty read include path plugin
  *
  *
- * @package PluginsInternal
+ * @package CoreExtensions
  * @author Monte Ohrt
  */
 
@@ -12,26 +12,27 @@
  * Smarty Internal Read Include Path Class
  *
  *
- * @package PluginsInternal
+ * @package CoreExtensions
  */
-class Smarty_Misc_GetIncludePath
+class Smarty_Extension_Path
 {
 
     /**
      * Return full file path from PHP include_path
      *
+     * @param  Smarty $smarty   Smarty object
      * @param  string $filepath filepath
      * @return string|boolean full filepath or false
      */
-    public static function getIncludePath($filepath)
+    public function _getIncludePath(Smarty $smarty, $filepath)
     {
-        static $_include_path = null;
+        static $_include_path_array = null;
 
-        if ($_path_array === null) {
-            $_include_path = explode(PATH_SEPARATOR, get_include_path());
+        if ($_include_path_array === null) {
+            $_include_path_array = explode(PATH_SEPARATOR, get_include_path());
         }
 
-        foreach ($_include_path as $_path) {
+        foreach ($_include_path_array as $_path) {
             if (file_exists($_path . '/' . $filepath)) {
                 return $_path . '/' . $filepath;
             }
@@ -39,5 +40,4 @@ class Smarty_Misc_GetIncludePath
 
         return false;
     }
-
 }
