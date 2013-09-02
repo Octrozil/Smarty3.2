@@ -75,8 +75,10 @@ class Smarty_Misc_WriteFile
             throw new Smarty_Exception("unable to write file {$_filepath}");
         }
 
-        // notify listeners of written file
-        Smarty::triggerCallback('filesystem:write', array($smarty, $_filepath));
+        if ($smarty->enable_trace) {
+            // notify listeners of written file
+            $smarty->triggerCallback('filesystem:write', array($smarty, $_filepath));
+        }
 
         if ($smarty->_file_perms !== null) {
             // set file permissions

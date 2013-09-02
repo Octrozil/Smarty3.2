@@ -219,7 +219,7 @@ if ($class == null) {
 $class = $this->trace_back['class'];
 }
 switch ($class) {
-case 'Smarty_Resource':
+case 'Smarty_Source_Resource':
 return "Source Object [{$this->obj->type}:{$this->obj->name}] : ";
 case 'Smarty':
 case 'SmartyBC':

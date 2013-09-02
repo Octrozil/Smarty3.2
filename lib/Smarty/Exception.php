@@ -38,7 +38,7 @@ class Smarty_Exception extends Exception
      *
      * @param string $message  The error message
      * @param integer $lineno   The template line where the error occurred
-     * @param Smarty_Resource $source   The template source object
+     * @param Smarty_Source_Resource $source   The template source object
      * @param Exception $previous The previous exception
      */
     public function __construct($message, $lineno = -1, $source = null, $lex = null, Exception $previous = null)

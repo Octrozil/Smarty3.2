@@ -61,7 +61,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * Start logging of compile time
      *
-     * @param Smarty_Resource $source
+     * @param Smarty_Source_Resource $source
      */
     public static function start_compile($source)
     {
@@ -72,7 +72,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * End logging of compile time
      *
-     * @param Smarty_Resource $source
+     * @param Smarty_Source_Resource $source
      */
     public static function end_compile($source)
     {
@@ -83,7 +83,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * Start logging of render time
      *
-     * @param Smarty_Resource $source
+     * @param Smarty_Source_Resource $source
      */
     public static function start_render($source)
     {
@@ -94,7 +94,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * End logging of compile time
      *
-     * @param Smarty_Resource $source
+     * @param Smarty_Source_Resource $source
      */
     public static function end_render($source)
     {
@@ -105,7 +105,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * Start logging of cache time
      *
-     * @param Smarty_Resource $source
+     * @param Smarty_Source_Resource $source
      */
     public static function start_cache($source)
     {
@@ -116,7 +116,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * End logging of cache time
      *
-     * @param Smarty_Resource $source
+     * @param Smarty_Source_Resource $source
      */
     public static function end_cache($source)
     {
@@ -212,7 +212,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * Return key into $_template_data for template
      *
-     * @param  Smarty_Resource $source
+     * @param  Smarty_Source_Resource $source
      * @return string          key into $_template_data
      */
     private static function get_key($source)

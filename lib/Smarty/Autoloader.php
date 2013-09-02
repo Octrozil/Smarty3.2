@@ -33,7 +33,7 @@ class Smarty_Autoloader
      * @var array of class names with special format
      */
     public static $rootClasses = array('Smarty' => 'Smarty/Smarty', 'SmartyBC' => 'Smarty/SmartyBC', 'SmartyBC3' => 'Smarty/SmartyBC3');
-    public static $checkFile = true;
+    public static $checkFile = false;
 
     /**
      * Registers Smarty_Autoloader as an SPL autoloader.

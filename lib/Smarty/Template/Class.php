@@ -40,7 +40,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
 
     /**
      * Source object
-     * @var Smarty_Resource
+     * @var Smarty_Source_Resource
      */
     public $source = null;
 
@@ -161,7 +161,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
      *
      * @param Smarty $smarty Smarty object
      * @param Smarty|Smarty_Data|Smarty_Template_Class $parent parent object
-     * @params Smarty_Resource $source source resource
+     * @params Smarty_Source_Resource $source source resource
      */
     public function __construct($tpl_obj, $parent, $source)
     {
@@ -187,7 +187,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
                     } elseif ($_file_to_check[2] == 'string') {
                         continue;
                     } else {
-                        $source = Smarty_Resource::loadResource($this->tpl_obj, $_file_to_check[0]);
+                        $source = Smarty_Resource_Source::load($this->tpl_obj, $_file_to_check[0]);
                         $mtime = $source->timestamp;
                     }
                     if (!$mtime || $mtime > $_file_to_check[1]) {
@@ -253,7 +253,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
             Smarty_Cache_Resource::$creator[0]->_mergeFromCompiled($this);
         }
         if (!$no_output_filter && (isset($this->tpl_obj->autoload_filters['output']) || isset($this->tpl_obj->registered_filters['output']))) {
-            $output = Smarty_Misc_FilterHandler::runFilter('output', $output, $this->tpl_obj);
+            $output = $this->tpl_obj->runFilter('output', $output);
         }
 
         if ($this->tpl_obj->debugging) {

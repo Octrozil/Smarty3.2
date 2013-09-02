@@ -33,7 +33,8 @@ class Smarty_Template_Inheritance extends Smarty_Template_Class
     public function _getInheritanceTemplate($resource, $cache_id, $compile_id, $caching, $parent, $is_child = false)
     {
         //get source object from cache  or create new one
-        $source = $parent->_getSourceObj($resource);
+        $source = Smarty_Resource_Source::load($parent, $resource);
+        return Smarty_Resource_Compiled::getRenderedTemplate($parent, $source, $compile_id, $parent);
 //        $output = $tpl_obj->_getCompiledTemplate($this->source, $this->compile_id, $this->caching)->getRenderedTemplate($tpl_obj, $_scope, $scope_type, $data, $no_output_filter);
 
 //        return $parent->_loadCompiled($source, $compile_id, $caching);

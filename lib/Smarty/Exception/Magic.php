@@ -4,7 +4,7 @@
  * Smarty Magic Error Exception
  *
  *
- * @package Smarty
+ * @package Exception
  * @author Uwe Tews
  */
 
@@ -13,7 +13,7 @@
  *
  * Throws error on on defined properties or methods
  *
- * @package Smarty
+ * @package Exception
  */
 
 class Smarty_Exception_Magic
