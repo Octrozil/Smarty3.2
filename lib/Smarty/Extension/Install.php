@@ -6,7 +6,7 @@
  * Smarty filter methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  * @author Uwe Tews
  */
 
@@ -14,21 +14,38 @@
  * Class for filter methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  */
 class Smarty_Extension_Install
 {
+
+    /**
+     *  Smarty object
+     *
+     * @var Smarty
+     */
+    public $smarty;
+
+    /**
+     *  Constructor
+     *
+     * @param Smarty $smarty Smarty object
+     */
+    public function __construct(Smarty $smarty)
+    {
+        $this->smarty = $smarty;
+    }
+
 
     /**
      * diagnose Smarty setup
      *
      * If $errors is secified, the diagnostic report will be appended to the array, rather than being output.
      *
-     * @param  Smarty $smarty Smarty instance to test
      * @param  array $errors array to push results into rather than outputting them
      * @return bool   status, true if everything is fine, false else
      */
-    public function testInstall(Smarty $smarty, &$errors = null)
+    public function testInstall(&$errors = null)
     {
         $status = true;
 
@@ -40,17 +57,17 @@ class Smarty_Extension_Install
 
         $_stream_resolve_include_path = function_exists('stream_resolve_include_path');
         // test if all registered template_dir are accessible
-        foreach ($smarty->getTemplateDir() as $template_dir) {
+        foreach ($this->smarty->getTemplateDir() as $template_dir) {
             $_template_dir = $template_dir;
             $template_dir = realpath($template_dir);
             // resolve include_path or fail existance
             if (!$template_dir) {
-                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_template_dir)) {
+                if ($this->smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_template_dir)) {
                     // try PHP include_path
                     if ($_stream_resolve_include_path) {
                         $template_dir = stream_resolve_include_path($_template_dir);
                     } else {
-                        $template_dir = $smarty->_getIncludePath($_template_dir);
+                        $template_dir = $this->smarty->_getIncludePath($_template_dir);
                     }
                     if ($template_dir !== false) {
                         if ($errors === null) {
@@ -110,7 +127,7 @@ class Smarty_Extension_Install
         }
 
         // test if registered compile_dir is accessible
-        $__compile_dir = $smarty->getCompileDir();
+        $__compile_dir = $this->smarty->getCompileDir();
         $_compile_dir = realpath($__compile_dir);
         if (!$_compile_dir) {
             $status = false;
@@ -158,17 +175,17 @@ class Smarty_Extension_Install
         // and if core plugins directory is still registered
         $_core_plugins_dir = realpath(dirname(__FILE__) . '/../plugins');
         $_core_plugins_available = false;
-        foreach ($smarty->getPluginsDir() as $plugin_dir) {
+        foreach ($this->smarty->getPluginsDir() as $plugin_dir) {
             $_plugin_dir = $plugin_dir;
             $plugin_dir = realpath($plugin_dir);
             // resolve include_path or fail existance
             if (!$plugin_dir) {
-                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
+                if ($this->smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
                     // try PHP include_path
                     if ($_stream_resolve_include_path) {
                         $plugin_dir = stream_resolve_include_path($_plugin_dir);
                     } else {
-                        $plugin_dir = $smarty->_getIncludePath($_plugin_dir);
+                        $plugin_dir = $this->smarty->_getIncludePath($_plugin_dir);
                     }
                     if ($plugin_dir !== false) {
                         if ($errors === null) {
@@ -242,7 +259,7 @@ class Smarty_Extension_Install
         }
 
         // test if all registered cache_dir is accessible
-        $__cache_dir = $smarty->getCacheDir();
+        $__cache_dir = $this->smarty->getCacheDir();
         $_cache_dir = realpath($__cache_dir);
         if (!$_cache_dir) {
             $status = false;
@@ -287,17 +304,17 @@ class Smarty_Extension_Install
         }
 
         // test if all registered config_dir are accessible
-        foreach ($smarty->getConfigDir() as $config_dir) {
+        foreach ($this->smarty->getConfigDir() as $config_dir) {
             $_config_dir = $config_dir;
             $config_dir = realpath($config_dir);
             // resolve include_path or fail existance
             if (!$config_dir) {
-                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_config_dir)) {
+                if ($this->smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_config_dir)) {
                     // try PHP include_path
                     if ($_stream_resolve_include_path) {
                         $config_dir = stream_resolve_include_path($_config_dir);
                     } else {
-                        $config_dir = $smarty->_getIncludePath($_config_dir);
+                        $config_dir = $this->smarty->_getIncludePath($_config_dir);
                     }
                     if ($config_dir !== false) {
                         if ($errors === null) {
@@ -359,12 +376,12 @@ class Smarty_Extension_Install
         $source = SMARTY_SYSPLUGINS_DIR;
         if (is_dir($source)) {
             $expected = array(
-                "Smarty_Cache_Resource.php" => true,
-                "Smarty_Cache_Resource_custom.php" => true,
-                "Smarty_Cache_Resource_keyvaluestore.php" => true,
+                "Smarty_Resource_Cache.php" => true,
+                "Smarty_Resource_Cache_custom.php" => true,
+                "Smarty_Resource_Cache_keyvaluestore.php" => true,
                 "Smarty_Compiler_Cose.php" => true,
                 "Smarty_Template_Class.php" => true,
-                "Smarty_Cache_Resource_File.php" => true,
+                "Smarty_Resource_Cache_File.php" => true,
                 "Smarty_Compiler_Template_Tag_append.php" => true,
                 "Smarty_Compiler_Template_Tag_assign.php" => true,
                 "Smarty_Compiler_Template_Tag_block.php" => true,
@@ -407,12 +424,12 @@ class Smarty_Extension_Install
                 "Smarty_Misc_FilterHandler.php" => true,
                 "Smarty_Misc_GetIncludePath.php" => true,
                 "smarty_internal_nocache_insert.php" => true,
-                "Smarty_Source_Resource_Eval.php" => true,
-                "Smarty_Source_Resource_Extends.php" => true,
-                "Smarty_Source_Resource_File.php" => true,
-                "Smarty_Source_Resource_Registered.php" => true,
-                "Smarty_Source_Resource_Stream.php" => true,
-                "Smarty_Source_Resource_String.php" => true,
+                "Smarty_Resource_Source_Eval.php" => true,
+                "Smarty_Resource_Source_Extends.php" => true,
+                "Smarty_Resource_Source_File.php" => true,
+                "Smarty_Resource_Source_Registered.php" => true,
+                "Smarty_Resource_Source_Stream.php" => true,
+                "Smarty_Resource_Source_String.php" => true,
                 "smarty_internal_smartytemplatecompiler.php" => true,
                 "smarty_Internal_Template_.php" => true,
                 "smarty_Internal_Template_base.php" => true,
@@ -421,10 +438,10 @@ class Smarty_Extension_Install
                 "smarty_Internal_Template_parser.php" => true,
                 "Smarty_Misc_Utility.php" => true,
                 "Smarty_Misc_WriteFile.php" => true,
-                "Smarty_Source_Resource.php" => true,
-                "Smarty_Source_Resource_custom.php" => true,
-                "Smarty_Source_Resource_recompiled.php" => true,
-                "Smarty_Source_Resource_uncompiled.php" => true,
+                "Smarty_Resource_Source.php" => true,
+                "Smarty_Resource_Source_custom.php" => true,
+                "Smarty_Resource_Source_recompiled.php" => true,
+                "Smarty_Resource_Source_uncompiled.php" => true,
                 "smarty_security.php" => true,
             );
             $iterator = new DirectoryIterator($source);

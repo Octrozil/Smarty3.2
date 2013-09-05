@@ -6,7 +6,7 @@
  * Smarty filter methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  * @author Uwe Tews
  */
 
@@ -14,58 +14,72 @@
  * Class for modifier methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  */
 class Smarty_Extension_Template
 {
     /**
-     * Registers a default template handler
+     *  Smarty object
      *
-     * @api
-     * @param  Smarty $smarty   Smarty object
-     * @param  callable $callback class/method name
-     * @return Smarty
-     * @throws Smarty_Exception if $callback is not callable
+     * @var Smarty
      */
-    public function registerDefaultTemplateHandler(Smarty $smarty, $callback)
+    public $smarty;
+
+    /**
+     *  Constructor
+     *
+     * @param Smarty $smarty Smarty object
+     */
+    public function __construct(Smarty $smarty)
     {
-        if (is_callable($callback)) {
-            $smarty->default_template_handler_func = $callback;
-        } else {
-            throw new Smarty_Exception("registerDefaultTemplateHandler(): Invalid callback");
-        }
-        return $smarty;
+        $this->smarty = $smarty;
     }
 
     /**
      * Registers a default template handler
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
+     * @param  callable $callback class/method name
      * @return Smarty
      * @throws Smarty_Exception if $callback is not callable
      */
-    public function unregisterDefaultTemplateHandler(Smarty $smarty)
+    public function registerDefaultTemplateHandler($callback)
     {
-        $smarty->default_template_handler_func = null;
+        if (is_callable($callback)) {
+            $this->smarty->default_template_handler_func = $callback;
+        } else {
+            throw new Smarty_Exception("registerDefaultTemplateHandler(): Invalid callback");
+        }
+        return $this->smarty;
+    }
 
-        return $smarty;
+    /**
+     * Registers a default template handler
+     *
+     * @api
+     * @return Smarty
+     * @throws Smarty_Exception if $callback is not callable
+     */
+    public function unregisterDefaultTemplateHandler()
+    {
+        $this->smarty->default_template_handler_func = null;
+
+        return $this->smarty;
     }
 
     /**
      * Check if a template resource exists
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  string $template_resource template name
-     * @param  bool  $is_config set true if looking for a config file
+     * @param  bool $is_config set true if looking for a config file
      * @return boolean status
      */
-    public function templateExists(Smarty $smarty, $template_resource, $is_config = false)
+    public function templateExists($template_resource, $is_config = false)
     {
-        $source = Smarty_Resource_Loader::load($smarty, Smarty_Resource_Loader::SOURCE, $template_resource);
+        $source = Smarty_Resource_Loader::load($this->smarty, Smarty_Resource_Loader::SOURCE, $template_resource);
         $source->usage = $is_config ? Smarty::IS_CONFIG : Smarty::IS_TEMPLATE;
-        $source->populate($smarty);
+        $source->populate($this->smarty);
         return $source->exists;
     }
 

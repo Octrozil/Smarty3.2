@@ -3,8 +3,7 @@
 /**
  * Smarty Resource Source String Plugin
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -17,9 +16,9 @@
  * {@internal unlike eval-resources the compiled state of string-resources is saved for subsequent access}}
  *
  *
- * @package TemplateResources
+ * @package Resource\Source
  */
-class Smarty_Resource_Source_String extends Smarty_Resource_Source
+class Smarty_Resource_Source_String extends Smarty_Resource_Source_File
 {
 
     /**
@@ -30,16 +29,14 @@ class Smarty_Resource_Source_String extends Smarty_Resource_Source
      */
     public function buildFilepath(Smarty $tpl_obj = null)
     {
-        $this->populate($tpl_obj);
     }
 
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param  Smarty $tpl_obj template object
-     * @return void
+     * @param Smarty $smarty Smarty object
      */
-    public function populate(Smarty $tpl_obj = null)
+    public function populate(Smarty $smarty)
     {
         $this->uid = $this->filepath = sha1($this->name);
         $this->timestamp = 0;

@@ -17,6 +17,7 @@
 class Smarty_Misc_WriteFile
 {
 
+    static $_IS_WINDOWS = null;
     /**
      * Writes file in a safe way to disk
      *
@@ -28,6 +29,9 @@ class Smarty_Misc_WriteFile
      */
     public static function writeFile($_filepath, $_contents, Smarty $smarty)
     {
+        if(!isset(self::$_IS_WINDOWS)) {
+            self::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+        }
         $_error_reporting = error_reporting();
         error_reporting($_error_reporting & ~E_NOTICE & ~E_WARNING);
         if ($smarty->_file_perms !== null) {
@@ -54,7 +58,7 @@ class Smarty_Misc_WriteFile
          * currently reading that file to fail, but linux' rename()
          * seems to be smart enough to handle that for us.
          */
-        if (Smarty::$_IS_WINDOWS) {
+        if (self::$_IS_WINDOWS) {
             // remove original file
             @unlink($_filepath);
             // rename tmp file
@@ -77,7 +81,7 @@ class Smarty_Misc_WriteFile
 
         if ($smarty->enable_trace) {
             // notify listeners of written file
-            $smarty->triggerCallback('filesystem:write', array($smarty, $_filepath));
+            $smarty->triggerTraceCallback('filesystem:write', array($smarty, $_filepath));
         }
 
         if ($smarty->_file_perms !== null) {

@@ -3,8 +3,9 @@
 /**
  * Smarty Internal Plugin
  *
- *
- * @package Cacher
+ * @package Resource\Cache
+ * @author Rodney Rehm
+ * @author Uwe Tews
  */
 
 /**
@@ -28,11 +29,9 @@
  * cache groups: if your cache groups look somewhat like »a|b|$page|$items|$whatever«
  * consider using »a|b|c|$page-$items-$whatever« instead.
  *
- *
- * @package Cacher
- * @author Rodney Rehm
+ * @package Resource\Cache
  */
-abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Resource_Cache
+abstract class Smarty_Resource_Cache_Keyvaluestore extends Smarty_Resource_Cache_File
 {
 
     /**
@@ -178,7 +177,7 @@ abstract class Smarty_Cache_Resource_Keyvaluestore extends Smarty_Resource_Cache
     {
         $uid = '';
         if (isset($resource_name)) {
-            $source = Smarty_Source_Resource::source(null, $smarty, $resource_name);
+            $source = Smarty_Resource_Source::source(null, $smarty, $resource_name);
             if ($source->exists) {
                 $uid = $source->uid;
             }

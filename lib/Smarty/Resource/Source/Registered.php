@@ -3,8 +3,7 @@
 /**
  * Smarty Resource Source Registered Plugin
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -15,37 +14,35 @@
  * Implements the registered resource for Smarty template
  *
  *
- * @package TemplateResources
+ * @package Resource\Source
  * @deprecated
  */
-class Smarty_Resource_Source_Registered extends Smarty_Resource_Source
+class Smarty_Resource_Source_Registered extends Smarty_Resource_Source_File
 {
 
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param  Smarty $tpl_obj template object
-     * @return void
+     * @param Smarty $smarty Smarty object
      */
-    public function populate(Smarty $tpl_obj)
+    public function populate(Smarty $smarty)
     {
         $this->filepath = $this->type . ':' . $this->name;
         $this->uid = sha1($this->filepath);
-        if ($tpl_obj->compile_check) {
+        if ($smarty->compile_check) {
             $this->timestamp = $this->getTemplateTimestamp();
             $this->exists = !!$this->timestamp;
         }
     }
 
     /**
-     * populate Source Object with timestamp and exists from Resource
+     * populate Source Object filepath
      *
+     * @param  Smarty $tpl_obj template object
      * @return void
      */
-    public function populateTimestamp()
+    public function buildFilepath(Smarty $tpl_obj = null)
     {
-        $this->timestamp = $this->getTemplateTimestamp();
-        $this->exists = !!$this->timestamp;
     }
 
     /**

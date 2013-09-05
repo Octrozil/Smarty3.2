@@ -6,7 +6,7 @@
  * This file contains the basic classes and methods for compiling Smarty templates with lexer/parser
  *
  *
- * @package Compiler
+ * @package Smarty\Compiler\PHP
  * @author Uwe Tews
  */
 
@@ -14,7 +14,7 @@
  * Main abstract compiler class
  *
  *
- * @package Compiler
+ * @package Smarty\Compiler\PHP
  */
 class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
 {
@@ -29,7 +29,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
     /**
      * source object
      *
-     * @var Smarty_Source_Resource
+     * @var Smarty_Resource_Source_File
      */
     public $source = null;
 
@@ -329,7 +329,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
      *
      * @param string $lexer_class  class name
      * @param string $parser_class class name
-     * @param Smarty_Source_Resource $source
+     * @param Smarty_Resource_Source_File $source
      * @param boolean $caching      flag if caching enabled
      * @param Smarty $tpl_obj
      */
@@ -401,7 +401,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
      * @throws Smarty_Exception in case of compilation errors
      * @throws Exception
      */
-    public function compileTemplateSource(Smarty_Resource_Compiled $compiled)
+    public function compileTemplateSource(Smarty_Resource_Compiled_File $compiled)
     {
         $this->isInheritance = $this->isInheritanceChild = $this->tpl_obj->is_inheritance_child;
         if (!$this->source->recompiled) {
@@ -478,7 +478,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
 
         // get source and run prefilter if required and pass iit to lexer
         if (isset($this->tpl_obj->autoload_filters['pre']) || isset($this->tpl_obj->registered_filters['pre'])) {
-            $this->lex->data = $this->tpl_obj->runFilter('pre', $this->source->content, $this->tpl_obj);
+            $this->lex->data = $this->tpl_obj->_runFilter('pre', $this->source->content, $this->tpl_obj);
         } else {
             $this->lex->data = $this->source->getContent();
         }
@@ -495,7 +495,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
         // return compiled code to template object
         // run postfilter if required on compiled template code
         if (!$this->suppressPostFilter && (isset($this->tpl_obj->autoload_filters['post']) || isset($this->tpl_obj->registered_filters['post']))) {
-            $this->template_code->buffer = $this->tpl_obj->runFilter('post', $this->template_code->buffer, $this->tpl_obj);
+            $this->template_code->buffer = $this->tpl_obj->_runFilter('post', $this->template_code->buffer, $this->tpl_obj);
         }
         if (!$this->suppressTemplatePropertyHeader) {
             $this->content_class = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));

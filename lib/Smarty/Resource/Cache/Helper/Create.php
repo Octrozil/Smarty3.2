@@ -3,18 +3,16 @@
 /**
  * Smarty Internal Plugin
  *
- *
- * @package Cacher
+ * @package Resource\Cache
+ * @author Uwe Tews
  */
 
 /**
  * Cache Support Routines To Create Cache
  *
- *
- * @package Cacher
- * @author Uwe Tews
+ * @package Resource\Cache
  */
-class Smarty_Cache_Helper_Create extends Smarty_Exception_Magic
+class Smarty_Resource_Cache_Helper_Create extends Smarty_Exception_Magic
 {
 
     /**
@@ -107,12 +105,10 @@ class Smarty_Cache_Helper_Create extends Smarty_Exception_Magic
      * @param $cache_obj            cache object
      * @param  Smarty $tpl_obj          current template
      * @param  string $output           cache file content
-     * @param  Smarty_Variable_Scope $_scope
-     * @param  boolean $no_output_filter flag that output shall not run through filter
      * @throws Exception
      * @return string
      */
-    public function _createCacheFile($cache_obj, $tpl_obj, $output, $_scope, $no_output_filter)
+    public function _createCacheFile($cache_obj, $tpl_obj, $output, $no_output_filter)
     {
         if ($tpl_obj->debugging) {
             Smarty_Debug::start_cache($cache_obj->source);
@@ -135,7 +131,7 @@ class Smarty_Cache_Helper_Create extends Smarty_Exception_Magic
             }
         }
         if (!$no_output_filter && !$this->has_nocache_code && (isset($tpl_obj->autoload_filters['output']) || isset($tpl_obj->registered_filters['output']))) {
-            $this->template_code->buffer =  $tpl_obj->runFilter('output', $this->template_code->buffer);
+            $this->template_code->buffer =  $tpl_obj->_runFilter('output', $this->template_code->buffer);
         }
         // write cache file content
         if (!$cache_obj->source->recompiled && ($cache_obj->caching == Smarty::CACHING_LIFETIME_CURRENT || $cache_obj->caching == Smarty::CACHING_LIFETIME_SAVED)) {
@@ -143,7 +139,10 @@ class Smarty_Cache_Helper_Create extends Smarty_Exception_Magic
             $cache_obj->writeCache($tpl_obj, $this->template_code->buffer);
             $cache_obj->populate($tpl_obj);
             $this->template_code = null;
-            try {
+            return;
+
+            // TODO Remove this
+           try {
                 $level = ob_get_level();
                 $output = $cache_obj->template_obj->_renderTemplate($tpl_obj, $_scope);
             } catch (Exception $e) {

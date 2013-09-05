@@ -1,12 +1,11 @@
 <?php
 
 /**
- * Smarty Internal Plugin CacheResource File
+ * Smarty Resource Cache File
  *
- *
- * @package Cacher
- * @author Uwe Tews
+ * @package Resource\Cache
  * @author Rodney Rehm
+ * @author Uwe Tews
  */
 
 /**
@@ -14,11 +13,89 @@
  *
  * Implements the file system as resource for the HTML cache Version using nocache inserts.
  *
- *
- * @package Cacher
+ * @package Resource\Cache
  */
-class Smarty_Cache_Resource_File extends Smarty_Resource_Cache
+class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
 {
+
+    /**
+     * resource filepath
+     *
+     * @var string| boolean false
+     */
+    public $filepath = false;
+
+    /**
+     * Resource Timestamp
+     * @var integer
+     */
+    public $timestamp = null;
+
+    /**
+     * Resource Existence
+     * @var boolean
+     */
+    public $exists = false;
+
+    /**
+     * Cache Is Valid
+     * @var boolean
+     */
+    public $isValid = false;
+
+    /**
+     * Template Compile Id (Smarty::$compile_id)
+     * @var string
+     */
+    public $compile_id = null;
+
+    /**
+     * Template Cache Id (Smarty::$cache_id)
+     * @var string
+     */
+    public $cache_id = null;
+
+    /**
+     * Flag if caching enabled
+     * @var boolean
+     */
+    public $caching = false;
+
+    /**
+     * Id for cache locking
+     * @var string
+     */
+    public $lock_id = null;
+
+    /**
+     * flag that cache is locked by this instance
+     * @var bool
+     */
+    public $is_locked = false;
+
+    /**
+     * Source Object
+     * @var Smarty_Template_Source
+     */
+    public $source = null;
+
+    /**
+     * Template Class Name
+     * @var string
+     */
+    public $class_name = '';
+
+    /**
+     * Template Class Object
+     * @var object
+     */
+    public $template_obj = null;
+
+    /**
+     * Handler for updating cache files
+     * @var array Smarty_Cache_Helper_Create
+     */
+    public static $creator = array();
 
     /**
      * populate Cached Object with meta data from Resource
@@ -33,16 +110,6 @@ class Smarty_Cache_Resource_File extends Smarty_Resource_Cache
         $this->exists = !!$this->timestamp;
     }
 
-    /**
-     * load compiled template class
-     *     * @return void
-     */
-    public function loadTemplateClass()
-    {
-        if ($this->exists) {
-            include $this->filepath;
-        }
-    }
     /**
      * build cache file filepath
      *
@@ -91,11 +158,191 @@ class Smarty_Cache_Resource_File extends Smarty_Resource_Cache
     }
 
     /**
+     * Instance compiled template
+     *
+     * @param Smarty $smarty     Smarty object
+     * @param Smarty|Smarty_Data|Smarty_Template_Class $parent     parent object
+     * @param  int $scope_type
+     * @param  array $data             array with variable names and values which must be assigned
+     * @param  bool $no_output_filter flag that output filter shall be ignored
+     * @returns Smarty_Template_Class
+     */
+    function instanceTemplate($smarty, $parent, $scope_type, $data, $no_output_filter)
+    {
+        if ($this->class_name == '') {
+            return $this->loadTemplate($smarty, $parent, $scope_type, $data, $no_output_filter);
+        } else {
+            return new $this->class_name($smarty, $parent, $this->source);
+        }
+
+    }
+
+
+    /**
+     * load compiled template class
+     *     * @return void
+     */
+    public function loadTemplateClass()
+    {
+        if ($this->exists) {
+            include $this->filepath;
+        }
+    }
+
+    /**
+     * Load compiled template
+     *
+     * @param Smarty $smarty     Smarty object
+     * @param Smarty|Smarty_Data|Smarty_Template_Class $parent     parent object
+     * @param  int $scope_type
+     * @param  array $data             array with variable names and values which must be assigned
+     * @param  bool $no_output_filter flag that output filter shall be ignored
+     * @returns Smarty_Template_Class
+     * @throws Smarty_Exception
+     */
+    public function loadTemplate($smarty, $parent, $scope_type, $data, $no_output_filter)
+    {
+        try {
+            $level = ob_get_level();
+            $isValid = false;
+            if ($this->exists && !$smarty->force_compile && $this->timestamp >= $this->source->timestamp) {
+                // load existing compiled template class
+                $this->loadTemplateClass();
+                if (class_exists($this->class_name, false)) {
+                    $template_obj = new $this->class_name($smarty, $parent, $this->source);
+                    // existing class could got invalid
+                    $isValid = $template_obj->isValid;
+                }
+            }
+            if (!$isValid) {
+                unset($template_obj);
+                // unshift new handler for cache creation in first position
+                // cache could be nested as subtemplates can have individual cache
+                array_unshift(self::$creator, new Smarty_Resource_Cache_Helper_Create());
+                if ($this->source->uncompiled) {
+                    $_output = $this->source->getRenderedTemplate($smarty, $_scope, $scope_type, $data);
+                } else {
+                    $_output = $smarty->_load(Smarty::COMPILED, $this->source, $this->compile_id, $this->caching)->getRenderedTemplate($smarty, $parent, $scope_type, $data, $no_output_filter);
+                }
+                // write to cache when necessary
+                if (!$this->source->recompiled) {
+                    self::$creator[0]->_createCacheFile($this, $smarty, $_output, $no_output_filter);
+                }
+                unset($_output);
+                array_shift(self::$creator);
+                $this->loadTemplateClass($this);
+                if (class_exists($this->class_name, false)) {
+                    $template_obj = new $this->class_name($smarty, $parent, $this->source);
+                    $isValid = $template_obj->isValid;
+                }
+                if (!$isValid) {
+                    throw new Smarty_Exception("Unable to load compiled template file '{$this->filepath}'");
+                }
+            }
+        } catch (Exception $e) {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+            throw new Smarty_Exception_Runtime('resource ', -1, null, null, $e);
+        }
+        return $template_obj;
+    }
+
+    /**
+     * get rendered template output from cached template
+     *
+     * @param  Smarty $smarty          template object
+     * @param Smarty|Smarty_Data|Smarty_Template_Class $parent     parent object
+     * @param  Smarty_Variable_Scope $_scope
+     * @param  int $scope_type
+     * @param  array $data             array with variable names and values which must be assigned
+     * @param  bool $no_output_filter flag that output filter shall be ignored
+     * @param  bool $display
+     * @throws Exception
+     * @return bool|string
+     */
+    public function getRenderedTemplate($smarty, $parent, $scope_type = Smarty::SCOPE_LOCAL, $data, $no_output_filter, $display)
+    {
+        $template_obj = $this->instanceTemplate($smarty, $parent, $scope_type, $data, $no_output_filter);
+        $browser_cache_valid = false;
+        if ($display && $smarty->cache_modified_check && $this->isValid && !$template_obj->has_nocache_code) {
+            $_last_modified_date = @substr($_SERVER['HTTP_IF_MODIFIED_SINCE'], 0, strpos($_SERVER['HTTP_IF_MODIFIED_SINCE'], 'GMT') + 3);
+            if ($_last_modified_date !== false && $this->timestamp <= ($_last_modified_timestamp = strtotime($_last_modified_date)) &&
+                $this->checkSubtemplateCache($smarty, $_last_modified_timestamp)
+            ) {
+                $browser_cache_valid = true;
+                switch (PHP_SAPI) {
+                    case 'cgi': // php-cgi < 5.3
+                    case 'cgi-fcgi': // php-cgi >= 5.3
+                    case 'fpm-fcgi': // php-fpm >= 5.3.3
+                        header('Status: 304 Not Modified');
+                        break;
+
+                    case 'cli':
+                        if ( /* ^phpunit */
+                        !empty($_SERVER['SMARTY_PHPUNIT_DISABLE_HEADERS']) /* phpunit$ */
+                        ) {
+                            $_SERVER['SMARTY_PHPUNIT_HEADERS'][] = '304 Not Modified';
+                        }
+                        break;
+
+                    default:
+                        header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
+                        break;
+                }
+            }
+        }
+        if (!$browser_cache_valid) {
+            $output = $template_obj->getRenderedTemplate($scope_type, $data, $no_output_filter);
+            $smarty->is_nocache = false;
+            if ($template_obj->has_nocache_code && !$no_output_filter && (isset($smarty->autoload_filters['output']) || isset($smarty->_smarty_extensions['Smarty_Extension_Filter']->registered_filters['output']))) {
+                $output = $smarty->_runFilter('output', $output);
+            }
+            return $output;
+        } else {
+            // browser cache was valid
+            return true;
+        }
+    }
+
+    /**
+     * Check timestamp of browser cache against timestamp of individually cached subtemplates
+     *
+     * @param  Smarty $smarty                  template object
+     * @param  integer $_last_modified_timestamp browser cache timestamp
+     * @return bool    true if browser cache is valid
+     */
+    private function checkSubtemplateCache($smarty, $_last_modified_timestamp)
+    {
+        $subtpl = reset($smarty->cached_subtemplates);
+        while ($subtpl) {
+            $tpl = clone $this;
+            unset($tpl->source, $tpl->compiled, $tpl->cached, $tpl->compiler, $tpl->mustCompile);
+            $tpl->usage = Smarty::IS_TEMPLATE;
+            $tpl->template_resource = $subtpl[0];
+            $tpl->cache_id = $subtpl[1];
+            $tpl->compile_id = $subtpl[2];
+            $tpl->caching = $subtpl[3];
+            $tpl->cache_lifetime = $subtpl[4];
+            if (!$tpl->cached->valid || $tpl->has_nocache_code || $tpl->cached->timestamp > $_last_modified_timestamp ||
+                !$this->checkSubtemplateCache($tpl, $_last_modified_timestamp)
+            ) {
+                // browser cache invalid
+                return false;
+            }
+            $subtpl = next($smarty->cached_subtemplates);
+        }
+        // browser cache valid
+        return true;
+    }
+
+
+    /**
      * populate Cached Object with timestamp and exists from Resource
      *
      * @return void
      */
-    public function populateTimestamp()
+    public function populateTimestamp(Smarty $tpl_obj)
     {
         $this->timestamp = @filemtime($this->filepath);
         $this->exists = !!$this->timestamp;
@@ -108,7 +355,7 @@ class Smarty_Cache_Resource_File extends Smarty_Resource_Cache
      * @param  string $content content to cache
      * @return boolean success
      */
-    public function writeCachedContent(Smarty $tpl_obj, $content)
+    public function writeCache(Smarty $tpl_obj, $content)
     {
         if (Smarty_Misc_WriteFile::writeFile($this->filepath, $content, $tpl_obj) === true) {
             $this->timestamp = @filemtime($this->filepath);
@@ -136,7 +383,6 @@ class Smarty_Cache_Resource_File extends Smarty_Resource_Cache
         $smarty->use_sub_dirs = true;
         $count += $this->clear($smarty, null, null, null, $exp_time);
         $smarty->use_sub_dirs = $save_use_sub_dirs;
-
         return $count;
     }
 
@@ -162,7 +408,7 @@ class Smarty_Cache_Resource_File extends Smarty_Resource_Cache
         $_time = time();
 
         if (isset($resource_name)) {
-            $source = $smarty->_loadResource(Smarty::SOURCE, $resource_name);
+            $source = $this->_load(Smarty::SOURCE, $resource_name);
             if ($source->exists) {
                 // set basename if not specified
                 $_basename = $source->getBasename($source);
@@ -277,7 +523,7 @@ class Smarty_Cache_Resource_File extends Smarty_Resource_Cache
                             $_deleted[$i] = true;
                             if ($smarty->enable_trace) {
                                 // notify listeners of deleted file
-                                $smarty->triggerCallback('filesystem:delete', array($smarty, $path));
+                                $smarty->triggerTraceCallback('filesystem:delete', array($smarty, $path));
                             }
                         }
                     }
@@ -326,7 +572,7 @@ class Smarty_Cache_Resource_File extends Smarty_Resource_Cache
                 $_count += @unlink($path) ? 1 : 0;
                 if ($smarty->enable_trace) {
                     // notify listeners of deleted file
-                    $smarty->triggerCallback('filesystem:delete', array($smarty, $path));
+                    $smarty->triggerTraceCallback('filesystem:delete', array($smarty, $path));
                 }
             }
         }

@@ -65,7 +65,6 @@ class Smarty_Extension_Info
             'UNASSIGNED_EXCEPTION',
         ),
     );
-    protected $smarty = null;
     protected $template = null;
     protected $data = null;
     protected $errors = array();
@@ -80,20 +79,34 @@ class Smarty_Extension_Info
     protected $constants = array();
     protected $statics = array();
 
+    /**
+     *  Smarty object
+     *
+     * @var Smarty
+     */
+    public $smarty;
+
+    /**
+     *  Constructor
+     *
+     * @param Smarty $smarty Smarty object
+     */
+    public function __construct(Smarty $smarty)
+    {
+        $this->smarty = $smarty;
+    }
 
 
     /**
      * Get Smarty Configuration Information
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  boolean $html  return formatted HTML, array else
      * @param  integer $flags see Smarty_Internal_Info constants
      * @return string|array configuration information
      */
-    public function info(Smarty $smarty, $html = true, $flags = 0)
+    public function info($html = true, $flags = 0)
     {
-        $this->smarty = $smarty;
         return $html ? $this->getHtml($flags) : $this->getArray($flags);
     }
 

@@ -3,16 +3,14 @@
 /**
  * Smarty Internal Plugin
  *
- *
- * @package Exception
+ * @package Smarty\Exception
  */
 
 /**
  * Smarty runtime exception class
  * loads template source and displays line where error did occur
  *
- *
- * @package Exception
+ * @package Smarty\Exception
  */
 class Smarty_Exception_Runtime extends Smarty_Exception
 {

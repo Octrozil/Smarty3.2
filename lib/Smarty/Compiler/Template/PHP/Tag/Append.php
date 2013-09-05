@@ -6,7 +6,7 @@
  * Compiles the {append} tag
  *
  *
- * @package Compiler
+ * @package Smarty\Compiler\PHP\Tag
  * @author Uwe Tews
  */
 
@@ -14,7 +14,7 @@
  * Smarty Internal Plugin Compile Append Class
  *
  *
- * @package Compiler
+ * @package Smarty\Compiler\PHP\Tag
  */
 class Smarty_Compiler_Template_Php_Tag_Append extends Smarty_Compiler_Template_Php_Tag_Assign
 {

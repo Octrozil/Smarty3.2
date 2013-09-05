@@ -4,7 +4,7 @@
  * Smarty Resource Source Custom Class
  *
  *
- * @package TemplateResources
+ * @package Resource\Source
  * @author Rodney Rehm
  */
 
@@ -13,10 +13,9 @@
  *
  * Wrapper Implementation for custom source resource plugins
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  */
-abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source
+abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source_File
 {
 
     /**
@@ -45,9 +44,9 @@ abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty $tpl_obj template object
+     * @param Smarty $smarty Smarty object
      */
-    public function populate(Smarty $tpl_obj = null)
+    public function populate(Smarty $smarty)
     {
         $this->filepath = strtolower($this->type . ':' . $this->name);
         $this->uid = sha1($this->type . ':' . $this->name);
@@ -62,6 +61,17 @@ abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source
                 $this->content = $content;
         }
         $this->exists = !!$this->timestamp;
+    }
+
+
+    /**
+     * populate Source Object filepath
+     *
+     * @param  Smarty $tpl_obj template object
+     * @return void
+     */
+    public function buildFilepath(Smarty $tpl_obj = null)
+    {
     }
 
     /**

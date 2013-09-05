@@ -6,7 +6,7 @@
  * Smarty filter methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  * @author Uwe Tews
  */
 
@@ -14,54 +14,68 @@
  * Class for modifier methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  */
 class Smarty_Extension_Modifier
 {
+    /**
+     *  Smarty object
+     *
+     * @var Smarty
+     */
+    public $smarty;
+
+    /**
+     *  Constructor
+     *
+     * @param Smarty $smarty Smarty object
+     */
+    public function __construct(Smarty $smarty)
+    {
+        $this->smarty = $smarty;
+    }
+
 
     /**
      * Set default modifiers
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  array|string $modifiers modifier or list of modifiers to set
      * @return Smarty       current Smarty instance for chaining
      */
-    public function setDefaultModifiers(Smarty $smarty, $modifiers)
+    public function setDefaultModifiers($modifiers)
     {
-        $smarty->default_modifiers = (array)$modifiers;
+        $this->smarty->default_modifiers = (array)$modifiers;
 
-        return $smarty;
+        return $this->smarty;
     }
 
     /**
      * Add default modifiers
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  array|string $modifiers modifier or list of modifiers to add
      * @return Smarty       current Smarty instance for chaining
      */
-    public function addDefaultModifiers(Smarty $smarty, $modifiers)
+    public function addDefaultModifiers($modifiers)
     {
         if (is_array($modifiers)) {
-            $smarty->default_modifiers = array_merge($smarty->default_modifiers, $modifiers);
+            $this->smarty->default_modifiers = array_merge($this->smarty->default_modifiers, $modifiers);
         } else {
-            $smarty->default_modifiers[] = $modifiers;
+            $this->smarty->default_modifiers[] = $modifiers;
         }
 
-        return $smarty;
+        return $this->smarty;
     }
 
     /**
      * Get default modifiers
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @return array list of default modifiers
      */
-    public function getDefaultModifiers(Smarty $smarty)
+    public function getDefaultModifiers()
     {
-        return $smarty->default_modifiers;
+        return $this->smarty->default_modifiers;
     }
 }

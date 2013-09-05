@@ -5,8 +5,7 @@
  *
  * Implements the streams as resource for Smarty template
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -18,31 +17,53 @@
  *
  * @link http://php.net/streams
  *
- * @package TemplateResources
+ * @package Resource\Source
  */
-class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_Recompiled
+class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
 {
+    /**
+     * Flag that source must always be recompiled
+     *
+     * @var bool
+     */
+    public $recompiled = true;
+
+    /**
+     * Content from stream resource
+     *
+     * @var string
+     */
+    public $content  = null;
 
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param  Smarty $tpl_obj template object
-     * @return void
+     * @param Smarty $smarty Smarty object
      */
-    public function populate(Smarty $tpl_obj = null)
+    public function populate(Smarty $smarty)
     {
-        if (strpos($this->resource, '://') !== false) {
-            $this->filepath = $this->resource;
-        } else {
-            $this->filepath = str_replace(':', '://', $this->resource);
-        }
+        $this->filepath = $this->buildFilepath($smarty);
         $this->uid = false;
-        $this->content = $this->getContent();
         $this->timestamp = false;
-        $this->exists = !!$this->content;
+        $this->exists = $this->getContent();
     }
 
     /**
+     * build template filepath by traversing the template_dir array
+     *
+     * @param  Smarty $smarty template object
+     * @return string           fully qualified filepath
+     * @throws Smarty_Exception if default template handler is registered but not callable
+     */
+    public function buildFilepath(Smarty $smarty = null) {
+        if (strpos($this->name, '://') !== false) {
+            return $this->name;
+        } else {
+            return str_replace(':', '://', $this->name);
+        }
+    }
+
+     /**
      * Load template's source from stream into current template object
      *
      * @return string           template source
@@ -50,16 +71,19 @@ class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_Recompiled
      */
     public function getContent()
     {
-        $t = '';
-        // the availability of the stream has already been checked in Smarty_Source_Resource::fetch()
+        if ($this->content !== null) {
+            return $this->content;
+        }
+        // the availability of the stream has already been checked in Smarty_Resource_Source::fetch()
         $fp = fopen($this->filepath, 'r+');
         if ($fp) {
+            $this->content = '';
             while (!feof($fp) && ($current_line = fgets($fp)) !== false) {
-                $t .= $current_line;
+                $this->content .= $current_line;
             }
             fclose($fp);
 
-            return $t;
+            return true;
         } else {
             return false;
         }

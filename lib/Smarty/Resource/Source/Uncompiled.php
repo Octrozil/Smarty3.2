@@ -4,7 +4,7 @@
  * Smarty Resource Source Uncompiled Class
  *
  *
- * @package TemplateResources
+ * @package Resource\Source
  * @author Rodney Rehm
  */
 
@@ -14,9 +14,9 @@
  * Base implementation for resource plugins that don't use the compiler
  *
  *
- * @package TemplateResources
+ * @package Resource\Source
  */
-abstract class Smarty_Resource_Source_Uncompiled extends Smarty_Resource_Source
+abstract class Smarty_Resource_Source_Uncompiled extends Smarty_Resource_Source_File
 {
 
     /**
@@ -31,19 +31,19 @@ abstract class Smarty_Resource_Source_Uncompiled extends Smarty_Resource_Source
      *
      * @param Smarty $tpl_obj template object
      * @return
-     * @internal param \Smarty_Source_Resource $source source object
+     * @internal param \Smarty_Resource_Source $source source object
      */
     abstract public function renderUncompiled(Smarty $tpl_obj);
 
     /**
      * get rendered template output from compiled template
      *
-     * @param  Smarty_Source_Resource $source  source object
+     * @param  Smarty_Resource_Source $source  source object
      * @param  Smarty $tpl_obj template object
      * @throws Exception
      * @return string
      */
-    public function getRenderedTemplate(Smarty_Source_Resource $source, $tpl_obj)
+    public function getRenderedTemplate(Smarty_Resource_Source_File $source, $tpl_obj)
     {
         if ($tpl_obj->debugging) {
             Smarty_Debug::start_render($tpl_obj);
@@ -60,7 +60,7 @@ abstract class Smarty_Resource_Source_Uncompiled extends Smarty_Resource_Source
             throw $e;
         }
         if ($tpl_obj->caching) {
-            $cached = Smarty_Cache_Helper_Create::_getCachedObject($tpl_obj);
+            $cached = Smarty_Resource_Cache_Helper_Create::_getCachedObject($tpl_obj);
             $cached->newcache->file_dependency[$source->uid] = array($source->filepath, $source->timestamp, $source->type);
         }
         return $output;

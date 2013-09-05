@@ -3,8 +3,7 @@
 /**
  * Smarty Resource Source File Plugin
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -14,11 +13,99 @@
  *
  * Implements the file system as resource for Smarty templates
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  */
-class Smarty_Resource_Source_File extends Smarty_Resource_Source
+class Smarty_Resource_Source_File extends Smarty_Exception_Magic
 {
+
+    /**
+     * resource filepath
+     *
+     * @var string| boolean false
+     */
+    public $filepath = false;
+
+    /**
+     * Resource Timestamp
+     * @var integer
+     */
+    public $timestamp = null;
+
+    /**
+     * Resource Existence
+     * @var boolean
+     */
+    public $exists = false;
+
+    /**
+     *  Source Resource specific properties
+     */
+
+    /**
+     * usage of this resource
+     * @var mixed
+     */
+    public $usage = null;
+
+    /**
+     * Template name
+     *
+     * @var string
+     */
+    public $name = '';
+
+    /**
+     * Resource handler type
+     *
+     * @var string
+     */
+    public $type = 'file';
+
+    /**
+     * resource UID
+     *
+     * @var string
+     */
+    public $uid = '';
+
+    /**
+     * Resource compiler class
+     * if null default is used
+     */
+    public $compiler_class = null;
+
+    /**
+     * Resource lexer class
+     * if null default is used
+     */
+    public $lexer_class = null;
+
+    /**
+     * Resource lexer class
+     * if null default is used
+     */
+    public $parser_class = null;
+
+    /**
+     * array of extends components
+     *
+     * @var array
+     */
+    public $components = array();
+
+    /**
+     * Flag if source needs no compiler
+     *
+     * @var bool
+     */
+    public $uncompiled = false;
+
+    /**
+     * Flag if source needs to be always recompiled
+     *
+     * @var bool
+     */
+    public $recompiled = false;
 
     /**
      * populate Source Object with meta data from Resource
@@ -33,8 +120,7 @@ class Smarty_Resource_Source_File extends Smarty_Resource_Source
             if (is_object($smarty->security_policy)) {
                 $smarty->security_policy->isTrustedResourceDir($this->filepath);
             }
-
-            $this->uid = sha1($this->filepath);
+           $this->uid = sha1($this->filepath);
             if ($smarty->compile_check && !isset($this->timestamp)) {
                 $this->timestamp = @filemtime($this->filepath);
                 $this->exists = !!$this->timestamp;
@@ -222,15 +308,6 @@ class Smarty_Resource_Source_File extends Smarty_Resource_Source
 
             $_path = substr_replace($_path, '', $_pos, $_parent + 3 - $_pos);
         }
-
-        /**
-         * TODO  can this be removed???
-        if ($ds && DIRECTORY_SEPARATOR != '/') {
-        // don't we all just love windows?
-        $_path = str_replace('/', '\\', $_path);
-        }
-         */
-
         return $_path;
     }
 
@@ -285,4 +362,14 @@ class Smarty_Resource_Source_File extends Smarty_Resource_Source
         return $this->exists = !!$this->timestamp;
     }
 
+    /**
+     * Rest properties on clone
+     */
+    public function __clone() {
+        $this->components = array();
+        $this->filepath = false;
+        $this->timestamp = null;
+        $this->exists = false;
+        $this->uid = '';
+    }
 }

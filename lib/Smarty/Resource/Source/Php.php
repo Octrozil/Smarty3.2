@@ -3,8 +3,7 @@
 /**
  * Smarty Resource Source PHP File Plugin
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -14,10 +13,7 @@
  *
  * Implements the file system as resource for PHP templates
  *
- *
- * @package TemplateResources
- * @author Uwe Tews
- * @author Rodney Rehm
+ * @package Resource\Source
  */
 class Smarty_Resource_Source_Php extends Smarty_Resource_Source_File
 {
@@ -36,40 +32,6 @@ class Smarty_Resource_Source_Php extends Smarty_Resource_Source_File
     {
         $this->uncompiled = true;
         $this->short_open_tag = ini_get('short_open_tag');
-    }
-
-    /**
-     * populate Source Object with meta data from Resource
-     *
-     * @param  Smarty $tpl_obj template object
-     * @return void
-     */
-    public function populate(Smarty $tpl_obj = null)
-    {
-        $this->filepath = $this->buildFilepath($tpl_obj);
-
-        if ($this->filepath !== false) {
-            if (is_object($tpl_obj->security_policy)) {
-                $tpl_obj->security_policy->isTrustedResourceDir($this->filepath);
-            }
-
-            $this->uid = sha1($this->filepath);
-            if ($tpl_obj->compile_check) {
-                $this->timestamp = @filemtime($this->filepath);
-                $this->exists = !!$this->timestamp;
-            }
-        }
-    }
-
-    /**
-     * populate Source Object with timestamp and exists from Resource
-     *
-     * @return void
-     */
-    public function populateTimestamp()
-    {
-        $this->timestamp = @filemtime($this->filepath);
-        $this->exists = !!$this->timestamp;
     }
 
     /**

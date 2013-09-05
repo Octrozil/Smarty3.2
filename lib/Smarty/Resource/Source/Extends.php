@@ -3,8 +3,7 @@
 /**
  * Smarty Resource Source Extends Plugin
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -14,39 +13,34 @@
  *
  * Implements the file system as resource for Smarty which {extend}s a chain of template files templates
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  */
-class Smarty_Resource_Source_Extends extends Smarty_Resource_Source
+class Smarty_Resource_Source_Extends extends Smarty_Resource_Source_File
 {
-
-    /**
-     * mbstring.overload flag
-     *
-     * @var int
-     */
-    public $mbstring_overload = 0;
 
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param  Smarty $tpl_obj template object
-     * @throws Smarty_Exception
+     * @param Smarty $smarty Smarty object
      */
-    public function populate(Smarty $tpl_obj = null)
+    public function populate(Smarty $smarty)
     {
         $uid = '';
         $sources = array();
         $components = explode('|', $this->name);
         $exists = true;
         foreach ($components as $component) {
-            $s = Smarty_Source_Resource::loadSource($tpl_obj, $component);
+            $s = $smarty->_load(Smarty::SOURCE, $component);
+            // checks if source exists
+            if (!$s->exists) {
+                throw new Smarty_Exception("Can not find '{$s->type}:{$s->name}'");
+            }
             if ($s->type == 'php') {
                 throw new Smarty_Exception("Resource type {$s->type} cannot be used with the extends resource type");
             }
             $sources[$s->uid] = $s;
             $uid .= $s->filepath;
-            if ($tpl_obj && $tpl_obj->compile_check) {
+            if ($smarty && $smarty->compile_check) {
                 $exists = $exists && $s->exists;
             }
         }
@@ -54,12 +48,12 @@ class Smarty_Resource_Source_Extends extends Smarty_Resource_Source
         $this->filepath = $s->filepath;
         $this->uid = sha1($uid);
         $this->filepath = 'extends_resource_' . $this->uid . '.tpl';
-        if ($tpl_obj && $tpl_obj->compile_check) {
+        if ($smarty && $smarty->compile_check) {
             $this->timestamp = 1;
             $this->exists = $exists;
         }
         // need the template at getContent()
-        $this->template = $tpl_obj;
+        $this->template = $smarty;
     }
 
     /**
@@ -108,10 +102,10 @@ class Smarty_Resource_Source_Extends extends Smarty_Resource_Source
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty $tpl_obj template object
+     * @param Smarty $smarty template object
      */
 
-    public function buildFilepath(Smarty $tpl_obj = null)
+    public function buildFilepath(Smarty $smarty = null)
     {
 
     }

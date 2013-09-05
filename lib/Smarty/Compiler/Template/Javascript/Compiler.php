@@ -29,7 +29,7 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
     /**
      * source object
      *
-     * @var Smarty_Source_Resource
+     * @var Smarty_Resource_Source
      */
     public $source = null;
 
@@ -329,7 +329,7 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
      *
      * @param string $lexer_class  class name
      * @param string $parser_class class name
-     * @param Smarty_Source_Resource $source
+     * @param Smarty_Resource_Source $source
      * @param boolean $caching      flag if caching enabled
      * @param Smarty $tpl_obj
      */
@@ -478,7 +478,7 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
 
         // get source and run prefilter if required and pass it to lexer
         if (isset($this->tpl_obj->autoload_filters['pre']) || isset($this->tpl_obj->registered_filters['pre'])) {
-            $this->lex->data = $this->tpl_obj->runFilter('pre', $this->source->content);
+            $this->lex->data = $this->tpl_obj->_runFilter('pre', $this->source->content);
         } else {
             $this->lex->data = $this->source->getContent();
         }
@@ -495,7 +495,7 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
         // return compiled code to template object
         // run postfilter if required on compiled template code
         if (!$this->suppressPostFilter && (isset($this->tpl_obj->autoload_filters['post']) || isset($this->tpl_obj->registered_filters['post']))) {
-            $this->template_code->buffer = $this->tpl_obj->runFilter('post', $this->template_code->buffer);
+            $this->template_code->buffer = $this->tpl_obj->_runFilter('post', $this->template_code->buffer);
         }
         if (!$this->suppressTemplatePropertyHeader) {
             $this->content_class = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));

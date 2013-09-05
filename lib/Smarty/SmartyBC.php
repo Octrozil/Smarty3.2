@@ -2,7 +2,7 @@
 
 /**
  * Project:     Smarty: the PHP compiling template engine
- * File:        SmartyBC.class.php
+ * File:        SmartyBC.php
  * SVN:         $Id: $
  *
  * This library is free software; you can redistribute it and/or
@@ -28,19 +28,17 @@
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Uwe Tews
  * @author Rodney Rehm
- * @package Smarty
- * @subpackage SmartyBC
+ * @package Smarty\BC
+ * @deprecated
  */
 /**
  * @ignore
  */
-require_once(dirname(__FILE__) . '/SmartyBC31.php');
 
 /**
  * Smarty Backward Compatibility Wrapper Class for Smarty 2
  *
- * @package Smarty
- * @subpackage SmartyBC
+ * @package Smarty\BC
  */
 class SmartyBC extends SmartyBC31
 {
@@ -66,7 +64,9 @@ class SmartyBC extends SmartyBC31
     /**
      * wrapper for assign_by_ref
      *
-     * @param string $tpl_var the template variable name
+     * @deprecated
+     * @api
+       * @param string $tpl_var the template variable name
      * @param mixed &$value  the referenced value to assign
      */
     public function assign_by_ref($tpl_var, &$value)
@@ -77,6 +77,8 @@ class SmartyBC extends SmartyBC31
     /**
      * wrapper for append_by_ref
      *
+     * @deprecated
+     * @api
      * @param string $tpl_var the template variable name
      * @param mixed &$value  the referenced value to append
      * @param boolean $merge   flag if array elements shall be merged
@@ -89,6 +91,8 @@ class SmartyBC extends SmartyBC31
     /**
      * clear the given assigned template variable.
      *
+     * @deprecated
+     * @api
      * @param string $tpl_var the template variable to clear
      */
     public function clear_assign($tpl_var)
@@ -99,6 +103,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Registers custom function to be used in templates
      *
+     * @deprecated
+     * @api
      * @param string $function      the name of the template function
      * @param string $function_impl the name of the PHP function to register
      * @param bool $cacheable
@@ -112,6 +118,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Unregisters custom function
      *
+     * @deprecated
+     * @api
      * @param string $function name of template function
      */
     public function unregister_function($function)
@@ -122,6 +130,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Registers object to be used in templates
      *
+     * @deprecated
+     * @api
      * @param string $object        name of template object
      * @param object $object_impl   the referenced PHP object to register
      * @param array $allowed       list of allowed methods (empty = all)
@@ -139,6 +149,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Unregisters object
      *
+     * @deprecated
+     * @api
      * @param string $object name of template object
      */
     public function unregister_object($object)
@@ -149,6 +161,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Registers block function to be used in templates
      *
+     * @deprecated
+     * @api
      * @param string $block       name of template block
      * @param string $block_impl  PHP function to register
      * @param bool $cacheable
@@ -162,6 +176,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Unregisters block function
      *
+     * @deprecated
+     * @api
      * @param string $block name of template function
      */
     public function unregister_block($block)
@@ -172,6 +188,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Registers compiler function
      *
+     * @deprecated
+     * @api
      * @param string $function      name of template function
      * @param string $function_impl name of PHP function to register
      * @param bool $cacheable
@@ -184,6 +202,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Unregisters compiler function
      *
+     * @deprecated
+     * @api
      * @param string $function name of template function
      */
     public function unregister_compiler_function($function)
@@ -194,6 +214,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Registers modifier to be used in templates
      *
+     * @deprecated
+     * @api
      * @param string $modifier      name of template modifier
      * @param string $modifier_impl name of PHP function to register
      */
@@ -205,6 +227,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Unregisters modifier
      *
+     * @deprecated
+     * @api
      * @param string $modifier name of template modifier
      */
     public function unregister_modifier($modifier)
@@ -215,6 +239,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Registers a resource to fetch a template
      *
+     * @deprecated
+     * @api
      * @param string $type      name of resource
      * @param array $functions array of functions to handle resource
      */
@@ -226,6 +252,7 @@ class SmartyBC extends SmartyBC31
     /**
      * Unregisters a resource
      *
+     * @package Smarty2_BC\api
      * @param string $type name of resource
      */
     public function unregister_resource($type)
@@ -237,6 +264,8 @@ class SmartyBC extends SmartyBC31
      * Registers a prefilter function to apply
      * to a template before compiling
      *
+     * @deprecated
+     * @api
      * @param callable $function
      */
     public function register_prefilter($function)
@@ -247,6 +276,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Unregisters a prefilter function
      *
+     * @deprecated
+     * @api
      * @param callable $function
      */
     public function unregister_prefilter($function)
@@ -258,6 +289,8 @@ class SmartyBC extends SmartyBC31
      * Registers a postfilter function to apply
      * to a compiled template after compilation
      *
+     * @deprecated
+     * @api
      * @param callable $function
      */
     public function register_postfilter($function)
@@ -268,6 +301,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Unregisters a postfilter function
      *
+     * @deprecated
+     * @api
      * @param callable $function
      */
     public function unregister_postfilter($function)
@@ -279,6 +314,8 @@ class SmartyBC extends SmartyBC31
      * Registers an output filter function to apply
      * to a template output
      *
+     * @deprecated
+     * @api
      * @param callable $function
      */
     public function register_outputfilter($function)
@@ -289,6 +326,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Unregisters an outputfilter function
      *
+     * @deprecated
+     * @api
      * @param callable $function
      */
     public function unregister_outputfilter($function)
@@ -299,6 +338,8 @@ class SmartyBC extends SmartyBC31
     /**
      * load a filter of specified type and name
      *
+     * @deprecated
+     * @api
      * @param string $type filter type
      * @param string $name filter name
      */
@@ -310,6 +351,8 @@ class SmartyBC extends SmartyBC31
     /**
      * clear cached content for the given template and cache id
      *
+     * @deprecated
+     * @api
      * @param  string $tpl_file   name of template file
      * @param  string $cache_id   name of cache_id
      * @param  string $compile_id name of compile_id
@@ -324,6 +367,8 @@ class SmartyBC extends SmartyBC31
     /**
      * clear the entire contents of cache (all templates)
      *
+     * @deprecated
+     * @api
      * @param  string $exp_time expire time
      * @return boolean
      */
@@ -335,6 +380,8 @@ class SmartyBC extends SmartyBC31
     /**
      * test to see if valid cache exists for this template
      *
+     * @deprecated
+     * @api
      * @param  string $tpl_file   name of template file
      * @param  string $cache_id
      * @param  string $compile_id
@@ -347,6 +394,9 @@ class SmartyBC extends SmartyBC31
 
     /**
      * clear all the assigned template variables.
+     *
+     * @deprecated
+     * @api
      */
     public function clear_all_assign()
     {
@@ -358,6 +408,8 @@ class SmartyBC extends SmartyBC31
      * or all compiled template files if one is not specified.
      * This function is for advanced use only, not normally needed.
      *
+     * @deprecated
+     * @api
      * @param  string $tpl_file
      * @param  string $compile_id
      * @param  string $exp_time
@@ -371,6 +423,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Checks whether requested template exists.
      *
+     * @deprecated
+     * @api
      * @param  string $tpl_file
      * @return boolean
      */
@@ -382,6 +436,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Returns an array containing template variables
      *
+     * @deprecated
+     * @api
      * @param  string $name
      * @return array
      */
@@ -393,6 +449,8 @@ class SmartyBC extends SmartyBC31
     /**
      * Returns an array containing config variables
      *
+     * @deprecated
+     * @api
      * @param  string $name
      * @return array
      */
@@ -404,6 +462,8 @@ class SmartyBC extends SmartyBC31
     /**
      * load configuration values
      *
+     * @deprecated
+     * @api
      * @param string $file
      * @param string $section
      * @param string $scope
@@ -416,6 +476,8 @@ class SmartyBC extends SmartyBC31
     /**
      * return a reference to a registered object
      *
+     * @deprecated
+     * @api
      * @param  string $name
      * @return object
      */
@@ -427,6 +489,8 @@ class SmartyBC extends SmartyBC31
     /**
      * clear configuration values
      *
+     * @deprecated
+     * @api
      * @param string $var
      */
     public function clear_config($var = null)
@@ -437,6 +501,8 @@ class SmartyBC extends SmartyBC31
     /**
      * trigger Smarty error
      *
+     * @deprecated
+     * @api
      * @param string $error_msg
      * @param integer $error_type
      */
@@ -450,6 +516,7 @@ class SmartyBC extends SmartyBC31
 /**
  * Smarty {php}{/php} block function
  *
+ * @deprecated
  * @param array $params   parameter list
  * @param string $content  contents of the block
  * @param object $template template object

@@ -6,7 +6,7 @@
  * Smarty filter methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  * @author Uwe Tews
  */
 
@@ -14,62 +14,77 @@
  * Class for filter methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  */
 class Smarty_Extension_Filter
 {
+    /**
+     *  Smarty object
+     *
+     * @var Smarty
+     */
+    public $smarty;
+
+    /**
+     *  Constructor
+     *
+     * @param Smarty $smarty Smarty object
+     */
+    public function __construct(Smarty $smarty)
+    {
+        $this->smarty = $smarty;
+    }
+
 
     /**
      * Registers a filter function
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  string $type     filter type
      * @param  callback $callback
      * @throws Smarty_Exception
      * @return Smarty
      */
-    public function registerFilter(Smarty $smarty, $type, $callback)
+    public function registerFilter($type, $callback)
     {
         if (!in_array($type, array('pre', 'post', 'output', 'variable'))) {
             throw new Smarty_Exception("registerFilter(): Invalid filter type \"{$type}\"");
         }
         if (is_callable($callback)) {
             if ($callback instanceof Closure) {
-                $smarty->registered_filters[$type][] = $callback;
+                $this->smarty->registered_filters[$type][] = $callback;
             } else {
                 if (is_object($callback)) {
                     $callback = array($callback, '__invoke');
                 }
-                $smarty->registered_filters[$type][$this->_getFilterName($callback)] = $callback;
+                $this->smarty->registered_filters[$type][$this->_getFilterName($callback)] = $callback;
             }
         } else {
             throw new Smarty_Exception("registerFilter(): Invalid callback");
         }
 
-        return $smarty;
+        return $this->smarty;
     }
 
     /**
      * Unregisters a filter function
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  string $type     filter type
      * @param  callback $callback
      * @return Smarty
      */
-    public function unregisterFilter(Smarty $smarty, $type, $callback)
+    public function unregisterFilter($type, $callback)
     {
-        if (!isset($smarty->registered_filters[$type])) {
-            return $smarty;
+        if (!isset($this->smarty->registered_filters[$type])) {
+            return $this->smarty;
         }
         if ($callback instanceof Closure) {
-            foreach ($smarty->registered_filters[$type] as $key => $_callback) {
+            foreach ($this->smarty->registered_filters[$type] as $key => $_callback) {
                 if ($callback === $_callback) {
-                    unset($smarty->registered_filters[$type][$key]);
+                    unset($this->smarty->registered_filters[$type][$key]);
 
-                    return $smarty;
+                    return $this->smarty;
                 }
             }
         } else {
@@ -77,37 +92,36 @@ class Smarty_Extension_Filter
                 $callback = array($callback, '__invoke');
             }
             $name = $this->_getFilterName($callback);
-            if (isset($smarty->registered_filters[$type][$name])) {
-                unset($smarty->registered_filters[$type][$name]);
+            if (isset($this->smarty->registered_filters[$type][$name])) {
+                unset($this->smarty->registered_filters[$type][$name]);
             }
         }
 
-        return $smarty;
+        return $this->smarty;
     }
 
     /**
      * load a filter of specified type and name
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  string $type filter type
      * @param  string $name filter name
      * @throws Smarty_Exception
      * @return bool
      */
-    public function loadFilter(Smarty $smarty, $type, $name)
+    public function loadFilter($type, $name)
     {
         if (!in_array($type, array('pre', 'post', 'output', 'variable'))) {
             throw new Smarty_Exception("loadFilter(): Invalid filter type \"{$type}\"");
         }
         $_plugin = "smarty_{$type}filter_{$name}";
         $_filter_name = $_plugin;
-        if ($smarty->_loadPlugin($_plugin)) {
+        if ($this->smarty->_loadPlugin($_plugin)) {
             if (class_exists($_plugin, false)) {
                 $_plugin = array($_plugin, 'execute');
             }
             if (is_callable($_plugin)) {
-                $smarty->registered_filters[$type][$_filter_name] = $_plugin;
+                $this->smarty->registered_filters[$type][$_filter_name] = $_plugin;
                 return true;
             }
         }
@@ -118,85 +132,81 @@ class Smarty_Extension_Filter
      * unload a filter of specified type and name
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  string $type filter type
      * @param  string $name filter name
      * @return Smarty
      */
-    public function unloadFilter(Smarty $smarty, $type, $name)
+    public function unloadFilter($type, $name)
     {
         $_filter_name = "smarty_{$type}filter_{$name}";
-        if (isset($smarty->registered_filters[$type][$_filter_name])) {
-            unset($smarty->registered_filters[$type][$_filter_name]);
+        if (isset($this->smarty->registered_filters[$type][$_filter_name])) {
+            unset($this->smarty->registered_filters[$type][$_filter_name]);
         }
 
-        return $smarty;
+        return $this->smarty;
     }
 
     /**
      * Set autoload filters
      *
-     * @param  Smarty $smarty   Smarty object
      * @param  array $filters filters to load automatically
      * @param  string $type    "pre", "output", … specify the filter type to set. Defaults to none treating $filters' keys as the appropriate types
      * @return Smarty current Smarty instance for chaining
      */
-    public function setAutoloadFilters(Smarty $smarty, $filters, $type = null)
+    public function setAutoloadFilters($filters, $type = null)
     {
         if ($type !== null) {
-            $smarty->autoload_filters[$type] = (array)$filters;
+            $this->smarty->autoload_filters[$type] = (array)$filters;
         } else {
-            $smarty->autoload_filters = (array)$filters;
+            $this->smarty->autoload_filters = (array)$filters;
         }
 
-        return $smarty;
+        return $this->smarty;
     }
 
     /**
      * Add autoload filters
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  array $filters filters to load automatically
      * @param  string $type    "pre", "output", … specify the filter type to set. Defaults to none treating $filters' keys as the appropriate types
      * @return Smarty current Smarty instance for chaining
      */
-    public function addAutoloadFilters(Smarty $smarty, $filters, $type = null)
+    public function addAutoloadFilters($filters, $type = null)
     {
         if ($type !== null) {
-            if (!empty($smarty->autoload_filters[$type])) {
-                $smarty->autoload_filters[$type] = array_merge($smarty->autoload_filters[$type], (array)$filters);
+            if (!empty($this->smarty->autoload_filters[$type])) {
+                $this->smarty->autoload_filters[$type] = array_merge($this->smarty->autoload_filters[$type], (array)$filters);
             } else {
-                $smarty->autoload_filters[$type] = (array)$filters;
+                $this->smarty->autoload_filters[$type] = (array)$filters;
             }
         } else {
             foreach ((array)$filters as $key => $value) {
-                if (!empty($smarty->autoload_filters[$key])) {
-                    $smarty->autoload_filters[$key] = array_merge($smarty->autoload_filters[$key], (array)$value);
+                if (!empty($this->smarty->autoload_filters[$key])) {
+                    $this->smarty->autoload_filters[$key] = array_merge($this->smarty->autoload_filters[$key], (array)$value);
                 } else {
-                    $smarty->autoload_filters[$key] = (array)$value;
+                    $this->smarty->autoload_filters[$key] = (array)$value;
                 }
             }
         }
 
-        return $smarty;
+        return $this->smarty;
     }
 
     /**
      * Get autoload filters
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  string $type type of filter to get autoloads for. Defaults to all autoload filters
      * @return array  array( 'type1' => array( 'filter1', 'filter2', … ) ) or array( 'filter1', 'filter2', …) if $type was specified
      */
-    public function getAutoloadFilters(Smarty $smarty, $type = null)
+    public function getAutoloadFilters($type = null)
     {
         if ($type !== null) {
-            return isset($smarty->autoload_filters[$type]) ? $smarty->autoload_filters[$type] : array();
+            return isset($this->smarty->autoload_filters[$type]) ? $this->smarty->autoload_filters[$type] : array();
         }
 
-        return $smarty->autoload_filters;
+        return $this->smarty->autoload_filters;
     }
 
     /**
@@ -207,26 +217,26 @@ class Smarty_Extension_Filter
      * plugin filename format: filtertype.filtername.php
      * Smarty2 filter plugins could be used
      *
-     * @param  Smarty $smarty   Smarty object
+     * @internal
      * @param  string $type    the type of filter ('pre','post','output') which shall run
      * @param  string $content the content which shall be processed by the filters
      * @throws Smarty_Exception
      * @return string           the filtered content
      */
-    public function runFilter(Smarty $smarty, $type, $content)
+    public function _runFilter($type, $content)
     {
         $output = $content;
         // loop over autoload filters of specified type
-        if (!empty($smarty->autoload_filters[$type])) {
-            foreach ((array)$smarty->autoload_filters[$type] as $name) {
+        if (!empty($this->smarty->autoload_filters[$type])) {
+            foreach ((array)$this->smarty->autoload_filters[$type] as $name) {
                 $plugin_name = "Smarty_{$type}filter_{$name}";
-                if ($smarty->_loadPlugin($plugin_name)) {
+                if ($this->smarty->_loadPlugin($plugin_name)) {
                     if (function_exists($plugin_name)) {
                         // use loaded Smarty2 style plugin
-                        $output = $plugin_name($output, $smarty);
+                        $output = $plugin_name($output, $this->smarty);
                     } elseif (class_exists($plugin_name, false)) {
                         // loaded class of filter plugin
-                        $output = call_user_func(array($plugin_name, 'execute'), $output, $smarty);
+                        $output = call_user_func(array($plugin_name, 'execute'), $output, $this->smarty);
                     }
                 } else {
                     // nothing found, throw exception
@@ -235,12 +245,12 @@ class Smarty_Extension_Filter
             }
         }
         // loop over registered filters of specified type
-        if (!empty($smarty->registered_filters[$type])) {
-            foreach ($smarty->registered_filters[$type] as $key => $name) {
-                if (is_array($smarty->registered_filters[$type][$key])) {
-                    $output = call_user_func($smarty->registered_filters[$type][$key], $output, $smarty);
+        if (!empty($this->smarty->registered_filters[$type])) {
+            foreach ($this->smarty->registered_filters[$type] as $key => $name) {
+                if (is_array($this->smarty->registered_filters[$type][$key])) {
+                    $output = call_user_func($this->smarty->registered_filters[$type][$key], $output, $this->smarty);
                 } else {
-                    $output = $smarty->registered_filters[$type][$key]($output, $smarty);
+                    $output = $this->smarty->registered_filters[$type][$key]($output, $this->smarty);
                 }
             }
         }

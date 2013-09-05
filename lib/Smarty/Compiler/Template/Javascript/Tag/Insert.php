@@ -69,7 +69,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Insert extends Smarty_Compiler_Tem
             // output will be stored in a smarty variable instead of being displayed
             $_assign = $_attr['assign'];
             // create variable to make sure that the compiler knows about its nocache status
-            $compiler->tpl_obj->tpl_vars->{trim($_attr['assign'], "'")} = new Smarty_Variable(null, true);
+            $compiler->tpl_obj->_tpl_vars->{trim($_attr['assign'], "'")} = new Smarty_Variable(null, true);
         }
         if (isset($_attr['script'])) {
             // script which must be included

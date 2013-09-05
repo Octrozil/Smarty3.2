@@ -3,8 +3,7 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
- * @subpackage PluginsFunction
+ * @package Plugins\Function
  */
 /**
  * @ignore

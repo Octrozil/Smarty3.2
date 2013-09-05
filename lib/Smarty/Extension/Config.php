@@ -6,7 +6,7 @@
  * Smarty filter methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  * @author Uwe Tews
  */
 
@@ -14,43 +14,58 @@
  * Class for modifier methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  */
 class Smarty_Extension_Config
 {
+    /**
+     *  Smarty object
+     *
+     * @var Smarty
+     */
+    public $smarty;
+
+    /**
+     *  Constructor
+     *
+     * @param Smarty $smarty Smarty object
+     */
+    public function __construct(Smarty $smarty)
+    {
+        $this->smarty = $smarty;
+    }
+
 
     /**
      * Registers a default config variable handler
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  callable $callback class/method name
      * @return Smarty
      * @throws Smarty_Exception if $callback is not callable
      */
-    public function registerDefaultConfigVariableHandler(Smarty $smarty, $callback)
+    public function registerDefaultConfigVariableHandler($callback)
     {
         if (is_callable($callback)) {
-            $smarty->default_config_variable_handler_func = $callback;
+            $this->smarty->default_config_variable_handler_func = $callback;
         } else {
             throw new Smarty_Exception("registerDefaultConfigVariableHandler(): Invalid callback");
         }
 
-        return $smarty;
+        return $this->smarty;
     }
 
     /**
      * Registers a default config variable handler
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @return Smarty
      */
-    public function unregisterDefaultConfigVariableHandler(Smarty $smarty)
+    public function unregisterDefaultConfigVariableHandler()
     {
-        $smarty->default_config_variable_handler_func = null;
+        $this->smarty->default_config_variable_handler_func = null;
 
-        return $smarty;
+        return $this->smarty;
     }
 
 
@@ -58,33 +73,31 @@ class Smarty_Extension_Config
      * Registers a default config handler
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  callable $callback class/method name
      * @return Smarty
      * @throws Smarty_Exception if $callback is not callable
      */
-    public function registerDefaultConfigHandler(Smarty $smarty, $callback)
+    public function registerDefaultConfigHandler($callback)
     {
         if (is_callable($callback)) {
-            $smarty->default_config_handler_func = $callback;
+            $this->smarty->default_config_handler_func = $callback;
         } else {
             throw new Smarty_Exception("registerDefaultConfigHandler(): Invalid callback");
         }
 
-        return $smarty;
+        return $this->smarty;
     }
 
     /**
      * Unregisters a default config handler
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @return Smarty
      */
-    public function unregisterDefaultConfigHandler(Smarty $smarty)
+    public function unregisterDefaultConfigHandler()
     {
-        $smarty->default_config_handler_func = null;
+        $this->smarty->default_config_handler_func = null;
 
-        return $smarty;
+        return $this->smarty;
     }
 }

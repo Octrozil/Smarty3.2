@@ -6,7 +6,7 @@
  * Smarty filter methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  * @author Uwe Tews
  */
 
@@ -14,74 +14,87 @@
  * Class for filter methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  */
 class Smarty_Extension_Resource
 {
+
+    /**
+     *  Smarty object
+     *
+     * @var Smarty
+     */
+    public $smarty;
+
+    /**
+     *  Constructor
+     *
+     * @param Smarty $smarty Smarty object
+     */
+    public function __construct(Smarty $smarty)
+    {
+        $this->smarty = $smarty;
+    }
+
     /**
      * Registers a resource to fetch a template
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  string $type     name of resource type
      * @param  Smarty_Resource_Source|array $callback or instance of Smarty_Resource_Source, or array of callbacks to handle resource (deprecated)
      * @return Smarty
      */
-    public function registerResource(Smarty $smarty, $type, $callback)
+    public function registerResource($type, $callback)
     {
-        $smarty->registered_resources[self::SOURCE][$type] = $callback instanceof Smarty_Resource_Source ? $callback : array($callback, false);
+        $this->smarty->registered_resources[Smarty_Resource_Loader::SOURCE][$type] = $callback instanceof Smarty_Resource_Source_File ? $callback : array($callback, false);
 
-        return $smarty;
+        return $this->smarty;
     }
 
     /**
      * Unregisters a resource
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  string $type name of resource type
      * @return Smarty
      */
-    public function unregisterResource(Smarty $smarty, $type)
+    public function unregisterResource()
     {
-        if (isset($smarty->registered_resources[self::SOURCE][$type])) {
-            unset($smarty->registered_resources[self::SOURCE][$type]);
+        if (isset($this->smarty->registered_resources[Smarty_Resource_Loader::SOURCE][$type])) {
+            unset($this->smarty->registered_resources[Smarty_Resource_Loader::SOURCE][$type]);
         }
 
-        return $smarty;
+        return $this->smarty;
     }
 
     /**
      * Registers a cache resource to cache a template's output
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  string $type     name of cache resource type
-     * @param  Smarty_Cache_Resource $callback instance of Smarty_Cache_Resource to handle output caching
+     * @param  Smarty_Resource_Cache $callback instance of Smarty_Resource_Cache to handle output caching
      * @return Smarty
      */
-    public function registerCacheResource(Smarty $smarty, $type, $callback)
+    public function registerCacheResource($type, $callback)
     {
-        $smarty->registered_resources[self::CACHE][$type] = $callback instanceof Smarty_Cache_Resource ? $callback : array($callback, false);
+        $this->smarty->registered_resources[Smarty_Resource_Loader::CACHE][$type] = $callback instanceof Smarty_Resource_Cache ? $callback : array($callback, false);
 
-        return $smarty;
+        return $this->smarty;
     }
 
     /**
      * Unregisters a cache resource
      *
      * @api
-     * @param  Smarty $smarty   Smarty object
      * @param  string $type name of cache resource type
      * @return Smarty
      */
-    public function unregisterCacheResource(Smarty $smarty, $type)
+    public function unregisterCacheResource($type)
     {
-        if (isset($smarty->registered_resources[self::CACHE][$type])) {
-            unset($smarty->registered_resources[self::CACHE][$type]);
+        if (isset($this->smarty->registered_resources[Smarty_Resource_Loader::CACHE][$type])) {
+            unset($this->smarty->registered_resources[Smarty_Resource_Loader::CACHE][$type]);
         }
 
-        return $smarty;
+        return $this;
     }
-
 }

@@ -6,7 +6,7 @@ ini_set('pcre.backtrack_limit', -1);
  * Smarty Code generator
  *
  *
- * @package Compiler
+ * @package Smarty\Compiler
  * @author Uwe Tews
  */
 
@@ -16,7 +16,7 @@ ini_set('pcre.backtrack_limit', -1);
  * Methods to manage code output buffer
  *
  *
- * @package Compiler
+ * @package Smarty\Compiler
  */
 class Smarty_Compiler_Code extends Smarty_Exception_Magic
 {

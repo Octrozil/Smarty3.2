@@ -417,7 +417,7 @@ class Smarty_Security
         if ($tpl_obj) {
             $this->_template_dir = $_template_dir;
             foreach ($_template_dir as $directory) {
-                $directory = realpath($directory);
+                $directory = $this->realpath($directory);
                 $this->_resource_dir[$directory] = true;
             }
         }
@@ -426,7 +426,7 @@ class Smarty_Security
         if ($_config) {
             $this->_config_dir = $_config_dir;
             foreach ($_config_dir as $directory) {
-                $directory = realpath($directory);
+                $directory = $this->realpath($directory);
                 $this->_resource_dir[$directory] = true;
             }
         }
@@ -435,12 +435,12 @@ class Smarty_Security
         if ($_secure) {
             $this->_secure_dir = $this->secure_dir;
             foreach ((array)$this->secure_dir as $directory) {
-                $directory = realpath($directory);
+                $directory = $this->realpath($directory);
                 $this->_resource_dir[$directory] = true;
             }
         }
 
-        $_filepath = realpath($filepath);
+        $_filepath = $this->realpath($filepath);
         $directory = dirname($_filepath);
         $_directory = array();
         while (true) {
@@ -510,12 +510,12 @@ class Smarty_Security
 
             $this->_trusted_dir = $this->trusted_dir;
             foreach ((array)$this->trusted_dir as $directory) {
-                $directory = realpath($directory);
+                $directory = $this->realpath($directory);
                 $this->_php_resource_dir[$directory] = true;
             }
         }
 
-        $_filepath = realpath($filepath);
+        $_filepath = $this->realpath($filepath);
         $directory = dirname($_filepath);
         $_directory = array();
         while (true) {
@@ -537,6 +537,15 @@ class Smarty_Security
         }
 
         throw new Smarty_Exception("directory '{$_filepath}' not allowed by security setting");
+    }
+
+    /**
+     * get realpath and replace \ with /
+     * @param string $file
+     * @return string
+     */
+    public function realpath($file){
+        return str_replace('\\', '/', realpath($file));
     }
 
 }

@@ -6,7 +6,7 @@
  * Smarty class methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  * @author Uwe Tews
  */
 
@@ -14,10 +14,27 @@
  * Class for modifier methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  */
 class Smarty_Extension_Trace
 {
+    /**
+     *  Smarty object
+     *
+     * @var Smarty
+     */
+    public $smarty;
+
+    /**
+     *  Constructor
+     *
+     * @param Smarty $smarty Smarty object
+     */
+    public function __construct(Smarty $smarty)
+    {
+        $this->smarty = $smarty;
+    }
+
     /*
     EVENTS:
     filesystem:write
@@ -25,12 +42,11 @@ class Smarty_Extension_Trace
     */
 
     /**
-     * @param  Smarty $smarty   Smarty object
      * @param  string|array $event
      * @param  callable $callback class/method name
      * @throws Smarty_Exception
      */
-    public function registerTraceCallback(Smarty $smarty, $event, $callback = null)
+    public function registerTraceCallback($event, $callback = null)
     {
         if (is_array($event)) {
             foreach ($event as $_event => $_callback) {
@@ -45,39 +61,37 @@ class Smarty_Extension_Trace
             }
             Smarty::$_trace_callbacks[$event][] = $callback;
         }
-         return $smarty;
+        return $this->smarty;
     }
 
     /**
-     * @param  Smarty $smarty   Smarty object
      * @param  string|array $event
      * @param  callable $callback class/method name
      * @throws Smarty_Exception
      */
-    public function unregisterTraceCallback(Smarty $smarty, $event = null)
+    public function unregisterTraceCallback($event = null)
     {
         if ($event == null) {
             Smarty::$_trace_callbacks = array();
-            return $smarty;
+            return $this->smarty;
         } else {
-            foreach ($event as $_event)  {
+            foreach ($event as $_event) {
                 if (isset(Smarty::$_trace_callbacks[$_event])) {
                     unset(Smarty::$_trace_callbacks);
                 }
             }
         }
 
-        return $smarty;
-     }
+        return $this->smarty;
+    }
 
     /**
-     * @param Smarty $smarty Smarty object
      * @param string $event  string event
      * @param mixed $data
      */
-    public function triggerTraceCallback(Smarty $smarty, $event, $data = array())
+    public function triggerTraceCallback($event, $data = array())
     {
-        if ($smarty->enable_trace && isset(Smarty::$_trace_callbacks[$event])) {
+        if ($this->smarty->enable_trace && isset(Smarty::$_trace_callbacks[$event])) {
             foreach (Smarty::$_trace_callbacks[$event] as $callback) {
                 call_user_func_array($callback, (array)$data);
             }

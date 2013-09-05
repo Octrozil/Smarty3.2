@@ -79,7 +79,7 @@ class Smarty_Template_Inheritance extends Smarty_Template_Class
                 return $this->_getInheritanceRenderedBlock($name, $scope_tpl, $_scope, $current_tpl);
 
             case 1:
-                $tmp = Smarty_Cache_Helper_Create::_getCachedObject($current_tpl);
+                $tmp = Smarty_Resource_Cache_Helper_Create::_getCachedObject($current_tpl);
 
                 return $tmp->newcache->_createNocacheInheritanceBlock($current_tpl, $name, $scope_tpl);
             case 2:

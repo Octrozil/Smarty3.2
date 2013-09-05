@@ -36,13 +36,6 @@ class Smarty_Compiler_Template_Php_Tag_Extends extends Smarty_Compiler_Template_
     public $shorttag_order = array('file');
 
     /**
-     * mbstring.overload flag
-     *
-     * @var int
-     */
-    public $mbstring_overload = 0;
-
-    /**
      * Compiles code for the {extends} tag
      *
      * @param  array $args     array with attributes from parser

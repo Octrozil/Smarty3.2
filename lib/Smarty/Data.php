@@ -16,7 +16,7 @@
  * The Smarty data object will hold Smarty variables in the current scope
  *
  *
- * @package Template
+ * @package Smarty
  */
 class Smarty_Data extends Smarty_Variable_Methods
 {
@@ -44,12 +44,12 @@ class Smarty_Data extends Smarty_Variable_Methods
         }
 
         // create variabale container
-        $this->tpl_vars = new Smarty_Variable_Scope($smarty, $parent, Smarty::IS_DATA, $scope_name);
+        $this->_tpl_vars = new Smarty_Variable_Scope($smarty, $parent, Smarty::IS_DATA, $scope_name);
 
         //load optional variable array
         if (isset($data)) {
             foreach ($data as $_key => $_val) {
-                $this->tpl_vars->$_key = new Smarty_Variable($_val);
+                $this->_tpl_vars->$_key = new Smarty_Variable($_val);
             }
         }
     }

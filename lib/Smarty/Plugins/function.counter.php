@@ -2,8 +2,7 @@
 
 /**
  * Smarty plugin
- * @package Smarty
- * @subpackage PluginsFunction
+ * @package Plugins\Function
  */
 
 /**
@@ -19,6 +18,7 @@
  * @param array $params   parameters
  * @param Smarty $tpl_obj template object
  * @return string|null
+ * @package Plugins\Function
  */
 function smarty_function_counter($params, $tpl_obj)
 {

@@ -44,10 +44,10 @@ class Smarty_Compiler_Template_Javascript_Tag_Assign extends Smarty_Compiler_Tem
         if ($compiler->tag_nocache || $compiler->nocache) {
             $_nocache = 'true';
             // create nocache var to make it know for further compiling
-            if (isset($compiler->tpl_obj->tpl_vars->$var)) {
-                $compiler->tpl_obj->tpl_vars->$var->nocache = true;
+            if (isset($compiler->tpl_obj->_tpl_vars->$var)) {
+                $compiler->tpl_obj->_tpl_vars->$var->nocache = true;
             } else {
-                $compiler->tpl_obj->tpl_vars->$var = new Smarty_Variable(null, true);
+                $compiler->tpl_obj->_tpl_vars->$var = new Smarty_Variable(null, true);
             }
         }
         // scope setup
@@ -93,7 +93,7 @@ class Smarty_Compiler_Template_Javascript_Tag_Assign extends Smarty_Compiler_Tem
             $this->outdent()->php("}")->newline();
         }
         if ($_scope == Smarty::SCOPE_GLOBAL) {
-            $this->php("Smarty::\$global_tpl_vars->{$var} =  clone \$_scope->{$var};")->newline();
+            $this->php("Smarty::\$_global_tpl_vars->{$var} =  clone \$_scope->{$var};")->newline();
         }
         if ($_attr['cachevalue'] === true && $compiler->caching) {
             if (isset($parameter['smarty_internal_index'])) {

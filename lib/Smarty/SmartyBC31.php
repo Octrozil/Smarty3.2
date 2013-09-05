@@ -1,28 +1,14 @@
 <?php
-/**
- * define shorthand directory separator constant
- */
-if (!defined('DS')) {
-    define('DS', DIRECTORY_SEPARATOR);
-}
 
 /**
  * set SMARTY_DIR to absolute path to Smarty library files.
  * Sets SMARTY_DIR only if user application has not already defined it.
  */
 if (!defined('SMARTY_DIR')) {
-    define('SMARTY_DIR', dirname(__FILE__) . DS);
-}
-
-/**
- * set SMARTY_SYSPLUGINS_DIR to absolute path to Smarty internal plugins.
- * Sets SMARTY_SYSPLUGINS_DIR only if user application has not already defined it.
- */
-if (!defined('SMARTY_SYSPLUGINS_DIR')) {
-    define('SMARTY_SYSPLUGINS_DIR', SMARTY_DIR . 'sysplugins' . DS);
+    define('SMARTY_DIR', dirname(__FILE__) . '/');
 }
 if (!defined('SMARTY_PLUGINS_DIR')) {
-    define('SMARTY_PLUGINS_DIR', SMARTY_DIR . 'plugins' . DS);
+    define('SMARTY_PLUGINS_DIR', SMARTY_DIR . 'plugins/');
 }
 if (!defined('SMARTY_MBSTRING')) {
     define('SMARTY_MBSTRING', function_exists('mb_split'));
@@ -69,19 +55,18 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Uwe Tews
  * @author Rodney Rehm
- * @package Smarty
- * @subpackage SmartyBC
+ * @package Smarty\BC
+ * @deprecated
  */
 /**
  * @ignore
  */
-require_once(dirname(__FILE__) . '/Smarty.php');
 
 /**
  * Dummy Template class for Smarty 3.1 BC
  *
- * @package Smarty
- * @subpackage SmartyBC
+ * @package Smarty3.1_BC
+ * @deprecated
  */
 class Smarty_Internal_Template extends Smarty
 {
@@ -91,8 +76,8 @@ class Smarty_Internal_Template extends Smarty
 /**
  * Smarty Backward Compatibility Wrapper Class for Smarty 3.1
  *
- * @package Smarty
- * @subpackage SmartyBC
+ * @package Smarty\BC
+ * @deprecated
  */
 class SmartyBC31 extends Smarty_Internal_Template
 {
@@ -136,9 +121,10 @@ class SmartyBC31 extends Smarty_Internal_Template
     }
 
     /**
-     *  DEPRECATED FUNCTION
      * assigns values to template variables by reference
      *
+     * @deprecated
+     * @api
      * @param  string $tpl_var the template variable name
      * @param  mixed &$value  the referenced value to assign
      * @param  boolean $nocache if true any output of this variable will be not cached
@@ -147,17 +133,18 @@ class SmartyBC31 extends Smarty_Internal_Template
     public function assignByRef($tpl_var, &$value, $nocache = false)
     {
         if ($tpl_var != '') {
-            $this->tpl_vars->$tpl_var = new Smarty_Variable(null, $nocache);
-            $this->tpl_vars->$tpl_var->value = & $value;
+            $this->_tpl_vars->$tpl_var = new Smarty_Variable(null, $nocache);
+            $this->_tpl_vars->$tpl_var->value = & $value;
         }
 
         return $this;
     }
 
     /**
-     *  DEPRECATED FUNCTION
      * appends values to template variables by reference
      *
+     * @deprecated
+     * @api
      * @param  string $tpl_var the template variable name
      * @param  mixed &$value  the referenced value to append
      * @param  boolean $merge   flag if array elements shall be merged
@@ -166,18 +153,18 @@ class SmartyBC31 extends Smarty_Internal_Template
     public function appendByRef($tpl_var, &$value, $merge = false)
     {
         if ($tpl_var != '' && isset($value)) {
-            if (!isset($this->tpl_vars->$tpl_var)) {
-                $this->tpl_vars->$tpl_var = new Smarty_Variable(array());
+            if (!isset($this->_tpl_vars->$tpl_var)) {
+                $this->_tpl_vars->$tpl_var = new Smarty_Variable(array());
             }
-            if (!@is_array($this->tpl_vars->$tpl_var->value)) {
-                settype($this->tpl_vars->$tpl_var->value, 'array');
+            if (!@is_array($this->_tpl_vars->$tpl_var->value)) {
+                settype($this->_tpl_vars->$tpl_var->value, 'array');
             }
             if ($merge && is_array($value)) {
                 foreach ($value as $_key => $_val) {
-                    $this->tpl_vars->$tpl_var->value[$_key] = & $value[$_key];
+                    $this->_tpl_vars->$tpl_var->value[$_key] = & $value[$_key];
                 }
             } else {
-                $this->tpl_vars->$tpl_var->value[] = & $value;
+                $this->_tpl_vars->$tpl_var->value[] = & $value;
             }
         }
 
@@ -187,6 +174,8 @@ class SmartyBC31 extends Smarty_Internal_Template
     /**
      * Registers object to be used in templates
      *
+     * @deprecated
+     * @api
      * @param $object_name
      * @param  string $object        $object        the referenced PHP object to register
      * @param  array $allowed       list of allowed methods (empty = all)
@@ -226,6 +215,8 @@ class SmartyBC31 extends Smarty_Internal_Template
     /**
      * return a reference to a registered object
      *
+     * @deprecated
+     * @api
      * @param  string $name object name
      * @return object
      * @throws Smarty_Exception if no such object is found
@@ -242,6 +233,8 @@ class SmartyBC31 extends Smarty_Internal_Template
     /**
      * unregister an object
      *
+     * @deprecated
+     * @api
      * @param  string $name object name
      * @return Smarty
      */
@@ -253,5 +246,4 @@ class SmartyBC31 extends Smarty_Internal_Template
 
         return $this;
     }
-
 }

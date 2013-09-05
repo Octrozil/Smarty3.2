@@ -4,8 +4,7 @@
  * Smarty plugin
  *
  * This plugin is only for Smarty2 BC
- * @package Smarty
- * @subpackage PluginsFunction
+ * @package Plugins\Function
  */
 
 /**

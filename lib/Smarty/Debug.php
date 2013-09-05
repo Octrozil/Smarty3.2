@@ -61,7 +61,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * Start logging of compile time
      *
-     * @param Smarty_Source_Resource $source
+     * @param Smarty_Resource_Source_File $source
      */
     public static function start_compile($source)
     {
@@ -72,7 +72,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * End logging of compile time
      *
-     * @param Smarty_Source_Resource $source
+     * @param Smarty_Resource_Source_File $source
      */
     public static function end_compile($source)
     {
@@ -83,7 +83,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * Start logging of render time
      *
-     * @param Smarty_Source_Resource $source
+     * @param Smarty_Resource_Source_File $source
      */
     public static function start_render($source)
     {
@@ -94,7 +94,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * End logging of compile time
      *
-     * @param Smarty_Source_Resource $source
+     * @param Smarty_Resource_Source_File $source
      */
     public static function end_render($source)
     {
@@ -105,7 +105,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * Start logging of cache time
      *
-     * @param Smarty_Source_Resource $source
+     * @param Smarty_Resource_Source_File $source
      */
     public static function start_cache($source)
     {
@@ -116,7 +116,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * End logging of cache time
      *
-     * @param Smarty_Source_Resource $source
+     * @param Smarty_Resource_Source_File $source
      */
     public static function end_cache($source)
     {
@@ -176,10 +176,10 @@ class Smarty_Debug extends Smarty_Variable_Methods
         $config_vars = array();
         $tpl_vars = array();
         // TODO Source Info
-        foreach ($obj->tpl_vars as $key => $value) {
+        foreach ($obj->_tpl_vars as $key => $value) {
             if (strpos($key, '___config_var_') !== 0) {
                 $tpl_vars[$key] = $value;
-//                    $tpl_vars[$key]->source = $obj->tpl_vars->___attributes->name;
+//                    $tpl_vars[$key]->source = $obj->_tpl_vars->___attributes->name;
             } else {
                 $key = substr($key, 14);
                 $config_vars[$key] = $value;
@@ -189,10 +189,10 @@ class Smarty_Debug extends Smarty_Variable_Methods
 
         if (isset($obj->parent)) {
             $parent = self::get_debug_vars($obj->parent);
-            $tpl_vars = array_merge($parent->tpl_vars, $tpl_vars);
+            $tpl_vars = array_merge($parent->_tpl_vars, $tpl_vars);
             $config_vars = array_merge($parent->config_vars, $config_vars);
         } else {
-            foreach (Smarty::$global_tpl_vars as $key => $var) {
+            foreach (Smarty::$_global_tpl_vars as $key => $var) {
                 if (strpos($key, '___template_ptr') !== 0) {
                     if (!isset($tpl_vars[$key])) {
                         if (strpos($key, '___smarty_conf_') !== 0) {
@@ -212,7 +212,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * Return key into $_template_data for template
      *
-     * @param  Smarty_Source_Resource $source
+     * @param  Smarty_Resource_Source_File $source
      * @return string          key into $_template_data
      */
     private static function get_key($source)

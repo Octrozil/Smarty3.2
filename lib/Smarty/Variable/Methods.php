@@ -6,7 +6,7 @@
  * This file contains the basic methods for variable handling
  *
  *
- * @package Template
+ * @package Smarty
  * @author Uwe Tews
  */
 
@@ -14,7 +14,7 @@
  * Base class with variable methods
  *
  *
- * @package Template
+ * @package Smarty
  */
 class Smarty_Variable_Methods extends Smarty_Exception_Magic
 {
@@ -46,6 +46,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * assigns a Smarty variable
      *
+     * @api
      * @param  array|string $tpl_var the template variable name(s)
      * @param  mixed $value   the value to assign
      * @param  boolean $nocache if true any output of this variable will be not cached
@@ -56,12 +57,12 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $varname => $value) {
                 if ($varname != '') {
-                    $this->tpl_vars->$varname = new Smarty_Variable($value, $nocache);
+                    $this->_tpl_vars->$varname = new Smarty_Variable($value, $nocache);
                 }
             }
         } else {
             if ($tpl_var != '') {
-                $this->tpl_vars->$tpl_var = new Smarty_Variable($value, $nocache);
+                $this->_tpl_vars->$tpl_var = new Smarty_Variable($value, $nocache);
             }
         }
 
@@ -71,6 +72,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * assigns a Smarty variable to the current object and all parent elements
      *
+     * @api
      * @param  array|string $tpl_var the template variable name(s)
      * @param  mixed $value   the value to assign
      * @param  boolean $nocache if true any output of this variable will be not cached
@@ -92,6 +94,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * assigns a global Smarty variable
      *
+     * @api
      * @param  string $varname the global variable name
      * @param  mixed $value   the value to assign
      * @param  boolean $nocache if true any output of this variable will be not cached
@@ -100,7 +103,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     public function assignGlobal($varname, $value = null, $nocache = false)
     {
         if ($varname != '') {
-            Smarty::$global_tpl_vars->$varname = new Smarty_Variable($value, $nocache);
+            Smarty::$_global_tpl_vars->$varname = new Smarty_Variable($value, $nocache);
         }
         // TODO check behavior
         //        $ptr = $this;
@@ -114,6 +117,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * assigns a variable hook
      *
+     * @api
      * @param  string $varname the variable name
      * @param  callback $callback PHP callback to get variable value
      * @param  boolean $nocache if true any output of this variable will be not cached
@@ -128,7 +132,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
                 if (is_object($callback)) {
                     $callback = array($callback, '__invoke');
                 }
-                $this->tpl_vars->$varname = new Smarty_Variable_Callback($varname, $callback, $nocache);
+                $this->_tpl_vars->$varname = new Smarty_Variable_Callback($varname, $callback, $nocache);
             }
         }
         return $this;
@@ -138,6 +142,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * appends values to template variables
      *
+     * @api
      * @param  array|string $tpl_var the template variable name(s)
      * @param  mixed $value   the value to append
      * @param  boolean $merge   flag if array elements shall be merged
@@ -150,45 +155,45 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
             // $tpl_var is an array, ignore $value
             foreach ($tpl_var as $varname => $_val) {
                 if ($varname != '') {
-                    if (!isset($this->tpl_vars->$varname)) {
+                    if (!isset($this->_tpl_vars->$varname)) {
                         $tpl_var_inst = $this->getVariable($varname, null, true, false);
                         if ($tpl_var_inst === null) {
-                            $this->tpl_vars->$varname = new Smarty_Variable(null, $nocache);
+                            $this->_tpl_vars->$varname = new Smarty_Variable(null, $nocache);
                         } else {
-                            $this->tpl_vars->$varname = clone $tpl_var_inst;
+                            $this->_tpl_vars->$varname = clone $tpl_var_inst;
                         }
                     }
-                    if (!(is_array($this->tpl_vars->$varname->value) || $this->tpl_vars->$varname->value instanceof ArrayAccess)) {
-                        settype($this->tpl_vars->$varname->value, 'array');
+                    if (!(is_array($this->_tpl_vars->$varname->value) || $this->_tpl_vars->$varname->value instanceof ArrayAccess)) {
+                        settype($this->_tpl_vars->$varname->value, 'array');
                     }
                     if ($merge && is_array($_val)) {
                         foreach ($_val as $_mkey => $_mval) {
-                            $this->tpl_vars->$varname->value[$_mkey] = $_mval;
+                            $this->_tpl_vars->$varname->value[$_mkey] = $_mval;
                         }
                     } else {
-                        $this->tpl_vars->$varname->value[] = $_val;
+                        $this->_tpl_vars->$varname->value[] = $_val;
                     }
                 }
             }
         } else {
             if ($tpl_var != '' && isset($value)) {
-                if (!isset($this->tpl_vars->$tpl_var)) {
+                if (!isset($this->_tpl_vars->$tpl_var)) {
                     $tpl_var_inst = $this->getVariable($tpl_var, null, true, false);
                     if ($tpl_var_inst === null) {
-                        $this->tpl_vars->$tpl_var = new Smarty_Variable(null, $nocache);
+                        $this->_tpl_vars->$tpl_var = new Smarty_Variable(null, $nocache);
                     } else {
-                        $this->tpl_vars->$tpl_var = clone $tpl_var_inst;
+                        $this->_tpl_vars->$tpl_var = clone $tpl_var_inst;
                     }
                 }
-                if (!(is_array($this->tpl_vars->$tpl_var->value) || $this->tpl_vars->$tpl_var->value instanceof ArrayAccess)) {
-                    settype($this->tpl_vars->$tpl_var->value, 'array');
+                if (!(is_array($this->_tpl_vars->$tpl_var->value) || $this->_tpl_vars->$tpl_var->value instanceof ArrayAccess)) {
+                    settype($this->_tpl_vars->$tpl_var->value, 'array');
                 }
                 if ($merge && is_array($value)) {
                     foreach ($value as $_mkey => $_mval) {
-                        $this->tpl_vars->$tpl_var->value[$_mkey] = $_mval;
+                        $this->_tpl_vars->$tpl_var->value[$_mkey] = $_mval;
                     }
                 } else {
-                    $this->tpl_vars->$tpl_var->value[] = $value;
+                    $this->_tpl_vars->$tpl_var->value[] = $value;
                 }
             }
         }
@@ -199,6 +204,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * clear the given assigned template variable.
      *
+     * @api
      * @param  string|array $tpl_var the template variable(s) to clear
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
@@ -206,10 +212,10 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $curr_var) {
-                unset($this->tpl_vars->$curr_var);
+                unset($this->_tpl_vars->$curr_var);
             }
         } else {
-            unset($this->tpl_vars->$tpl_var);
+            unset($this->_tpl_vars->$tpl_var);
         }
 
         return $this;
@@ -217,13 +223,15 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
 
     /**
      * clear all the assigned template variables.
+     *
+     * @api
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function clearAllAssign()
     {
-        $old_attributes = $this->tpl_vars->___attributes;
-        $this->tpl_vars = new Smarty_Variable_Scope();
-        $this->tpl_vars->___attributes = $old_attributes;
+        $old_attributes = $this->_tpl_vars->___attributes;
+        $this->_tpl_vars = new Smarty_Variable_Scope();
+        $this->_tpl_vars->___attributes = $old_attributes;
 
         return $this;
     }
@@ -231,6 +239,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * Returns a single or all template variables
      *
+     * @api
      * @param  string $varname        variable name or null
      * @param  string $_ptr           optional pointer to data object
      * @param  boolean $search_parents include parent templates?
@@ -251,7 +260,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
                 $_ptr = $this;
             }
             while ($_ptr !== null) {
-                foreach ($_ptr->tpl_vars AS $varname => $data) {
+                foreach ($_ptr->_tpl_vars AS $varname => $data) {
                     if (strpos($varname, '___') !== 0 && !isset($_result[$varname])) {
                         $_result[$varname] = $data->value;
                     }
@@ -263,8 +272,8 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
                     $_ptr = null;
                 }
             }
-            if ($search_parents && isset(Smarty::$global_tpl_vars)) {
-                foreach (Smarty::$global_tpl_vars AS $varname => $data) {
+            if ($search_parents && isset(Smarty::$_global_tpl_vars)) {
+                foreach (Smarty::$_global_tpl_vars AS $varname => $data) {
                     if (strpos($varname, '___') !== 0 && !isset($_result[$varname])) {
                         $_result[$varname] = $data->value;
                     }
@@ -292,12 +301,12 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
             $_ptr = $this;
         }
         while ($_ptr !== null) {
-            if (isset($_ptr->tpl_vars->$varname)) {
+            if (isset($_ptr->_tpl_vars->$varname)) {
                 // found it, return it
                 if ($property === null) {
-                    return $_ptr->tpl_vars->$varname;
+                    return $_ptr->_tpl_vars->$varname;
                 } else {
-                    return isset($_ptr->tpl_vars->$varname->$property) ? $_ptr->tpl_vars->$varname->$property : null;
+                    return isset($_ptr->_tpl_vars->$varname->$property) ? $_ptr->_tpl_vars->$varname->$property : null;
                 }
             }
             // not found, try at parent
@@ -307,16 +316,16 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
                 $_ptr = null;
             }
         }
-        if (isset(Smarty::$global_tpl_vars->$varname)) {
+        if (isset(Smarty::$_global_tpl_vars->$varname)) {
             // found it, return it
             if ($property === null) {
-                return Smarty::$global_tpl_vars->$varname;
+                return Smarty::$_global_tpl_vars->$varname;
             } else {
-                return isset(Smarty::$global_tpl_vars->$varname->$property) ? Smarty::$global_tpl_vars->$varname->$property : null;
+                return isset(Smarty::$_global_tpl_vars->$varname->$property) ? Smarty::$_global_tpl_vars->$varname->$property : null;
             }
         }
         if ($this->usage == Smarty::IS_DATA) {
-            $error_unassigned = $this->tpl_vars->___attributes->tpl_ptr->error_unassigned;
+            $error_unassigned = $this->_tpl_vars->___attributes->tpl_ptr->error_unassigned;
         } else {
             $error_unassigned = $this->error_unassigned;
         }
@@ -377,6 +386,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * Returns a single or all config variables
      *
+     * @api
      * @param  string $varname        variable name or null
      * @param  bool $search_parents true to search also in parent templates
      * @return string variable value or or array of variables
@@ -391,7 +401,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
         } else {
             $_result = array();
             while ($_ptr !== null) {
-                foreach ($_ptr->tpl_vars AS $varname => $data) {
+                foreach ($_ptr->_tpl_vars AS $varname => $data) {
                     $real_varname = substr($varname, 14);
                     if (strpos($varname, '___config_var_') === 0 && !isset($_result[$real_varname])) {
                         $_result[$real_varname] = $data;
@@ -412,17 +422,18 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * Deassigns a single or all config variables
      *
+     * @api
      * @param  string $varname variable name or null
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function clearConfig($varname = null)
     {
         if (isset($varname)) {
-            unset($this->tpl_vars->{'___config_var_' . $varname});
+            unset($this->_tpl_vars->{'___config_var_' . $varname});
         } else {
-            foreach ($this->tpl_vars as $key => $var) {
+            foreach ($this->_tpl_vars as $key => $var) {
                 if (strpos($key, '___config_var_') === 0) {
-                    unset($this->tpl_vars->$key);
+                    unset($this->_tpl_vars->$key);
                 }
             }
         }
@@ -433,6 +444,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * load a config file, optionally load just selected sections
      *
+     * @api
      * @param  string $config_file filename
      * @param  mixed $sections    array of section names, single section or null
      * @param  string $scope_type  template scope into which config file shall be loaded
@@ -440,11 +452,11 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      */
     public function configLoad($config_file, $sections = null, $scope_type = 'local')
     {
-        $smarty_obj = $this->usage == Smarty::IS_DATA ? $this->tpl_vars->___attributes->tpl_ptr : $this;
+        $smarty_obj = $this->usage == Smarty::IS_DATA ? $this->_tpl_vars->___attributes->tpl_ptr : $this;
         // TODO nneds rewrite ?
         $tpl_obj = $smarty_obj->createTemplate($config_file, null, null, $this, true);
-        $tpl_obj->tpl_vars->___config_sections = $sections;
-        $tpl_obj->tpl_vars->___config_scope = $scope_type;
+        $tpl_obj->_tpl_vars->___config_sections = $sections;
+        $tpl_obj->_tpl_vars->___config_scope = $scope_type;
         $tpl_obj->compiled->getRenderedTemplate($tpl_obj);
 
         return $this;
@@ -453,6 +465,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     /**
      * gets  a stream variable
      *
+     * @api
      * @param  string $variable the stream of the variable
      * @throws Smarty_Exception
      * @return mixed            the value of the stream variable

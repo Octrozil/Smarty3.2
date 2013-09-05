@@ -24,7 +24,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
      * @var boolean assumed true
      * @internal
      */
-    public static $isValid = false;
+    public $isValid = false;
 
     /**
      * Smarty object
@@ -40,7 +40,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
 
     /**
      * Source object
-     * @var Smarty_Source_Resource
+     * @var Smarty_Resource_Source_File
      */
     public $source = null;
 
@@ -48,7 +48,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
      * Local variable scope
      * @var Smarty_Variable_Scope
      */
-    public $tpl_vars = null;
+    public $_tpl_vars = null;
 
     /**
      * flag if class is from cache file
@@ -161,14 +161,14 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
      *
      * @param Smarty $smarty Smarty object
      * @param Smarty|Smarty_Data|Smarty_Template_Class $parent parent object
-     * @params Smarty_Source_Resource $source source resource
+     * @param Smarty_Resource_Source_File $source source resource
      */
     public function __construct($tpl_obj, $parent, $source)
     {
         $this->tpl_obj = $tpl_obj;
         $this->parent = $parent;
         $this->source = $source;
-        if (!self::$isValid) {
+        if (!$this->isValid) {
             // check if class is still valid
             if ($this->version != Smarty::SMARTY_VERSION) {
                 // not valid because new Smarty version
@@ -201,7 +201,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
                     include $file;
                 }
             }
-            self::$isValid = true;
+            $this->isValid = true;
         }
         if (!$this->is_cache) {
             if (!empty($this->template_functions) && isset($tpl_obj->parent) && $tpl_obj->parent->usage == Smarty::IS_TEMPLATE) {
@@ -233,7 +233,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
             //
             // render compiled template
             //
-            $output = $this->_renderTemplate($this->tpl_obj, $this->tpl_vars);
+            $output = $this->_renderTemplate($this->tpl_obj, $this->_tpl_vars);
             array_shift(self::$call_stack);
             // any unclosed {capture} tags ?
             if (isset($this->_capture_stack[0][0])) {
@@ -250,10 +250,10 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
 //            $this->file_dependency[$this->source->uid] = array($this->source->filepath, $this->source->timestamp, $this->source->type);
 //        }
         if ($this->caching) {
-            Smarty_Cache_Resource::$creator[0]->_mergeFromCompiled($this);
+            Smarty_Resource_Cache::$creator[0]->_mergeFromCompiled($this);
         }
         if (!$no_output_filter && (isset($this->tpl_obj->autoload_filters['output']) || isset($this->tpl_obj->registered_filters['output']))) {
-            $output = $this->tpl_obj->runFilter('output', $output);
+            $output = $this->tpl_obj->_runFilter('output', $output);
         }
 
         if ($this->tpl_obj->debugging) {
@@ -277,46 +277,46 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
             switch ($scope_type) {
                 case Smarty::SCOPE_LOCAL:
                     if ($this->parent == null) {
-                        $this->tpl_vars = new Smarty_Variable_Scope();
+                        $this->_tpl_vars = new Smarty_Variable_Scope();
                         break;
                     }
                     if ($this->parent instanceof Smarty_Variable_Scope) {
-                        $this->tpl_vars = clone $this->parent;
+                        $this->_tpl_vars = clone $this->parent;
                         break;
                     }
                     if ($this->parent->usage == Smarty::IS_SMARTY || $this->parent->usage == Smarty::IS_TEMPLATE) {
-                        $this->tpl_vars = clone $this->parent->tpl_vars;
+                        $this->_tpl_vars = clone $this->parent->_tpl_vars;
                         break;
                     }
-                    $this->tpl_vars = $this->_mergeScopes($this->parent);
+                    $this->_tpl_vars = $this->_mergeScopes($this->parent);
                     break;
                 case Smarty::SCOPE_PARENT:
-                    $this->tpl_vars = $this->parent->tpl_vars;
+                    $this->_tpl_vars = $this->parent->_tpl_vars;
                     break;
                 case Smarty::SCOPE_GLOBAL:
-                    $this->tpl_vars = Smarty::$global_tpl_vars;
+                    $this->_tpl_vars = Smarty::$_global_tpl_vars;
                     break;
                 case Smarty::SCOPE_ROOT:
                     $ptr = $this;
                     while ($ptr->parent && $ptr->parent->usage == Smarty::IS_TEMPLATE) {
                         $ptr = $ptr->parent;
                     }
-                    $this->tpl_vars = $ptr->tpl_vars;
+                    $this->_tpl_vars = $ptr->_tpl_vars;
                     break;
             }
         } else {
-            $this->tpl_vars = $this->parent->tpl_vars;
+            $this->_tpl_vars = $this->parent->_tpl_vars;
         }
 
         // create special smarty variable
-        if (!isset($this->tpl_vars->smarty)) {
-            $this->tpl_vars->smarty = new Smarty_Variable();
+        if (!isset($this->_tpl_vars->smarty)) {
+            $this->_tpl_vars->smarty = new Smarty_Variable();
         }
         // fill data if present
         if ($data != null) {
             // set up variable values
             foreach ($data as $varname => $value) {
-                $this->tpl_vars->$varname = new Smarty_Variable($value);
+                $this->_tpl_vars->$varname = new Smarty_Variable($value);
             }
         }
 
@@ -332,17 +332,17 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
      */
     public function _mergeScopes($ptr)
     {
-        // Smarty::triggerCallback('trace', ' merge tpl ');
+        // Smarty::triggerTraceCallback('trace', ' merge tpl ');
 
         if ($ptr->parent) {
             $tpl_vars = $this->_mergeScopes($ptr->parent);
-            foreach ($ptr->tpl_vars as $var => $data) {
+            foreach ($ptr->_tpl_vars as $var => $data) {
                 $tpl_vars->$var = $data;
             }
 
             return $tpl_vars;
         } else {
-            return clone $ptr->parent->tpl_vars;
+            return clone $ptr->parent->_tpl_vars;
         }
     }
 
@@ -474,7 +474,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
             $tpl_obj->compiled->template_obj = new $content_class($tpl);
             $result = $tpl_obj->compiled->getRenderedTemplate($tpl_obj, $_scope, $scope_type, $data, $no_output_filter);
 //            $result = $tpl->compiled->template_obj->_renderTemplate($tpl);
-            unset($tpl_obj->tpl_vars, $tpl_obj);
+            unset($tpl_obj->_tpl_vars, $tpl_obj);
 
             return $result;
         } else {
@@ -533,25 +533,25 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
     public function _loadConfigVars($tpl_obj)
     {
         $ptr = $tpl_obj->parent;
-        $this->_loadConfigValuesInScope($tpl_obj, $ptr->tpl_vars);
+        $this->_loadConfigValuesInScope($tpl_obj, $ptr->_tpl_vars);
         $ptr = $ptr->parent;
-        if ($tpl_obj->tpl_vars->___config_scope == 'parent' && $ptr != null) {
-            $this->_loadConfigValuesInScope($tpl_obj, $ptr->tpl_vars);
+        if ($tpl_obj->_tpl_vars->___config_scope == 'parent' && $ptr != null) {
+            $this->_loadConfigValuesInScope($tpl_obj, $ptr->_tpl_vars);
         }
-        if ($tpl_obj->tpl_vars->___config_scope == 'root' || $tpl_obj->tpl_vars->___config_scope == 'global') {
+        if ($tpl_obj->_tpl_vars->___config_scope == 'root' || $tpl_obj->_tpl_vars->___config_scope == 'global') {
             while ($ptr != null && $ptr->usage == Smarty::IS_TEMPLATE) {
-                $this->_loadConfigValuesInScope($tpl_obj, $ptr->tpl_vars);
+                $this->_loadConfigValuesInScope($tpl_obj, $ptr->_tpl_vars);
                 $ptr = $ptr->parent;
             }
         }
-        if ($tpl_obj->tpl_vars->___config_scope == 'root') {
+        if ($tpl_obj->_tpl_vars->___config_scope == 'root') {
             while ($ptr != null) {
-                $this->_loadConfigValuesInScope($tpl_obj, $ptr->tpl_vars);
+                $this->_loadConfigValuesInScope($tpl_obj, $ptr->_tpl_vars);
                 $ptr = $ptr->parent;
             }
         }
-        if ($tpl_obj->tpl_vars->___config_scope == 'global') {
-            $this->_loadConfigValuesInScope($tpl_obj, Smarty::$global_tpl_vars);
+        if ($tpl_obj->_tpl_vars->___config_scope == 'global') {
+            $this->_loadConfigValuesInScope($tpl_obj, Smarty::$_global_tpl_vars);
         }
     }
 
@@ -570,8 +570,8 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
                 $tpl_vars->$var = array_merge((array)$tpl_vars->{$var}, (array)$value);
             }
         }
-        if (isset($this->config_data['sections'][$tpl_obj->tpl_vars->___config_sections])) {
-            foreach ($this->config_data['sections'][$tpl_obj->tpl_vars->___config_sections]['vars'] as $var => $value) {
+        if (isset($this->config_data['sections'][$tpl_obj->_tpl_vars->___config_sections])) {
+            foreach ($this->config_data['sections'][$tpl_obj->_tpl_vars->___config_sections]['vars'] as $var => $value) {
                 if ($tpl_obj->config_overwrite || !isset($tpl_vars->$var)) {
                     $tpl_vars->$var = $value;
                 } else {

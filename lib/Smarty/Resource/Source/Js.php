@@ -3,8 +3,7 @@
 /**
  * Smarty Resource Source Javascript File Plugin
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -14,8 +13,7 @@
  *
  * Implements the file system as resource for Smarty Javascript templates
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  */
 class Smarty_Resource_Source_Js extends Smarty_Resource_Source_File
 {

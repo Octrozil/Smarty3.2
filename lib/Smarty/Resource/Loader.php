@@ -4,7 +4,7 @@
  * Smarty Resource Loader Plugin
  *
  *
- * @package Resources
+ * @package Resource
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -14,8 +14,7 @@
  *
  * Base implementation for resource plugins
  *
- *
- * @package Resources
+ * @package Resource
  */
 class Smarty_Resource_Loader extends Smarty_Exception_Magic
 {
@@ -33,7 +32,7 @@ class Smarty_Resource_Loader extends Smarty_Exception_Magic
      * @param  Smarty           $smarty         Smarty object
      * @param  string           $resource       name of template_resource or the resource handler
      * @throws Smarty_Exception
-     * @return Smarty_Source_Resource  Resource Handler
+     * @return Smarty_Resource_Source  Resource Handler
      */
     static function load($smarty, $resource_group, $resource = null)
     {
@@ -77,7 +76,7 @@ class Smarty_Resource_Loader extends Smarty_Exception_Magic
                 if ($smarty->registered_resources[$resource_group][$type] instanceof $class_prefix[$resource_group]) {
                     $res_obj = $smarty->registered_resources[$resource_group][$type];
                 } else {
-                    $res_obj =  new Smarty_Source_Resource_Registered();
+                    $res_obj =  new Smarty_Resource_Source_Registered();
                 }
             } elseif ($smarty->_loadPlugin($resource_class)) {
                 if (class_exists($resource_class, false)) {
@@ -106,7 +105,7 @@ class Smarty_Resource_Loader extends Smarty_Exception_Magic
                     if (is_object($smarty->security_policy)) {
                         $smarty->security_policy->isTrustedStream($type);
                     }
-                    $res_obj = new Smarty_Source_Resource_Stream();
+                    $res_obj = new Smarty_Resource_Source_Stream();
                 }
             }
         }

@@ -1,13 +1,6 @@
 <?php
 
 /**
- * Smarty plugin to format text blocks
- *
- * @package Smarty
- * @subpackage PluginsBlock
- */
-
-/**
  * Smarty {textformat}{/textformat} block plugin
  *
  * Type:     block function<br>
@@ -24,6 +17,7 @@
  * - wrap_boundary - boolean (true)
  * </pre>
  *
+ * @package Plugins\Block
  * @link http://www.smarty.net/docs/en/language.function.textformat.tpl {textformat}
  *       (Smarty online manual)
  * @param array $params   parameters

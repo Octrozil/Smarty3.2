@@ -11,14 +11,6 @@
  */
 
 /**
- * set SMARTY_DIR to absolute path to Smarty library files.
- * Sets SMARTY_DIR only if user application has not already defined it.
- */
-if (!defined('SMARTY_DIR')) {
-    define('SMARTY_DIR', dirname(__FILE__) . '/../');
-}
-
-/**
  * Autoloads Smarty classes.
  *
  * @package Smarty
@@ -32,7 +24,7 @@ class Smarty_Autoloader
     /**
      * @var array of class names with special format
      */
-    public static $rootClasses = array('Smarty' => 'Smarty/Smarty', 'SmartyBC' => 'Smarty/SmartyBC', 'SmartyBC3' => 'Smarty/SmartyBC3');
+    public static $rootClasses = array('Smarty' => 'Smarty/Smarty', 'SmartyBC' => 'Smarty/SmartyBC', 'SmartyBC31' => 'Smarty/SmartyBC31');
     public static $checkFile = false;
 
     /**
@@ -42,7 +34,7 @@ class Smarty_Autoloader
      */
     public static function register($prepend = false)
     {
-        self::$smarty_path = realpath(SMARTY_DIR) . '/';
+        self::$smarty_path = dirname(__FILE__) . '/../';
         if (version_compare(phpversion(), '5.3.0', '>=')) {
             spl_autoload_register(array(new self, 'autoload'), true, $prepend);
         } else {

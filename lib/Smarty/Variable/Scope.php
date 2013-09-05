@@ -24,8 +24,6 @@ class Smarty_Variable_Scope
      */
     public function __construct()
     {
-        // Smarty::triggerCallback('trace', ' construct varcontainer');
-
     }
 
     /**
@@ -42,7 +40,6 @@ class Smarty_Variable_Scope
     /**
     public function __destruct()
     {
-    //Smarty::triggerCallback('trace', ' destruct varcontainer');
     }
      */
 

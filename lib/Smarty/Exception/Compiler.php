@@ -3,14 +3,13 @@
 /**
  * Smarty Internal Plugin
  *
- *
- * @package Exception
+ * @package Smarty\Exception
  */
 
 /**
  * Smarty compiler exception class
  *
- * @package Exception
+ * @package Smarty\Exception
  */
 class Smarty_Exception_Compiler extends Smarty_Exception
 {

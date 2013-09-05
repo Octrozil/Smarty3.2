@@ -6,7 +6,7 @@
  * Smarty class methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  * @author Uwe Tews
  */
 
@@ -14,31 +14,49 @@
  * Class for modifier methods
  *
  *
- * @package CoreExtensions
+ * @package Smarty
  */
 class Smarty_Extension_Compile
-{    /**
- * Compile all template files
- *
- * @param Smarty $smarty        Smarty instance
- * @param string $extension     extension of template file names
- * @param boolean $force_compile true to force recompilation of all templates
- * @param int $time_limit    set maximum execution time
- * @param int $max_errors    set maximum allowed errors
- * @internal param string $extension template file name extension
- * @return integer number of template files compiled
- */
-    public function compileAllTemplates(Smarty $smarty, $extension = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
+{
+    /**
+     *  Smarty object
+     *
+     * @var Smarty
+     */
+    public $smarty;
+
+    /**
+     *  Constructor
+     *
+     * @param Smarty $smarty Smarty object
+     */
+    public function __construct(Smarty $smarty)
+    {
+        $this->smarty = $smarty;
+    }
+
+
+    /**
+     * Compile all template files
+     *
+     * @param string $extension     extension of template file names
+     * @param boolean $force_compile true to force recompilation of all templates
+     * @param int $time_limit    set maximum execution time
+     * @param int $max_errors    set maximum allowed errors
+     * @internal param string $extension template file name extension
+     * @return integer number of template files compiled
+     */
+    public function compileAllTemplates($extension = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
     {
         // switch off time limit
         if (function_exists('set_time_limit')) {
             @set_time_limit($time_limit);
         }
-        $smarty->force_compile = $force_compile;
+        $this->smarty->force_compile = $force_compile;
         $_count = 0;
         $_error_count = 0;
         // loop over array of template directories
-        foreach ($smarty->getTemplateDir() as $_dir) {
+        foreach ($this->smarty->getTemplateDir() as $_dir) {
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             $_compile = new RecursiveIteratorIterator($_compileDirs);
             foreach ($_compile as $_fileinfo) {
@@ -56,7 +74,7 @@ class Smarty_Extension_Compile
                 flush();
                 $_start_time = microtime(true);
                 try {
-                    $_tpl = $smarty->createTemplate($_template_file);
+                    $_tpl = $this->smarty->createTemplate($_template_file);
                     if ($_tpl->mustCompile) {
                         $_tpl->compiler->compileTemplateSource();
                         $_tpl->cleanPointer();
@@ -73,7 +91,7 @@ class Smarty_Extension_Compile
                     $_error_count++;
                 }
                 // free memory
-                Smarty_Source_Resource::$resource_cache = array();
+                Smarty_Resource_Source::$resource_cache = array();
                 $_tpl = null;
                 if ($max_errors !== null && $_error_count == $max_errors) {
                     echo '<br><br>too many errors';
@@ -88,24 +106,23 @@ class Smarty_Extension_Compile
     /**
      * Compile all config files
      *
-     * @param  Smarty $smarty        Smarty instance
      * @param  string $extension     extension of config file names
      * @param  bool $force_compile force all to recompile
      * @param  int $time_limit    set maximum execution time
      * @param  int $max_errors    set maximum allowed errors
      * @return integer number of config files compiled
      */
-    public function compileAllConfig(Smarty $smarty, $extension = '.conf', $force_compile = false, $time_limit = 0, $max_errors = null)
+    public function compileAllConfig($extension = '.conf', $force_compile = false, $time_limit = 0, $max_errors = null)
     {
         // switch off time limit
         if (function_exists('set_time_limit')) {
             @set_time_limit($time_limit);
         }
-        $smarty->force_compile = $force_compile;
+        $this->smarty->force_compile = $force_compile;
         $_count = 0;
         $_error_count = 0;
         // loop over array of template directories
-        foreach ($smarty->getConfigDir() as $_dir) {
+        foreach ($this->smarty->getConfigDir() as $_dir) {
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             $_compile = new RecursiveIteratorIterator($_compileDirs);
             foreach ($_compile as $_fileinfo) {
@@ -123,7 +140,7 @@ class Smarty_Extension_Compile
                 flush();
                 $_start_time = microtime(true);
                 try {
-                    $_tpl = $smarty->createTemplate($_config_file);
+                    $_tpl = $this->smarty->createTemplate($_config_file);
                     $_tpl->usage = Smarty::IS_CONFIG;
                     if ($_tpl->mustCompile) {
                         $_tpl->compiler->compileTemplateSource();
@@ -141,7 +158,7 @@ class Smarty_Extension_Compile
                     $_error_count++;
                 }
                 // free memory
-                Smarty_Source_Resource::$resource_cache = array();
+                Smarty_Resource_Source::$resource_cache = array();
                 $_tpl = null;
                 if ($max_errors !== null && $_error_count == $max_errors) {
                     echo '<br><br>too many errors';

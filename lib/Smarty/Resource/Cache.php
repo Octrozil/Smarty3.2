@@ -4,26 +4,19 @@
  * Smarty Resource Cache Plugin
  *
  *
- * @package Cacher
+ * @package Cache
  */
 
 /**
  * Cache Handler API
  *
  *
- * @package Cacher
+ * @package Resource
  * @author Rodney Rehm
  */
 
 abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
 {
-
-    /**
-     * resource group
-     *
-     * @var Smarty_Resource_Loader::Source
-     */
-    public $resource_group = Smarty_Resource_Loader::Cache;
 
     /**
      * compiled resource cache
@@ -104,7 +97,7 @@ abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
      * Template Class Object
      * @var object
      */
-    public $template_obj = uull;
+    public $template_obj = null;
 
     /**
      * Handler for updating cache files
@@ -115,7 +108,7 @@ abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
     /**
      *
      * @param Smarty $smarty
-     * @param Smarty_Source_Resource $source source resource
+     * @param Smarty_Resource_Source_File $source source resource
      * @param Smarty|Smarty_Data|Smarty_Template_Class $parent parent object
      * @param mixed $compile_id  compile id
      * @param mixed $cache_id  compile id
@@ -123,7 +116,7 @@ abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
      * @param boolean $isCacheCheck true to just check if cache is valid
      * @return mixed Smarty_Template|false
      */
-    static function load(Smarty $smarty, Smarty_Source_Resource $source, $compile_id, $cache_id, $caching)
+    static function load(Smarty $smarty, Smarty_Resource_Source_File $source, $compile_id, $cache_id, $caching)
     {
         // check runtime cache
         $source_key = $source->uid;
@@ -145,8 +138,6 @@ abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
 
     /**
      * test if cache is valid
-     *
-     * @api
      * @param  Smarty $smarty       Smarty object or clone for template
      * @param  string|object $template   the resource handle of the template file or template object
      * @param  mixed $cache_id   cache id to be used with this template
@@ -156,11 +147,11 @@ abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
      */
     static function isCached(Smarty $smarty, $template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
-        if ($smarty->force_cache || $smarty->force_compile || !($smarty->caching == self::CACHING_LIFETIME_CURRENT || $smarty->caching == self::CACHING_LIFETIME_SAVED)) {
+        if ($smarty->force_cache || $smarty->force_compile || !($smarty->caching == Smarty::CACHING_LIFETIME_CURRENT || $smarty->caching == Smarty::CACHING_LIFETIME_SAVED)) {
             // caching is disabled
             return false;
         }
-        if ($template === null && ($smarty->usage == self::IS_TEMPLATE || $smarty->usage == self::IS_CONFIG)) {
+        if ($template === null && ($smarty->usage == Smarty::IS_TEMPLATE || $smarty->usage == Smarty::IS_CONFIG)) {
             $template = $smarty;
         }
         if (is_object($template)) {
@@ -182,18 +173,9 @@ abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
             return false;
         }
         $cache->loadTemplateClass();
-        $cache->template_obj = new $cache->class_name($smarty, $parent, $cache->source);
-        $class_name = $cache->class_name;
-        return $class_name::$isValid;
+        $template_obj = new $cache->class_name($smarty, $parent, $cache->source);
+        return  $template_obj->isValid;
     }
-
-    /**
-     * Read the cached template and process header
-     *
-     * @param  Smarty $smarty template object
-     * @return boolean true or false if the cached content does not exist
-     */
-    abstract public function process(Smarty $smarty);
 
     /**
      * Write the rendered template output to cache
@@ -265,7 +247,7 @@ abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
      *
      * @param Smarty                                    $smarty        Smarty object
      * @param Smarty|Smarty_Data|Smarty_Template_Class  $parent         parent object
-     * @params boolean                                  $isCacheCheck   true to just check if cache is valid
+     * @param boolean                                  $isCacheCheck   true to just check if cache is valid
      * @throws Smarty_Exception_Runtime
      * @return mixed Smarty_Template|false
      */
@@ -280,8 +262,7 @@ abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
             if ($this->exists && !$smarty->force_compile && !$smarty->force_cache) {
                 $this->process($smarty);
                 $template_obj = new $this->class_name($smarty, $parent, $this->source);
-                $class_name = $this->class_name;
-                $isValid = $class_name::$isValid;
+                $isValid = $template_obj->isValid;
             }
             if ($isCacheCheck) {
                 return $isValid ? $template_obj : false;
@@ -299,8 +280,7 @@ abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
                 }
                 $this->process($smarty);
                 $template_obj = new $this->class_name($smarty, $parent, $this->source);
-                $class_name = $this->class_name;
-                $isValid = $class_name::$isValid;
+                $isValid = $template_obj->isValid;
                 if (!$isValid) {
                     throw new Smarty_Exception("Unable to load compiled template file '{$this->filepath}");
                 }
@@ -400,8 +380,8 @@ abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
                     Smarty_Debug::end_cache($this->source);
                 }
             }
-            if ($this->template_obj->has_nocache_code && !$no_output_filter && (isset($smarty->autoload_filters['output']) || isset( $smarty->smarty_extensions['Smarty_Extension_Filter']->registered_filters['output']))) {
-                $output = $smarty->runFilter('output', $output);
+            if ($this->template_obj->has_nocache_code && !$no_output_filter && (isset($smarty->autoload_filters['output']) || isset( $smarty->_smarty_extensions['Smarty_Extension_Filter']->registered_filters['output']))) {
+                $output = $smarty->_runFilter('output', $output);
             }
 
             return $output;
@@ -414,8 +394,6 @@ abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
     /**
      * Check timestamp of browser cache against timestamp of individually cached subtemplates
      *
-     *
-     * @api
      * @param  Smarty $smarty                  template object
      * @param  integer $_last_modified_timestamp browser cache timestamp
      * @return bool    true if browser cache is valid
@@ -486,14 +464,14 @@ abstract class Smarty_Resource_Cache  extends Smarty_Exception_Magic
             $res_obj = Smarty_Resource_Loader::$resource_cache[$source_key]['cache'][$compiled_key][$cache_key];
         } else {
             // load Cache resource handler
-            $res_obj = Smarty_Source_Resource::loadResource($smarty, $smarty->caching_type, SMARTY::CACHE);
+            $res_obj = Smarty_Resource_Source::loadResource($smarty, $smarty->caching_type, SMARTY::CACHE);
             $res_obj->populate($smarty);
             // save in cache?
             if ($smarty->cache_objs) {
                 Smarty_Resource_Loader::$resource_cache[$source_key]['cache'][$compiled_key][$cache_key] = $res_obj;
             } else {
                 // load Cache resource handler
-                $res_obj = Smarty_Source_Resource::loadResource($smarty, $smarty->caching_type, SMARTY::CACHE);
+                $res_obj = Smarty_Resource_Source::loadResource($smarty, $smarty->caching_type, SMARTY::CACHE);
                 $res_obj->populate($smarty);
                 // save in cache?
                 if ($smarty->cache_objs) {

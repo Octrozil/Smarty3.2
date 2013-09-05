@@ -3,8 +3,7 @@
 /**
  * Smarty Resource Source Recompiled Class
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  * @author Rodney Rehm
  */
 
@@ -13,10 +12,9 @@
  *
  * Base implementation for resource plugins that don't compile cache
  *
- *
- * @package TemplateResources
+ * @package Resource\Source
  */
-abstract class Smarty_Resource_Source_Recompiled extends Smarty_Resource_Source
+abstract class Smarty_Resource_Source_Recompiled extends Smarty_Resource_Source_File
 {
     /**
      * Flag that source must always be recompiled
