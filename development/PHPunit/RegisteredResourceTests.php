@@ -79,7 +79,7 @@ function rr_get_template($tpl_name, &$tpl_source, $smarty_obj)
 function rr_get_timestamp($tpl_name, &$tpl_timestamp, $smarty_obj)
 {
     // $tpl_timestamp.
-    $tpl_timestamp = (int) floor(time() / 100) * 100;
+    $tpl_timestamp = (int)floor(time() / 100) * 100;
 
     return true;
 }

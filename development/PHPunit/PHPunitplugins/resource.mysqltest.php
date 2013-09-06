@@ -1,6 +1,6 @@
 <?php
 
-require_once SMARTY_DIR . '../demo/plugins/resource.mysql.php';
+require_once Smarty_Autoloader::$smarty_path . '../demo/plugins/resource.mysql.php';
 
 class Smarty_Resource_Mysqltest extends Smarty_Resource_Mysql
 {

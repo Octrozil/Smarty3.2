@@ -1,8 +1,8 @@
 <?php
 
-require_once SMARTY_DIR . '../demo/plugins/cacheresource.apc.php';
+require_once Smarty_Autoloader::$smarty_path . '../demo/plugins/cacheresource.apc.php';
 
-class Smarty_Cache_Resource_Apctest extends Smarty_Cache_Resource_Apc
+class Smarty_Resource_Cache_Apctest extends Smarty_Resource_Cache_Apc
 {
     public function get(Smarty $_template)
     {

@@ -1,8 +1,8 @@
 <?php
 
-require_once SMARTY_DIR . '../demo/plugins/cacheresource.memcache.php';
+require_once Smarty_Autoloader::$smarty_path . '../demo/plugins/cacheresource.memcache.php';
 
-class Smarty_Cache_Resource_Memcachetest extends Smarty_Cache_Resource_Memcache
+class Smarty_Resource_Cache_Memcachetest extends Smarty_Resource_Cache_Memcache
 {
     public function get(Smarty $_template)
     {

@@ -1,18 +1,20 @@
 <?php /* Smarty version Smarty 3.2-DEV, created on 2013-07-14 20:24:56 compiled from "e48ea7172ea17041349b275dc6a2dc439be3dcbd" */
-if (!class_exists('_SmartyTemplate_51e30918e9a7b3_82686083',false)) {
-    class _SmartyTemplate_51e30918e9a7b3_82686083 extends Smarty_Template_Class {
+if (!class_exists('_SmartyTemplate_51e30918e9a7b3_82686083', false)) {
+    class _SmartyTemplate_51e30918e9a7b3_82686083 extends Smarty_Template_Class
+    {
         public $version = 'Smarty 3.2-DEV';
         public $has_nocache_code = false;
         public $file_dependency = array(
-                'e48ea7172ea17041349b275dc6a2dc439be3dcbd' => array(
-                        0 => 'e48ea7172ea17041349b275dc6a2dc439be3dcbd',
-                        1 => 0,
-                        2 => 'string'
-                    )
-            );
+            'e48ea7172ea17041349b275dc6a2dc439be3dcbd' => array(
+                0 => 'e48ea7172ea17041349b275dc6a2dc439be3dcbd',
+                1 => 0,
+                2 => 'string'
+            )
+        );
 
 
-        function _renderTemplate ($_smarty_tpl, $_scope) {
+        function _renderTemplate($_smarty_tpl, $_scope)
+        {
             ob_start();
             // line 1
             $this->_createLocalArrayVariable('foo', $_scope, false);
@@ -30,16 +32,17 @@ if (!class_exists('_SmartyTemplate_51e30918e9a7b3_82686083',false)) {
             }
             foreach ($_from as $_scope->x->key => $_scope->x->value) {
                 $_scope->x->_loop = true;
-                echo  $_scope->x->key;
-                echo  $_scope->x->value;
+                echo $_scope->x->key;
+                echo $_scope->x->value;
             }
             return ob_get_clean();
         }
 
-        function _getSourceInfo () {
+        function _getSourceInfo()
+        {
             return array(
-                    16 => 1
-                );
+                16 => 1
+            );
         }
     }
 }

@@ -8,7 +8,7 @@
  * Purpose:  Fetches templates from a database
  * -------------------------------------------------------------
  */
-class Smarty_Resource_Db3 extends Smarty_Resource
+class Smarty_Resource_Db3 extends Smarty_Resource_Source_File
 {
     public function populate(Smarty $tpl_obj = null)
     {

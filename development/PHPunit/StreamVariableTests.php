@@ -16,7 +16,7 @@ class StreamVariableTests extends PHPUnit_Framework_TestCase
         $this->smarty = SmartyTests::$smarty;
         SmartyTests::init();
         stream_wrapper_register("var", "VariableStream")
-            or die("Failed to register protocol");
+        or die("Failed to register protocol");
         $fp = fopen("var://foo", "r+");
         fwrite($fp, 'hello world');
         fclose($fp);

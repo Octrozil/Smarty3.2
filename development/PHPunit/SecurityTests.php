@@ -70,16 +70,16 @@ class SecurityTests extends PHPUnit_Framework_TestCase
     }
 
     /**
-    * test trusted modifier
-    */
+     * test trusted modifier
+     */
     public function testTrustedModifier()
     {
         $this->assertEquals("5", $this->smarty->fetch('eval:{assign var=foo value=[1,2,3,4,5]}{$foo|@count}'));
     }
 
     /**
-    * test not trusted modifier
-    */
+     * test not trusted modifier
+     */
     public function testNotTrustedModifier()
     {
         $this->smarty->security_policy->php_modifiers = array('null');
@@ -94,8 +94,8 @@ class SecurityTests extends PHPUnit_Framework_TestCase
     }
 
     /**
-    * test not trusted modifier at disabled security
-    */
+     * test not trusted modifier at disabled security
+     */
     public function testDisabledTrustedModifier()
     {
         $this->smarty->security_policy->php_modifiers = array('null');

@@ -1,14 +1,14 @@
 <?php
 /**
-* Smarty PHPunit tests appendByRef methode
-*
-* @package PHPunit
-* @author Uwe Tews
-*/
+ * Smarty PHPunit tests appendByRef methode
+ *
+ * @package PHPunit
+ * @author Uwe Tews
+ */
 
 /**
-* class for appendByRef tests
-*/
+ * class for appendByRef tests
+ */
 class LiteralTests extends PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -22,7 +22,7 @@ class LiteralTests extends PHPUnit_Framework_TestCase
     {
         return true;
     }
-    
+
     /*
     *  Test literal tag
     */
@@ -38,7 +38,7 @@ class LiteralTests extends PHPUnit_Framework_TestCase
     public function testAutoLiteralSpace()
     {
         $tpl = $this->smarty->createTemplate("eval: { \$foo} ");
-        $tpl->assign('foo','literal');
+        $tpl->assign('foo', 'literal');
         $this->assertEquals(' { $foo} ', $this->smarty->fetch($tpl));
     }
 
@@ -48,7 +48,7 @@ class LiteralTests extends PHPUnit_Framework_TestCase
     public function testAutoLiteralLineBreak()
     {
         $tpl = $this->smarty->createTemplate("eval: {\n\$foo} ");
-        $tpl->assign('foo','literal');
+        $tpl->assign('foo', 'literal');
         $this->assertEquals(" {\n\$foo} ", $this->smarty->fetch($tpl));
     }
 
@@ -59,7 +59,7 @@ class LiteralTests extends PHPUnit_Framework_TestCase
     {
         $this->smarty->auto_literal = false;
         $tpl = $this->smarty->createTemplate("eval: { \$foo} ");
-        $tpl->assign('foo','literal');
+        $tpl->assign('foo', 'literal');
         $this->assertEquals(' literal ', $this->smarty->fetch($tpl));
     }
 }

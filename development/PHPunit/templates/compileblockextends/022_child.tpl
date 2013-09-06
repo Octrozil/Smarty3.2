@@ -1,7 +1,6 @@
 hhfhfh
 
 
-
 {extends file='022_parent.tpl'}
 
 jjjj

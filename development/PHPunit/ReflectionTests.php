@@ -126,9 +126,9 @@ class ReflectionTests extends PHPUnit_Framework_TestCase
     {
         if ($content == null) return;
         return $content
-            . ' ' . $first
-            . ' ' . $second
-            . ' ' . $smarty->getTemplateVars('having_fun');
+        . ' ' . $first
+        . ' ' . $second
+        . ' ' . $smarty->getTemplateVars('having_fun');
     }
 
     public function testBlockTemplate()
@@ -144,9 +144,9 @@ class ReflectionTests extends PHPUnit_Framework_TestCase
     {
         if ($content == null) return;
         return $content
-            . ' ' . $first
-            . ' ' . $second
-            . ' ' . $template->getTemplateVars('having_fun');
+        . ' ' . $first
+        . ' ' . $second
+        . ' ' . $template->getTemplateVars('having_fun');
     }
 
     public function testBlockFail()

@@ -6,7 +6,7 @@ class _object_toString
 
     public function __construct($string)
     {
-        $this->string = (string) $string;
+        $this->string = (string)$string;
     }
 
     public function __toString()
@@ -21,6 +21,6 @@ class _object_noString
 
     public function __construct($string)
     {
-        $this->string = (string) $string;
+        $this->string = (string)$string;
     }
 }

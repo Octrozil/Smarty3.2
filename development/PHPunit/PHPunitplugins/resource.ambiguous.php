@@ -6,7 +6,7 @@
  * @package Resource-examples
  * @author Rodney Rehm
  */
-class Smarty_Resource_Ambiguous extends Smarty_Resource_File
+class Smarty_Resource_Ambiguous extends Smarty_Resource_Source_File
 {
 
     protected $directory;
@@ -21,11 +21,12 @@ class Smarty_Resource_Ambiguous extends Smarty_Resource_File
     {
         $this->segment = $segment;
     }
+
     /**
      * populate Source Object with meta data from Resource
      *
      * @param Smarty_Template_Source $source    source object
-     * @param Smarty                 $_template template object
+     * @param Smarty $_template template object
      */
     public function populate(Smarty $tpl_obj = null)
     {

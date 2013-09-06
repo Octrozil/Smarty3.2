@@ -2,7 +2,7 @@
 {block 'b1'}
     parent b1 {$b1}*
     {block 'b2'}
-       parent b2*
+        parent b2*
     {/block}
     {block 'b3' nocache}
         parent b3*

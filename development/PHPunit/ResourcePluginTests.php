@@ -118,7 +118,7 @@ class ResourcePluginTests extends PHPUnit_Framework_TestCase
         $this->smarty->addPluginsDir(dirname(__FILE__) . "/PHPunitplugins/");
         $tpl = $this->smarty->createTemplate('mysqltest:test.tpl');
         $expected = './templates_c/' . sha1('mysqltest:test.tpl') . '_0.mysqltest.test.tpl.php';
-        $this->assertEquals($expected, str_replace("\\", "/",$tpl->compiled->filepath));
+        $this->assertEquals($expected, str_replace("\\", "/", $tpl->compiled->filepath));
     }
 
     public function testResourcePluginMysqlCompiledFilepathCache()
@@ -130,7 +130,7 @@ class ResourcePluginTests extends PHPUnit_Framework_TestCase
         $this->smarty->fetch('mysqltest:test.tpl');
         $tpl = $this->smarty->createTemplate('mysqltest:test.tpl');
         $expected = './templates_c/' . sha1('mysqltest:test.tpl') . '_0.mysqltest.test.tpl.cache.php';
-        $this->assertEquals($expected, str_replace("\\", "/",$tpl->compiled->filepath));
+        $this->assertEquals($expected, str_replace("\\", "/", $tpl->compiled->filepath));
         $this->smarty->caching = false;
     }
 
@@ -149,30 +149,30 @@ class ResourcePluginTests extends PHPUnit_Framework_TestCase
      * TODO  fix this test
     public function testResourcePluginExtendsall()
     {
-        $this->smarty->addPluginsDir(dirname(__FILE__) . "/../../distribution/demo/plugins/");
-        $this->smarty->setTemplateDir(array(
-            'root' => './templates',
-            './templates_2',
-            './templates_3',
-            './templates_4',
-        ));
+    $this->smarty->addPluginsDir(dirname(__FILE__) . "/../../distribution/demo/plugins/");
+    $this->smarty->setTemplateDir(array(
+    'root' => './templates',
+    './templates_2',
+    './templates_3',
+    './templates_4',
+    ));
 
-        $expected = "templates\n\ntemplates_3\ntemplates\n\ntemplates_4";
-        $this->assertEquals($expected, $this->smarty->fetch('extendsall:extendsall.tpl'));
+    $expected = "templates\n\ntemplates_3\ntemplates\n\ntemplates_4";
+    $this->assertEquals($expected, $this->smarty->fetch('extendsall:extendsall.tpl'));
     }
 
     public function testResourcePluginExtendsallOne()
     {
-        $this->smarty->addPluginsDir(dirname(__FILE__) . "/../../distribution/demo/plugins/");
-        $this->smarty->setTemplateDir(array(
-            'root' => './templates',
-            './templates_2',
-            './templates_3',
-            './templates_4',
-        ));
+    $this->smarty->addPluginsDir(dirname(__FILE__) . "/../../distribution/demo/plugins/");
+    $this->smarty->setTemplateDir(array(
+    'root' => './templates',
+    './templates_2',
+    './templates_3',
+    './templates_4',
+    ));
 
-        $expected = "templates\ntemplates";
-        $this->assertEquals($expected, $this->smarty->fetch('extendsall:extendsall2.tpl'));
+    $expected = "templates\ntemplates";
+    $this->assertEquals($expected, $this->smarty->fetch('extendsall:extendsall2.tpl'));
     }
      */
 
@@ -195,7 +195,7 @@ class ResourcePluginTests extends PHPUnit_Framework_TestCase
     $smarty->_resource_handlers = array();
     $_smarty = clone $smarty;
     $smarty->fetch('eval:foo');
-    $_smarty->registerResource('eval', new Smarty_Resource_Eval());
+    $_smarty->registerResource('eval', new Smarty_Resource_Source_Eval());
     $_smarty->fetch('eval:foo');
 
     $this->assertFalse($smarty->_resource_handlers['eval'] === $_smarty->_resource_handlers['eval']);

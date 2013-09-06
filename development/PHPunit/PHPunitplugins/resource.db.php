@@ -20,7 +20,7 @@ function smarty_resource_db_source($tpl_name, &$tpl_source, $smarty)
 function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, $smarty)
 {
     // $tpl_timestamp.
-    $tpl_timestamp = (int) floor(time() / 100) * 100;
+    $tpl_timestamp = (int)floor(time() / 100) * 100;
 
     return true;
 }

@@ -18,11 +18,11 @@ class CacheResourceCustomRegisteredTests extends CacheResourceCustomMysqlTests
         $this->smarty = SmartyTests::$smarty;
         SmartyTests::init();
 
-        if (!class_exists('Smarty_Cache_Resource_Mysqltest', false)) {
+        if (!class_exists('Smarty_Resource_Cache_Mysqltest', false)) {
             require_once(dirname(__FILE__) . "/PHPunitplugins/CacheResource.Mysqltest.php");
         }
         $this->smarty->caching_type = 'foobar';
-        $this->smarty->registerCacheResource('foobar', new Smarty_Cache_Resource_Mysqltest());
+        $this->smarty->registerCacheResource('foobar', new Smarty_Resource_Cache_Mysqltest());
         $this->truncateTable();
     }
 }

@@ -8,7 +8,7 @@
  * Purpose:  Fetches templates from a database
  * -------------------------------------------------------------
  */
-class Smarty_Resource_Db4 extends Smarty_Resource
+class Smarty_Resource_Db4 extends Smarty_Resource_Source_File
 {
     public function populate(Smarty $tpl_obj = null)
     {
@@ -22,7 +22,7 @@ class Smarty_Resource_Db4 extends Smarty_Resource
     {
         /** TODO Cofig return
         if ($this->smarty->usage == Smarty::IS_CONFIG) {
-            return "foo = 'bar'\n";
+        return "foo = 'bar'\n";
         }
          */
 

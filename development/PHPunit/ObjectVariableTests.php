@@ -29,7 +29,7 @@ class ObjectVariableTests extends PHPUnit_Framework_TestCase
     public function testObjectVariableOutput()
     {
         $object = new VariableObject;
-        $tpl = $this->smarty->createTemplate('eval:{$object->hello}');
+        $tpl = $this->smarty->createTemplate('string:{$object->hello}');
         $tpl->assign('object', $object);
         $this->assertEquals('hello_world', $this->smarty->fetch($tpl));
     }
@@ -41,7 +41,7 @@ class ObjectVariableTests extends PHPUnit_Framework_TestCase
     {
         $object = new VariableObject;
         $this->smarty->disableSecurity();
-        $tpl = $this->smarty->createTemplate('eval:{$p=\'hello\'}{$object->$p}');
+        $tpl = $this->smarty->createTemplate('string:{$p=\'hello\'}{$object->$p}');
         $tpl->assign('object', $object);
         $this->assertEquals('hello_world', $this->smarty->fetch($tpl));
     }
@@ -52,7 +52,7 @@ class ObjectVariableTests extends PHPUnit_Framework_TestCase
     public function testObjectVariableOutputMethod()
     {
         $object = new VariableObject;
-        $tpl = $this->smarty->createTemplate('eval:{$object->myhello()}');
+        $tpl = $this->smarty->createTemplate('string:{$object->myhello()}');
         $tpl->assign('object', $object);
         $this->assertEquals('hello world', $this->smarty->fetch($tpl));
     }
@@ -64,7 +64,7 @@ class ObjectVariableTests extends PHPUnit_Framework_TestCase
     {
         $object = new VariableObject;
         $this->smarty->disableSecurity();
-        $tpl = $this->smarty->createTemplate('eval:{$p=\'myhello\'}{$object->$p()}');
+        $tpl = $this->smarty->createTemplate('string:{$p=\'myhello\'}{$object->$p()}');
         $tpl->assign('object', $object);
         $this->assertEquals('hello world', $this->smarty->fetch($tpl));
     }
@@ -75,7 +75,7 @@ class ObjectVariableTests extends PHPUnit_Framework_TestCase
     public function testObjectVariableOutputDoubleQuotes()
     {
         $object = new VariableObject;
-        $tpl = $this->smarty->createTemplate('eval:{"double quoted `$object->hello` okay"}');
+        $tpl = $this->smarty->createTemplate('string:{"double quoted `$object->hello` okay"}');
         $tpl->assign('object', $object);
         $this->assertEquals('double quoted hello_world okay', $this->smarty->fetch($tpl));
     }
@@ -86,7 +86,7 @@ class ObjectVariableTests extends PHPUnit_Framework_TestCase
     public function testObjectVariableOutputDoubleQuotesInclude()
     {
         $object = new VariableObject;
-        $tpl = $this->smarty->createTemplate('eval:{include file="`$object->hello`_test.tpl"}');
+        $tpl = $this->smarty->createTemplate('string:{include file="`$object->hello`_test.tpl"}');
         $tpl->assign('object', $object);
         $this->assertEquals('hello world', $this->smarty->fetch($tpl));
     }

@@ -27,7 +27,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase
 
     // helpers
     /**
-     * clear $smarty->compile_dir
+     * clear $smarty->_compile_dir
      *
      * @return void
      */
@@ -88,12 +88,12 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase
         }
 
         /*
-        foreach (Smarty::$_source_cache as $tpl) {
+        foreach (Smarty_Resource_Source::$resource_cache as $tpl) {
             $tpl->cleanPointer();
             unset($tpl);
         }
         */
-        Smarty::$_source_cache = array();
+        Smarty::$resource_cache = array();
 
         return $this->_files;
     }
@@ -120,7 +120,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase
     /**
      * update mtime of compiled files
      *
-     * @param  array  $keys   IDs like "template#compile_id"
+     * @param  array $keys   IDs like "template#compile_id"
      * @param  string $offset time offset added to time()
      * @return void
      */
@@ -159,7 +159,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase
                 continue;
             }
 
-            $files[] = substr($file->__toString(), $directory_length);
+            $files[] = str_replace('\\', '/', substr($file->__toString(), $directory_length));
         }
         sort($files);
 

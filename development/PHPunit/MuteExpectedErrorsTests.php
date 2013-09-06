@@ -52,17 +52,19 @@ class MuteExpectedErrorsTests extends PHPUnit_Framework_TestCase
 
     public function testUnmuted()
     {
+        $_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+
         $this->_errors = array();
         set_error_handler(array($this, 'error_handler'));
 
         $this->smarty->clearCache('default.tpl');
         $this->smarty->clearCompiledTemplate('default.tpl');
         $this->smarty->fetch('default.tpl');
-        $this->assertEquals(Smarty::$_IS_WINDOWS ? 2 : 4, count($this->_errors));
+        $this->assertEquals($_IS_WINDOWS ? 2 : 4, count($this->_errors));
 
         @filemtime('ckxladanwijicajscaslyxck');
         $error = array(__FILE__ . ' line ' . (__LINE__ - 1));
-        $this->assertEquals(Smarty::$_IS_WINDOWS ? 3 : 5, count($this->_errors));
+        $this->assertEquals($_IS_WINDOWS ? 3 : 5, count($this->_errors));
 
         restore_error_handler();
     }
@@ -90,6 +92,7 @@ class MuteExpectedErrorsTests extends PHPUnit_Framework_TestCase
 
     public function testUnmutedCaching()
     {
+        $_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
         $this->_errors = array();
         set_error_handler(array($this, 'error_handler'));
 
@@ -98,11 +101,11 @@ class MuteExpectedErrorsTests extends PHPUnit_Framework_TestCase
         $this->smarty->clearCompiledTemplate('default.tpl');
         $this->smarty->fetch('default.tpl');
 
-        $this->assertEquals(Smarty::$_IS_WINDOWS ? 4 : 5, count($this->_errors));
+        $this->assertEquals($_IS_WINDOWS ? 4 : 5, count($this->_errors));
 
         @filemtime('ckxladanwijicajscaslyxck');
         $error = array(__FILE__ . ' line ' . (__LINE__ - 1));
-        $this->assertEquals(Smarty::$_IS_WINDOWS ? 5 : 6, count($this->_errors));
+        $this->assertEquals($_IS_WINDOWS ? 5 : 6, count($this->_errors));
 
         restore_error_handler();
     }

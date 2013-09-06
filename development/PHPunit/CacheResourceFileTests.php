@@ -27,9 +27,7 @@ class CacheResourceFileTests extends PHPUnit_Framework_TestCase
     protected function relative($path)
     {
         $path = str_replace(dirname(__FILE__), '.', $path);
-        if (DS == "\\") {
-            $path = str_replace("\\", "/", $path);
-        }
+        $path = str_replace("\\", "/", $path);
 
         return $path;
     }
