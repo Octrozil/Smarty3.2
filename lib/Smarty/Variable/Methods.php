@@ -229,10 +229,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      */
     public function clearAllAssign()
     {
-        $old_attributes = $this->_tpl_vars->___attributes;
         $this->_tpl_vars = new Smarty_Variable_Scope();
-        $this->_tpl_vars->___attributes = $old_attributes;
-
         return $this;
     }
 

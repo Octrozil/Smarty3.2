@@ -891,33 +891,8 @@ class Smarty extends Smarty_Variable_Methods
      * @internal
      * @var array
      */
-    public $_smarty_extensions = array();
+    public $_loaded_extensions = array();
 
-    /**
-     * array to map external Smarty methods and extension classes
-     *
-     * @internal
-     * @var array
-     */
-    private $_smarty_extensions_class_method = array(
-        'Smarty_Extension_IsCached' => array('isCached'),
-        'Smarty_Extension_Template' => array('registerDefaultTemplateHandler' => true, 'unregisterDefaultTemplateHandler' => true, 'templateExists' => true),
-        'Smarty_Extension_Modifier' => array('setDefaultModifiers' => true, 'getDefaultModifiers' => true, 'addDefaultModifiers' => true,),
-        'Smarty_Extension_Filter' => array('runFilter' => true, 'registerFilter' => true, 'unregisterFilter' => true, 'loadFilter' => true, 'unloadFilter' => true,
-            'setAutoloadFilters' => true, 'getAutoloadFilters' => true, 'addAutoloadFilters' => true,),
-        'Smarty_Extension_Compiled' => array('clearCompiledTemplate' => true, 'clearCompiledConfig' => true,),
-        'Smarty_Extension_Cache' => array('clearAllCache' => true, 'clearCache' => true,),
-        'Smarty_Extension_Plugin' => array('registerPlugin' => true, 'unregisterPlugin' => true, 'registerDefaultPluginHandler' => true, 'unregisterDefaultPluginHandler' => true,),
-        'Smarty_Extension_Resource' => array('registerResource' => true, 'unregisterResource' => true, 'registerCacheResource' => true, 'unregisterCacheResource' => true,),
-        'Smarty_Extension_Variable' => array('registerDefaultVariableHandler' => true, 'unregisterDefaultVariableHandler' => true,),
-        'Smarty_Extension_Config' => array('registerDefaultConfigVariableHandler' => true, 'unregisterDefaultConfigVariableHandler' => true, 'registerDefaultConfigHandler' => true, 'unregisterDefaultConfigHandler' => true,),
-        'Smarty_Extension_Class' => array('registerClass' => true, 'unregisterClass' => true,),
-        'Smarty_Extension_Path' => array('_getIncludePath' => true,),
-        'Smarty_Extension_Install' => array('testInstall' => true,),
-        'Smarty_Extension_Compile' => array('compileAllTemplates' => true, 'compileAllConfig' => true,),
-        'Smarty_Extension_Info' => array('info' => true),
-        'Smarty_Extension_Trace' => array('registerTraceCallback' => true, 'unregisterTraceCallback' => true, 'triggerTraceCallback' => true,),
-    );
 
     /**
      * source resource cache
@@ -1155,6 +1130,20 @@ class Smarty extends Smarty_Variable_Methods
     }
 
     /**
+     * Check if a template resource exists
+     *
+     * @api
+     * @param  string $template_resource template name
+     * @param  bool $is_config set true if looking for a config file
+     * @return boolean status
+     */
+    public function templateExists($template_resource, $is_config = false)
+    {
+        $source = $this->_load(Smarty::SOURCE, $template_resource, $is_config);
+        return $source->exists;
+    }
+
+    /**
      * Returns a single or all global  variables
      *
      * @param  string $varname variable name or null
@@ -1217,13 +1206,7 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function setTemplateDir($template_dir)
     {
-        $this->_template_dir = array();
-        foreach ((array)$template_dir as $k => $v) {
-            $this->_template_dir[$k] = rtrim($v, '/\\') . '/';
-        }
-
-        $this->_joined_template_dir = join(DIRECTORY_SEPARATOR, $this->_template_dir);
-
+        $this->_setDir($template_dir, '_template_dir');
         return $this;
     }
 
@@ -1237,28 +1220,7 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function addTemplateDir($template_dir, $key = null)
     {
-        // make sure we're dealing with an array
-        $this->_template_dir = (array)$this->_template_dir;
-
-        if (is_array($template_dir)) {
-            foreach ($template_dir as $k => $v) {
-                if (is_int($k)) {
-                    // indexes are not merged but appended
-                    $this->_template_dir[] = rtrim($v, '/\\') . '/';
-                } else {
-                    // string indexes are overridden
-                    $this->_template_dir[$k] = rtrim($v, '/\\') . '/';
-                }
-            }
-        } elseif ($key !== null) {
-            // override directory at specified index
-            $this->_template_dir[$key] = rtrim($template_dir, '/\\') . '/';
-        } else {
-            // append new directory
-            $this->_template_dir[] = rtrim($template_dir, '/\\') . '/';
-        }
-        $this->_joined_template_dir = join(DIRECTORY_SEPARATOR, $this->_template_dir);
-
+        $this->_addDir($template_dir, $key, '_template_dir');
         return $this;
     }
 
@@ -1287,16 +1249,7 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function setConfigDir($config_dir)
     {
-        $this->_config_dir
-            = array();
-        foreach ((array)$config_dir as $k => $v) {
-            $this->_config_dir
-            [$k] = rtrim($v, '/\\') . '/';
-        }
-
-        $this->_joined_config_dir = join(DIRECTORY_SEPARATOR, $this->_config_dir
-        );
-
+        $this->_setDir($config_dir, '_config_dir');
         return $this;
     }
 
@@ -1310,35 +1263,7 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function addConfigDir($config_dir, $key = null)
     {
-        // make sure we're dealing with an array
-        $this->_config_dir
-            = (array)$this->_config_dir;
-
-        if (is_array($config_dir)) {
-            foreach ($config_dir as $k => $v) {
-                if (is_int($k)) {
-                    // indexes are not merged but appended
-                    $this->_config_dir
-                    [] = rtrim($v, '/\\') . '/';
-                } else {
-                    // string indexes are overridden
-                    $this->_config_dir
-                    [$k] = rtrim($v, '/\\') . '/';
-                }
-            }
-        } elseif ($key !== null) {
-            // override directory at specified index
-            $this->_config_dir
-            [$key] = rtrim($config_dir, '/\\') . '/';
-        } else {
-            // append new directory
-            $this->_config_dir
-            [] = rtrim($config_dir, '/\\') . '/';
-        }
-
-        $this->_joined_config_dir = join(DIRECTORY_SEPARATOR, $this->_config_dir
-        );
-
+        $this->_addDir($config_dir, $key, '_config_dir');
         return $this;
     }
 
@@ -1369,10 +1294,7 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function setPluginsDir($plugins_dir)
     {
-        $this->_plugins_dir = array();
-        foreach ((array)$plugins_dir as $k => $v) {
-            $this->_plugins_dir[$k] = rtrim($v, '/\\') . '/';
-        }
+        $this->_setDir($plugins_dir, '_plugins_dir', false);
         return $this;
     }
 
@@ -1385,25 +1307,8 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function addPluginsDir($plugins_dir)
     {
-        // make sure we're dealing with an array
-        $this->_plugins_dir = (array)$this->_plugins_dir;
-
-        if (is_array($plugins_dir)) {
-            foreach ($plugins_dir as $k => $v) {
-                if (is_int($k)) {
-                    // indexes are not merged but appended
-                    $this->_plugins_dir[] = rtrim($v, '/\\') . '/';
-                } else {
-                    // string indexes are overridden
-                    $this->_plugins_dir[$k] = rtrim($v, '/\\') . '/';
-                }
-            }
-        } else {
-            // append new directory
-            $this->_plugins_dir[] = rtrim($plugins_dir, '/\\') . '/';
-        }
+        $this->_addDir($plugins_dir, null, '_plugins_dir', false);
         $this->_plugins_dir = array_unique($this->_plugins_dir);
-
         return $this;
     }
 
@@ -1427,11 +1332,7 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function setCompileDir($compile_dir)
     {
-        $this->_compile_dir = rtrim($compile_dir, '/\\') . '/';
-        if (!isset(self::$_muted_directories[$this->_compile_dir])) {
-            self::$_muted_directories[$this->_compile_dir] = null;
-        }
-
+        $this->_setMutedDir($compile_dir, '_compile_dir');
         return $this;
     }
 
@@ -1455,11 +1356,7 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function setCacheDir($cache_dir)
     {
-        $this->_cache_dir = rtrim($cache_dir, '/\\') . '/';
-        if (!isset(self::$_muted_directories[$this->_cache_dir])) {
-            self::$_muted_directories[$this->_cache_dir] = null;
-        }
-
+        $this->_setMutedDir($cache_dir, '_cache_dir');
         return $this;
     }
 
@@ -1558,7 +1455,7 @@ class Smarty extends Smarty_Variable_Methods
                     if ($_stream_resolve_include_path) {
                         $file = stream_resolve_include_path($file);
                     } else {
-                        $file = $this->_getIncludePath($file);
+                        $file = $this->_GetIncludePath($file);
                     }
                     if ($file !== false) {
                         require_once($file);
@@ -1755,6 +1652,93 @@ class Smarty extends Smarty_Variable_Methods
         $this->_tpl_vars = $this->parent = $this->template_function_chain = $this->rootTemplate = null;
     }
 
+    /**
+     * Set  directory
+     *
+     * @internal
+     * @param  string|array $dir directory(s) of  sources
+     * @param  string $dirprop  name of directory property
+     * @param bool $do_join  true if joined directory property must be updated
+     *
+     */
+    private function _setDir($dir, $dirprop, $do_join = true)
+    {
+        $this->$dirprop = array();
+        foreach ((array)$dir as $k => $v) {
+            $this->{$dirprop}[$k] = $this->_checkDir($v);
+        }
+        if ($do_join) {
+            $joined = '_joined' . $dirprop;
+            $this->$joined = join(DIRECTORY_SEPARATOR, $this->$dirprop);
+        }
+    }
+
+    /**
+     * Add  directory(s)
+     *
+     * @internal
+     * @param  string|array $dir directory(s)
+     * @param  string $key      of the array element to assign the dir to
+     * @param  string $dirprop  name of directory property
+     * @param bool $do_join  true if joined directory property must be updated
+     */
+    private function _addDir($dir, $key = null, $dirprop, $do_join = true)
+    {
+        // make sure we're dealing with an array
+        $this->$dirprop = (array)$this->$dirprop;
+
+        if (is_array($dir)) {
+            foreach ($dir as $k => $v) {
+                if (is_int($k)) {
+                    // indexes are not merged but appended
+                    $this->{$dirprop}[] = $this->_checkDir($v);
+                } else {
+                    // string indexes are overridden
+                    $this->{$dirprop}[$k] = $this->_checkDir($v);
+                }
+            }
+        } elseif ($key !== null) {
+            // override directory at specified index
+            $this->{$dirprop}[$key] = $this->_checkDir($dir);
+        } else {
+            // append new directory
+            $this->{$dirprop}[] = $this->_checkDir($dir);
+        }
+        if ($do_join) {
+            $joined = '_joined' . $dirprop;
+            $this->$joined = join(DIRECTORY_SEPARATOR, $this->$dirprop);
+        }
+        return;
+    }
+
+    /**
+     * Set  muted directory
+     *
+     * @internal
+     * @param  string $dir directory
+     * @param  string $dirprop  name of directory property
+     */
+    private function _setMutedDir($dir, $dirprop)
+    {
+        $this->$dirprop = $this->_checkDir($dir);
+        if (!isset(self::$_muted_directories[$this->$dirprop])) {
+            self::$_muted_directories[$this->$dirprop] = null;
+        }
+
+        return;
+    }
+
+    /**
+     *  function to check directory path
+     *
+     * @internal
+     * @param  string $path     directory
+     * @return string           trimmed filepath
+     */
+    private function _checkDir($path)
+    {
+        return rtrim($path, '/\\') . '/';
+    }
 
     /**
      * runtime error for not matching capture tags
@@ -1938,7 +1922,7 @@ class Smarty extends Smarty_Variable_Methods
             } elseif ($resource_group == self::COMPILED) {
                 if (!isset($resource)) {
                     // We need the resource for clear cache calls so just return the obj
-                    return  $res_obj;
+                    return $res_obj;
                 }
                 $res_obj->source = $resource;
                 $res_obj->compile_id = $par1;
@@ -1948,7 +1932,7 @@ class Smarty extends Smarty_Variable_Methods
             } elseif ($resource_group == self::CACHE) {
                 if (!isset($resource)) {
                     // We need the resource for clear cache calls so just return the obj
-                    return  $res_obj;
+                    return $res_obj;
                 }
                 $res_obj->source = $resource;
                 $res_obj->compile_id = $par1;
@@ -1986,7 +1970,7 @@ class Smarty extends Smarty_Variable_Methods
     {
         unset($this->source);
         // clear loaded extension
-        $this->_smarty_extensions = array();
+        $this->_loaded_extensions = array();
     }
 
     /**
@@ -2098,20 +2082,18 @@ class Smarty extends Smarty_Variable_Methods
             }
         }
         // try extensions
-        foreach ($this->_smarty_extensions as $obj) {
+        if (isset($this->_loaded_extensions[$name])) {
+            return call_user_func_array(array($this->_loaded_extensions[$name], $name), $args);
+        }
+        $class = 'Smarty_Extension_' . ucfirst($name);
+        if ($this->_loadPlugin($class, true) && class_exists($class, false)) {
+            $obj = new $class($this);
             if (method_exists($obj, $name)) {
+                $this->_loaded_extensions[$name] = $obj;
                 return call_user_func_array(array($obj, $name), $args);
             }
         }
-        foreach ($this->_smarty_extensions_class_method as $class => $methods) {
-            if (isset($methods[$name]) && $this->_loadPlugin($class, true) && class_exists($class, false)) {
-                $this->_smarty_extensions[$class] = $obj = new $class($this);
-                if (method_exists($obj, $name)) {
-                    return call_user_func_array(array($obj, $name), $args);
-                }
-            }
-        }
-        if ($name == 'Smarty') {
+         if ($name == 'Smarty') {
             throw new Smarty_Exception("PHP5 requires you to call __construct() instead of Smarty()");
         }
         // throw error through parent

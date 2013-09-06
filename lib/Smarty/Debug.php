@@ -133,7 +133,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
     {
         // prepare information of assigned variables
         $ptr = self::get_debug_vars($obj);
-        $tpl_obj = $obj->createTemplate($obj->debug_tpl);
+        $tpl_obj = clone $obj;
         $tpl_obj->registered_filters = array();
         $tpl_obj->autoload_filters = array();
         $tpl_obj->default_modifiers = array();
@@ -162,7 +162,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
         $tpl_obj->assign('assigned_vars', $_assigned_vars);
         $tpl_obj->assign('config_vars', $_config_vars);
         $tpl_obj->assign('execution_time', microtime(true) - $tpl_obj->start_time);
-        echo $tpl_obj->fetch();
+        echo $tpl_obj->fetch($tpl_obj->debug_tpl);
     }
 
     /**

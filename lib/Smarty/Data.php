@@ -21,7 +21,7 @@
 class Smarty_Data extends Smarty_Variable_Methods
 {
 
-    public $tpl_vars = null;
+    public $_tpl_vars = null;
 
     /**
      * create Smarty data object

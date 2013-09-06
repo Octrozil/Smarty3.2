@@ -253,7 +253,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
             Smarty_Resource_Cache::$creator[0]->_mergeFromCompiled($this);
         }
         if (!$no_output_filter && (isset($this->tpl_obj->autoload_filters['output']) || isset($this->tpl_obj->registered_filters['output']))) {
-            $output = $this->tpl_obj->_runFilter('output', $output);
+            $output = $this->tpl_obj->_RunFilter('output', $output);
         }
 
         if ($this->tpl_obj->debugging) {
