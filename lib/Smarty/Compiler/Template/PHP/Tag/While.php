@@ -43,8 +43,6 @@ class Smarty_Compiler_Template_Php_Tag_While extends Smarty_Compiler_Template_Ph
         $this->iniTagCode($compiler);
 
         if (is_array($parameter['if condition'])) {
-            // set flag that variable container must be cloned
-            $compiler->must_clone_vars = true;
             if (is_array($parameter['if condition']['var'])) {
                 $var = trim($parameter['if condition']['var']['var'], "'");
             } else {

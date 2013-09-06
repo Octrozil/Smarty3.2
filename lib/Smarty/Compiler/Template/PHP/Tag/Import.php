@@ -70,39 +70,36 @@ class Smarty_Compiler_Template_Php_Tag_Import extends Smarty_Compiler_Template_P
         }
 
         eval("\$tpl_name = $include_file;");
-        $tpl = clone $compiler->tpl_obj;
-        unset($tpl->source, $tpl->compiled, $tpl->cached, $tpl->compiler, $tpl->mustCompile);
-        $tpl->template_resource = $tpl_name;
-        $tpl->parent = $compiler->tpl_obj;
-        $tpl->caching = $compiler->caching;
-        $tpl->compiler->nocache = $compiler->nocache;
+        $source = $compiler->tpl_obj->_load(Smarty::SOURCE, $tpl_name);
+        $comp = Smarty_Compiler::load($compiler->tpl_obj, $source, $compiler->caching);
+        $comp->nocache = $compiler->nocache;
         // set up parameter
-        $tpl->compiler->suppressTemplatePropertyHeader = true;
-        $tpl->compiler->suppressPostFilter = true;
-        $tpl->compiler->write_compiled_code = false;
-        $tpl->compiler->template_code->indentation = $compiler->template_code->indentation;
-        $tpl->compiler->isInheritance = $compiler->isInheritance;
-        $tpl->compiler->isInheritanceChild = $compiler->isInheritanceChild;
+        $comp->suppressTemplatePropertyHeader = true;
+        $comp->suppressPostFilter = true;
+        $comp->write_compiled_code = false;
+        $comp->template_code->indentation = $compiler->template_code->indentation;
+        $comp->isInheritance = $compiler->isInheritance;
+        $comp->isInheritanceChild = $compiler->isInheritanceChild;
         // compile imported template
-        $tpl->compiler->template_code->php("/*  Imported template \"{$tpl_name}\" */")->newline();
-        $tpl->compiler->compileTemplate();
-        $tpl->compiler->template_code->php("/*  End of imported template \"{$tpl_name}\" */")->newline();
+        $comp->template_code->php("/*  Imported template \"{$tpl_name}\" */")->newline();
+        $comp->compileTemplate();
+        $comp->template_code->php("/*  End of imported template \"{$tpl_name}\" */")->newline();
         // merge compiled code for {function} tags
-        if (!empty($tpl->compiler->template_functions)) {
-            $compiler->template_functions = array_merge($compiler->template_functions, $tpl->compiler->template_functions);
-            $compiler->template_functions_code = array_merge($compiler->template_functions_code, $tpl->compiler->template_functions_code);
+        if (!empty($comp->template_functions)) {
+            $compiler->template_functions = array_merge($compiler->template_functions, $comp->template_functions);
+            $compiler->template_functions_code = array_merge($compiler->template_functions_code, $comp->template_functions_code);
         }
         // merge compiled code for {block} tags
-        if (!empty($tpl->compiler->inheritance_blocks)) {
-            $compiler->inheritance_blocks = array_merge($compiler->inheritance_blocks, $tpl->compiler->inheritance_blocks);
-            $compiler->inheritance_blocks_code = array_merge($compiler->inheritance_blocks_code, $tpl->compiler->inheritance_blocks_code);
+        if (!empty($comp->inheritance_blocks)) {
+            $compiler->inheritance_blocks = array_merge($compiler->inheritance_blocks, $comp->inheritance_blocks);
+            $compiler->inheritance_blocks_code = array_merge($compiler->inheritance_blocks_code, $comp->inheritance_blocks_code);
         }
-        $compiler->required_plugins['compiled'] = array_merge($compiler->required_plugins['compiled'], $tpl->compiler->required_plugins['compiled']);
-        $compiler->required_plugins['nocache'] = array_merge($compiler->required_plugins['nocache'], $tpl->compiler->required_plugins['nocache']);
+        $compiler->required_plugins['compiled'] = array_merge($compiler->required_plugins['compiled'], $comp->required_plugins['compiled']);
+        $compiler->required_plugins['nocache'] = array_merge($compiler->required_plugins['nocache'], $comp->required_plugins['nocache']);
         // merge filedependency
         $compiler->file_dependency[$tpl->source->uid] = array($tpl->source->filepath, $tpl->source->timestamp, $tpl->source->type);
-        $compiler->file_dependency = array_merge($compiler->file_dependency, $tpl->compiler->file_dependency);
-        $compiler->has_nocache_code = $compiler->has_nocache_code | $tpl->compiler->has_nocache_code;
+        $compiler->file_dependency = array_merge($compiler->file_dependency, $comp->file_dependency);
+        $compiler->has_nocache_code = $compiler->has_nocache_code | $comp->has_nocache_code;
 
         $save = $compiler->nocache_nolog;
         $compiler->nocache_nolog = $save;
@@ -110,9 +107,9 @@ class Smarty_Compiler_Template_Php_Tag_Import extends Smarty_Compiler_Template_P
 
         $compiler->suppressNocacheProcessing = true;
         $this->iniTagCode($compiler);
-        $this->buffer .= $tpl->compiler->template_code->buffer;
+        $this->buffer .= $comp->template_code->buffer;
         // release compiler object to free memory
-        unset($tpl->compiler);
+        unset($comp);
 
         return $this->returnTagCode($compiler);
     }
