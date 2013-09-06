@@ -6,7 +6,7 @@
  * @author Rodney Rehm
  */
 
-class CallbacksTests extends PHPUnit_Framework_TestCase
+class TraceCallbacksTests extends PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -31,8 +31,8 @@ class CallbacksTests extends PHPUnit_Framework_TestCase
         self::$written = array();
         self::$deleted = array();
 
-        Smarty::registerCallback('filesystem:write', array('CallbacksTests', '__write_callback'));
-        Smarty::registerCallback('filesystem:delete', array('CallbacksTests', '__delete_callback'));
+        $this->smarty->registerTraceCallback('filesystem:write', array('TraceCallbacksTests', '__write_callback'));
+        $this->smarty->registerTraceCallback('filesystem:delete', array('TraceCallbacksTests', '__delete_callback'));
 
         $this->smarty->caching = true;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');

@@ -32,7 +32,7 @@ class DefaultTemplateHandlerTests extends PHPUnit_Framework_TestCase
         try {
             $this->smarty->fetch('foo.tpl');
         } catch (Exception $e) {
-            $this->assertContains('Unable to load template', $e->getMessage());
+            $this->assertContains("Can not find 'file:foo.conf'", $e->getMessage());
 
             return;
         }
@@ -79,7 +79,7 @@ class DefaultTemplateHandlerTests extends PHPUnit_Framework_TestCase
         try {
             $this->smarty->fetch('foo.tpl');
         } catch (Exception $e) {
-            $this->assertContains('Unable to load template', $e->getMessage());
+            $this->assertContains("Can not find 'file:foo.conf'", $e->getMessage());
 
             return;
         }

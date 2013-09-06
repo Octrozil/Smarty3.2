@@ -11,7 +11,7 @@
  */
 class FileResourceTests extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
+     public function setUp()
     {
         $this->smarty = SmartyTests::$smarty;
         SmartyTests::init();
@@ -57,8 +57,15 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
      */
     public function testTemplateFileNotExists1()
     {
-        $tpl = $this->smarty->createTemplate('notthere.tpl');
-        $this->assertFalse($tpl->source->exists);
+        try {
+            $tpl = $this->smarty->createTemplate('notthere.tpl');
+        } catch (Exception $e) {
+            $this->assertContains('Can not find', $e->getMessage());
+            $this->assertContains('file:notthere.tpl', $e->getMessage());
+
+            return;
+        }
+        $this->fail('Exception for not existing template is missing');
     }
 
     public function testTemplateFileNotExists2()
@@ -71,7 +78,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
         try {
             $result = $this->smarty->fetch('notthere.tpl');
         } catch (Exception $e) {
-            $this->assertContains('Unable to load template ', $e->getMessage());
+            $this->assertContains('Can not find', $e->getMessage());
             $this->assertContains('file:notthere.tpl', $e->getMessage());
 
             return;
@@ -95,7 +102,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
     public function testGetTemplateSource()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals('hello world', $tpl->source->content);
+        $this->assertEquals('hello world', $tpl->source->getContent());
     }
 
     /**
@@ -334,7 +341,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
         $this->smarty->clearCompiledTemplate();
         $this->smarty->clearAllCache();
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->smarty->fetch($tpl);
+        $result = $this->smarty->fetch($tpl);
     }
 
     public function testSmartyIsCached()

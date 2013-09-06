@@ -30,7 +30,7 @@ class DefaultConfigHandlerTests extends PHPUnit_Framework_TestCase
             $this->smarty->configLoad('foo.conf');
             $this->assertEquals("123.4", $this->smarty->fetch('eval:{#Number#}'));
         } catch (Exception $e) {
-            $this->assertContains("Unable to read source file file 'foo.conf'", $e->getMessage());
+            $this->assertContains("Can not find 'file:foo.conf'", $e->getMessage());
 
             return;
         }
@@ -70,7 +70,7 @@ class DefaultConfigHandlerTests extends PHPUnit_Framework_TestCase
             $this->smarty->configLoad('foo.conf');
             $this->assertEquals("123.4", $this->smarty->fetch('eval:{#Number#}'));
         } catch (Exception $e) {
-            $this->assertContains("Unable to read source file file 'foo.conf'", $e->getMessage());
+            $this->assertContains("Can not find 'file:foo.conf'", $e->getMessage());
 
             return;
         }

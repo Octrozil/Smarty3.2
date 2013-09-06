@@ -12,7 +12,7 @@ Smarty_Autoloader::$checkFile = true;
  * class for running test suite
  */
 class SmartyTests
-{
+{   public static $cwd = null;
     public static $smarty = null;
     public static $smartyBC = null;
     public static $smartyBC31 = null;
@@ -55,11 +55,12 @@ class SmartyTests
         $smarty->caching_type = 'file';
         $smarty->compiled_type = 'file';
         $smarty->default_resource_type = 'file';
-        $smarty->_smarty_extensions = array();
+        $smarty->_loaded_extensions = array();
     }
 
     public static function init()
     {
+        chdir(self::$cwd);
         error_reporting(E_ALL | E_STRICT);
         self::_init(SmartyTests::$smarty);
         self::_init(SmartyTests::$smartyBC);
@@ -71,6 +72,7 @@ class SmartyTests
     }
 }
 
+SmartyTests::$cwd= getcwd();
 SmartyTests::$smartyBC = new SmartyBC();
 SmartyTests::$smartyBC31 = new SmartyBC31();
 SmartyTests::$smarty = new Smarty();

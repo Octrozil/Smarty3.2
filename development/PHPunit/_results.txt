@@ -1,0 +1,2124 @@
+PHPUnit 3.5.15 by Sebastian Bergmann.
+
+.........FF......FFFFFF...FF.........E......................E   61 / 1050 (  5%)
+EEE.......F........EFF....................E..................  122 / 1050 ( 11%)
+.......E....................................E....E...........  183 / 1050 ( 17%)
+...........EEFEE.........EEE..............E.....FF.FFEFFEE...  244 / 1050 ( 23%)
+.....F..F..E...F.F.........EEEEEF....F..........FF...F..EEEEE  305 / 1050 ( 29%)
+F.....EEEEEEEEFEE............................................  366 / 1050 ( 34%)
+.................F.....EEEEEEEE.....E...F..EEEF..E.E....FEEEE  427 / 1050 ( 40%)
+E..F...E....FEEEE...EE.E..FE..........F..F..FF........FE..EF.  488 / 1050 ( 46%)
+F......E.EEEEEEEFFF...FF........E...............EEE...FF....F  549 / 1050 ( 52%)
+.........FFF....F.FFF.F....E....F.E.EFF...EEEF...............  610 / 1050 ( 58%)
+.................FF.............FF............FF.............  671 / 1050 ( 63%)
+..........F..............FF..................................  732 / 1050 ( 69%)
+.............................................................  793 / 1050 ( 75%)
+..............FFF....................................FF.FF...  854 / 1050 ( 81%)
+......................................................EEE.EEE  915 / 1050 ( 87%)
+EEEE..........EF.........EF.........................FF.EEEEEE  976 / 1050 ( 92%)
+EEEFE.FEEEEE..................E.....F.FF........FF...FFFFFFF. 1037 / 1050 ( 98%)
+.............
+
+Time: 16 seconds, Memory: 70.50Mb
+
+There were 118 errors:
+
+1) StringResourceTests::testMustCompile
+Smarty_Exception: Read access to undefined property 'isValid
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\development\PHPunit\StringResourceTests.php:99
+
+2) FileResourceTests::testMustCompileExisting
+Smarty_Exception: Read access to undefined property 'isValid
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1999
+C:\wamp\www\Smarty3.2\development\PHPunit\FileResourceTests.php:161
+
+3) FileResourceTests::testMustCompileAtForceCompile
+Smarty_Exception: Read access to undefined property 'isValid
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1999
+C:\wamp\www\Smarty3.2\development\PHPunit\FileResourceTests.php:171
+
+4) FileResourceTests::testMustCompileTouchedSource
+Smarty_Exception: Read access to undefined property 'isValid
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1999
+C:\wamp\www\Smarty3.2\development\PHPunit\FileResourceTests.php:184
+
+5) FileResourceTests::testCompileTemplateFile
+Smarty_Exception: Read access to undefined property 'compiler
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2011
+C:\wamp\www\Smarty3.2\development\PHPunit\FileResourceTests.php:195
+
+6) FileResourceTests::testRelativeIncludeSub
+Smarty_Exception: Can not find 'file:../helloworld.tpl' in "./templates/sub/relative.tpl" at line 1
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:983
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:485
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\FileResourceTests.php:372
+
+7) DoubleQuotedStringTests::testSmartyBlockTagInDoubleQuotedString1
+Smarty_Exception_Compiler: too many shorthand attributes in "eval:e52106a101256f2f3e67b05cb2a18c17dd02f4c2" at line 1 "{"Hello{if $z} {$x} {else}{$y}{/if}World"}" 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:938
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Tag.php:76
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Tag\If.php:33
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:703
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:536
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2072
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2782
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2895
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\DoubleQuotedStringTests.php:129
+
+8) CompileAssignTests::testAssignArrayAppend3
+Unassigned template variable '___attributes'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileAssignTests.php:165
+
+9) AssignGlobalTests::testAssignGlobalTag
+Unassigned template variable '___attributes'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\AssignGlobalTests.php:54
+
+10) AutoEscapeTests::testAutoEscape
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\AutoEscapeTests.php:33
+
+11) ClearAllAssignTests::testAllVariablesAccessable
+Unassigned template variable 'bar'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearAllAssignTests.php:49
+
+12) ClearAllAssignTests::testClearAllAssignInTemplate
+Unassigned template variable 'bar'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearAllAssignTests.php:59
+
+13) ClearAllAssignTests::testClearAllAssignInSmarty
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearAllAssignTests.php:81
+
+14) ClearAllAssignTests::testSmarty2ClearAllAssignInSmarty
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearAllAssignTests.php:88
+
+15) ClosureTests::testFilterPre
+Smarty_Exception: Call of undefined method '_RunFilter'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:481
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:481
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\ClosureTests.php:63
+
+16) ClosureTests::testFilterPost
+Smarty_Exception: Call of undefined method '_RunFilter'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:498
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:498
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\ClosureTests.php:71
+
+17) ClosureTests::testFilterOutput
+Smarty_Exception: Call of undefined method '_RunFilter' in "0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33"
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\ClosureTests.php:79
+
+18) CompileBlockPluginTests::testBlockPluginAssign
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileBlockPluginTests.php:42
+
+19) CompileCaptureTests::testCapture4
+Unassigned template variable 'bar'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileCaptureTests.php:49
+
+20) CompileCaptureTests::testCapture7
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileCaptureTests.php:67
+
+21) CompileCaptureTests::testCapture8
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileCaptureTests.php:76
+
+22) CompileEvalTests::testEval2
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileEvalTests.php:37
+
+23) CompileForTests::testForNocacheVar1
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:297
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForTests.php:121
+
+24) CompileForTests::testForNocacheVar2
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:297
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForTests.php:130
+
+25) CompileForTests::testForNocacheTag1
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:297
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForTests.php:139
+
+26) CompileForTests::testForNocacheTag2
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:297
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForTests.php:148
+
+27) CompileForTests::testForCache1
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:225
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:173
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:267
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForTests.php:157
+
+28) CompileForeachTests::testForeachNocacheVar1
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:297
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForeachTests.php:180
+
+29) CompileForeachTests::testForeachNocacheVar2
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:297
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForeachTests.php:189
+
+30) CompileForeachTests::testForeachNocacheTag1
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:297
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForeachTests.php:198
+
+31) CompileForeachTests::testForeachNocacheTag2
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:297
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForeachTests.php:207
+
+32) CompileForeachTests::testForeachCache1
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:225
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:173
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:267
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForeachTests.php:216
+
+33) CompileFunctionTests::testSimpleFunction
+Smarty_Exception: Read access to undefined property 'template_obj in "./templates/test_template_function_tag1.tpl" at line 1
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:366
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileFunctionTests.php:31
+
+34) CompileFunctionTests::testSimpleFunction2
+Smarty_Exception: Read access to undefined property 'template_obj in "./templates/test_template_function_tag2.tpl" at line 1
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:366
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileFunctionTests.php:40
+
+35) CompileFunctionTests::testOverwriteDefaultFunction
+Smarty_Exception: Read access to undefined property 'template_obj in "./templates/test_template_function_tag3.tpl" at line 1
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:366
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileFunctionTests.php:49
+
+36) CompileFunctionTests::testRecursiveFunction
+Smarty_Exception: Read access to undefined property 'template_obj in "./templates/test_template_function_tag4.tpl" at line 1
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:366
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileFunctionTests.php:58
+
+37) CompileFunctionTests::testInheritedFunction
+Smarty_Exception: Read access to undefined property 'template_obj in "./templates/test_template_function_tag5.tpl" at line 1
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:366
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:485
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileFunctionTests.php:67
+
+38) CompileFunctionTests::testDefineFunctionInclude
+Smarty_Exception: Read access to undefined property 'template_obj in "./templates/test_template_function_tag6.tpl" at line 1
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:366
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:485
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileFunctionTests.php:76
+
+39) CompileFunctionTests::testExternalDefinedFunction
+Smarty_Exception: Read access to undefined property 'template_obj in "c14b05e340e2829523a56b52e6d95704dd8ba00f" at line 1
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:366
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileFunctionTests.php:86
+
+40) CompileFunctionTests::testExternalDefinedFunctionCached1
+Smarty_Exception: Read access to undefined property 'template_obj in "./templates/test_template_function.tpl" at line 1
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:366
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:225
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:173
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:267
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileFunctionTests.php:99
+
+41) CompileFunctionTests::testExternalDefinedFunctionNocachedCall1
+Smarty_Exception: Read access to undefined property 'template_obj in "./templates/test_template_function_nocache_call.tpl" at line 1
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:366
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:297
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileFunctionTests.php:125
+
+42) CompileFunctionTests::testExternalDefinedFunctionNocachedCall2
+Smarty_Exception: Read access to undefined property 'template_obj in "./templates/test_template_function_nocache_call.tpl" at line 1
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:366
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:297
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileFunctionTests.php:138
+
+43) CompileImportTests::testImportStandard
+Undefined variable: name
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:437
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:312
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileImportTests.php:32
+
+44) CompileImportTests::testImportNocacheSection1
+Undefined variable: name
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:437
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:312
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:225
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:173
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:267
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileImportTests.php:45
+
+45) CompileImportTests::testImportNocacheSection2
+Undefined variable: name
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:437
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:312
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:225
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:173
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:267
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileImportTests.php:54
+
+46) CompileImportTests::testImportNocacheTag1
+Undefined variable: name
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:437
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:312
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:225
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:173
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:267
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileImportTests.php:66
+
+47) CompileImportTests::testImportNocacheTag2
+Undefined variable: name
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:437
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:312
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:225
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:173
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:267
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileImportTests.php:75
+
+48) CompileIncludePhpTests::testIncludePhpStringFileName
+Smarty_Exception_Compiler: unknown tag '{include_php...}' in "eval:932e9569e4ed44102489ce25d76e925e72d86da5" at line 1 "start {include_php file='scripts/test_include_php.php'} end" 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:938
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:662
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2072
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2782
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2895
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileIncludePhpTests.php:33
+
+49) CompileIncludePhpTests::testIncludePhpVariableFileName
+Smarty_Exception_Compiler: unknown tag '{include_php...}' in "eval:338a68fae476ff05678056e5ff259d595eda265c" at line 1 "start {include_php file=$filename once=false} end" 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:938
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:662
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2072
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2782
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2895
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileIncludePhpTests.php:45
+
+50) CompileIncludePhpTests::testIncludePhpVariableFileNameShortag
+Smarty_Exception_Compiler: unknown tag '{include_php...}' in "eval:285ab7f7e324db2cb65d021c80657a0ff176e056" at line 1 "start {include_php $filename once=false} end" 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:938
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:662
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2072
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2782
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2895
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileIncludePhpTests.php:54
+
+51) CompileIncludeTests::testIncludeParentScope
+Unassigned template variable '_tpl_vars'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:294
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:224
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:485
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileIncludeTests.php:83
+
+52) CompileInsertTests::testInsertFunctionVariableName
+Undefined variable: _scope
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Tag\Insert.php:67
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:703
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:536
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2072
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2782
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2895
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileInsertTests.php:45
+
+53) CompileInsertTests::testInsertPlugin
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileInsertTests.php:57
+
+54) CompileInsertTests::testInsertPluginCaching1
+Unassigned template variable 'foo'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:225
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:173
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:267
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileInsertTests.php:70
+
+55) CompileInsertTests::testInsertFunctionAssign
+Unassigned template variable 'blar'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileInsertTests.php:112
+
+56) CompileInsertTests::testInsertPluginAssign
+Unassigned template variable 'blar'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:349
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileInsertTests.php:133
+
+57) CompileRegisteredObjectFunctionTests::testRegisteredObjectFunction
+Smarty_Exception_Compiler: <br> Syntax error :Unexpected '<b>}</b>', expected one of: '<b>|</b>'<br> in "eval:839ddd89cd10801bc8d20d3a190ebcb71f7edba1" at line 1 "{objecttest->myhello}" 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:938
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2839
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2903
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileRegisteredObjectFunctionTests.php:35
+
+58) CompileRegisteredObjectFunctionTests::testRegisteredObjectFunctionModifier
+Smarty_Exception: Read access to undefined property 'smarty
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Tag\Internal\ObjectFunction.php:54
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:703
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:570
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2083
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2782
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2895
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileRegisteredObjectFunctionTests.php:44
+
+59) CompileRegisteredObjectFunctionTests::testRegisteredObjectBlockFunction
+Smarty_Exception_Compiler: <br> Syntax error :Unexpected '<b>}</b>', expected one of: '<b>|</b>'<br> in "eval:dbf6f8a9707cf80d211ee8e16b8eb5fb47cde877" at line 1 "{objecttest->myblock}hello world{/objecttest->myblock}" 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:938
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2839
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2903
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileRegisteredObjectFunctionTests.php:53
+
+60) CompileRegisteredObjectFunctionTests::testRegisteredObjectBlockFunctionModifier1
+Smarty_Exception_Compiler: <br> Syntax error :Unexpected '<b>}</b>', expected one of: '<b>|</b>'<br> in "eval:f62954fab1a5a0a91a66aa45127ddbde030b03d6" at line 1 "{objecttest->myblock}hello world{/objecttest->myblock|strtoupper}" 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:938
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2839
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2903
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileRegisteredObjectFunctionTests.php:59
+
+61) CompileRegisteredObjectFunctionTests::testRegisteredObjectBlockFunctionModifier2
+Smarty_Exception_Compiler: <br> Syntax error :Unexpected '<b>}</b>', expected one of: '<b>|</b>'<br> in "eval:37a1f5b3cfff0d843bfccc5aabcc5f5b8a2745dc" at line 1 "{objecttest->myblock}hello world{/objecttest->myblock|default:""|strtoupper}" 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:938
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2839
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2903
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileRegisteredObjectFunctionTests.php:65
+
+62) CompileSetfilterTests::testNestedSetfilter
+Smarty_Exception: Read access to undefined property 'variable_filter_stack
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Tag\Setfilter.php:32
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:703
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:536
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2072
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2782
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2895
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileSetfilterTests.php:32
+
+63) CustomResourceAmbiguousTests::testNone
+Smarty_Exception: Read access to undefined property 'smarty
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Source\Registered.php:58
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Source\Registered.php:33
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1909
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1103
+C:\wamp\www\Smarty3.2\development\PHPunit\CustomResourceAmbiguousTests.php:47
+
+64) CustomResourceAmbiguousTests::testCase1
+Smarty_Exception: Read access to undefined property 'smarty
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Source\Registered.php:58
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Source\Registered.php:33
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1909
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1103
+C:\wamp\www\Smarty3.2\development\PHPunit\CustomResourceAmbiguousTests.php:60
+
+65) CustomResourceAmbiguousTests::testCase2
+Smarty_Exception: Read access to undefined property 'smarty
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Source\Registered.php:58
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Source\Registered.php:33
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1909
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1103
+C:\wamp\www\Smarty3.2\development\PHPunit\CustomResourceAmbiguousTests.php:74
+
+66) CustomResourceAmbiguousTests::testCaseSwitching
+Smarty_Exception: Read access to undefined property 'smarty
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Source\Registered.php:58
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Source\Registered.php:33
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1909
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1103
+C:\wamp\www\Smarty3.2\development\PHPunit\CustomResourceAmbiguousTests.php:87
+
+67) DefaultConfigHandlerTests::testDefaultConfigHandlerReplacement
+Smarty_Exception: Write access to undefined property 'content'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:35
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Source\File.php:264
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Source\File.php:117
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1909
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1103
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:454
+C:\wamp\www\Smarty3.2\development\PHPunit\DefaultConfigHandlerTests.php:55
+
+68) DefaultConfigHandlerTests::testDefaultConfigHandlerReplacementByConfigFile
+Missing argument 2 for Smarty_Resource_Compiled_File::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 457 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:151
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:457
+C:\wamp\www\Smarty3.2\development\PHPunit\DefaultConfigHandlerTests.php:62
+
+69) DefaultConfigHandlerTests::testConfigResourceDb4
+Smarty_Exception: Unknown resource 'Smarty_Resource_Source' 'db4'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1950
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1103
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:454
+C:\wamp\www\Smarty3.2\development\PHPunit\DefaultConfigHandlerTests.php:83
+
+70) DefaultConfigVariableHandlerTests::testVariableFailException
+Object of class Smarty could not be converted to int
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception.php:208
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception.php:62
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:375
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:37
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:236
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\DefaultConfigVariableHandlerTests.php:76
+
+71) EvalResourceTests::testGetTemplateSource
+Smarty_Exception: Read access to undefined property 'content
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\development\PHPunit\EvalResourceTests.php:63
+
+72) EvalResourceTests::testMustCompile
+Smarty_Exception: Read access to undefined property 'isValid
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1999
+C:\wamp\www\Smarty3.2\development\PHPunit\EvalResourceTests.php:90
+
+73) FilterTests::testAutoloadOutputFilter
+Smarty_Exception: Call of undefined method '_RunFilter' in "f0f1e7e13d99bf2de46211225125f1a58f4e19ad"
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\FilterTests.php:33
+
+74) FilterTests::testLoadedOutputFilter
+Smarty_Exception: Call of undefined method '_RunFilter' in "f0f1e7e13d99bf2de46211225125f1a58f4e19ad"
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\FilterTests.php:53
+
+75) FilterTests::testLoadedOutputFilterWrapper
+Smarty_Exception: Call of undefined method '_RunFilter' in "f0f1e7e13d99bf2de46211225125f1a58f4e19ad"
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\FilterTests.php:60
+
+76) FilterTests::testRegisteredOutputFilter
+Smarty_Exception: Call of undefined method '_RunFilter' in "0eab9bf7606a84c2c7bdcd3c3b756ad53d93b8a4"
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\FilterTests.php:70
+
+77) FilterTests::testRegisteredOutputFilterWrapper
+Smarty_Exception: Call of undefined method '_RunFilter' in "0eab9bf7606a84c2c7bdcd3c3b756ad53d93b8a4"
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\FilterTests.php:77
+
+78) FilterTests::testRegisteredPreFilter
+Smarty_Exception: Call of undefined method '_RunFilter'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:481
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:481
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\FilterTests.php:93
+
+79) FilterTests::testRegisteredPreFilterClass
+Smarty_Exception: Call of undefined method '_RunFilter'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:481
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:481
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\FilterTests.php:104
+
+80) FilterTests::testRegisteredPostFilter
+Smarty_Exception: Call of undefined method '_RunFilter'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:498
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:498
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:429
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:312
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\FilterTests.php:120
+
+81) HttpModifiedSinceTests::testEnabledCached
+Smarty_Exception: Read access to undefined property 'source
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2011
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1997
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1027
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1064
+C:\wamp\www\Smarty3.2\development\PHPunit\HttpModifiedSinceTests.php:77
+
+82) InvokableTests::testFilterPre
+Smarty_Exception: Call of undefined method '_RunFilter'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:481
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:481
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\InvokableTests.php:50
+
+83) InvokableTests::testFilterPost
+Smarty_Exception: Call of undefined method '_RunFilter'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:498
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:498
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\InvokableTests.php:56
+
+84) InvokableTests::testFilterOutput
+Smarty_Exception: Call of undefined method '_RunFilter' in "0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33"
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\InvokableTests.php:62
+
+85) OutputFilterTrimWhitespaceTests::testWhitespace
+Smarty_Exception: Call of undefined method '_RunFilter' in "./templates/whitespace.tpl"
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:2100
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Template\Class.php:256
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\OutputFilterTrimWhitespaceTests.php:44
+
+86) PhpResourceTests::testMustCompile
+Smarty_Exception: Read access to undefined property 'isValid
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1999
+C:\wamp\www\Smarty3.2\development\PHPunit\PhpResourceTests.php:101
+
+87) PhpResourceTests::testCreateCacheFile
+Smarty_Exception: Call of undefined method 'getRenderedTemplate'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:223
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:223
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:173
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:267
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\PhpResourceTests.php:127
+
+88) PhpResourceTests::testWriteCachedContent
+Smarty_Exception: Call of undefined method 'getRenderedTemplate'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:223
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:223
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:173
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:267
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\PhpResourceTests.php:195
+
+89) PhpResourceTests::testGetRenderedTemplate
+Smarty_Exception: Call of undefined method 'getRenderedTemplate'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1009
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1009
+C:\wamp\www\Smarty3.2\development\PHPunit\PhpResourceTests.php:206
+
+90) PhpResourceTests::testSmartyIsCachedPrepare
+Smarty_Exception: Call of undefined method 'getRenderedTemplate'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:44
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:223
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:223
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:173
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Cache\File.php:267
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1003
+C:\wamp\www\Smarty3.2\development\PHPunit\PhpResourceTests.php:221
+
+91) ResourcePluginTests::testResourcePlugin
+Smarty_Exception: Unknown resource 'Smarty_Resource_Source' 'db'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1950
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:980
+C:\wamp\www\Smarty3.2\development\PHPunit\ResourcePluginTests.php:32
+
+92) ResourcePluginTests::testResourcePluginObject
+Smarty_Exception: Unknown resource 'Smarty_Resource_Source' 'db2'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1950
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:980
+C:\wamp\www\Smarty3.2\development\PHPunit\ResourcePluginTests.php:41
+
+93) ResourcePluginTests::testResourcePluginRegisteredInstance
+Smarty_Exception: Read access to undefined property 'smarty
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Source\Registered.php:58
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Source\Registered.php:33
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1909
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:980
+C:\wamp\www\Smarty3.2\development\PHPunit\ResourcePluginTests.php:52
+
+94) ResourcePluginTests::testResourcePluginRecompiledCompiledFilepath
+Smarty_Exception: Unknown resource 'Smarty_Resource_Source' 'db2'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1950
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1103
+C:\wamp\www\Smarty3.2\development\PHPunit\ResourcePluginTests.php:78
+
+95) ResourcePluginTests::testResourcePluginMysql
+Smarty_Exception: Unknown resource 'Smarty_Resource_Source' 'mysqltest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1950
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:980
+C:\wamp\www\Smarty3.2\development\PHPunit\ResourcePluginTests.php:90
+
+96) ResourcePluginTests::testResourcePluginMysqlTimestamp
+Smarty_Exception: Unknown resource 'Smarty_Resource_Source' 'mysqltest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1950
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1103
+C:\wamp\www\Smarty3.2\development\PHPunit\ResourcePluginTests.php:99
+
+97) ResourcePluginTests::testResourcePluginMysqlTimestampWithoutFetchTimestamp
+Smarty_Exception: Unknown resource 'Smarty_Resource_Source' 'mysqlstest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1950
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1103
+C:\wamp\www\Smarty3.2\development\PHPunit\ResourcePluginTests.php:109
+
+98) ResourcePluginTests::testResourcePluginMysqlCompiledFilepath
+Smarty_Exception: Unknown resource 'Smarty_Resource_Source' 'mysqltest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1950
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1103
+C:\wamp\www\Smarty3.2\development\PHPunit\ResourcePluginTests.php:119
+
+99) ResourcePluginTests::testResourcePluginMysqlCompiledFilepathCache
+Smarty_Exception: Unknown resource 'Smarty_Resource_Source' 'mysqltest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1950
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:980
+C:\wamp\www\Smarty3.2\development\PHPunit\ResourcePluginTests.php:130
+
+100) ResourcePluginTests::testResourcePluginTimestamp
+Smarty_Exception: Unknown resource 'Smarty_Resource_Source' 'db'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1950
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1103
+C:\wamp\www\Smarty3.2\development\PHPunit\ResourcePluginTests.php:143
+
+101) SecurityTests::testAllowedTags1
+Smarty_Exception_Compiler: tag 'Internal_PluginFunction' not allowed by security setting in "eval:00ba97cad39544e3b3b69bbf21d828f54a777b0b" at line 1 "{counter start=1}" 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:938
+C:\wamp\www\Smarty3.2\lib\Smarty\Security.php:337
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:687
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:601
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2072
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2782
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2895
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\SecurityTests.php:112
+
+102) SecurityTests::testSmartyPhpAllow
+Smarty_Exception: Read access to undefined property 'template
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Exception\Magic.php:26
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:1936
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2782
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2895
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\SecurityTests.php:230
+
+103) StreamResourceTests::testGetTemplateFilepath
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:42
+
+104) StreamResourceTests::testGetTemplateTimestamp
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:51
+
+105) StreamResourceTests::testGetTemplateSource
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:60
+
+106) StreamResourceTests::testUsesCompiler
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:69
+
+107) StreamResourceTests::testIsEvaluated
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:78
+
+108) StreamResourceTests::testMustCompile
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:87
+
+109) StreamResourceTests::testGetCompiledFilepath
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:96
+
+110) StreamResourceTests::testGetCompiledTimestamp
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:105
+
+111) StreamResourceTests::testTemplateStreamExists1
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:114
+
+112) StreamResourceTests::testTemplateStreamNotExists1
+Smarty_Exception: Can not find 'global:notthere'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:128
+
+113) StreamResourceTests::testWriteCachedContent
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:154
+
+114) StreamResourceTests::testIsCached
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:163
+
+115) StreamResourceTests::testGetRenderedTemplate
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:172
+
+116) StreamResourceTests::testNoFiles
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:185
+
+117) StreamResourceTests::testSmartyIsCached
+Smarty_Exception: Can not find 'global:mytest'
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1106
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:198
+
+118) TernaryTests::testTernaryOutputTemplateFunction1
+Smarty_Exception_Compiler: <br> Syntax error :Unexpected '<b>}</b>' in "eval:e74ab535c3ab98ccabbd6a066610d48df07463ac" at line 1 "{({counter start=1} == 1) ? 'yes' : 'no'}" 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:938
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2839
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Parser.php:2903
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:380
+C:\wamp\www\Smarty3.2\lib\Smarty\Compiler\Template\Php\Compiler.php:486
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:283
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:258
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled\File.php:153
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1011
+C:\wamp\www\Smarty3.2\development\PHPunit\TernaryTests.php:139
+
+--
+
+
+There were 99 failures:
+
+1) ClearCompiledTests::testClearCompileid
+Failed asserting that <integer:0> matches expected <integer:4>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:277
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:247
+
+2) ClearCompiledTests::testSubsClearCompileid
+Failed asserting that <integer:0> matches expected <integer:4>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:277
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:252
+
+3) ClearCompiledTests::testClearTemplateCacheidExpired
+Failed asserting that <integer:0> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:376
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:355
+
+4) ClearCompiledTests::testSubsClearTemplateCacheidExpired
+Failed asserting that <integer:0> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:376
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:360
+
+5) ClearCompiledTests::testClearCacheidExpired
+Failed asserting that <integer:0> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:406
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:385
+
+6) ClearCompiledTests::testSubsClearCacheidExpired
+Failed asserting that <integer:0> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:406
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:390
+
+7) ClearCompiledTests::testClearTemplateCacheid
+Failed asserting that <integer:0> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:435
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:415
+
+8) ClearCompiledTests::testSubsClearTemplateCacheid
+Failed asserting that <integer:0> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:435
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCompiledTests.php:420
+
+9) ClearCacheTests::testClearCacheAllNotExpired
+Failed asserting that <integer:1> matches expected <integer:0>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCacheTests.php:43
+
+10) ClearCacheTests::testSmarty2ClearCacheAllNotExpired
+Failed asserting that <integer:0> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearCacheTests.php:51
+
+11) FileResourceTests::testIsCachedTouchedSource
+Failed asserting that <boolean:true> is false.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\FileResourceTests.php:286
+
+12) FileResourceTests::testRelativeIncludeFail
+Failed asserting that <string:Can not find 'file:../helloworld.tpl' in "./templates/relative_sub.tpl" at line 1> contains "Unable to load template".
+
+C:\wamp\www\Smarty3.2\development\PHPunit\FileResourceTests.php:381
+
+13) FileResourceTests::testRelativeIncludeFailOtherDir
+Exception for unknown relative filepath has not been raised.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\FileResourceTests.php:398
+
+14) ClearAllAssignTests::testClearAllAssignInData
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-fooblar
++foo
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ClearAllAssignTests.php:71
+
+15) CompileBlockPluginTests::testBlockPluginRepeatModidier1
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-11111
++12345
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileBlockPluginTests.php:98
+
+16) CompileBlockPluginTests::testBlockPluginRepeatModidier2
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-11111
++12345
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileBlockPluginTests.php:104
+
+17) CompileCaptureTests::testCapture2
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-hello world
++bar
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileCaptureTests.php:37
+
+18) CompileCaptureTests::testCapture3
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-hello world
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileCaptureTests.php:43
+
+19) CompileCaptureTests::testCapture5
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-hello world
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileCaptureTests.php:55
+
+20) CompileCaptureTests::testCapture6
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-hello shorttag
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileCaptureTests.php:61
+
+21) CompileErrorTests::testNoneExistingTemplateError
+Failed asserting that <string:Can not find 'file:no.tpl' in "0260b5f0aca862410c28791adf818e2310343a95" at line 1> contains "Unable to load template".
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileErrorTests.php:33
+
+22) CompileErrorTests::testSyntaxError
+Failed asserting that <string:<br> Syntax error :Unexpected '<b>}</b>' in "eval:599a9cf0e3623a3206bd02a0f5c151d5f5f3f69e" at line 1 "{assign var=}" > contains "<b>Syntax Error</b> in template <b>'599a9cf0e3623a3206bd02a0f5c151d5f5f3f69e'".
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileErrorTests.php:78
+
+23) CompileForTests::testFor3
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-else
++ else
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForTests.php:43
+
+24) CompileForTests::testFor5
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-else
++ else
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForTests.php:55
+
+25) CompileForTests::testForCache2
+Failed asserting that <boolean:false> is true.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForTests.php:165
+
+26) CompileForeachTests::testForeachElse
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-else
++ else
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForeachTests.php:56
+
+27) CompileForeachTests::testForeachShowFalse
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-else noshow
++ else  noshow
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForeachTests.php:122
+
+28) CompileForeachTests::testForeachShowFalseProperty
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-else noshow
++ else  noshow
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForeachTests.php:128
+
+29) CompileForeachTests::testNewForeachElse
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-else
++ else
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForeachTests.php:156
+
+30) CompileForeachTests::testForeachCache2
+Failed asserting that <boolean:false> is true.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileForeachTests.php:224
+
+31) CompileFunctionTests::testExternalDefinedFunctionCached2
+Failed asserting that <boolean:false> is true.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileFunctionTests.php:110
+
+32) CompileIfTests::testIfFunc4
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-yes
++no
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileIfTests.php:401
+
+33) CompileIncludeTests::testRecursiveIncludes3
+Failed asserting that <boolean:true> is false.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileIncludeTests.php:137
+
+34) CompileInsertTests::testInsertPluginCaching2
+Failed asserting that <boolean:false> is true.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileInsertTests.php:80
+
+35) CompileNocacheTests::testNocacheCachingYes2
+Failed asserting that <text> contains "include 6A".
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileNocacheTests.php:66
+
+36) CompileSectionTests::testSection3
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-else
++ else
+
+C:\wamp\www\Smarty3.2\development\PHPunit\CompileSectionTests.php:44
+
+37) ConstantsTests::testConstants
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-hello world
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ConstantsTests.php:32
+
+38) DefaultConfigVariableHandlerTests::testVariableFailNotice
+Failed asserting that <integer:2> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\DefaultConfigVariableHandlerTests.php:64
+
+39) DefaultTemplateHandlerTests::testUnknownTemplate
+Failed asserting that <string:Can not find 'file:foo.tpl'> contains "Can not find 'file:foo.conf'".
+
+C:\wamp\www\Smarty3.2\development\PHPunit\DefaultTemplateHandlerTests.php:35
+
+40) DefaultTemplateHandlerTests::testDefaultTemplateHandlerReturningFalse
+Failed asserting that <string:Can not find 'file:foo.tpl'> contains "Can not find 'file:foo.conf'".
+
+C:\wamp\www\Smarty3.2\development\PHPunit\DefaultTemplateHandlerTests.php:82
+
+41) DefaultVariableHandlerTests::testVariableFailNotice
+Failed asserting that <integer:2> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\DefaultVariableHandlerTests.php:64
+
+42) DefaultVariableHandlerTests::testVariableFailException
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-Unassigned template variable 'foo'
++Unassigned template variable 'foo' in "624617b765ff0d57ae3784b2d2851b4552fc5b3b" at line 1
+
+C:\wamp\www\Smarty3.2\development\PHPunit\DefaultVariableHandlerTests.php:78
+
+43) EvalResourceTests::testGetTemplateTimestamp
+Failed asserting that <integer:0> is false.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\EvalResourceTests.php:54
+
+44) EvalResourceTests::testGetCompiledFilepath
+Failed asserting that <string:./templates_c/2aae6c35c94fcfb415dbe95f408b9ce91ee846ed_0.eval.php> is false.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\EvalResourceTests.php:99
+
+45) EvalResourceTests::testWriteCachedContent
+Failed asserting that <boolean:true> is false.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\EvalResourceTests.php:117
+
+46) FilterTests::testRegisteredPostFilter2
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-bar hello world
++ hello world
+
+C:\wamp\www\Smarty3.2\development\PHPunit\FilterTests.php:127
+
+47) FilterTests::testLoadedVariableFilter
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-&lt;?php ?&gt;
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\FilterTests.php:138
+
+48) FilterTests::testRegisteredVariableFilter
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-var{$foo}bar
++var{$foo}
+
+C:\wamp\www\Smarty3.2\development\PHPunit\FilterTests.php:154
+
+49) GetTemplateVarsTests::testGetSingleTemplateVarScopeAll
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-bar
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\GetTemplateVarsTests.php:57
+
+50) GetTemplateVarsTests::testGetAllTemplateVarsScopeAll
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-bar
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\GetTemplateVarsTests.php:72
+
+51) LiteralTests::testAutoLiteralLineBreak
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+- {
+-$foo} 
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\LiteralTests.php:52
+
+52) LiteralTests::testAutoLiteralDisabled
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+- literal 
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\LiteralTests.php:63
+
+53) MathTests::testFunctionSin
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+--0.75680249530793 -- -0.75680249530793
++-0.75680249530793 --
+
+C:\wamp\www\Smarty3.2\development\PHPunit\MathTests.php:57
+
+54) ModifierTests::testPluginModifierVar
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-hel...
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ModifierTests.php:58
+
+55) ModifierTests::testPluginModifierVar2
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-hel   
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ModifierTests.php:65
+
+56) ModifierTests::testPluginModifierVar3
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-hel   
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ModifierTests.php:73
+
+57) ModifierTests::testModifierAtPluginResult
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-10...
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ModifierTests.php:119
+
+58) ModifierTests::testModifierRegisteredFunction
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-mymodifier function 2
++mymodifier function
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ModifierTests.php:139
+
+59) ModifierTests::testModifierRegisteredStaticClass
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-mymodifier static 1
++mymodifier static
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ModifierTests.php:150
+
+60) ModifierTests::testModifierRegisteredMethodCall
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-mymodifier method 3
++mymodifier method
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ModifierTests.php:162
+
+61) ModifierTests::testDefaultModifier
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-&lt;bar&gt;<bar>
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ModifierTests.php:188
+
+62) PhpResourceTests::testGetCompiledFilepath
+Failed asserting that <string:./templates_c/10cbecd0f556a6b7bb818651ca0094c34e160548_0.php.phphelloworld.php.php> is false.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PhpResourceTests.php:83
+
+63) PhpResourceTests::testGetCachedTimestamp
+Failed asserting that <boolean:false> is true.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PhpResourceTests.php:139
+
+64) PhpResourceTests::testIsCached
+Failed asserting that <boolean:false> is true.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PhpResourceTests.php:152
+
+65) PhpResourceTests::testSmartyIsCached
+Failed asserting that <boolean:false> is true.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PhpResourceTests.php:230
+
+66) PluginFunctionHtmlCheckboxesTests::testObjectNoString
+Failed asserting that <integer:2> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PluginFunctionHtmlCheckboxesTests.php:307
+
+67) PluginFunctionHtmlCheckboxesTests::testObjectListNoString
+Failed asserting that <integer:2> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PluginFunctionHtmlCheckboxesTests.php:334
+
+68) PluginFunctionHtmlOptionsTests::testObjectNoString
+Failed asserting that <integer:2> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PluginFunctionHtmlOptionsTests.php:399
+
+69) PluginFunctionHtmlOptionsTests::testObjectListNoString
+Failed asserting that <integer:2> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PluginFunctionHtmlOptionsTests.php:425
+
+70) PluginFunctionHtmlRadiosTests::testObjectNoString
+Failed asserting that <integer:2> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PluginFunctionHtmlRadiosTests.php:307
+
+71) PluginFunctionHtmlRadiosTests::testObjectListNoString
+Failed asserting that <integer:2> matches expected <integer:1>.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PluginFunctionHtmlRadiosTests.php:334
+
+72) PluginFunctionHtmlSelectDateTests::testTimeArray
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+ <select name="namorized[foobar_Month]">
+ <option value="01">January</option>
+-<option value="02" selected="selected">February</option>
++<option value="02">February</option>
+
+@@ @@
+ <option value="19">19</option>
+-<option value="20" selected="selected">20</option>
++<option value="20">20</option>
+
+@@ @@
+ <select name="namorized[foobar_Year]">
+-<option value="2013" selected="selected">2013</option>
++<option value="2013">2013</option>
+ </select>
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PluginFunctionHtmlSelectDateTests.php:620
+
+73) PluginFunctionHtmlSelectTimeTests::testTimeArray
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+ <option value="15">15</option>
+-<option value="16" selected="selected">16</option>
++<option value="16">16</option>
+
+@@ @@
+ <option value="14">14</option>
+-<option value="15" selected="selected">15</option>
++<option value="15">15</option>
+
+@@ @@
+ <option value="10">10</option>
+-<option value="11" selected="selected">11</option>
++<option value="11">11</option>
+ <option value="12">12</option>
+ <option value="13">13</option>
+ <option value="14">14</option>
+ <option value="15">15</option>
+ <option value="16">16</option>
+ <option value="17">17</option>
+ <option value="18">18</option>
+ <option value="19">19</option>
+ <option value="20">20</option>
+ <option value="21">21</option>
+ <option value="22">22</option>
+ <option value="23">23</option>
+ <option value="24">24</option>
+ <option value="25">25</option>
+ <option value="26">26</option>
+ <option value="27">27</option>
+ <option value="28">28</option>
+ <option value="29">29</option>
+ <option value="30">30</option>
+ <option value="31">31</option>
+ <option value="32">32</option>
+ <option value="33">33</option>
+ <option value="34">34</option>
+ <option value="35">35</option>
+ <option value="36">36</option>
+ <option value="37">37</option>
+ <option value="38">38</option>
+ <option value="39">39</option>
+ <option value="40">40</option>
+ <option value="41">41</option>
+ <option value="42">42</option>
+ <option value="43">43</option>
+ <option value="44">44</option>
+ <option value="45">45</option>
+ <option value="46">46</option>
+ <option value="47">47</option>
+ <option value="48">48</option>
+ <option value="49">49</option>
+ <option value="50">50</option>
+ <option value="51">51</option>
+ <option value="52">52</option>
+ <option value="53">53</option>
+ <option value="54">54</option>
+ <option value="55">55</option>
+ <option value="56">56</option>
+ <option value="57">57</option>
+ <option value="58">58</option>
+ <option value="59">59</option>
+ </select>
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PluginFunctionHtmlSelectTimeTests.php:1056
+
+74) PluginFunctionHtmlSelectTimeTests::testTimeArrayMerdidian
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+ <select name="namorized[foobar_Hour]">
+ <option value="01">01</option>
+ <option value="02">02</option>
+ <option value="03">03</option>
+-<option value="04" selected="selected">04</option>
++<option value="04">04</option>
+
+@@ @@
+ <option value="14">14</option>
+-<option value="15" selected="selected">15</option>
++<option value="15">15</option>
+
+@@ @@
+ <option value="10">10</option>
+-<option value="11" selected="selected">11</option>
++<option value="11">11</option>
+
+@@ @@
+ <select name="namorized[foobar_Meridian]">
+-<option value="am">AM</option>
+-<option value="pm" selected="selected">PM</option>
++<option value="am" selected="selected">AM</option>
++<option value="pm">PM</option>
+ </select>
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PluginFunctionHtmlSelectTimeTests.php:1082
+
+75) PluginModifierUnescapeTests::testHtmlall
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-aäЗдра><&amp;ääв�?�?твуйте
++aäЗдра><&amp;ääвсствуйте
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PluginModifierUnescapeTests.php:48
+
+76) PluginModifierUnescapeTests::testHtmlallWithoutMbstring
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-aäЗдра><&amp;ääв�?�?твуйте
++aäЗдра><&amp;ääвсствуйте
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PluginModifierUnescapeTests.php:57
+
+77) PluginModifierUnescapeTests::testUrl
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-aäЗдра><&amp;ääв�?�?тв?=+уйте
++aäЗдра><&amp;ääвсств?=+уйте
+
+C:\wamp\www\Smarty3.2\development\PHPunit\PluginModifierUnescapeTests.php:66
+
+78) ReflectionTests::testBlockNocache
+annotated nocache block missing
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ReflectionTests.php:212
+
+79) ReflectionTests::testFunctionNocache
+annotated nocache function missing
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ReflectionTests.php:223
+
+80) RegisterBlockTests::testRegisterBlockFunctionModifier1
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-FUNCTION HELLO WORLD 1 1 FUNCTION HELLO WORLD 1 2 FUNCTION HELLO WORLD 1 3 
++function hello world 1 1 function hello world 1 2 function hello world 1 3
+
+C:\wamp\www\Smarty3.2\development\PHPunit\RegisterBlockTests.php:43
+
+81) RegisterBlockTests::testRegisterBlockFunctionModifier2
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-FUNCTION HELLO WORLD 1 1 FUNCTION HELLO WORLD 1 2 FUNCTION HELLO WORLD 1 3 
++function hello world 1 1 function hello world 1 2 function hello world 1 3
+
+C:\wamp\www\Smarty3.2\development\PHPunit\RegisterBlockTests.php:50
+
+82) SecurityTests::testNotAllowedTags2
+Failed asserting that <string:tag 'Internal_PluginFunction' not allowed by security setting in "eval:0722409009d1fe9bb1b6dd7d0044b51c76432404" at line 1 "{counter}{cycle values="1,2"}" > contains "tag 'cycle' not allowed by security setting".
+
+C:\wamp\www\Smarty3.2\development\PHPunit\SecurityTests.php:124
+
+83) SecurityTests::testSmartyPhpAllowAsp
+asp_tags are disabled
+
+C:\wamp\www\Smarty3.2\development\PHPunit\SecurityTests.php:237
+
+84) SpacingTests::testTagText2
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+ A
++
+ B
+
+C:\wamp\www\Smarty3.2\development\PHPunit\SpacingTests.php:92
+
+85) SpacingTests::testTagText3
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-EF
++E
++F
+
+C:\wamp\www\Smarty3.2\development\PHPunit\SpacingTests.php:98
+
+86) StreamResourceTests::testTemplateStreamExists2
+Failed asserting that <boolean:false> is true.
+
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:120
+
+87) StreamResourceTests::testTemplateStramNotExists3
+Failed asserting that <string:Can not find 'global:notthere'> contains "Unable to load template global 'notthere'".
+
+C:\wamp\www\Smarty3.2\development\PHPunit\StreamResourceTests.php:142
+
+88) TraceCallbacksTests::testFilesystem
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-./templates_c/d09893dcb99d006e5dc24c072259b7fbe0daf635_0.file.helloworld.tpl.cache.php
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\TraceCallbacksTests.php:43
+
+89) VariableCachevalueTests::testRegularCaching
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-55555
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\VariableCachevalueTests.php:36
+
+90) VariableCachevalueTests::testRegularCaching2
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-Unassigned template variable 'v'
++Unassigned template variable 'v' in "5f48f1d770494915e377d243e63f247482e8b1bf" at line 1
+
+C:\wamp\www\Smarty3.2\development\PHPunit\VariableCachevalueTests.php:55
+
+91) VariableScopeTests::testVariableScope23
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-bar
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\VariableScopeTests.php:71
+
+92) VariableScopeTests::testVariableScope3
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-newvalue
++bar
+
+C:\wamp\www\Smarty3.2\development\PHPunit\VariableScopeTests.php:84
+
+93) VariableScopeTests::testVariableScope5
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-newvalue
++oldvalue
+
+C:\wamp\www\Smarty3.2\development\PHPunit\VariableScopeTests.php:133
+
+94) VariableScopeTests::testVariableScope52
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-newvalue
++oldvalue
+
+C:\wamp\www\Smarty3.2\development\PHPunit\VariableScopeTests.php:145
+
+95) VariableScopeTests::testVariableScope6
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-newvalue
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\VariableScopeTests.php:159
+
+96) VariableScopeTests::testVariableScope62
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-newvalue
++
+
+C:\wamp\www\Smarty3.2\development\PHPunit\VariableScopeTests.php:170
+
+97) VariableScopeTests::testDataArray
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-bar bar2
++bar
+
+C:\wamp\www\Smarty3.2\development\PHPunit\VariableScopeTests.php:177
+
+98) VariableScopeTests::testDataArray2
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-bar bar2
++bar
+
+C:\wamp\www\Smarty3.2\development\PHPunit\VariableScopeTests.php:183
+
+99) VariableScopeTests::testAssigns
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+- local  local  local  parent root global parent root global parent root global
++ local  local  local  parent root global parent  global   global
+
+C:\wamp\www\Smarty3.2\development\PHPunit\VariableScopeTests.php:190
+
+FAILURES!
+Tests: 1050, Assertions: 1231, Failures: 99, Errors: 118.

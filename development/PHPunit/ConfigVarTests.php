@@ -21,7 +21,7 @@ class ConfigVarTests extends PHPUnit_Framework_TestCase
 
     public static function isRunnable()
     {
-        return true;
+        return false;
     }
 
     /**

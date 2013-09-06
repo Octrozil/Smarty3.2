@@ -1,0 +1,312 @@
+PHPUnit 3.5.15 by Sebastian Bergmann.
+
+EEEEEEEEEEEEEEEEEEEEEEEFEEEEEEEEEEEEEEE
+
+Time: 2 seconds, Memory: 10.75Mb
+
+There were 38 errors:
+
+1) ConfigVarTests::testConfigNumber
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:32
+
+2) ConfigVarTests::testConfigText
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:38
+
+3) ConfigVarTests::testConfigLine
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:44
+
+4) ConfigVarTests::testConfigVariableGlobalSections
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:50
+
+5) ConfigVarTests::testConfigVariableSection2
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:59
+
+6) ConfigVarTests::testConfigVariableSectionSpecialChar
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:68
+
+7) ConfigVarTests::testConfigVariableSectionFooBar
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:77
+
+8) ConfigVarTests::testConfigVariableScope
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:86
+
+9) ConfigVarTests::testConfigVariableSection2Template
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:98
+
+10) ConfigVarTests::testConfigVariableSection2TemplateShorttags
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:103
+
+11) ConfigVarTests::testConfigVariableLocal
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:111
+
+12) ConfigVarTests::testConfigVariableParent
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:121
+
+13) ConfigVarTests::testConfigVariableGlobal
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:131
+
+14) ConfigVarTests::testConfigVariableHidden
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:143
+
+15) ConfigVarTests::testConfigVariableHiddenDisable
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:155
+
+16) ConfigVarTests::testConfigVariableAllSectionsTemplate
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:165
+
+17) ConfigVarTests::testConfigVariableOverwrite
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:173
+
+18) ConfigVarTests::testConfigVariableOverwrite2
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:178
+
+19) ConfigVarTests::testConfigVariableOverwriteFalse
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:187
+
+20) ConfigVarTests::testConfigVariableArray1
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:197
+
+21) ConfigVarTests::testConfigVariableArray2
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:204
+
+22) ConfigVarTests::testConfigVariableBooleanizeOn
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:213
+
+23) ConfigVarTests::testConfigVariableBooleanizeOff
+Smarty_Exception_Runtime: resource 
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:204
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:135
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:123
+C:\wamp\www\Smarty3.2\lib\Smarty\Smarty.php:1000
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:222
+
+24) ConfigVarTests::testConfigGetSingleConfigVar
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:245
+
+25) ConfigVarTests::testConfigGetAllConfigVars
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:254
+
+26) ConfigVarTests::testConfigClearSingleConfigVar
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:266
+
+27) ConfigVarTests::testConfigClearConfigAll
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:276
+
+28) ConfigVarTests::testConfigTextData
+Undefined offset: 0
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:39
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:443
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:289
+
+29) ConfigVarTests::testConfigGetSingleConfigVarData
+Undefined offset: 0
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:39
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:443
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:299
+
+30) ConfigVarTests::testConfigGetAllConfigVarsData
+Undefined offset: 0
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:39
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:443
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:309
+
+31) ConfigVarTests::testConfigClearSingleConfigVarData
+Undefined offset: 0
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:39
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:443
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:322
+
+32) ConfigVarTests::testConfigClearConfigAllData
+Undefined offset: 0
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Scope.php:39
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:443
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:334
+
+33) ConfigVarTests::testConfigTextTemplate
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:347
+
+34) ConfigVarTests::testConfigGetSingleConfigVarTemplate
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:357
+
+35) ConfigVarTests::testConfigGetAllConfigVarsTemplate
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:367
+
+36) ConfigVarTests::testConfigClearSingleConfigVarTemplate
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:380
+
+37) ConfigVarTests::testConfigClearConfigAllTemplate
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:392
+
+38) ConfigVarTests::testConfigAbsolutePath
+Missing argument 2 for Smarty_Resource_Compiled::getRenderedTemplate(), called in C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php on line 448 and defined
+
+C:\wamp\www\Smarty3.2\lib\Smarty\Resource\Compiled.php:122
+C:\wamp\www\Smarty3.2\lib\Smarty\Variable\Methods.php:448
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:405
+
+--
+
+
+There was 1 failure:
+
+1) ConfigVarTests::testConfigSyntaxError
+Failed asserting that <string:resource > contains "Syntax error in config file".
+
+C:\wamp\www\Smarty3.2\development\PHPunit\ConfigVarTests.php:233
+
+FAILURES!
+Tests: 39, Assertions: 1, Failures: 1, Errors: 38.
