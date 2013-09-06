@@ -1,22 +1,19 @@
 <?php
-
 /**
- * Smarty Extension DefaultVariable Plugin
+ * Smarty Extension
  *
- * Smarty filter methods
+ * Smarty class methods
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  * @author Uwe Tews
  */
 
 /**
- * Class for modifier methods
+ * Class for registerDefaultVariableHandler method
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  */
-class Smarty_Extension_Variable
+class Smarty_Extension_registerDefaultVariableHandler
 {
     /**
      *  Smarty object
@@ -54,18 +51,4 @@ class Smarty_Extension_Variable
 
         return $this->smarty;
     }
-
-    /**
-     * Unregisters a default variable handler
-     *
-     * @api
-     * @return Smarty
-     */
-    public function unregisterDefaultVariableHandler()
-    {
-        $this->smarty->default_variable_handler_func = null;
-
-        return $this->smarty;
-    }
-
 }

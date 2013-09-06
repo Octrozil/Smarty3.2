@@ -1,20 +1,19 @@
 <?php
-
 /**
- * Smarty read include path plugin
+ * Smarty Extension
  *
+ * Smarty class methods
  *
- * @package Smarty
- * @author Monte Ohrt
+ * @package Smarty\Extension
+ * @author Uwe Tews
  */
 
 /**
- * Smarty Internal Read Include Path Class
+ * Class for _GetIncludePath method
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  */
-class Smarty_Extension_Path
+class Smarty_Extension__GetIncludePath
 {
     /**
      *  Smarty object
@@ -37,10 +36,11 @@ class Smarty_Extension_Path
     /**
      * Return full file path from PHP include_path
      *
+     * @internal
      * @param  string $filepath filepath
      * @return string|boolean full filepath or false
      */
-    public function _getIncludePath($filepath)
+    public function _GetIncludePath($filepath)
     {
         static $_include_path_array = null;
 

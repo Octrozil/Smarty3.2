@@ -1,22 +1,19 @@
 <?php
-
 /**
- * Smarty Extension install Plugin
+ * Smarty Extension
  *
- * Smarty filter methods
+ * Smarty class methods
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  * @author Uwe Tews
  */
 
 /**
- * Class for filter methods
+ * Class for testInstall method
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  */
-class Smarty_Extension_Install
+class Smarty_Extension_TestInstall
 {
 
     /**
@@ -40,7 +37,7 @@ class Smarty_Extension_Install
     /**
      * diagnose Smarty setup
      *
-     * If $errors is secified, the diagnostic report will be appended to the array, rather than being output.
+     * If $errors is specified, the diagnostic report will be appended to the array, rather than being output.
      *
      * @param  array $errors array to push results into rather than outputting them
      * @return bool   status, true if everything is fine, false else
@@ -67,7 +64,7 @@ class Smarty_Extension_Install
                     if ($_stream_resolve_include_path) {
                         $template_dir = stream_resolve_include_path($_template_dir);
                     } else {
-                        $template_dir = $this->smarty->_getIncludePath($_template_dir);
+                        $template_dir = $this->smarty->_GetIncludePath($_template_dir);
                     }
                     if ($template_dir !== false) {
                         if ($errors === null) {
@@ -185,7 +182,7 @@ class Smarty_Extension_Install
                     if ($_stream_resolve_include_path) {
                         $plugin_dir = stream_resolve_include_path($_plugin_dir);
                     } else {
-                        $plugin_dir = $this->smarty->_getIncludePath($_plugin_dir);
+                        $plugin_dir = $this->smarty->_GetIncludePath($_plugin_dir);
                     }
                     if ($plugin_dir !== false) {
                         if ($errors === null) {
@@ -314,7 +311,7 @@ class Smarty_Extension_Install
                     if ($_stream_resolve_include_path) {
                         $config_dir = stream_resolve_include_path($_config_dir);
                     } else {
-                        $config_dir = $this->smarty->_getIncludePath($_config_dir);
+                        $config_dir = $this->smarty->_GetIncludePath($_config_dir);
                     }
                     if ($config_dir !== false) {
                         if ($errors === null) {

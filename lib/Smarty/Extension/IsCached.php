@@ -1,20 +1,18 @@
 <?php
 
 /**
- * Smarty Extension IsCache Plugin
+ * Smarty Extension
  *
  * Smarty class methods
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  * @author Uwe Tews
  */
 
 /**
- * Class for modifier methods
+ * Class for isCached method
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  */
 class Smarty_Extension_IsCached
 {
@@ -62,14 +60,14 @@ class Smarty_Extension_IsCached
                 $tpl_obj = $template;
             } else {
                 //get source object from cache  or create new one
-                $source = $this->_load(self::SOURCE, $template);
+                $source = $this->smarty->_load(Smarty::SOURCE, $template);
                 $tpl_obj = $this->smarty;
             }
             if ($source->recompiled) {
                 // recompiled source can't be cached
                 return false;
             }
-            $cache = $tpl_obj->_load(self::CACHE, $source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
+            $cache = $tpl_obj->_load(Smarty::CACHE, $source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
                 isset($cache_id) ? $cache_id : $tpl_obj->cache_id, $tpl_obj->caching);
             if (!$cache->exists) {
                 return false;

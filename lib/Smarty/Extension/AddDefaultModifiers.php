@@ -1,22 +1,20 @@
 <?php
 
 /**
- * Smarty Extension Modifier Plugin
+ * Smarty Extension
  *
- * Smarty filter methods
+ * Smarty class methods
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  * @author Uwe Tews
  */
 
 /**
- * Class for modifier methods
+ * Class for addDefaultModifiers method
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  */
-class Smarty_Extension_Modifier
+class Smarty_Extension_AddDefaultModifiers
 {
     /**
      *  Smarty object
@@ -35,21 +33,6 @@ class Smarty_Extension_Modifier
         $this->smarty = $smarty;
     }
 
-
-    /**
-     * Set default modifiers
-     *
-     * @api
-     * @param  array|string $modifiers modifier or list of modifiers to set
-     * @return Smarty       current Smarty instance for chaining
-     */
-    public function setDefaultModifiers($modifiers)
-    {
-        $this->smarty->default_modifiers = (array)$modifiers;
-
-        return $this->smarty;
-    }
-
     /**
      * Add default modifiers
      *
@@ -66,16 +49,5 @@ class Smarty_Extension_Modifier
         }
 
         return $this->smarty;
-    }
-
-    /**
-     * Get default modifiers
-     *
-     * @api
-     * @return array list of default modifiers
-     */
-    public function getDefaultModifiers()
-    {
-        return $this->smarty->default_modifiers;
     }
 }

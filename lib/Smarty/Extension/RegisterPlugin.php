@@ -1,22 +1,20 @@
 <?php
 
 /**
- * Smarty Extension Plugin Plugin
+ * Smarty Extension
  *
- * Smarty filter methods
+ * Smarty class methods
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  * @author Uwe Tews
  */
 
 /**
- * Class for filter methods
+ * Class for registerPlugin method
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  */
-class Smarty_Extension_Plugin
+class Smarty_Extension_RegisterPlugin
 {
     /**
      *  Smarty object
@@ -58,55 +56,6 @@ class Smarty_Extension_Plugin
             }
             $this->smarty->registered_plugins[$type][$tag] = array($callback, (bool)$cacheable, (array)$cache_attr);
         }
-
-        return $this->smarty;
-    }
-
-    /**
-     * Unregister Plugin
-     *
-     * @api
-     * @param  string $type of plugin
-     * @param  string $tag  name of plugin
-     * @return Smarty
-     */
-    public function unregisterPlugin($type, $tag)
-    {
-        if (isset($this->smarty->registered_plugins[$type][$tag])) {
-            unset($this->smarty->registered_plugins[$type][$tag]);
-        }
-
-        return $this->smarty;
-    }
-
-    /**
-     * Registers a default plugin handler
-     *
-     * @api
-     * @param  callable $callback class/method name
-     * @return Smarty
-     * @throws Smarty_Exception if $callback is not callable
-     */
-    public function registerDefaultPluginHandler($callback)
-    {
-        if (is_callable($callback)) {
-            $this->smarty->default_plugin_handler_func = $callback;
-        } else {
-            throw new Smarty_Exception("registerDefaultPluginHandler(): Invalid callback");
-        }
-
-        return $this->smarty;
-    }
-
-    /**
-     * Unregisters a default plugin handler
-     *
-     * @api
-     * @return Smarty
-     */
-    public function unregisterDefaultPluginHandler()
-    {
-        $this->smarty->default_plugin_handler_func = null;
 
         return $this->smarty;
     }

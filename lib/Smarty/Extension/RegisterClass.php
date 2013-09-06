@@ -1,22 +1,19 @@
 <?php
-
 /**
- * Smarty Extension Class Plugin
+ * Smarty Extension
  *
  * Smarty class methods
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  * @author Uwe Tews
  */
 
 /**
- * Class for modifier methods
+ * Class for registerClass method
  *
- *
- * @package Smarty
+ * @package Smarty\Extension
  */
-class Smarty_Extension_Class
+class Smarty_Extension_RegisterClass
 {
     /**
      *  Smarty object
@@ -53,25 +50,6 @@ class Smarty_Extension_Class
         }
         // register the class
         $this->smarty->registered_classes[$class_name] = $class_impl;
-
-        return $this->smarty;
-    }
-
-
-    /**
-     * Unregister static class
-     *
-     * @api
-     * @param  string $class_name  name of class or null
-     * @return Smarty
-     */
-    public function unregisterClass($class_name = null)
-    {
-        if ($class_name == null) {
-            $this->smarty->registered_classes = array();
-        } else {
-            unset($this->smarty->registered_classes[$class_name]);
-        }
 
         return $this->smarty;
     }
