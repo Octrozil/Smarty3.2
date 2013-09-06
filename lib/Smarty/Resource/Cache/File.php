@@ -243,7 +243,8 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
-            throw new Smarty_Exception_Runtime('resource ', -1, null, null, $e);
+//            throw new Smarty_Exception_Runtime('resource ', -1, null, null, $e);
+            throw $e;
         }
         return $template_obj;
     }
@@ -295,8 +296,8 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
         if (!$browser_cache_valid) {
             $output = $template_obj->getRenderedTemplate($scope_type, $data, $no_output_filter);
             $smarty->is_nocache = false;
-            if ($template_obj->has_nocache_code && !$no_output_filter && (isset($smarty->autoload_filters['output']) || isset($smarty->_smarty_extensions['Smarty_Extension_Filter']->registered_filters['output']))) {
-                $output = $smarty->_runFilter('output', $output);
+            if ($template_obj->has_nocache_code && !$no_output_filter && (isset($smarty->autoload_filters['output']) || isset($smarty->registered_filters['output']))) {
+                $output = $smarty->_RunFilter('output', $output);
             }
             return $output;
         } else {
@@ -408,7 +409,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
         $_time = time();
 
         if (isset($resource_name)) {
-            $source = $this->_load(Smarty::SOURCE, $resource_name);
+            $source = $smarty->_load(Smarty::SOURCE, $resource_name);
             if ($source->exists) {
                 // set basename if not specified
                 $_basename = $source->getBasename($source);
@@ -534,7 +535,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
                             if (@rmdir($_dir) === false) {
                                 break;
                             }
-                            $_dir = substr($_dir, 0, strrpos(substr($_dir, 0, -1), DS) + 1);
+                            $_dir = substr($_dir, 0, strrpos(substr($_dir, 0, -1), '/') + 1);
                         }
                     }
                 }

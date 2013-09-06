@@ -229,7 +229,7 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
                     if ($_stream_resolve_include_path) {
                         $_filepath = stream_resolve_include_path($_filepath);
                     } else {
-                        $_filepath = $smarty->_getIncludePath($_filepath);
+                        $_filepath = $smarty->_GetIncludePath($_filepath);
                     }
                     if ($_filepath !== false) {
                         if ($this->fileExists($_filepath)) {

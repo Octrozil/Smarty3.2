@@ -131,7 +131,7 @@ class Smarty_Resource_Cache_Helper_Create extends Smarty_Exception_Magic
             }
         }
         if (!$no_output_filter && !$this->has_nocache_code && (isset($tpl_obj->autoload_filters['output']) || isset($tpl_obj->registered_filters['output']))) {
-            $this->template_code->buffer =  $tpl_obj->_runFilter('output', $this->template_code->buffer);
+            $this->template_code->buffer =  $tpl_obj->_RunFilter('output', $this->template_code->buffer);
         }
         // write cache file content
         if (!$cache_obj->source->recompiled && ($cache_obj->caching == Smarty::CACHING_LIFETIME_CURRENT || $cache_obj->caching == Smarty::CACHING_LIFETIME_SAVED)) {
