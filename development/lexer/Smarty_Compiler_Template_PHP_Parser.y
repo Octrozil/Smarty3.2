@@ -485,9 +485,9 @@ attribute(res)   ::= ATTR(v) expr(e). {
     res = array(trim(v," =\n\r\t")=>e);
 }
 
-attribute(res)   ::= ATTR(v) value(e). {
-    res = array(trim(v," =\n\r\t")=>e);
-}
+//attribute(res)   ::= ATTR(v) value(e). {
+//    res = array(trim(v," =\n\r\t")=>e);
+//}
 
 attribute(res)   ::= SPACE ID(v). {
     res = "'".v."'";
@@ -497,9 +497,9 @@ attribute(res)   ::= SPACE expr(e). {
     res = e;
 }
 
-attribute(res)   ::= SPACE value(v). {
-    res = v;
-}
+//attribute(res)   ::= SPACE value(v). {
+//    res = v;
+//}
 
 attribute(res)   ::= SPACE INTEGER(i) EQUAL expr(e). {
     res = array(i=>e);
@@ -519,12 +519,10 @@ statements(res)   ::= statements(s1) COMMA statement(s). {
     res = s1;
 }
 
-//statement(res)    ::= varvar(v) EQUAL expr(e). {
-//    res = array('var' => v, 'value'=>e);
-//}
 
 statement(res)    ::= varindexed(vi) EQUAL expr(e). {
-    res = array('var' => vi, 'value'=>e);
+    res = vi;
+    res['value'] = e;
 }
 
 statement(res)    ::= OPENP statement(st) CLOSEP. {
@@ -856,11 +854,11 @@ arrayindex        ::= . {
 // single index definition
                     // Smarty2 style index 
 indexdef(res)    ::= DOT varvar(v).  {
-    res = '['.v.']';
+    res = '['.$this->compiler->compileVariable(v).']';
 }
 
 indexdef(res)    ::= DOT varvar(v) AT ID(p). {
-    res = '['.v.'->'.p.']';
+    res = '['.$this->compiler->compileVariable(v).'->'.p.']';
 }
 
 indexdef(res)   ::= DOT ID(i). {
@@ -869,6 +867,11 @@ indexdef(res)   ::= DOT ID(i). {
 
 indexdef(res)   ::= DOT INTEGER(n). {
     res = "[". n ."]";
+}
+
+// tricky handling of  d.d  in index
+indexdef(res)   ::= DOT NUMBER(n). {
+    res = "[". implode('][', explode('.', n)) ."]";
 }
 
 indexdef(res)   ::= DOT ldelexprrdel(e). {

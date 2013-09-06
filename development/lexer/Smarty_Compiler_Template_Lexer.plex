@@ -27,6 +27,7 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
     Public $rdel;
     Public $rdel_length;
     Public $ldel_length;
+    Public $dqtag = false;
     Public $mbstring_overload;
     private $heredoc_id_stack = Array();
     public static $yyTraceFILE;
@@ -148,7 +149,7 @@ ldel = /(\s*SMARTYldel\-\-|[^\S\r\n]*SMARTYldel\-|SMARTYldel)\s*/
 rdel = /\s*(SMARTYrdel|--SMARTYrdel\s*|-SMARTYrdel[^\S\r\n]*)/
 slash = /\//
 integer = /\d+/
-number =  /0[xX][0-9a-fA-F]+|\d+\.\d*/
+number =  /0[xX][0-9a-fA-F]+|\d+\.\d+/
 comment = /\*([\S\s]*?)\*/
 math = /\s*(\*|\/|\%)\s*/
 idincdec = /\$[0-9]*[a-zA-Z_]\w*(\+\+|\-\-)/
@@ -627,17 +628,6 @@ ldel foreach {
      $this->taglineno = $this->line;
   }
 }
-ldel slash {
-  $parser_class = $this->parser_class;
-  if ($this->autoLiteral($this->value)) {
-    $this->token = $parser_class::TP_TEXT;
-    $this->yypushstate(self::TEXT);
-  } else {
-    $this->token = $parser_class::TP_LDELSLASH;
-    $this->yypushstate(self::SMARTY);
-    $this->taglineno = $this->line;
-  }
-}
 ldel comment rdel {
   $parser_class = $this->parser_class;
   if ($this->autoLiteral($this->value)) {
@@ -727,24 +717,20 @@ text {
 /*!lex2php
 %statename DOUBLEQUOTEDSTRING
 
-ldel dollarid{
-  $parser_class = $this->parser_class;
-  if ($this->autoLiteral($this->value)) {
-    $this->token = $parser_class::TP_TEXT;
-  } else {
-     $this->token = $parser_class::TP_DQTAG;
-     $this->yypushstate(self::SMARTY);
-     $this->value = '';
-  }
-}
 ldel {
   $parser_class = $this->parser_class;
   if ($this->autoLiteral($this->value)) {
     $this->token = $parser_class::TP_TEXT;
   } else {
-     $this->token = $parser_class::TP_DQTAG;
-     $this->yypushstate(self::SMARTY);
-     $this->value = '';
+    if($this->dqtag) {
+       $this->dqtag = false;
+       $this->token = $parser_class::TP_LDEL;
+        $this->yypushstate(self::SMARTY);
+    } else {
+       $this->dqtag = true;
+       $this->token = $parser_class::TP_DQTAG;
+       $this->value = '';
+    }
   }
 }
 double_quote {
