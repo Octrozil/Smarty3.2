@@ -174,13 +174,16 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
     /**
      * test mustCompile on touched source file
      */
-    public function testMustCompileTouchedSource()
+    public function testMustCompileTouchedSource1()
     {
         $this->smarty->force_compile = false;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         touch($tpl->source->filepath);
-        // reset cache for this test to work
-        unset($tpl->source->timestamp);
+    }
+    public function testMustCompileTouchedSource2()
+    {
+        $this->smarty->force_compile = false;
+        $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->assertTrue($tpl->mustCompile);
         // clean up for next tests
         $this->smarty->clearCompiledTemplate();
@@ -192,7 +195,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
     public function testCompileTemplateFile()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $tpl->compiler->compileTemplateSource($tpl);
+        $this->assertTrue($tpl->compileTemplate());
     }
 
     /**

@@ -39,7 +39,7 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase
 
     public function testNone()
     {
-        $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        $resource_handler = new Smarty_Resource_Source_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->default_resource_type = 'ambiguous';
         $this->smarty->allow_ambiguous_resources = true;
@@ -50,7 +50,7 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase
 
     public function testCase1()
     {
-        $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        $resource_handler = new Smarty_Resource_Source_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->default_resource_type = 'ambiguous';
         $this->smarty->allow_ambiguous_resources = true;
@@ -64,7 +64,7 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase
 
     public function testCase2()
     {
-        $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        $resource_handler = new Smarty_Resource_Source_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->default_resource_type = 'ambiguous';
         $this->smarty->allow_ambiguous_resources = true;
@@ -78,7 +78,7 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase
 
     public function testCaseSwitching()
     {
-        $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        $resource_handler = new Smarty_Resource_Source_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->default_resource_type = 'ambiguous';
         $this->smarty->allow_ambiguous_resources = true;

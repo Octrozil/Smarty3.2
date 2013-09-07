@@ -93,10 +93,37 @@ class StringResourceTests extends PHPUnit_Framework_TestCase
     /**
      * test mustCompile
      */
-    public function testMustCompile()
+    public function testMustCompile1()
     {
         $tpl = $this->smarty->createTemplate('string:hello world');
-        $this->assertTrue(!$tpl->compiled->isValid);
+        $this->assertTrue(!$tpl->isCompiled());
+    }
+
+    /**
+     * test mustCompile
+     */
+    public function testMustCompile2()
+    {
+        $tpl = $this->smarty->createTemplate('string:hello world');
+        $this->assertTrue($tpl->mustCompile);
+    }
+
+    /**
+     * test getRenderedTemplate
+     */
+    public function testGetRenderedTemplate()
+    {
+        $tpl = $this->smarty->createTemplate('string:hello world');
+        $this->assertEquals('hello world', $tpl->fetch());
+    }
+
+    /**
+     * test mustCompile
+     */
+    public function testMustCompile3()
+    {
+        $tpl = $this->smarty->createTemplate('string:hello world');
+        $this->assertFalse($tpl->mustCompile);
     }
 
     /**
@@ -142,15 +169,6 @@ class StringResourceTests extends PHPUnit_Framework_TestCase
     {
         $tpl = $this->smarty->createTemplate('string:hello world');
         $this->assertFalse($tpl->isCached());
-    }
-
-    /**
-     * test getRenderedTemplate
-     */
-    public function testGetRenderedTemplate()
-    {
-        $tpl = $this->smarty->createTemplate('string:hello world');
-        $this->assertEquals('hello world', $tpl->fetch());
     }
 
     /**

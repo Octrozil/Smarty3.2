@@ -6,7 +6,7 @@
  * @package Resource-examples
  * @author Rodney Rehm
  */
-class Smarty_Resource_Ambiguous extends Smarty_Resource_Source_File
+class Smarty_Resource_Source_Ambiguous extends Smarty_Resource_Source_File
 {
 
     protected $directory;
@@ -25,7 +25,6 @@ class Smarty_Resource_Ambiguous extends Smarty_Resource_Source_File
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty_Template_Source $source    source object
      * @param Smarty $_template template object
      */
     public function populate(Smarty $tpl_obj = null)
@@ -35,11 +34,11 @@ class Smarty_Resource_Ambiguous extends Smarty_Resource_Source_File
             $segment = rtrim($this->segment, "/\\") . '/';
         }
 
-        $source->filepath = $this->directory . $segment . $source->name;
-        $source->uid = sha1($source->filepath);
-        if ($source->smarty->compile_check && !isset($source->timestamp)) {
-            $source->timestamp = @filemtime($source->filepath);
-            $source->exists = !!$source->timestamp;
+        $this->filepath = $this->directory . $segment . $this->name;
+        $this->uid = sha1($this->filepath);
+        if ($tpl_obj->compile_check && !isset($this->timestamp)) {
+            $this->timestamp = @filemtime($this->filepath);
+            $this->exists = !!$this->timestamp;
         }
     }
 }

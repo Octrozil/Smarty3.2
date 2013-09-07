@@ -40,7 +40,7 @@ class CompileForTests extends PHPUnit_Framework_TestCase
     public function testFor3()
     {
         $tpl = $this->smarty->createTemplate('eval:{for $x=10;$x<10;$x++}{$x}{forelse} else {/for}');
-        $this->assertEquals("else", $this->smarty->fetch($tpl));
+        $this->assertEquals(" else ", $this->smarty->fetch($tpl));
     }
 
     public function testFor4()
@@ -52,7 +52,7 @@ class CompileForTests extends PHPUnit_Framework_TestCase
     public function testFor5()
     {
         $tpl = $this->smarty->createTemplate('eval:{for $x=-1;$x>=0;$x--}{$x}{forelse} else {/for}');
-        $this->assertEquals("else", $this->smarty->fetch($tpl));
+        $this->assertEquals(" else ", $this->smarty->fetch($tpl));
     }
 
     public function testFor6()

@@ -9,10 +9,10 @@ include '_runTest.inc.php';
 include '_runDebugTest.inc.php';
 
 // place request PHPunit test class here or leave empty for all
-$_classes = 'FileResourceTests';
+$_classes = 'CustomResourceAmbiguousTests';
 
 // place method name for a singe test here or leave empty for all
-$function = array('testSmartyIsCached');
+$function = array();
 
 // clean up
 SmartyTests::$smarty->clearAllCache();
@@ -81,7 +81,7 @@ foreach ((array)$_classes as $class) {
     SmartyTests::$smarty->caching_type = 'file';
     SmartyTests::$smarty->compiled_type = 'file';
     SmartyTests::$smarty->default_resource_type = 'file';
-//    SmartyTests::$smarty->clearAllCache();
+    SmartyTests::$smarty->clearAllCache();
     SmartyTests::$smarty->clearCompiledTemplate();
 
     // repeat tests which did fail
