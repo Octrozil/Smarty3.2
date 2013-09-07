@@ -237,7 +237,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
             array_shift(self::$call_stack);
             // any unclosed {capture} tags ?
             if (isset($this->_capture_stack[0][0])) {
-                $this->tpl_obj->_capture_error();
+                throw new Smarty_Exception_CaptureError();
             }
             array_shift($this->_capture_stack);
         } catch (Exception $e) {
@@ -253,7 +253,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
             Smarty_Resource_Cache::$creator[0]->_mergeFromCompiled($this);
         }
         if (!$no_output_filter && (isset($this->tpl_obj->autoload_filters['output']) || isset($this->tpl_obj->registered_filters['output']))) {
-            $output = $this->tpl_obj->_RunFilter('output', $output);
+            $output = $this->tpl_obj->runFilter('output', $output);
         }
 
         if ($this->tpl_obj->debugging) {
@@ -303,6 +303,11 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
                     }
                     $this->_tpl_vars = $ptr->_tpl_vars;
                     break;
+            }
+            if ($this->tpl_obj->usage == Smarty::IS_TEMPLATE) {
+                foreach ($this->tpl_obj->_tpl_vars as $var => $data) {
+                    $this->_tpl_vars->$var = $data;
+                }
             }
         } else {
             $this->_tpl_vars = $this->parent->_tpl_vars;

@@ -19,6 +19,12 @@
  */
 class Smarty_Resource_Source_Registered extends Smarty_Resource_Source_File
 {
+    /**
+     *  Smarty object
+     *
+     * @var Smarty
+     */
+    public $smarty = null;
 
     /**
      * populate Source Object with meta data from Resource
@@ -27,6 +33,7 @@ class Smarty_Resource_Source_Registered extends Smarty_Resource_Source_File
      */
     public function populate(Smarty $smarty)
     {
+        $this->smarty = $smarty;
         $this->filepath = $this->type . ':' . $this->name;
         $this->uid = sha1($this->filepath);
         if ($smarty->compile_check) {
@@ -48,7 +55,6 @@ class Smarty_Resource_Source_Registered extends Smarty_Resource_Source_File
     /**
      * Get timestamp (epoch) the template source was modified
      *
-     * @todo must rethink registered resources
      * @return integer|boolean timestamp (epoch) the template was modified, false if resources has no timestamp
      */
     public function getTemplateTimestamp()
@@ -85,5 +91,4 @@ class Smarty_Resource_Source_Registered extends Smarty_Resource_Source_File
     {
         return basename($this->name);
     }
-
 }

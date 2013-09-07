@@ -9,11 +9,11 @@
  */
 
 /**
- * Class for _RunFilter method
+ * Class for runFilter method
  *
  * @package Smarty\Extension
  */
-class Smarty_Extension__RunFilter
+class Smarty_Extension_RunFilter
 {
     /**
      *  Smarty object
@@ -46,7 +46,7 @@ class Smarty_Extension__RunFilter
      * @throws Smarty_Exception
      * @return string           the filtered content
      */
-    public function _RunFilter($type, $content)
+    public function runFilter($type, $content)
     {
         $output = $content;
         // loop over autoload filters of specified type

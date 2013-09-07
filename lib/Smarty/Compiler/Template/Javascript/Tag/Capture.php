@@ -111,7 +111,7 @@ class Smarty_Compiler_Template_Javascript_Tag_CaptureClose extends Smarty_Compil
         $this->outdent()->php("}")->newline();
         $this->php("Smarty::\$_smarty_vars['capture'][\$_capture_buffer]=ob_get_clean();")->newline();
         $this->outdent()->php("} else {")->newline()->indent();
-        $this->php("\$_smarty_tpl->_capture_error();")->newline();
+        $this->php("throw new Smarty_Exception_CaptureError();")->newline();
         $this->outdent()->php("}")->newline();
 
         return $this->returnTagCode($compiler);

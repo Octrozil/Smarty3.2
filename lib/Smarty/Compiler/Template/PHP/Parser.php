@@ -2369,7 +2369,7 @@ static public $yy_action = array(
 #line 2366 "Smarty_Compiler_Template_Php_Parser.php"
 #line 800 "Smarty_Compiler_Template_Php_Parser.y"
     function yy_r108(){
-    if ($this->yystack[$this->yyidx + 0]->minor['var'] == '\'smarty\'') {
+    if ($this->yystack[$this->yyidx + 0]->minor['var'] == 'smarty') {
         $this->_retvalue = $this->compiler->compileTag('Internal_SpecialVariable',array(),$this->yystack[$this->yyidx + 0]->minor['smarty_internal_index']);
     } else {
         $this->_retvalue = $this->compiler->compileVariable($this->yystack[$this->yyidx + 0]->minor['var']).$this->yystack[$this->yyidx + 0]->minor['smarty_internal_index'];

@@ -9,11 +9,11 @@
  */
 
 /**
- * Class for _GetIncludePath method
+ * Class for getIncludePath method
  *
  * @package Smarty\Extension
  */
-class Smarty_Extension__GetIncludePath
+class Smarty_Extension_GetIncludePath
 {
     /**
      *  Smarty object
@@ -40,7 +40,7 @@ class Smarty_Extension__GetIncludePath
      * @param  string $filepath filepath
      * @return string|boolean full filepath or false
      */
-    public function _GetIncludePath($filepath)
+    public function getIncludePath($filepath)
     {
         static $_include_path_array = null;
 

@@ -75,14 +75,26 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
     /**
      * populate Compiled Resource Object with meta data from Resource
      *
-     * @param  Smarty                       $smarty     Smarty object
-     * @return void
+     * @param  Smarty $smarty     Smarty object
+     * @return boolean  true if file exits
      */
     public function populate(Smarty $smarty)
     {
         $this->filepath = $this->buildFilepath($smarty);
         $this->timestamp = @filemtime($this->filepath);
-        $this->exists = !!$this->timestamp;
+        return $this->exists = !!$this->timestamp;
+    }
+
+    /**
+     * populate Cached Object with timestamp and exists from Resource
+     *
+     * @param  Smarty $smarty     Smarty object
+     * @return boolean  true if file exits
+     */
+    public function populateTimestamp(Smarty $tpl_obj)
+    {
+        $this->timestamp = @filemtime($this->filepath);
+        return $this->exists = !!$this->timestamp;
     }
 
     /**
@@ -99,7 +111,7 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
     /**
      * populate Compiled Object with compiled filepath
      *
-     * @param  Smarty                       $smarty     Smarty object
+     * @param  Smarty $smarty     Smarty object
      * @return string
      */
     public function buildFilepath($smarty)
@@ -151,98 +163,6 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
     public function getRenderedTemplate($tpl_obj, $parent, $scope_type = Smarty::SCOPE_LOCAL, $data = null, $no_output_filter = true)
     {
         return $this->instanceTemplate($tpl_obj, $parent)->getRenderedTemplate($scope_type, $data, $no_output_filter);
-    }
-
-    /**
-     * Delete compiled template file
-     *
-     * @param  Smarty $smarty            Smarty instance
-     * @param  string $template_resource template name
-     * @param  string $compile_id        compile id
-     * @param  integer $exp_time          expiration time
-     * @return integer number of template files deleted
-     */
-    public function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time,  $is_config)
-    {
-        $_compile_dir = $smarty->getCompileDir();
-        $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
-        $compiletime_options = 0;
-        $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
-        if (isset($template_resource)) {
-            $source = $smarty->_load(Smarty::SOURCE, $template_resource);
-           if ($source->exists) {
-                // set basename if not specified
-                $_basename = $source->getBasename($source);
-                if ($_basename === null) {
-                    $_basename = basename(preg_replace('![^\w\/]+!', '_', $source->name));
-                }
-                // separate (optional) basename by dot
-                if ($_basename) {
-                    $_basename = '.' . $_basename;
-                }
-                $_resource_part_1 = $source->uid . '_' . $compiletime_options . '.' . $source->type . $_basename . '.php';
-                $_resource_part_1_length = strlen($_resource_part_1);
-            } else {
-                return 0;
-            }
-
-            $_resource_part_2 = str_replace('.php', '.cache.php', $_resource_part_1);
-            $_resource_part_2_length = strlen($_resource_part_2);
-        }
-        $_dir = $_compile_dir;
-        if ($smarty->use_sub_dirs && isset($_compile_id)) {
-            $_dir .= $_compile_id . $_dir_sep;
-        }
-        if (isset($_compile_id)) {
-            $_compile_id_part = $_compile_dir . $_compile_id . $_dir_sep;
-        }
-        $_count = 0;
-        try {
-            $_compileDirs = new RecursiveDirectoryIterator($_dir);
-            // NOTE: UnexpectedValueException thrown for PHP >= 5.3
-        } catch (Exception $e) {
-            return 0;
-        }
-        $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
-        foreach ($_compile as $_file) {
-            if (substr($_file->getBasename(), 0, 1) == '.' || strpos($_file, '.svn') !== false)
-                continue;
-
-            $_filepath = (string)$_file;
-
-            if ($_file->isDir()) {
-                if (!$_compile->isDot()) {
-                    // delete folder if empty
-                    @rmdir($_file->getPathname());
-                }
-            } else {
-                $unlink = false;
-                if ((!isset($_compile_id) || strpos($_filepath, $_compile_id_part) === 0)
-                    && (!isset($template_resource)
-                        || (isset($_filepath[$_resource_part_1_length])
-                            && substr_compare($_filepath, $_resource_part_1, -$_resource_part_1_length, $_resource_part_1_length) == 0)
-                        || (isset($_filepath[$_resource_part_2_length])
-                            && substr_compare($_filepath, $_resource_part_2, -$_resource_part_2_length, $_resource_part_2_length) == 0))
-                ) {
-                    if (isset($exp_time)) {
-                        if (time() - @filemtime($_filepath) >= $exp_time) {
-                            $unlink = true;
-                        }
-                    } else {
-                        $unlink = true;
-                    }
-                }
-
-                if ($unlink && @unlink($_filepath)) {
-                    $_count++;
-                    if ($smarty->enable_trace) {
-                        // notify listeners of deleted file
-                        $smarty->triggerTraceCallback('filesystem:delete', array($smarty, $path));
-                    }
-                }
-            }
-        }
-       return $_count;
     }
 
     /**
@@ -314,13 +234,14 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
                     if ($smarty->debugging) {
                         Smarty_Debug::end_compile($this->source);
                     }
+                    $this->populateTimestamp($smarty);
                     $this->loadTemplateClass($this);
                     if (class_exists($this->class_name, false)) {
                         $template_obj = new $this->class_name($smarty, $parent, $this->source);
                         $isValid = $template_obj->isValid;
                     }
                     if (!$isValid) {
-                        throw new Smarty_Exception("Unable to load compiled template file '{$this->filepath}'");
+                        throw new FileLoadError('compiled template', $this->filepath);
                     }
                 }
             }
@@ -337,18 +258,16 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
     /**
      * Delete compiled template file
      *
-     * @param  Smarty $smarty            smarty object
+     * @internal
+     * @param  Smarty $smarty            Smarty instance
      * @param  string $template_resource template name
      * @param  string $compile_id        compile id
      * @param  integer $exp_time          expiration time
      * @return integer number of template files deleted
      */
-    public static function clearCompiledTemplate(Smarty $smarty, $template_resource, $compile_id, $exp_time)
+    public function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time, $is_config)
     {
-        // load cache resource and call clear
-        $_compiled_resource = $smarty->_loadResource(Smarty::COMPILED, $smarty->compiled_type);
-//        Smarty_Compiled_Resource::invalidLoadedCache($smarty);
-        return $_compiled_resource->clear($template_resource, $compile_id, $exp_time, $smarty);
-
+        // is external to save memory
+        return Smarty_Resource_Compiled_Extension_File::clear($smarty, $template_resource, $compile_id, $exp_time, $is_config);
     }
 }

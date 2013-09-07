@@ -60,7 +60,7 @@ abstract class Smarty_Resource_Source_Uncompiled extends Smarty_Resource_Source_
             throw $e;
         }
         if ($tpl_obj->caching) {
-            $cached = Smarty_Resource_Cache_Helper_Create::_getCachedObject($tpl_obj);
+            $cached = Smarty_Resource_Cache_Extension_Create::_getCachedObject($tpl_obj);
             $cached->newcache->file_dependency[$source->uid] = array($source->filepath, $source->timestamp, $source->type);
         }
         return $output;

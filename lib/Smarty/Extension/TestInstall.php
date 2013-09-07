@@ -64,7 +64,7 @@ class Smarty_Extension_TestInstall
                     if ($_stream_resolve_include_path) {
                         $template_dir = stream_resolve_include_path($_template_dir);
                     } else {
-                        $template_dir = $this->smarty->_GetIncludePath($_template_dir);
+                        $template_dir = $this->smarty->getIncludePath($_template_dir);
                     }
                     if ($template_dir !== false) {
                         if ($errors === null) {
@@ -182,7 +182,7 @@ class Smarty_Extension_TestInstall
                     if ($_stream_resolve_include_path) {
                         $plugin_dir = stream_resolve_include_path($_plugin_dir);
                     } else {
-                        $plugin_dir = $this->smarty->_GetIncludePath($_plugin_dir);
+                        $plugin_dir = $this->smarty->getIncludePath($_plugin_dir);
                     }
                     if ($plugin_dir !== false) {
                         if ($errors === null) {
@@ -311,7 +311,7 @@ class Smarty_Extension_TestInstall
                     if ($_stream_resolve_include_path) {
                         $config_dir = stream_resolve_include_path($_config_dir);
                     } else {
-                        $config_dir = $this->smarty->_GetIncludePath($_config_dir);
+                        $config_dir = $this->smarty->getIncludePath($_config_dir);
                     }
                     if ($config_dir !== false) {
                         if ($errors === null) {

@@ -10,11 +10,11 @@
  */
 
 /**
- * Class for isCompiled method
+ * Class for compileTemplate method
  *
  * @package Smarty\Extension
  */
-class Smarty_Extension_IsCompiled
+class Smarty_Extension_CompileTemplate
 {
 
     /**
@@ -43,11 +43,8 @@ class Smarty_Extension_IsCompiled
      * @param  object $parent     next higher level of Smarty variables
      * @return boolean       cache status
      */
-    public function isCompiled($template = null, $compile_id = null, $parent = null)
+    public function compileTemplate($template = null, $compile_id = null, $parent = null)
     {
-        if ($this->smarty->force_compile) {
-            return false;
-        }
         if ($template === null && ($this->smarty->usage == Smarty::IS_TEMPLATE || $this->smarty->usage == Smarty::IS_CONFIG)) {
             $template = $this->smarty;
         }
@@ -63,10 +60,6 @@ class Smarty_Extension_IsCompiled
             }
             $tpl_obj = $this->smarty;
         }
-        if ($source->recompiled) {
-            // recompiled source returns always false
-            return false;
-        }
         if ($source->uncompiled) {
             // uncompiled source returns always false
             return true;
@@ -74,15 +67,17 @@ class Smarty_Extension_IsCompiled
         try {
             $compiled = $tpl_obj->_load(Smarty::COMPILED, $source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
                 $tpl_obj->caching);
-            if (!$compiled->exists || $compiled->timestamp < $source->timestamp) {
-                return false;
+            if ($tpl_obj->debugging) {
+                Smarty_Debug::start_compile($source);
             }
-            $compiled->loadTemplateClass();
-            if (class_exists($compiled->class_name, false)) {
-                $template_obj =  new $compiled->class_name($this->smarty, $parent, $compiled->source);
-                return  $template_obj->isValid;
+            $compiler = Smarty_Compiler::load($tpl_obj, $compiled->source, $compiled->caching);
+            $compiler->compileTemplateSource($compiled);
+            $compiled->populateTimestamp($tpl_obj);
+            unset($compiler);
+            if ($tpl_obj->debugging) {
+                Smarty_Debug::end_compile($source);
             }
-            return false;
+            return true;
         } catch (Exception $e) {
             throw $e;
         }

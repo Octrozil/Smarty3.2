@@ -980,7 +980,7 @@ class Smarty extends Smarty_Variable_Methods
             $source = $this->_load(self::SOURCE, $template);
             // checks if source exists
             if (!$source->exists) {
-                throw new Smarty_Exception("Can not find '{$source->type}:{$source->name}'");
+                throw new Smarty_Exception_SourceNotFound($source->type, $source->name);
             }
             $tpl_obj = $this;
         }
@@ -1103,7 +1103,7 @@ class Smarty extends Smarty_Variable_Methods
         $source = $this->_load(self::SOURCE, $template_resource, $is_config);
         // checks if source exists
         if (!$source->exists) {
-            throw new Smarty_Exception("Can not find '{$source->type}:{$source->name}'");
+            throw new Smarty_Exception_SourceNotFound($source->type, $source->name);
         }
         $tpl_obj->source = $source;
         $tpl_obj->_tpl_vars = new Smarty_Variable_Scope();
@@ -1143,31 +1143,6 @@ class Smarty extends Smarty_Variable_Methods
         return $source->exists;
     }
 
-    /**
-     * Returns a single or all global  variables
-     *
-     * @param  string $varname variable name or null
-     * @return string variable value or or array of variables
-     */
-    public function getGlobal($varname = null)
-    {
-        if (isset($varname)) {
-            if (isset(self::$_global_tpl_vars->{$varname}->value)) {
-                return self::$_global_tpl_vars->{$varname}->value;
-            } else {
-                return '';
-            }
-        } else {
-            $_result = array();
-            foreach (self::$_global_tpl_vars AS $key => $var) {
-                if (strpos($key, '___') !== 0) {
-                    $_result[$key] = $var->value;
-                }
-            }
-
-            return $_result;
-        }
-    }
 
     /**
      * Loads security class and enables security
@@ -1372,287 +1347,6 @@ class Smarty extends Smarty_Variable_Methods
     }
 
     /**
-     * return name of debugging template
-     *
-     * @api
-     * @return string
-     */
-    public function getDebugTemplate()
-    {
-        return $this->debug_tpl;
-    }
-
-    /**
-     * set the debug template
-     *
-     * @api
-     * @param  string $tpl_name
-     * @return Smarty           current Smarty instance for chaining
-     * @throws Smarty_Exception if file is not readable
-     */
-    public function setDebugTemplate($tpl_name)
-    {
-        if (!is_readable($tpl_name)) {
-            throw new Smarty_Exception("setDebugTemplate(): Unknown file '{$tpl_name}'");
-        }
-        $this->debug_tpl = $tpl_name;
-
-        return $this;
-    }
-
-
-    /**
-     * Takes unknown classes and loads plugin files for them
-     * class name format: Smarty_PluginType_PluginName
-     * plugin filename format: plugintype.pluginname.php
-     *
-     * @internal
-     * @param  string $plugin_name    plugin or class name
-     * @param  bool $check          check if already loaded
-     * @throws Smarty_Exception
-     * @return string|boolean   filepath of loaded plugin | true if it was a Smarty core class || false if not found
-     */
-    public function _loadPlugin($plugin_name, $check = true)
-    {
-        if ($check) {
-            // if function or class exists, exit silently (already loaded)
-            if (is_callable($plugin_name) || class_exists($plugin_name, false) || Smarty_Autoloader::autoload($plugin_name, true)) {
-                return true;
-            }
-        }
-        // Plugin name is expected to be: Smarty_[Type]_[Name]
-        $_name_parts = explode('_', $plugin_name, 3);
-        // class name must have three parts to be valid plugin
-        // count($_name_parts) < 3 === !isset($_name_parts[2])
-        if (!isset($_name_parts[2]) || strtolower($_name_parts[0]) !== 'smarty') {
-            throw new Smarty_Exception("loadPlugin(): Plugin {$plugin_name} is not a valid name format");
-        }
-        // plugin filename is expected to be: [type].[name].php
-        $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}.php";
-
-
-        $_stream_resolve_include_path = function_exists('stream_resolve_include_path');
-        // add SMARTY_PLUGINS_DIR if not present
-        $_plugins_dir = $this->getPluginsDir();
-        if (!$this->disable_core_plugins) {
-            $_plugins_dir[] = Smarty::$_SMARTY_PLUGINS_DIR;
-        }
-
-        // loop through plugin dirs and find the plugin
-        foreach ($_plugins_dir as $_plugin_dir) {
-            $names = array(
-                $_plugin_dir . $_plugin_filename,
-                $_plugin_dir . strtolower($_plugin_filename),
-            );
-            foreach ($names as $file) {
-                if (file_exists($file)) {
-                    require_once($file);
-
-                    return $file;
-                }
-                if ($this->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
-                    // try PHP include_path
-                    if ($_stream_resolve_include_path) {
-                        $file = stream_resolve_include_path($file);
-                    } else {
-                        $file = $this->_GetIncludePath($file);
-                    }
-                    if ($file !== false) {
-                        require_once($file);
-
-                        return $file;
-                    }
-                }
-            }
-        }
-
-        // no plugin loaded
-        return false;
-    }
-
-    /**
-     * Error Handler to mute expected messages
-     *
-     * @api
-     * @link http://php.net/set_error_handler
-     * @param integer $errno Error level
-     * @param $errstr
-     * @param $errfile
-     * @param $errline
-     * @param $errcontext
-     * @return boolean
-     */
-    public static function mutingErrorHandler($errno, $errstr, $errfile, $errline, $errcontext)
-    {
-        $_is_muted_directory = false;
-
-        // add the SMARTY_DIR to the list of muted directories
-        if (!isset(self::$_muted_directories[Smarty_Autoloader::$smarty_path])) {
-            $smarty_dir = realpath(Smarty_Autoloader::$smarty_path);
-            if ($smarty_dir !== false) {
-                self::$_muted_directories[Smarty_Autoloader::$smarty_path] = array(
-                    'file' => $smarty_dir,
-                    'length' => strlen($smarty_dir),
-                );
-            }
-        }
-
-        // walk the muted directories and test against $errfile
-        foreach (self::$_muted_directories as $key => &$dir) {
-            if (!$dir) {
-                // resolve directory and length for speedy comparisons
-                $file = realpath($key);
-                if ($file === false) {
-                    // this directory does not exist, remove and skip it
-                    unset(self::$_muted_directories[$key]);
-                    continue;
-                }
-                $dir = array(
-                    'file' => $file,
-                    'length' => strlen($file),
-                );
-            }
-            if (strpos($errfile, $dir['file']) === 0) {
-                $_is_muted_directory = true;
-                break;
-            }
-        }
-
-        // pass to next error handler if this error did not occur inside Smarty_Autoloader::$smarty_path
-        // or the error was within smarty but masked to be ignored
-        if (!$_is_muted_directory || ($errno && $errno & error_reporting())) {
-            if (self::$_previous_error_handler) {
-                return call_user_func(self::$_previous_error_handler, $errno, $errstr, $errfile, $errline, $errcontext);
-            } else {
-                return false;
-            }
-        }
-    }
-
-    /**
-     * Enable error handler to mute expected messages
-     *
-     * @api
-     * @return void
-     */
-    public static function muteExpectedErrors()
-    {
-        /*
-        error muting is done because some people implemented custom error_handlers using
-        http://php.net/set_error_handler and for some reason did not understand the following paragraph:
-
-        It is important to remember that the standard PHP error handler is completely bypassed for the
-        error types specified by error_types unless the callback function returns FALSE.
-        error_reporting() settings will have no effect and your error handler will be called regardless -
-        however you are still able to read the current value of error_reporting and act appropriately.
-        Of particular note is that this value will be 0 if the statement that caused the error was
-        prepended by the @ error-control operator.
-
-        Smarty deliberately uses @filemtime() over file_exists() and filemtime() in some places. Reasons include
-        - @filemtime() is almost twice as fast as using an additional file_exists()
-        - between file_exists() and filemtime() a possible race condition is opened,
-        which does not exist using the simple @filemtime() approach.
-        */
-        $error_handler = array('Smarty', 'mutingErrorHandler');
-        $previous = set_error_handler($error_handler);
-
-        // avoid dead loops
-        if ($previous !== $error_handler) {
-            self::$_previous_error_handler = $previous;
-        }
-    }
-
-    /**
-     * Disable error handler muting expected messages
-     *
-     * @api
-     * @return void
-     */
-    public static function unmuteExpectedErrors()
-    {
-        restore_error_handler();
-    }
-
-    /**
-     * Identify and get top-level template instance
-     *
-     * @api
-     * @return Smarty root template object
-     */
-    public function findRootTemplate()
-    {
-        $tpl_obj = $this;
-        while ($tpl_obj->parent && ($tpl_obj->parent->usage == self::IS_TEMPLATE || $tpl_obj->parent->usage == self::IS_CONFIG)) {
-            if ($tpl_obj->rootTemplate) {
-                return $this->rootTemplate = $tpl_obj->rootTemplate;
-            }
-
-            $tpl_obj = $tpl_obj->parent;
-        }
-
-        return $this->rootTemplate = $tpl_obj;
-    }
-
-    /**
-     * Save value to persistent cache storage
-     *
-     * @api
-     * @param  string|array $key   key to store data under, or array of key => values to store
-     * @param  mixed $value value to store for $key, ignored if key is an array
-     * @return Smarty       $this for chaining
-     */
-    public function assignCached($key, $value = null)
-    {
-        if (!$this->rootTemplate) {
-            $this->findRootTemplate();
-        }
-
-        if (is_array($key)) {
-            foreach ($key as $_key => $_value) {
-                if ($_key !== '') {
-                    $this->rootTemplate->properties['cachedValues'][$_key] = $_value;
-                }
-            }
-        } else {
-            if ($key !== '') {
-                $this->rootTemplate->properties['cachedValues'][$key] = $value;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get value from persistent cache storage
-     *
-     * @api
-     * @param  string $key key of value to retrieve, null for all values (default)
-     * @return mixed  value or array of values
-     */
-    public function getCachedVars($key = null)
-    {
-        if (!$this->rootTemplate) {
-            $this->findRootTemplate();
-        }
-
-        if ($key === null) {
-            return isset($this->rootTemplate->properties['cachedValues']) ? $this->rootTemplate->properties['cachedValues'] : array();
-        }
-
-        return isset($this->rootTemplate->properties['cachedValues'][$key]) ? $this->rootTemplate->properties['cachedValues'][$key] : null;
-    }
-
-    /**
-     * clean up object pointer
-     *
-     */
-    public function cleanPointer()
-    {
-        unset($this->source, $this->compiled, $this->cached, $this->compiler, $this->must_compile);
-        $this->_tpl_vars = $this->parent = $this->template_function_chain = $this->rootTemplate = null;
-    }
-
-    /**
      * Set  directory
      *
      * @internal
@@ -1740,16 +1434,62 @@ class Smarty extends Smarty_Variable_Methods
         return rtrim($path, '/\\') . '/';
     }
 
+
     /**
-     * runtime error for not matching capture tags
+     * Enable error handler to mute expected messages
      *
+     * @api
+     * @return void
      */
-    public function _capture_error()
+    public static function muteExpectedErrors()
     {
-        throw new Smarty_Exception_Runtime("Not matching {capture} open/close", $this);
+        /*
+        error muting is done because some people implemented custom error_handlers using
+        http://php.net/set_error_handler and for some reason did not understand the following paragraph:
+
+        It is important to remember that the standard PHP error handler is completely bypassed for the
+        error types specified by error_types unless the callback function returns FALSE.
+        error_reporting() settings will have no effect and your error handler will be called regardless -
+        however you are still able to read the current value of error_reporting and act appropriately.
+        Of particular note is that this value will be 0 if the statement that caused the error was
+        prepended by the @ error-control operator.
+
+        Smarty deliberately uses @filemtime() over file_exists() and filemtime() in some places. Reasons include
+        - @filemtime() is almost twice as fast as using an additional file_exists()
+        - between file_exists() and filemtime() a possible race condition is opened,
+        which does not exist using the simple @filemtime() approach.
+        */
+        $error_handler = array('Smarty_Extension_MutingErrorHandler', 'mutingErrorHandler');
+        $previous = set_error_handler($error_handler);
+
+        // avoid dead loops
+        if ($previous !== $error_handler) {
+            self::$_previous_error_handler = $previous;
+        }
     }
 
     /**
+     * Disable error handler muting expected messages
+     *
+     * @api
+     * @return void
+     */
+    public static function unmuteExpectedErrors()
+    {
+        restore_error_handler();
+    }
+
+    /**
+     * clean up object pointer
+     *
+     */
+    public function cleanPointer()
+    {
+        unset($this->source, $this->compiled, $this->cached, $this->compiler, $this->must_compile);
+        $this->_tpl_vars = $this->parent = $this->template_function_chain = $this->rootTemplate = null;
+    }
+
+   /**
      * Get parent or root of template parent chain
      *
      * @param  int $scope_type parent or root scope
@@ -1769,6 +1509,73 @@ class Smarty extends Smarty_Variable_Methods
         }
 
         return null;
+    }
+
+    /**
+     * Takes unknown classes and loads plugin files for them
+     * class name format: Smarty_PluginType_PluginName
+     * plugin filename format: plugintype.pluginname.php
+     *
+     * @internal
+     * @param  string $plugin_name    plugin or class name
+     * @param  bool $check          check if already loaded
+     * @throws Smarty_Exception
+     * @return string|boolean   filepath of loaded plugin | true if it was a Smarty core class || false if not found
+     */
+    public function _loadPlugin($plugin_name, $check = true)
+    {
+        if ($check) {
+            // if function or class exists, exit silently (already loaded)
+            if (is_callable($plugin_name) || class_exists($plugin_name, false) || Smarty_Autoloader::autoload($plugin_name, true)) {
+                return true;
+            }
+        }
+        // Plugin name is expected to be: Smarty_[Type]_[Name]
+        $_name_parts = explode('_', $plugin_name,3);
+        // class name must have at least three parts to be valid plugin
+       if (!isset($_name_parts[2]) || strtolower($_name_parts[0]) !== 'smarty') {
+            throw new Smarty_Exception("loadPlugin(): Plugin {$plugin_name} is not a valid name format");
+        }
+        // plugin filename is expected to be: [type].[name].php
+        $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}.php";
+
+        $_stream_resolve_include_path = function_exists('stream_resolve_include_path');
+        // add SMARTY_PLUGINS_DIR if not present
+        $_plugins_dir = $this->getPluginsDir();
+        if (!$this->disable_core_plugins) {
+            $_plugins_dir[] = Smarty::$_SMARTY_PLUGINS_DIR;
+        }
+
+        // loop through plugin dirs and find the plugin
+        foreach ($_plugins_dir as $_plugin_dir) {
+            $names = array(
+                $_plugin_dir . $_plugin_filename,
+                $_plugin_dir . strtolower($_plugin_filename),
+            );
+            foreach ($names as $file) {
+                if (file_exists($file)) {
+                    require_once($file);
+
+                    return $file;
+                }
+                if ($this->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
+                    // try PHP include_path
+                    if ($_stream_resolve_include_path) {
+                        $file = stream_resolve_include_path($file);
+                    } else {
+                        $file = $this->getIncludePath($file);
+                    }
+                    if ($file !== false) {
+                        require_once($file);
+
+                        return $file;
+                    }
+                }
+            }
+        }
+
+        // no plugin loaded
+        return false;
     }
 
     /**
@@ -1864,7 +1671,7 @@ class Smarty extends Smarty_Variable_Methods
         if (!$res_obj) {
             $resource_class = $class_prefix[$resource_group] . '_' . ucfirst($type);
             if (isset($this->registered_resources[$resource_group][$type])) {
-                if ($this->registered_resources[$resource_group][$type] instanceof $class_prefix[$resource_group]) {
+                if ($this->registered_resources[$resource_group][$type] instanceof $resource_class) {
                     $res_obj = $this->registered_resources[$resource_group][$type];
                 } else {
                     $res_obj = new Smarty_Resource_Source_Registered();
@@ -1947,7 +1754,7 @@ class Smarty extends Smarty_Variable_Methods
 
         // TODO: try default_(template|config)_handler
         // give up
-        throw new Smarty_Exception("Unknown resource '" . $class_prefix[$resource_group] . "' '{$type}'");
+        throw new Smarty_Exception_UnknownResourceType($class_prefix[$resource_group], $type);
     }
 
     /**
@@ -1996,7 +1803,7 @@ class Smarty extends Smarty_Variable_Methods
             case 'cached':
                 return $this->_load(self::CACHE, $this->source, $this->compile_id, $this->cache_id, $this->caching);
             case 'mustCompile':
-                return !$this->compiled->isValid;
+                return !$this->isCompiled();
 
         }
         switch ($property_name) {
@@ -2059,7 +1866,8 @@ class Smarty extends Smarty_Variable_Methods
     {
         static $_prefixes = array('set' => true, 'get' => true);
         static $_in_extension = array('setAutoloadFilters' => true, 'getAutoloadFilters' => true,
-            'setDefaultModifiers' => true, 'getDefaultModifiers' => true);
+            'setDefaultModifiers' => true, 'getDefaultModifiers' => true, 'getGlobal' => true,
+            'setDebugTemplate' => true, 'getDebugTemplate' => true, 'getCachedVars' => true,);
         static $_resolved_property_name = array();
 
         // see if this is a set/get for a property
@@ -2094,7 +1902,7 @@ class Smarty extends Smarty_Variable_Methods
             }
         }
          if ($name == 'Smarty') {
-            throw new Smarty_Exception("PHP5 requires you to call __construct() instead of Smarty()");
+            throw new Smarty_Exception_OldConstructor();
         }
         // throw error through parent
         parent::__call($name, $args);

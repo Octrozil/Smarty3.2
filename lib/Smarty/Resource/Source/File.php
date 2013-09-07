@@ -135,9 +135,9 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
      * @return string           fully qualified filepath
      * @throws Smarty_Exception if default template handler is registered but not callable
      */
-    public function buildFilepath(Smarty $smarty = null)
+    public function buildFilepath(Smarty $smarty)
     {
-        $file = $this->name;
+        $file = str_replace('\\', '/', $this->name);
         if ($this->usage == Smarty::IS_CONFIG) {
             $_directories = $smarty->getConfigDir();
             $_default_handler = $smarty->default_config_handler_func;
@@ -147,10 +147,10 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
         }
 
         // go relative to a given template?
-        $_file_is_dotted = $file[0] == '.' && ($file[1] == '.' || $file[1] == '/' || $file[1] == "\\");
-        if ($smarty && isset($smarty->parent) && $smarty->parent->usage == Smarty::IS_TEMPLATE && $_file_is_dotted) {
+        $_file_is_dotted = $file[0] == '.' && ($file[1] == '.' || $file[1] == '/');
+        if ($_file_is_dotted && isset($smarty->parent) && $smarty->parent->usage == Smarty::IS_TEMPLATE) {
             if ($smarty->parent->source->type != 'file' && $smarty->parent->source->type != 'extends' && !$smarty->parent->allow_relative_path) {
-                throw new Smarty_Exception("Template '{$file}' cannot be relative to template of resource type '{$smarty->parent->source->type}'");
+                throw new Smarty_Exception_IllegalRelativePath($file, $smarty->parent->source->type);
             }
             $file = dirname($smarty->parent->source->filepath) . '/' . $file;
             $_file_exact_match = true;
@@ -163,26 +163,20 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
 
         // resolve relative path
         if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
-            // don't we all just love windows?
-            $_path = '/' . trim(str_replace('\\', '/', $file), '/');
+            $_path = '/' . trim( $file, '/');
             $_was_relative = true;
         } else {
-            // don't we all just love windows?
-            $_path = str_replace('\\', '/', $file);
+            $_path = $file;
         }
-        $_path = $this->normalizePath($_path, false);
+        $_path = $this->normalizePath($_path);
 
-//        if (DS != '/') {   TODO
-        // don't we all just love windows?
-        $_path = str_replace('/', '\\', $_path);
-//        }
-        // revert to relative
+//      // revert to relative
         if (isset($_was_relative)) {
             $_path = substr($_path, 1);
         }
 
         // this is only required for directories
-        $file = rtrim($_path, '/\\');
+        $file = rtrim($_path, '/');
 
         // files relative to a template only get one shot
         if (isset($_file_exact_match)) {
@@ -229,7 +223,7 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
                     if ($_stream_resolve_include_path) {
                         $_filepath = stream_resolve_include_path($_filepath);
                     } else {
-                        $_filepath = $smarty->_GetIncludePath($_filepath);
+                        $_filepath = $smarty->getIncludePath($_filepath);
                     }
                     if ($_filepath !== false) {
                         if ($this->fileExists($_filepath)) {
@@ -249,9 +243,9 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
         if ($_default_handler) {
             if (!is_callable($_default_handler)) {
                 if ($smarty->usage == Smarty::IS_CONFIG) {
-                    throw new Smarty_Exception("Default config handler not callable");
+                    throw new DefaultHandlerNotCallable('config');
                 } else {
-                    throw new Smarty_Exception("Default template handler not callable");
+                    throw new DefaultHandlerNotCallable('template');
                 }
             }
             $_return = call_user_func_array($_default_handler, array($this->type, $this->name, &$_content, &$_timestamp, $smarty));
@@ -280,13 +274,8 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
      * @param  boolean $ds    respect windows directory separator
      * @return string  normalized path
      */
-    protected function normalizePath($_path, $ds = true)
+    protected function normalizePath($_path)
     {
-        if ($ds) {
-            // don't we all just love windows?
-            $_path = str_replace('\\', '/', $_path);
-        }
-
         $offset = 0;
         // resolve simples
         $_path = preg_replace('#/\./(\./)*#', '/', $_path);
@@ -363,13 +352,14 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
     }
 
     /**
-     * Rest properties on clone
+     * return unique name for this resource
+     *
+     * @param  Smarty $smarty            Smarty instance
+     * @param  string $template_resource resource_name to make unique
+     * @return string unique resource name
      */
-    public function __clone() {
-        $this->components = array();
-        $this->filepath = false;
-        $this->timestamp = null;
-        $this->exists = false;
-        $this->uid = '';
+    public function buildUniqueResourceName(Smarty $smarty, $template_resource)
+    {
+        return get_class($this) . '#' . $template_resource;
     }
 }

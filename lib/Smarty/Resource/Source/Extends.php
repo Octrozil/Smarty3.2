@@ -33,10 +33,10 @@ class Smarty_Resource_Source_Extends extends Smarty_Resource_Source_File
             $s = $smarty->_load(Smarty::SOURCE, $component);
             // checks if source exists
             if (!$s->exists) {
-                throw new Smarty_Exception("Can not find '{$s->type}:{$s->name}'");
+                throw new Smarty_Exception_SourceNotFound($s->type, $s->name);
             }
             if ($s->type == 'php') {
-                throw new Smarty_Exception("Resource type {$s->type} cannot be used with the extends resource type");
+                throw new IllegalInheritanceResourceType($s->type);
             }
             $sources[$s->uid] = $s;
             $uid .= $s->filepath;
