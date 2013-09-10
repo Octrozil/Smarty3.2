@@ -798,7 +798,7 @@ value(res)       ::= value(v) modifierlist(l). {
 //
                   // Smarty variable (optional array)
 variable(res)    ::= varindexed(vi). {
-    if (vi['var'] == '\'smarty\'') {
+    if (vi['var'] == 'smarty') {
         res = $this->compiler->compileTag('Internal_SpecialVariable',array(),vi['smarty_internal_index']);
     } else {
         res = $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'];
