@@ -93,7 +93,7 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
     public function populate(Smarty $smarty)
     {
         $this->filepath = $this->buildFilepath($smarty);
-        if (is_file($this->filepath)){
+        if (is_file($this->filepath)) {
             $this->timestamp = filemtime($this->filepath);
             return $this->exists = true;
         }
@@ -108,7 +108,7 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
      */
     public function populateTimestamp(Smarty $tpl_obj)
     {
-        if (is_file($this->filepath)){
+        if (is_file($this->filepath)) {
             $this->timestamp = filemtime($this->filepath);
             return $this->exists = true;
         }
@@ -198,64 +198,39 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
                 return $this->template_obj;
             }
             $level = ob_get_level();
-            if ($this->source->recompiled) {
-                $this->template_obj = null;
+            $this->isValid = false;
+            if ($this->exists && !$smarty->force_compile && $this->timestamp >= $this->source->timestamp) {
                 $this->template_class_name = '';
+                // load existing compiled template class
+                $this->loadTemplateClass();
+                if (class_exists($this->template_class_name, false)) {
+                    $this->template_obj = new $this->template_class_name($smarty, $parent, $this->source);
+                    $this->isValid = $this->template_obj->isValid;
+                }
+            }
+            if (!$this->isValid) {
+                $this->template_class_name = '';
+                $this->template_obj = null;
                 $this->isValid = $this->isCompiled = false;
+                // we must compile from source
                 if ($smarty->debugging) {
                     Smarty_Debug::start_compile($this->source);
                 }
-
                 $compiler = Smarty_Compiler::load($smarty, $this->source, $this->caching);
-                $compiler->compileTemplate();
-                if ($smarty->debugging) {
-                    Smarty_Debug::end_compile($this->source);
-                }
-                eval('?>' . $compiler->template_code->buffer);
+                $compiler->compileTemplateSource($this);
                 unset($compiler);
                 if ($smarty->debugging) {
                     Smarty_Debug::end_compile($this->source);
                 }
+                $this->isCompiled = true;
+                $this->populateTimestamp($smarty);
+                $this->loadTemplateClass($this);
                 if (class_exists($this->template_class_name, false)) {
-                    $this->isCompiled = true;
                     $this->template_obj = new $this->template_class_name($smarty, $parent, $this->source);
                     $this->isValid = $this->template_obj->isValid;
                 }
-            } else {
-                $this->isValid = false;
-                if ($this->exists && !$smarty->force_compile && $this->timestamp >= $this->source->timestamp) {
-                    $this->template_class_name = '';
-                    // load existing compiled template class
-                    $this->loadTemplateClass();
-                    if (class_exists($this->template_class_name, false)) {
-                        $this->template_obj = new $this->template_class_name($smarty, $parent, $this->source);
-                        $this->isValid = $this->template_obj->isValid;
-                    }
-                }
                 if (!$this->isValid) {
-                    $this->template_class_name = '';
-                    $this->template_obj = null;
-                    $this->isValid = $this->isCompiled = false;
-                    // we must compile from source
-                    if ($smarty->debugging) {
-                        Smarty_Debug::start_compile($this->source);
-                    }
-                    $compiler = Smarty_Compiler::load($smarty, $this->source, $this->caching);
-                    $compiler->compileTemplateSource($this);
-                    unset($compiler);
-                    if ($smarty->debugging) {
-                        Smarty_Debug::end_compile($this->source);
-                    }
-                    $this->isCompiled = true;
-                    $this->populateTimestamp($smarty);
-                    $this->loadTemplateClass($this);
-                    if (class_exists($this->template_class_name, false)) {
-                        $this->template_obj = new $this->template_class_name($smarty, $parent, $this->source);
-                        $this->isValid = $this->template_obj->isValid;
-                    }
-                    if (!$this->isValid) {
-                        throw new FileLoadError('compiled template', $this->filepath);
-                    }
+                    throw new FileLoadError('compiled template', $this->filepath);
                 }
             }
         } catch (Exception $e) {
