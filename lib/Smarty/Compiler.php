@@ -23,7 +23,7 @@ class Smarty_Compiler extends Smarty_Compiler_Code
 {
     public static function  load(Smarty $tpl_obj, $source, $caching = false)
     {
-        if ($source->usage == Smarty::IS_TEMPLATE) {
+        if ($source->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
             $compiler = isset($source->compiler_class) ? $source->compiler_class : $tpl_obj->template_compiler_class;
             $lexer = isset($source->lexer_class) ? $source->lexer_class : $tpl_obj->template_lexer_class;
             $parser = isset($source->parser_class) ? $source->parser_class : $tpl_obj->template_parser_class;

@@ -59,8 +59,8 @@ class Smarty extends Smarty_Variable_Methods
      * define object and variable scope type
      */
     const IS_SMARTY = 0;
-    const IS_TEMPLATE = 1;
-    const IS_SUBTPL = 2;
+    const IS_SMARTY_TPL_CLONE = 1;
+    const IS_TEMPLATE = 2;
     const IS_DATA = 3;
     const IS_CONFIG = 4;
 
@@ -120,11 +120,19 @@ class Smarty extends Smarty_Variable_Methods
     /*     * #@- */
 
     /**
-     * assigned tpl vars
+     * assigned template vars
      * @internal
      * @var Smarty_Variable_Scope
      */
     public $_tpl_vars = null;
+
+    /**
+     * Declare the type template variable storage
+     *
+     * @internal
+     * @var Smarty::IS_SMARTY | IS_SMARTY_TPL_CLONE
+     */
+    public $_usage = self::IS_SMARTY;
 
     /**
      * assigned global tpl vars
@@ -869,7 +877,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * Pointer to subtemplate with template functions
-     * @var object Smarty_Template_Class
+     * @var object Smarty_Template
      * @internal
      */
     public $template_function_chain = null;
@@ -910,7 +918,6 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function __construct()
     {
-        $this->usage = self::IS_SMARTY;
         // create variable scope for Smarty root
         $this->_tpl_vars = new Smarty_Variable_Scope();
         self::$_global_tpl_vars = new stdClass;
@@ -960,14 +967,14 @@ class Smarty extends Smarty_Variable_Methods
 
     public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $no_output_filter = false, $data = null, $scope_type = Smarty::SCOPE_LOCAL, $caching = null, $cache_lifetime = null, $_scope = null)
     {
-        if ($template === null && ($this->usage == self::IS_TEMPLATE || $this->usage == self::IS_CONFIG)) {
+        if ($template === null && ($this->_usage == self::IS_SMARTY_TPL_CLONE || $this->_usage == self::IS_CONFIG)) {
             $template = $this;
         }
         if (!empty($cache_id) && is_object($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
         }
-        if ($parent === null && (!($this->usage == self::IS_TEMPLATE || $this->usage == self::IS_CONFIG) || is_string($template))) {
+        if ($parent === null && (!($this->_usage == self::IS_SMARTY_TPL_CLONE || $this->_usage == self::IS_CONFIG) || is_string($template))) {
             $parent = $this;
         }
 
@@ -1092,7 +1099,7 @@ class Smarty extends Smarty_Variable_Methods
             $data = null;
         }
         $tpl_obj = clone $this;
-        $tpl_obj->usage = self::IS_TEMPLATE;
+        $tpl_obj->_usage = self::IS_SMARTY_TPL_CLONE;
         $tpl_obj->parent = $parent;
         if (isset($cache_id)) {
             $tpl_obj->cache_id = $cache_id;
@@ -1121,12 +1128,12 @@ class Smarty extends Smarty_Variable_Methods
      *
      * @api
      * @param  Smarty|Smarty_Data|Smarty_Variable_Scope $parent     next higher level of Smarty variables
-     * @param  string $scope_name optional name of Smarty_Data object
+     * @param  string $name optional name of Smarty_Data object
      * @return object                                   Smarty_Data
      */
-    public function createData($parent = null, $scope_name = 'Data unnamed')
+    public function createData($parent = null, $name = 'Data unnamed')
     {
-        return new Smarty_Data($this, $parent, $scope_name);
+        return new Smarty_Data($this, $parent, $name);
     }
 
     /**
@@ -1526,7 +1533,7 @@ class Smarty extends Smarty_Variable_Methods
     {
         if ($check) {
             // if function or class exists, exit silently (already loaded)
-            if (is_callable($plugin_name) || class_exists($plugin_name, false) || Smarty_Autoloader::autoload($plugin_name, true)) {
+            if (is_callable($plugin_name) || class_exists($plugin_name, false)) {
                 return true;
             }
         }
@@ -1676,6 +1683,8 @@ class Smarty extends Smarty_Variable_Methods
                 } else {
                     $res_obj = new Smarty_Resource_Source_Registered();
                 }
+            } elseif (class_exists($resource_class, true)) {
+                $res_obj = new $resource_class();
             } elseif ($this->_loadPlugin($resource_class)) {
                 if (class_exists($resource_class, false)) {
                     $res_obj = new $resource_class();
@@ -1712,7 +1721,7 @@ class Smarty extends Smarty_Variable_Methods
             if ($resource_group == self::SOURCE) {
                 $res_obj->name = $name;
                 $res_obj->type = $type;
-                $res_obj->usage = $par1 ? Smarty::IS_CONFIG : Smarty::IS_TEMPLATE;
+                $res_obj->_usage = $par1 ? Smarty::IS_CONFIG : Smarty::IS_SMARTY_TPL_CLONE;
                 $res_obj->populate($this);
                 if ($this->allow_ambiguous_resources) {
                     $_cacheKey = $res_obj->buildUniqueResourceName($this, $resource);
@@ -1762,7 +1771,7 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function __destruct()
     {
-        if ($this->usage == self::IS_TEMPLATE && $this->cache_locking && isset($this->cached) && $this->cached->is_locked) {
+        if ($this->_usage == self::IS_SMARTY_TPL_CLONE && $this->cache_locking && isset($this->cached) && $this->cached->is_locked) {
             $this->cached->releaseLock($this, $this->cached);
         }
         parent::__destruct();
@@ -1894,7 +1903,7 @@ class Smarty extends Smarty_Variable_Methods
             return call_user_func_array(array($this->_loaded_extensions[$name], $name), $args);
         }
         $class = 'Smarty_Extension_' . ucfirst($name);
-        if ($this->_loadPlugin($class, true) && class_exists($class, false)) {
+        if (class_exists($class, true)) {
             $obj = new $class($this);
             if (method_exists($obj, $name)) {
                 $this->_loaded_extensions[$name] = $obj;

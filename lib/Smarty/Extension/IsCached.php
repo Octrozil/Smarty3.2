@@ -51,7 +51,7 @@ class Smarty_Extension_IsCached
                 // caching is disabled
                 return false;
             }
-            if ($template === null && ($this->smarty->usage == Smarty::IS_TEMPLATE || $this->smarty->usage == Smarty::IS_CONFIG)) {
+            if ($template === null && ($this->smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE || $this->smarty->_usage == Smarty::IS_CONFIG)) {
                 $template = $this->smarty;
             }
             if (is_object($template)) {
@@ -76,7 +76,7 @@ class Smarty_Extension_IsCached
                 return false;
             }
             $cache->loadTemplateClass();
-            $template_obj = new $cache->class_name($this->smarty, $parent, $cache->source);
+            $template_obj = new $cache->template_class_name($this->smarty, $parent, $cache->source);
             return $template_obj->isValid;
         }
     }

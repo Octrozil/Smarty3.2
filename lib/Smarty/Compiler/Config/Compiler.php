@@ -124,7 +124,7 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
         $class = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
         $this->raw("<?php")->newline();
         $this->raw("/* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . " compiled from \"" . $this->tpl_obj->source->filepath . "\" */")->newline();
-        $this->php("if (!class_exists('{$class}',false)) {")->newline()->indent()->php("class {$class} extends Smarty_Template_Class {")->newline()->indent();
+        $this->php("if (!class_exists('{$class}',false)) {")->newline()->indent()->php("class {$class} extends Smarty_Template {")->newline()->indent();
         $this->php("public \$version = '" . Smarty::SMARTY_VERSION . "';")->newline();
         $this->php("public \$file_dependency = ")->repr($this->file_dependency, false)->raw(";")->newline()->newline();
         $this->php("public \$config_data = ")->repr($this->config_data)->raw(";")->newline()->newline();
@@ -135,7 +135,7 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
 
         $this->outdent()->php("}")->newline()->outdent()->php("}")->newline();
 
-        Smarty_Misc_WriteFile::writeFile($this->tpl_obj->compiled->filepath, $this->buffer, $this->tpl_obj);
+        $this->tpl_obj->writeFile($this->tpl_obj->compiled->filepath, $this->buffer);
         $this->buffer = '';
         $this->config_data = array();
         $this->lex->compiler = null;

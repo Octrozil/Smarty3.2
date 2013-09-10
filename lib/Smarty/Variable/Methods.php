@@ -18,30 +18,12 @@
  */
 class Smarty_Variable_Methods extends Smarty_Exception_Magic
 {
-
-    /**
-     * template variables
-     *
-     * @var array
-     */
-    public $tpl_vars = null;
-
     /**
      * parent template (if any)
      *
      * @var Smarty
      */
     public $parent = null;
-
-    /**
-     * usage of Smarty_Variable_Methods
-     * @var int
-     * @uses IS_SMARTY as possible value
-     * @uses IS_TEMPLATE as possible value
-     * @uses IS_CONFIG as possible value
-     * @uses IS_DATA as possible value
-     */
-    public $usage = null;
 
     /**
      * assigns a Smarty variable
@@ -105,12 +87,6 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
         if ($varname != '') {
             Smarty::$_global_tpl_vars->$varname = new Smarty_Variable($value, $nocache);
         }
-        // TODO check behavior
-        //        $ptr = $this;
-        //        while (isset($ptr->IS_TEMPLATE) && $ptr->IS_TEMPLATE) {
-        //            $ptr->assign($tpl_var, $value, $nocache);
-        //            $ptr = $ptr->parent;
-        //        }
         return $this;
     }
 
@@ -321,7 +297,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
                 return isset(Smarty::$_global_tpl_vars->$varname->$property) ? Smarty::$_global_tpl_vars->$varname->$property : null;
             }
         }
-        if ($this->usage == Smarty::IS_DATA) {
+        if ($this->_usage == Smarty::IS_DATA) {
             $error_unassigned = $this->_tpl_vars->___attributes->tpl_ptr->error_unassigned;
         } else {
             $error_unassigned = $this->error_unassigned;
@@ -449,13 +425,12 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      */
     public function configLoad($config_file, $sections = null, $scope_type = 'local')
     {
-        $smarty_obj = $this->usage == Smarty::IS_DATA ? $this->_tpl_vars->___attributes->tpl_ptr : $this;
+        $smarty = $this->_usage == Smarty::IS_DATA ? $this->smarty : $this;
         // TODO nneds rewrite ?
-        $tpl_obj = $smarty_obj->createTemplate($config_file, null, null, $this, true);
+        $tpl_obj = $smarty->createTemplate($config_file, null, null, $this, true);
         $tpl_obj->_tpl_vars->___config_sections = $sections;
         $tpl_obj->_tpl_vars->___config_scope = $scope_type;
         $tpl_obj->compiled->getRenderedTemplate($tpl_obj);
-
         return $this;
     }
 

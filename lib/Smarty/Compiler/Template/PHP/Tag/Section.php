@@ -60,13 +60,12 @@ class Smarty_Compiler_Template_Php_Tag_Section extends Smarty_Compiler_Template_
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
         $this->iniTagCode($compiler);
 
-        $section_name = $_attr['name'];
+        $section_name = trim($_attr['name'],'"\'');
 
-        $this->php("if (isset(\$_scope->smarty->value['section'][$section_name])) {")->newline()->indent();
-        $this->php("unset(\$_scope->smarty->value['section'][$section_name]);")->newline();
-        $this->outdent()->php("}")->newline();
 
-        $section_props = "\$_scope->smarty->value['section'][$section_name]";
+        $section_props = "\$_scope->smarty_section_{$section_name}->value";
+
+        $this->php("\$_scope->smarty_section_{$section_name} = new Smarty_Variable();")->newline();
 
         foreach ($_attr as $attr_name => $attr_value) {
             switch ($attr_name) {

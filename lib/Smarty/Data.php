@@ -20,8 +20,36 @@
  */
 class Smarty_Data extends Smarty_Variable_Methods
 {
-
+    /**
+     * assigned template vars
+     *
+     * @internal
+     * @var Smarty_Variable_Scope
+     */
     public $_tpl_vars = null;
+
+    /**
+     * Declare the type template variable storage
+     *
+     * @internal
+     * @var Smarty::IS_DATA
+     */
+    public $_usage = Smarty::IS_DATA;
+
+    /**
+     * Smarty Object
+     *
+     * @var Smarty
+     */
+    private $smarty = null;
+
+    /**
+     * Name of data Object
+     *
+     * @var string
+     */
+    public $scope_name = null;
+
 
     /**
      * create Smarty data object
@@ -33,8 +61,6 @@ class Smarty_Data extends Smarty_Variable_Methods
      */
     public function __construct(Smarty $smarty, $parent = null, $scope_name = 'Data unnamed')
     {
-        $this->usage = Smarty::IS_DATA;
-
         // variables passed as array?
         if (is_array($parent)) {
             $data = $parent;
@@ -43,8 +69,12 @@ class Smarty_Data extends Smarty_Variable_Methods
             $data = null;
         }
 
+        $this->smarty = $smarty;
+        $this->scope_name = $scope_name;
+        $this->parent = $parent;
+
         // create variabale container
-        $this->_tpl_vars = new Smarty_Variable_Scope($smarty, $parent, Smarty::IS_DATA, $scope_name);
+        $this->_tpl_vars = new Smarty_Variable_Scope();
 
         //load optional variable array
         if (isset($data)) {
@@ -53,5 +83,4 @@ class Smarty_Data extends Smarty_Variable_Methods
             }
         }
     }
-
 }

@@ -190,7 +190,7 @@ class Smarty_Exception extends Exception
         }
 
         foreach ($backtrace as $trace) {
-            if (isset($trace['object']) && $trace['object'] instanceof Smarty_Template_Class) {
+            if (isset($trace['object']) && $trace['object'] instanceof Smarty_Template) {
                 if (null === $this->filename || $this->filename == $trace['object']->source->filepath) {
                     $trace_template = $trace;
                 }

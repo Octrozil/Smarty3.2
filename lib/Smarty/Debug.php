@@ -152,7 +152,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
         ksort($_assigned_vars);
         $_config_vars = $ptr->config_vars;
         ksort($_config_vars);
-        if ($obj->usage == Smarty::IS_TEMPLATE) {
+        if ($obj->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
             $tpl_obj->assign('template_name', $obj->source->type . ':' . $obj->source->name);
             $tpl_obj->assign('template_data', null);
         } else {

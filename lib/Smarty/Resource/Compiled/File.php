@@ -70,7 +70,19 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
      * Template Class Name
      * @var string
      */
-    public $class_name = '';
+    public $template_class_name = '';
+
+    /**
+     * Template object is valid
+     * @var string
+     */
+    public $isValid = false;
+
+    /**
+     * Template object
+     * @var Smarty_Template
+     */
+    public $template_obj = null;
 
     /**
      * populate Compiled Resource Object with meta data from Resource
@@ -81,8 +93,11 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
     public function populate(Smarty $smarty)
     {
         $this->filepath = $this->buildFilepath($smarty);
-        $this->timestamp = @filemtime($this->filepath);
-        return $this->exists = !!$this->timestamp;
+        if (is_file($this->filepath)){
+            $this->timestamp = filemtime($this->filepath);
+            return $this->exists = true;
+        }
+        return $this->timestamp = $this->exists = false;
     }
 
     /**
@@ -93,8 +108,11 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
      */
     public function populateTimestamp(Smarty $tpl_obj)
     {
-        $this->timestamp = @filemtime($this->filepath);
-        return $this->exists = !!$this->timestamp;
+        if (is_file($this->filepath)){
+            $this->timestamp = filemtime($this->filepath);
+            return $this->exists = true;
+        }
+        return $this->timestamp = $this->exists = false;
     }
 
     /**
@@ -130,7 +148,7 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
             $_filepath = $_compile_id . $_compile_dir_sep . $_filepath;
         }
         // subtype
-        if ($this->source->usage == Smarty::IS_CONFIG) {
+        if ($this->source->_usage == Smarty::IS_CONFIG) {
             $_subtype = '.config';
             // TODO must caching be a compiled property?
         } elseif ($this->caching) {
@@ -166,35 +184,24 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
     }
 
     /**
-     * Instance compiled template
-     *
-     * @param Smarty $smarty     Smarty object
-     * @param Smarty|Smarty_Data|Smarty_Template_Class $parent     parent object
-     * @returns Smarty_Template_Class
-     */
-    function instanceTemplate($smarty, $parent)
-    {
-        if ($this->class_name == '') {
-            return $this->loadTemplate($smarty, $parent);
-        } else {
-            return new $this->class_name($smarty, $parent, $this->source);
-        }
-
-    }
-
-    /**
      * Load compiled template
      *
      * @param Smarty $smarty     Smarty object
-     * @param Smarty|Smarty_Data|Smarty_Template_Class $parent     parent object
-     * @returns Smarty_Template_Class
+     * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
+     * @returns Smarty_Template
      * @throws Smarty_Exception
      */
-    public function loadTemplate($smarty, $parent)
+    public function instanceTemplate($smarty, $parent)
     {
         try {
+            if ($this->isValid && isset($this->template_obj) && ($this->isCompiled || !$smarty->force_compile)) {
+                return $this->template_obj;
+            }
             $level = ob_get_level();
             if ($this->source->recompiled) {
+                $this->template_obj = null;
+                $this->template_class_name = '';
+                $this->isValid = $this->isCompiled = false;
                 if ($smarty->debugging) {
                     Smarty_Debug::start_compile($this->source);
                 }
@@ -209,21 +216,26 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
                 if ($smarty->debugging) {
                     Smarty_Debug::end_compile($this->source);
                 }
-                if (class_exists($this->class_name, false)) {
-                    $template_obj = new $this->class_name($smarty, $parent, $this->source);
+                if (class_exists($this->template_class_name, false)) {
+                    $this->isCompiled = true;
+                    $this->template_obj = new $this->template_class_name($smarty, $parent, $this->source);
+                    $this->isValid = $this->template_obj->isValid;
                 }
             } else {
-                $isValid = false;
+                $this->isValid = false;
                 if ($this->exists && !$smarty->force_compile && $this->timestamp >= $this->source->timestamp) {
+                    $this->template_class_name = '';
                     // load existing compiled template class
                     $this->loadTemplateClass();
-                    if (class_exists($this->class_name, false)) {
-                        $template_obj = new $this->class_name($smarty, $parent, $this->source);
-                        // existing class could got invalid
-                        $isValid = $template_obj->isValid;
+                    if (class_exists($this->template_class_name, false)) {
+                        $this->template_obj = new $this->template_class_name($smarty, $parent, $this->source);
+                        $this->isValid = $this->template_obj->isValid;
                     }
                 }
-                if (!$isValid) {
+                if (!$this->isValid) {
+                    $this->template_class_name = '';
+                    $this->template_obj = null;
+                    $this->isValid = $this->isCompiled = false;
                     // we must compile from source
                     if ($smarty->debugging) {
                         Smarty_Debug::start_compile($this->source);
@@ -234,13 +246,14 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
                     if ($smarty->debugging) {
                         Smarty_Debug::end_compile($this->source);
                     }
+                    $this->isCompiled = true;
                     $this->populateTimestamp($smarty);
                     $this->loadTemplateClass($this);
-                    if (class_exists($this->class_name, false)) {
-                        $template_obj = new $this->class_name($smarty, $parent, $this->source);
-                        $isValid = $template_obj->isValid;
+                    if (class_exists($this->template_class_name, false)) {
+                        $this->template_obj = new $this->template_class_name($smarty, $parent, $this->source);
+                        $this->isValid = $this->template_obj->isValid;
                     }
-                    if (!$isValid) {
+                    if (!$this->isValid) {
                         throw new FileLoadError('compiled template', $this->filepath);
                     }
                 }
@@ -252,7 +265,7 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
 //            throw new Smarty_Exception_Runtime('resource ', -1, null, null, $e);
             throw $e;
         }
-        return $template_obj;
+        return $this->template_obj;
     }
 
     /**

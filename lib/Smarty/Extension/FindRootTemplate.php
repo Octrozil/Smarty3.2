@@ -42,7 +42,7 @@ class Smarty_Extension_FindRootTemplate
     public function findRootTemplate()
     {
         $tpl_obj = $this->smarty;
-        while ($tpl_obj->parent && ($tpl_obj->parent->usage == self::IS_TEMPLATE || $tpl_obj->parent->usage == self::IS_CONFIG)) {
+        while ($tpl_obj->parent && ($tpl_obj->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE || $tpl_obj->parent->_usage == Smarty::IS_CONFIG)) {
             if ($tpl_obj->rootTemplate) {
                 return $this->smarty->rootTemplate = $tpl_obj->rootTemplate;
             }

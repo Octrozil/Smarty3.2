@@ -20,27 +20,41 @@ class Smarty_Autoloader
     /**
      * @var string realpath of smarty distribution
      */
-    public static $smarty_path = null;
+    public  $smartyBaseDir = null;
+    public static $Smarty_Dir = null;
+
     /**
      * @var array of class names with special format
      */
     public static $rootClasses = array('Smarty' => 'Smarty/Smarty', 'SmartyBC' => 'Smarty/SmartyBC', 'SmartyBC31' => 'Smarty/SmartyBC31');
-    public static $checkFile = false;
-    public static $magicE = false;
 
+    /**
+     * Autoloader constructor.
+     *
+     * @param string $baseDir root of Smarty library
+     */
+    public function __construct($baseDir = null)
+    {
+        if ($baseDir === null) {
+            self::$Smarty_Dir = $this->smartyBaseDir = dirname(__FILE__).'/../';
+        } else {
+            self::$Smarty_Dir = $this->smartyBaseDir = rtrim($baseDir, '/') . '/';
+        }
+    }
     /**
      * Registers Smarty_Autoloader as an SPL autoloader.
      *
      * @param Boolean $prepend Whether to prepend the autoloader or not.
      */
-    public static function register($prepend = false)
+    public static function register($baseDir = null, $prepend = false)
     {
-        self::$smarty_path = dirname(__FILE__) . '/../';
+        $loader = new self($baseDir);
         if (version_compare(phpversion(), '5.3.0', '>=')) {
-            spl_autoload_register(array(new self, 'autoload'), true, $prepend);
+            spl_autoload_register(array($loader, 'autoload'), true, $prepend);
         } else {
-            spl_autoload_register(array(new self, 'autoload'));
+            spl_autoload_register(array($loader, 'autoload'));
         }
+        return $loader;
     }
 
     /**
@@ -49,28 +63,19 @@ class Smarty_Autoloader
      * This function can also be called manually
      *
      * @param string $class          class name.
-     * @param bool $check          this optional parameter must be set if autoload function is call manually
      */
-    public static function autoload($class, $check = false)
+    public static function autoload($class)
     {
         if (0 !== strpos($class, 'Smarty')) {
             return;
         }
         if (isset(self::$rootClasses[$class])) {
-            $file = self::$smarty_path . self::$rootClasses[$class] . '.php';
+            $file = self::$Smarty_Dir . self::$rootClasses[$class] . '.php';
         } else {
-            $file = self::$smarty_path . str_replace('_', '/', $class) . '.php';
+            $file = self::$Smarty_Dir . str_replace('_', '/', $class) . '.php';
         }
-        if ((!(self::$checkFile || $check)) || file_exists($file)) {
+        if (is_file($file)) {
             require $file;
-            if ($check) {
-                return true;
-            }
         }
     }
 }
-
-/**
- *  Register Smarty autoloader
- */
-Smarty_Autoloader::register();

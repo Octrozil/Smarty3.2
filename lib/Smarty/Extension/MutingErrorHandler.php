@@ -34,9 +34,9 @@ class Smarty_Extension_MutingErrorHandler
     {
         if (!self::$has_smarty_dir) {
             // add the SMARTY_DIR to the list of muted directories
-            $smarty_dir = realpath(Smarty_Autoloader::$smarty_path);
+            $smarty_dir = realpath(Smarty_Autoloader::$Smarty_Dir);
             if ($smarty_dir !== false) {
-                Smarty::$_muted_directories[Smarty_Autoloader::$smarty_path] = array(
+                Smarty::$_muted_directories[Smarty_Autoloader::$Smarty_Dir] = array(
                     'file' => $smarty_dir,
                     'length' => strlen($smarty_dir),
                 );
@@ -47,10 +47,10 @@ class Smarty_Extension_MutingErrorHandler
         $_is_muted_directory = false;
 
         // add the SMARTY_DIR to the list of muted directories
-        if (!isset(Smarty::$_muted_directories[Smarty_Autoloader::$smarty_path])) {
-            $smarty_dir = realpath(Smarty_Autoloader::$smarty_path);
+        if (!isset(Smarty::$_muted_directories[Smarty_Autoloader::$Smarty_Dir])) {
+            $smarty_dir = realpath(Smarty_Autoloader::$Smarty_Dir);
             if ($smarty_dir !== false) {
-                Smarty::$_muted_directories[Smarty_Autoloader::$smarty_path] = array(
+                Smarty::$_muted_directories[Smarty_Autoloader::$Smarty_Dir] = array(
                     'file' => $smarty_dir,
                     'length' => strlen($smarty_dir),
                 );

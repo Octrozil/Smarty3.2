@@ -35,7 +35,12 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
         switch ($variable) {
             case 'foreach':
             case 'section':
-                return "\$_scope->smarty->value$parameter";
+                $name = 'smarty';
+                for ($i = 0; $i<count($_index)-1;$i++) {
+                    $name .= '_' .trim($_index[$i], "'");
+                }
+                $last = end($_index);
+                return "\$_scope->{$name}->value[$last]";
             case 'capture':
                 return "Smarty::\$_smarty_vars$parameter";
             case 'now':

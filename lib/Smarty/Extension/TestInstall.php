@@ -377,7 +377,7 @@ class Smarty_Extension_TestInstall
                 "Smarty_Resource_Cache_custom.php" => true,
                 "Smarty_Resource_Cache_keyvaluestore.php" => true,
                 "Smarty_Compiler_Cose.php" => true,
-                "Smarty_Template_Class.php" => true,
+                "Smarty_Template.php" => true,
                 "Smarty_Resource_Cache_File.php" => true,
                 "Smarty_Compiler_Template_Tag_append.php" => true,
                 "Smarty_Compiler_Template_Tag_assign.php" => true,

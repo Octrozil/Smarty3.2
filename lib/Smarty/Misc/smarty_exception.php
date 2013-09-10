@@ -4,13 +4,11 @@
  * Smarty Internal Plugin
  *
  *
- * @package Exception
- */
+ * */
 
 /**
  * Smarty exception class
  *
- * @package Exception
  */
 class SmartynException extends Exception
 {
@@ -115,7 +113,7 @@ class Smarty_Exception_Runtime extends Smarty_Exception
             $msg .= "<b>called by {$info[0]} in line {$info[1]}</b><br>";
         }
         $ptr = $this->object;
-        while ($ptr->parent->usage == Smarty::IS_TEMPLATE || $ptr->parent->usage == Smarty::IS_CONFIG) {
+        while ($ptr->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE || $ptr->parent->_usage == Smarty::IS_CONFIG) {
             $ptr = $ptr->parent;
             foreach ($ptr->trace_call_stack as $info) {
                 $msg .= "<b>called by {$info[0]} in line {$info[1]}</b><br>";
@@ -224,7 +222,7 @@ return "Source Object [{$this->obj->type}:{$this->obj->name}] : ";
 case 'Smarty':
 case 'SmartyBC':
 case 'SmartyBC3':
-if ($this->obj->usage == Smarty::IS_SMARTY) {
+if ($this->obj->_usage == Smarty::IS_SMARTY) {
 return "Smarty Object : ";
 } else {
 return "Template Object ['{$this->obj->source->type}:{$this->obj->source->name}'] : ";

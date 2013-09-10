@@ -48,7 +48,7 @@ class Smarty_Extension_IsCompiled
         if ($this->smarty->force_compile) {
             return false;
         }
-        if ($template === null && ($this->smarty->usage == Smarty::IS_TEMPLATE || $this->smarty->usage == Smarty::IS_CONFIG)) {
+        if ($template === null && ($this->smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE || $this->smarty->_usage == Smarty::IS_CONFIG)) {
             $template = $this->smarty;
         }
         if (is_object($template)) {
@@ -78,8 +78,8 @@ class Smarty_Extension_IsCompiled
                 return false;
             }
             $compiled->loadTemplateClass();
-            if (class_exists($compiled->class_name, false)) {
-                $template_obj =  new $compiled->class_name($this->smarty, $parent, $compiled->source);
+            if (class_exists($compiled->template_class_name, false)) {
+                $template_obj =  new $compiled->template_class_name($this->smarty, $parent, $compiled->source);
                 return  $template_obj->isValid;
             }
             return false;

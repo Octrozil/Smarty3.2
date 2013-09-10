@@ -77,7 +77,7 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
             $_smarty_tpl = $compiler->tpl_obj;
             $_filepath = false;
             eval('$_script = ' . $_attr['script'] . ';');
-            if (!isset($compiler->tpl_obj->security_policy) && file_exists($_script)) {
+            if (!isset($compiler->tpl_obj->security_policy) && is_file($_script)) {
                 $_filepath = $_script;
             } else {
                 if (isset($compiler->tpl_obj->security_policy)) {
@@ -88,7 +88,7 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
                 if (!empty($_dir)) {
                     foreach ((array)$_dir as $_script_dir) {
                         $_script_dir = rtrim($_script_dir, '/\\') . '/';
-                        if (file_exists($_script_dir . $_script)) {
+                        if (is_file($_script_dir . $_script)) {
                             $_filepath = $_script_dir . $_script;
                             break;
                         }

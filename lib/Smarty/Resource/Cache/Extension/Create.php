@@ -73,7 +73,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
     /*
      * Internal class to render new cached content
      *
-     * @var Smarty_Template_Class
+     * @var Smarty_Template
      */
     public $template_obj = null;
 
@@ -89,7 +89,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
     public static function _getCachedObject($tpl_obj)
     {
         $_tpl = $tpl_obj;
-        while ($_tpl->usage == Smarty::IS_TEMPLATE) {
+        while ($_tpl->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
             if (isset($_tpl->cached)) {
                 break;
             }
@@ -171,7 +171,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         $template_code->php("<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . " */")->newline();
         // content class name
         $class = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
-        $template_code->php("if (!class_exists('{$class}',false)) {")->newline()->indent()->php("class {$class} extends Smarty_Template_Class" . (!empty($this->inheritance_blocks_code) ? "_Inheritance" : '') . " {")->newline()->indent();
+        $template_code->php("if (!class_exists('{$class}',false)) {")->newline()->indent()->php("class {$class} extends Smarty_Template" . (!empty($this->inheritance_blocks_code) ? "_Inheritance" : '') . " {")->newline()->indent();
         $template_code->php("public \$version = '" . Smarty::SMARTY_VERSION . "';")->newline();
         $template_code->php("public \$has_nocache_code = " . ($this->has_nocache_code ? 'true' : 'false') . ";")->newline();
         if (!empty($tpl_obj->cached_subtemplates)) {
@@ -208,7 +208,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         $template_code->outdent()->php('}')->newline();
 
         $template_code->outdent()->php('}')->newline()->outdent()->php('}')->newline();
-        $template_code->php("\$this->class_name = '{$class}';")->newline();
+        $template_code->php("\$this->template_class_name = '{$class}';")->newline();
 
         return $template_code;
     }
@@ -246,7 +246,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         $ptr = $tpl = $template;
         while ($ptr != null && !isset($ptr->compiled->template_obj->template_functions[$name])) {
             $ptr = $ptr->template_function_chain;
-            if ($ptr == null && ($tpl->parent->usage == Smarty::IS_TEMPLATE || $tpl->parent->usage == Smarty::IS_CONFIG)) {
+            if ($ptr == null && ($tpl->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE || $tpl->parent->_usage == Smarty::IS_CONFIG)) {
                 $ptr = $tpl = $tpl->parent;
             }
         }
@@ -292,7 +292,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
     // TODO has to be finished
     public function _createNocacheBlockChild($current_tpl, $name, $scope_tpl)
     {
-        while ($current_tpl !== null && $current_tpl->usage == Smarty::IS_TEMPLATE) {
+        while ($current_tpl !== null && $current_tpl->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
             if (isset($current_tpl->compiled->template_obj->inheritance_blocks[$name]['valid'])) {
                 if (isset($current_tpl->compiled->template_obj->inheritance_blocks[$name]['hide'])) {
                     break;
@@ -310,7 +310,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
                 $status = 1;
             }
             $current_tpl = $current_tpl->parent;
-            if ($current_tpl === null || $current_tpl->usage != Smarty::IS_TEMPLATE || ($status == 1 && !$current_tpl->is_inheritance_child && !$current_tpl->compiled->template_obj->is_inheritance_child)) {
+            if ($current_tpl === null || $current_tpl->_usage != Smarty::IS_SMARTY_TPL_CLONE || ($status == 1 && !$current_tpl->is_inheritance_child && !$current_tpl->compiled->template_obj->is_inheritance_child)) {
                 // quit at first child of current inheritance chain
                 break;
             }
@@ -332,7 +332,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         $child_tpl = null;
         $parent_tpl = null;
         $template_stack = array();
-        while ($current_tpl !== null && $current_tpl->usage == Smarty::IS_TEMPLATE) {
+        while ($current_tpl !== null && $current_tpl->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
             if (isset($current_tpl->compiled->template_obj->inheritance_blocks[$name]['valid'])) {
                 if (isset($current_tpl->compiled->template_obj->inheritance_blocks[$name]['hide'])) {
                     break;
@@ -351,7 +351,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
                 $status = 1;
             }
             $current_tpl = $current_tpl->parent;
-            if ($current_tpl === null || $current_tpl->usage != Smarty::IS_TEMPLATE || ($status == 1 && !$current_tpl->is_inheritance_child && !$current_tpl->compiled->template_obj->is_inheritance_child)) {
+            if ($current_tpl === null || $current_tpl->_usage != Smarty::IS_SMARTY_TPL_CLONE || ($status == 1 && !$current_tpl->is_inheritance_child && !$current_tpl->compiled->template_obj->is_inheritance_child)) {
                 // quit at first child of current inheritance chain
                 break;
             }

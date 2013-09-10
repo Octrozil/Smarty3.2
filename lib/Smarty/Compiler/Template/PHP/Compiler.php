@@ -442,7 +442,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
             $_filepath = $compiled->filepath;
             if ($_filepath === false)
                 throw new Smarty_Exception('Invalid filepath for compiled template');
-            Smarty_Misc_WriteFile::writeFile($_filepath, $code, $this->tpl_obj);
+            $this->tpl_obj->writeFile($_filepath, $code);
             $compiled->exists = true;
             $compiled->isCompiled = true;
         }
@@ -518,7 +518,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
      */
     public function compileTag($tag, $args, $parameter = array())
     {
-       // $args contains the attributes parsed and compiled by the lexer/parser
+        // $args contains the attributes parsed and compiled by the lexer/parser
         // assume that tag does compile into code, but creates no HTML output
         $this->has_code = true;
         $this->has_output = false;
@@ -686,16 +686,14 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
         // check if tag allowed by security
         if (!isset($this->tpl_obj->security_policy) || $this->tpl_obj->security_policy->isTrustedTag($tag, $this)) {
             $class = 'Smarty_Compiler_Template_Php_Tag_' . $tag;
-            if (!class_exists($class, false)) {
-                if (!Smarty_Autoloader::autoload($class, true)) {
-                    if (substr($tag, -5) == 'close') {
-                        $base_class = substr($tag, 0, -5);
-                        if (!Smarty_Autoloader::autoload($base_class, true) || !class_exists($class, false)) {
-                            return false;
-                        }
-                    } else {
+            if (!class_exists($class, true)) {
+                if (substr($tag, -5) == 'close') {
+                    $base_class = substr($tag, 0, -5);
+                    if (!class_exists($class, true)) {
                         return false;
                     }
+                } else {
+                    return false;
                 }
             }
             self::$_tag_objects[$tag] = new $class;
@@ -950,7 +948,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
         $template_code = new Smarty_Compiler_Code();
         $template_code->php("<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . " compiled from \"{$this->source->filepath}\" */")->newline();
         $template_code->php("if (!class_exists('{$this->content_class}',false)) {")->newline()->indent();
-        $template_code->php("class {$this->content_class} extends Smarty_Template_" . ($this->isInheritance ? 'Inheritance' : 'Class') . " {")->newline()->indent();
+        $template_code->php("class {$this->content_class} extends Smarty_Template" . ($this->isInheritance ? '_Inheritance' : '') . " {")->newline()->indent();
         $template_code->php("public \$version = '" . Smarty::SMARTY_VERSION . "';")->newline();
         $template_code->php("public \$has_nocache_code = " . ($this->has_nocache_code ? 'true' : 'false') . ";")->newline();
         if ($this->isInheritanceChild) {
@@ -1015,7 +1013,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
                 $template_code->newline()->raw($inlinetpl_obj['code']);
                 unset(self::$merged_inline_content_classes[$key], $inlinetpl_obj);
             }
-            $template_code->php("\$this->class_name = '{$this->content_class}';")->newline();
+            $template_code->php("\$this->template_class_name = '{$this->content_class}';")->newline();
         }
 
         return $template_code;

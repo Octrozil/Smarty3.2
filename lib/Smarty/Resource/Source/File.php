@@ -45,7 +45,7 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
      * usage of this resource
      * @var mixed
      */
-    public $usage = null;
+    public $_usage = null;
 
     /**
      * Template name
@@ -138,7 +138,7 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
     public function buildFilepath(Smarty $smarty)
     {
         $file = str_replace('\\', '/', $this->name);
-        if ($this->usage == Smarty::IS_CONFIG) {
+        if ($this->_usage == Smarty::IS_CONFIG) {
             $_directories = $smarty->getConfigDir();
             $_default_handler = $smarty->default_config_handler_func;
         } else {
@@ -148,7 +148,7 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
 
         // go relative to a given template?
         $_file_is_dotted = $file[0] == '.' && ($file[1] == '.' || $file[1] == '/');
-        if ($_file_is_dotted && isset($smarty->parent) && $smarty->parent->usage == Smarty::IS_TEMPLATE) {
+        if ($_file_is_dotted && isset($smarty->parent) && $smarty->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
             if ($smarty->parent->source->type != 'file' && $smarty->parent->source->type != 'extends' && !$smarty->parent->allow_relative_path) {
                 throw new Smarty_Exception_IllegalRelativePath($file, $smarty->parent->source->type);
             }
@@ -242,7 +242,7 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
         // no tpl file found
         if ($_default_handler) {
             if (!is_callable($_default_handler)) {
-                if ($smarty->usage == Smarty::IS_CONFIG) {
+                if ($smarty->_usage == Smarty::IS_CONFIG) {
                     throw new DefaultHandlerNotCallable('config');
                 } else {
                     throw new DefaultHandlerNotCallable('template');
@@ -301,17 +301,6 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
     }
 
     /**
-     * populate Resource with timestamp and exists
-     *
-     */
-    public function populateTimestamp()
-    {
-        $this->filepath = $this->buildFilepath($smarty);
-        $this->timestamp = @filemtime($this->filepath);
-        $this->exists = !!$this->timestamp;
-    }
-
-    /**
      * read file
      *
      * @return boolean false|string
@@ -347,8 +336,11 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
      */
     public function fileExists($file)
     {
-        $this->timestamp = @filemtime($file);
-        return $this->exists = !!$this->timestamp;
+        if (is_file($file)){
+        $this->timestamp = filemtime($file);
+        return $this->exists = true;
+        }
+        return $this->timestamp = $this->exists = false;
     }
 
     /**

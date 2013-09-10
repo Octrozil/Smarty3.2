@@ -1,6 +1,6 @@
 <?php
 /**
- * Smarty Variable Scope
+ * Smarty Config Variable Scope
  *
  * This file contains the Class for a variable scope
  *
@@ -16,7 +16,7 @@
  * The special property ___attributes is used to store control information
  *
  */
-class Smarty_Variable_Scope
+class Smarty_Config_Scope
 {
 
     /**
@@ -24,16 +24,6 @@ class Smarty_Variable_Scope
      */
     public function __construct()
     {
-    }
-
-    /**
-     * Set a variable in a variable without checking clone status
-     *
-     * @param  string $varname name of variable
-     * @param  Smarty_Variable $data variable object
-     */
-    public function setVariable($varname, $data) {
-        $this->$varname = $data;
     }
 
     /**
@@ -47,7 +37,7 @@ class Smarty_Variable_Scope
         return $this->$varname = Smarty_Template::$call_stack[0]->tpl_obj->getVariable($varname, Smarty_Template::$call_stack[0]->parent);
     }
 
-     /**
+    /**
     public function __destruct()
     {
     }

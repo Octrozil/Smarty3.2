@@ -83,7 +83,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      * Template Class Name
      * @var string
      */
-    public $class_name = '';
+    public $template_class_name = '';
 
     /**
      * Template Class Object
@@ -106,8 +106,11 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
     public function populate(Smarty $tpl_obj)
     {
         $this->filepath = $this->buildFilepath($tpl_obj);
-        $this->timestamp = @filemtime($this->filepath);
-        $this->exists = !!$this->timestamp;
+        if (is_file($this->filepath)){
+            $this->timestamp = filemtime($this->filepath);
+            return $this->exists = true;
+        }
+        return $this->timestamp = $this->exists = false;
     }
 
     /**
@@ -161,18 +164,18 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      * Instance compiled template
      *
      * @param Smarty $smarty     Smarty object
-     * @param Smarty|Smarty_Data|Smarty_Template_Class $parent     parent object
+     * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
      * @param  int $scope_type
      * @param  array $data             array with variable names and values which must be assigned
      * @param  bool $no_output_filter flag that output filter shall be ignored
-     * @returns Smarty_Template_Class
+     * @returns Smarty_Template
      */
     function instanceTemplate($smarty, $parent, $scope_type, $data, $no_output_filter)
     {
-        if ($this->class_name == '') {
+        if ($this->template_class_name == '') {
             return $this->loadTemplate($smarty, $parent, $scope_type, $data, $no_output_filter);
         } else {
-            return new $this->class_name($smarty, $parent, $this->source);
+            return new $this->template_class_name($smarty, $parent, $this->source);
         }
 
     }
@@ -193,11 +196,11 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      * Load compiled template
      *
      * @param Smarty $smarty     Smarty object
-     * @param Smarty|Smarty_Data|Smarty_Template_Class $parent     parent object
+     * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
      * @param  int $scope_type
      * @param  array $data             array with variable names and values which must be assigned
      * @param  bool $no_output_filter flag that output filter shall be ignored
-     * @returns Smarty_Template_Class
+     * @returns Smarty_Template
      * @throws Smarty_Exception
      */
     public function loadTemplate($smarty, $parent, $scope_type, $data, $no_output_filter)
@@ -208,8 +211,8 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
             if ($this->exists && !$smarty->force_compile && $this->timestamp >= $this->source->timestamp) {
                 // load existing compiled template class
                 $this->loadTemplateClass();
-                if (class_exists($this->class_name, false)) {
-                    $template_obj = new $this->class_name($smarty, $parent, $this->source);
+                if (class_exists($this->template_class_name, false)) {
+                    $template_obj = new $this->template_class_name($smarty, $parent, $this->source);
                     // existing class could got invalid
                     $isValid = $template_obj->isValid;
                 }
@@ -231,8 +234,8 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
                 unset($_output);
                 array_shift(self::$creator);
                 $this->loadTemplateClass($this);
-                if (class_exists($this->class_name, false)) {
-                    $template_obj = new $this->class_name($smarty, $parent, $this->source);
+                if (class_exists($this->template_class_name, false)) {
+                    $template_obj = new $this->template_class_name($smarty, $parent, $this->source);
                     $isValid = $template_obj->isValid;
                 }
                 if (!$isValid) {
@@ -253,7 +256,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      * get rendered template output from cached template
      *
      * @param  Smarty $smarty          template object
-     * @param Smarty|Smarty_Data|Smarty_Template_Class $parent     parent object
+     * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
      * @param  Smarty_Variable_Scope $_scope
      * @param  int $scope_type
      * @param  array $data             array with variable names and values which must be assigned
@@ -319,7 +322,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
         while ($subtpl) {
             $tpl = clone $this;
             unset($tpl->source, $tpl->compiled, $tpl->cached, $tpl->compiler, $tpl->mustCompile);
-            $tpl->usage = Smarty::IS_TEMPLATE;
+            $tpl->_usage = Smarty::IS_SMARTY_TPL_CLONE;
             $tpl->template_resource = $subtpl[0];
             $tpl->cache_id = $subtpl[1];
             $tpl->compile_id = $subtpl[2];
@@ -345,8 +348,11 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      */
     public function populateTimestamp(Smarty $tpl_obj)
     {
-        $this->timestamp = @filemtime($this->filepath);
-        $this->exists = !!$this->timestamp;
+        if (is_file($this->filepath)){
+            $this->timestamp = filemtime($this->filepath);
+            return $this->exists = true;
+        }
+        return $this->timestamp = $this->exists = false;
     }
 
     /**
@@ -358,7 +364,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      */
     public function writeCache(Smarty $tpl_obj, $content)
     {
-        if (Smarty_Misc_WriteFile::writeFile($this->filepath, $content, $tpl_obj) === true) {
+        if ($tpl_obj->writeFile($this->filepath, $content) === true) {
             $this->timestamp = @filemtime($this->filepath);
             $this->exists = !!$this->timestamp;
             if ($this->exists) {

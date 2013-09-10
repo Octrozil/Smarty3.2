@@ -1,47 +1,69 @@
 <?php
 
 /**
- * Smarty write file plugin
+ * Smarty Extension
  *
+ * Smarty class methods
  *
- * @package PluginsInternal
- * @author Monte Ohrt
+ * @package Smarty\Extension
+ * @author Uwe Tews
  */
 
 /**
- * Smarty Internal Write File Class
+ * Class for writeFile method
  *
- *
- * @package PluginsInternal
+ * @internal
+ * @package Smarty\Extension
  */
-class Smarty_Misc_WriteFile
+class Smarty_Extension_WriteFile
 {
-
-    static $_IS_WINDOWS = null;
     /**
-     * Writes file in a safe way to disk
+     * Flag if we are running on Windows
+     * @var boolean
+     */
+    static $_IS_WINDOWS = null;
+
+    /**
+     *  Smarty object
      *
+     * @var Smarty
+     */
+    public $smarty;
+
+    /**
+     *  Constructor
+     *
+     * @param Smarty $this->smarty Smarty object
+     */
+    public function __construct(Smarty $smarty)
+    {
+        $this->smarty = $smarty;
+    }
+
+    /**
+     * Writes compiled or cache file in a safe way to disk
+     *
+     * @internal
      * @param  string $_filepath complete filepath
      * @param  string $_contents file content
-     * @param  Smarty $smarty    smarty instance
      * @throws Smarty_Exception
      * @return boolean          true
      */
-    public static function writeFile($_filepath, $_contents, Smarty $smarty)
+    public function writeFile($_filepath, $_contents)
     {
-        if(!isset(self::$_IS_WINDOWS)) {
+        if (!isset(self::$_IS_WINDOWS)) {
             self::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
         }
         $_error_reporting = error_reporting();
         error_reporting($_error_reporting & ~E_NOTICE & ~E_WARNING);
-        if ($smarty->_file_perms !== null) {
+        if ($this->smarty->_file_perms !== null) {
             $old_umask = umask(0);
         }
 
         $_dirpath = dirname($_filepath);
         // if subdirs, create dir structure
         if ($_dirpath !== '.' && !file_exists($_dirpath)) {
-            mkdir($_dirpath, $smarty->_dir_perms === null ? 0777 : $smarty->_dir_perms, true);
+            mkdir($_dirpath, $this->smarty->_dir_perms === null ? 0777 : $this->smarty->_dir_perms, true);
         }
 
         // write to tmp file, then move to overt file lock race condition
@@ -60,7 +82,9 @@ class Smarty_Misc_WriteFile
          */
         if (self::$_IS_WINDOWS) {
             // remove original file
-            @unlink($_filepath);
+            if (is_file($_filepath)) {
+                @unlink($_filepath);
+            }
             // rename tmp file
             $success = @rename($_tmp_file, $_filepath);
         } else {
@@ -79,19 +103,18 @@ class Smarty_Misc_WriteFile
             throw new Smarty_Exception("unable to write file {$_filepath}");
         }
 
-        if ($smarty->enable_trace) {
+        if ($this->smarty->enable_trace) {
             // notify listeners of written file
-            $smarty->triggerTraceCallback('filesystem:write', array($smarty, $_filepath));
+            $this->smarty->triggerTraceCallback('filesystem:write', array($this->smarty, $_filepath));
         }
 
-        if ($smarty->_file_perms !== null) {
+        if ($this->smarty->_file_perms !== null) {
             // set file permissions
-            chmod($_filepath, $smarty->_file_perms);
+            chmod($_filepath, $this->smarty->_file_perms);
             umask($old_umask);
         }
         error_reporting($_error_reporting);
 
         return true;
     }
-
 }

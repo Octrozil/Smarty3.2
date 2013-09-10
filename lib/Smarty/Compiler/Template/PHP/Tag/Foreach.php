@@ -125,17 +125,19 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
             $this->php("\$_scope->{$item}->show = (\$_scope->{$item}->total > 0);")->newline();
         }
         if ($has_name) {
+            $varname = 'smarty_foreach_' .trim($name, '\'"');
+            $this->php("\$_scope->{$varname} = new Smarty_Variable;")->newline();
             if ($usesSmartyTotal) {
-                $this->php("\$_scope->smarty->value['foreach'][{$name}]['total'] = \$_scope->{$item}->total;")->newline();
+                $this->php("\$_scope->{$varname}->value['total'] = \$_scope->{$item}->total;")->newline();
             }
             if ($usesSmartyIteration) {
-                $this->php("\$_scope->smarty->value['foreach'][{$name}]['iteration'] = 0;")->newline();
+                $this->php("\$_scope->{$varname}->value['iteration'] = 0;")->newline();
             }
             if ($usesSmartyIndex) {
-                $this->php("\$_scope->smarty->value['foreach'][{$name}]['index'] = -1;")->newline();
+                $this->php("\$_scope->{$varname}->value['index'] = -1;")->newline();
             }
             if ($usesSmartyShow) {
-                $this->php("\$_scope->smarty->value['foreach'][{$name}]['show']=(\$_scope->{$item}->total > 0);")->newline();
+                $this->php("\$_scope->{$varname}->value['show']=(\$_scope->{$item}->total > 0);")->newline();
             }
         }
         $this->php("foreach (\$_from as \$_scope->{$item}->key => \$_scope->{$item}->value) {")->indent()->newline();
@@ -157,16 +159,16 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
         }
         if ($has_name) {
             if ($usesSmartyFirst) {
-                $this->php("\$_scope->smarty->value['foreach'][{$name}]['first'] = \$_scope->{$item}->first;")->newline();
+                $this->php("\$_scope->{$varname}->value['first'] = \$_scope->{$item}->first;")->newline();
             }
             if ($usesSmartyIteration) {
-                $this->php("\$_scope->smarty->value['foreach'][{$name}]['iteration']++;")->newline();
+                $this->php("\$_scope->{$varname}->value['iteration']++;")->newline();
             }
             if ($usesSmartyIndex) {
-                $this->php("\$_scope->smarty->value['foreach'][{$name}]['index']++;")->newline();
+                $this->php("\$_scope->{$varname}->value['index']++;")->newline();
             }
             if ($usesSmartyLast) {
-                $this->php("\$_scope->smarty->value['foreach'][{$name}]['last'] = \$_scope->{$item}->last;")->newline();
+                $this->php("\$_scope->{$varname}->value['last'] = \$_scope->{$item}->last;")->newline();
             }
         }
 

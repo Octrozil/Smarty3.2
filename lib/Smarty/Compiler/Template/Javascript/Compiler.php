@@ -686,16 +686,14 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
         // check if tag allowed by security
         if (!isset($this->tpl_obj->security_policy) || $this->tpl_obj->security_policy->isTrustedTag($tag, $this)) {
             $class = 'Smarty_Compiler_Template_Javascript_Tag_' . $tag;
-            if (!class_exists($class, false)) {
-                if (!Smarty_Autoloader::autoload($class, true)) {
-                    if (substr($tag, -5) == 'close') {
-                        $base_class = substr($tag, 0, -5);
-                        if (!Smarty_Autoloader::autoload($base_class, true) || !class_exists($class, false)) {
-                            return false;
-                        }
-                    } else {
+            if (!class_exists($class, true)) {
+                if (substr($tag, -5) == 'close') {
+                    $base_class = substr($tag, 0, -5);
+                    if (!class_exists($class, true)) {
                         return false;
                     }
+                } else {
+                    return false;
                 }
             }
             self::$_tag_objects[$tag] = new $class;
@@ -1022,7 +1020,7 @@ class Smarty_Compiler_Template_Javascript_Compiler extends Smarty_Compiler
                 $template_code->newline()->raw($inlinetpl_obj['code']);
                 unset(self::$merged_inline_content_classes[$key], $inlinetpl_obj);
             }
-            $template_code->php("\$this->class_name = '{$this->content_class}';")->newline();
+            $template_code->php("\$this->template_class_name = '{$this->content_class}';")->newline();
         }
 
         return $template_code;

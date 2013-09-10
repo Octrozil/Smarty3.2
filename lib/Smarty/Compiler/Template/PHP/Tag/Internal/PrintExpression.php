@@ -95,7 +95,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
                 if (!empty($compiler->tpl_obj->registered_filters[Smarty::FILTER_VARIABLE])) {
                     foreach ($compiler->tpl_obj->registered_filters[Smarty::FILTER_VARIABLE] as $key => $function) {
                         if ($function instanceof Closure) {
-                            $output = "\$_smarty_tpl->registered_filters[Smarty::FILTER_VARIABLE][{$key}]({$output},\$_smarty_tpl)";
+                            $output = "\$_smarty_tpl->registered_filters[Smarty::FILTER_VARIABLE]['{$key}']({$output},\$_smarty_tpl)";
                         } elseif (!is_array($function)) {
                             $output = "{$function}({$output},\$_smarty_tpl)";
                         } elseif (is_object($function[0])) {

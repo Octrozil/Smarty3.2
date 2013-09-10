@@ -49,7 +49,7 @@ class Smarty_Extension_GetIncludePath
         }
 
         foreach ($_include_path_array as $_path) {
-            if (file_exists($_path . '/' . $filepath)) {
+            if (is_file($_path . '/' . $filepath)) {
                 return $_path . '/' . $filepath;
             }
         }

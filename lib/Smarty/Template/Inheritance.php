@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Smarty Internal Plugin Smarty Internal Inheritance
+ * Smarty Internal Plugin Smart Inheritance
  *
  * This file contains the methods for precessing inheritance
  *
  *
- * @package Template
+ * @package Smarty\Template
  * @author Uwe Tews
  */
 
@@ -14,9 +14,9 @@
  * Class with inheritance processing methods
  *
  *
- * @package Template
+ * @package Smarty\Template
  */
-class Smarty_Template_Inheritance extends Smarty_Template_Class
+class Smarty_Template_Inheritance extends Smarty_Template
 {
 
     /**
@@ -116,7 +116,7 @@ class Smarty_Template_Inheritance extends Smarty_Template_Class
         $name = $this->inheritance_blocks[$name]['name'];
 
         $ptr = $current_tpl->parent;
-        while ($ptr !== null && $ptr->usage == Smarty::IS_TEMPLATE) {
+        while ($ptr !== null && $ptr->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
             $content_ptr = $ptr->compiled->template_obj;
             if ($content_ptr->is_inheritance_child) {
                 $in_child_chain = true;

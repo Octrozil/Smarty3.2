@@ -45,7 +45,7 @@ class Smarty_Extension_CompileTemplate
      */
     public function compileTemplate($template = null, $compile_id = null, $parent = null)
     {
-        if ($template === null && ($this->smarty->usage == Smarty::IS_TEMPLATE || $this->smarty->usage == Smarty::IS_CONFIG)) {
+        if ($template === null && ($this->smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE || $this->smarty->_usage == Smarty::IS_CONFIG)) {
             $template = $this->smarty;
         }
         if (is_object($template)) {

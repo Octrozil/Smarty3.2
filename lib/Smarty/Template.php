@@ -1,22 +1,22 @@
 <?php
 
 /**
- * Smarty Internal Plugin Smarty Internal Content
+ * Smarty Template
  *
  * This file contains the basic shared methods for precessing content of compiled and cached templates
  *
  *
- * @package Template
+ * @package Smarty\Template
  * @author Uwe Tews
  */
 
 /**
- * Class with shared content processing methods
+ * Class Smarty Template
  *
  *
- * @package Template
+ * @package Smarty\Template
  */
-class Smarty_Template_Class extends Smarty_Exception_Magic
+class  Smarty_Template extends Smarty_Exception_Magic
 {
 
     /**
@@ -34,7 +34,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
 
     /**
      * Parent object
-     * @var Smarty|Smarty_Data|Smarty_Template_Class
+     * @var Smarty|Smarty_Data|Smarty_Template
      */
     public $parent = null;
 
@@ -49,6 +49,14 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
      * @var Smarty_Variable_Scope
      */
     public $_tpl_vars = null;
+
+    /**
+     * Declare the type template variable storage
+     *
+     * @internal
+     * @var Smarty::IS_DATA
+     */
+    public $_usage = Smarty::IS_TEMPLATE;
 
     /**
      * flag if class is from cache file
@@ -160,7 +168,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
      * constructor
      *
      * @param Smarty $smarty Smarty object
-     * @param Smarty|Smarty_Data|Smarty_Template_Class $parent parent object
+     * @param Smarty|Smarty_Data|Smarty_Template $parent parent object
      * @param Smarty_Resource_Source_File $source source resource
      */
     public function __construct($tpl_obj, $parent, $source)
@@ -204,7 +212,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
             $this->isValid = true;
         }
         if (!$this->is_cache) {
-            if (!empty($this->template_functions) && isset($tpl_obj->parent) && $tpl_obj->parent->usage == Smarty::IS_TEMPLATE) {
+            if (!empty($this->template_functions) && isset($tpl_obj->parent) && $tpl_obj->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
                 $tpl_obj->parent->template_function_chain = $tpl_obj;
             }
         }
@@ -284,7 +292,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
                         $this->_tpl_vars = clone $this->parent;
                         break;
                     }
-                    if ($this->parent->usage == Smarty::IS_SMARTY || $this->parent->usage == Smarty::IS_TEMPLATE) {
+                    if ($this->parent->_usage == Smarty::IS_SMARTY || $this->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
                         $this->_tpl_vars = clone $this->parent->_tpl_vars;
                         break;
                     }
@@ -298,13 +306,13 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
                     break;
                 case Smarty::SCOPE_ROOT:
                     $ptr = $this;
-                    while ($ptr->parent && $ptr->parent->usage == Smarty::IS_TEMPLATE) {
+                    while ($ptr->parent && $ptr->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
                         $ptr = $ptr->parent;
                     }
                     $this->_tpl_vars = $ptr->_tpl_vars;
                     break;
             }
-            if ($this->tpl_obj->usage == Smarty::IS_TEMPLATE) {
+            if ($this->tpl_obj->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
                 foreach ($this->tpl_obj->_tpl_vars as $var => $data) {
                     $this->_tpl_vars->$var = $data;
                 }
@@ -313,10 +321,6 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
             $this->_tpl_vars = $this->parent->_tpl_vars;
         }
 
-        // create special smarty variable
-        if (!isset($this->_tpl_vars->smarty)) {
-            $this->_tpl_vars->smarty = new Smarty_Variable();
-        }
         // fill data if present
         if ($data != null) {
             // set up variable values
@@ -332,7 +336,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
      *
      *  merge tpl vars
      *
-     * @param  Smarty|Smarty_Data|Smarty_Template_Class $ptr
+     * @param  Smarty|Smarty_Data|Smarty_Template $ptr
      * @return Smarty_Variable_Scope                    merged tpl vars
      */
     public function _mergeScopes($ptr)
@@ -370,7 +374,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
             $ptr = $tpl = $tpl_obj;
             while ($ptr != null && !isset($ptr->compiled->template_obj->template_functions[$name])) {
                 $ptr = $ptr->template_function_chain;
-                if ($ptr == null && $tpl->parent->usage == Smarty::IS_TEMPLATE) {
+                if ($ptr == null && $tpl->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
                     $ptr = $tpl = $tpl->parent;
                 }
             }
@@ -544,7 +548,7 @@ class Smarty_Template_Class extends Smarty_Exception_Magic
             $this->_loadConfigValuesInScope($tpl_obj, $ptr->_tpl_vars);
         }
         if ($tpl_obj->_tpl_vars->___config_scope == 'root' || $tpl_obj->_tpl_vars->___config_scope == 'global') {
-            while ($ptr != null && $ptr->usage == Smarty::IS_TEMPLATE) {
+            while ($ptr != null && $ptr->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
                 $this->_loadConfigValuesInScope($tpl_obj, $ptr->_tpl_vars);
                 $ptr = $ptr->parent;
             }

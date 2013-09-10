@@ -61,7 +61,7 @@ class Smarty_Compiler_Template_Php_Tag_IncludePhp extends Smarty_Compiler_Templa
         $_smarty_tpl = $compiler->tpl_obj;
         $_filepath = false;
         eval('$_file = ' . $_attr['file'] . ';');
-        if (!isset($compiler->tpl_obj->security_policy) && file_exists($_file)) {
+        if (!isset($compiler->tpl_obj->security_policy) && is_file($_file)) {
             $_filepath = $_file;
         } else {
             if (isset($compiler->tpl_obj->security_policy)) {
@@ -72,7 +72,7 @@ class Smarty_Compiler_Template_Php_Tag_IncludePhp extends Smarty_Compiler_Templa
             if (!empty($_dir)) {
                 foreach ((array)$_dir as $_script_dir) {
                     $_script_dir = rtrim($_script_dir, '/\\') . '/';
-                    if (file_exists($_script_dir . $_file)) {
+                    if (is_file($_script_dir . $_file)) {
                         $_filepath = $_script_dir . $_file;
                         break;
                     }
