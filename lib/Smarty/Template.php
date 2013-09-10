@@ -195,7 +195,7 @@ class  Smarty_Template extends Smarty_Exception_Magic
                     } elseif ($_file_to_check[2] == 'string') {
                         continue;
                     } else {
-                        $source = Smarty_Resource_Source::load($this->tpl_obj, $_file_to_check[0]);
+                        $source = $this->tpl_obj->_load(Smarty::SOURCE, $_file_to_check[0]);
                         $mtime = $source->timestamp;
                     }
                     if (!$mtime || $mtime > $_file_to_check[1]) {
