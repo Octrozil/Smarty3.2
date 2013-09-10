@@ -86,7 +86,7 @@ class DefaultVariableHandlerTests extends PHPUnit_Framework_TestCase
 
 function DefaultVariableHandlerTests_value($name, &$value, $context)
 {
-    $value = $name . '-' . ($context->usage == Smarty::IS_TEMPLATE ? 'Template' : 'Smarty');
+    $value = $name . '-' . ($context->_usage == Smarty::IS_SMARTY_TPL_CLONE ? 'Template' : 'Smarty');
 
     return true;
 }

@@ -21,7 +21,7 @@ class Smarty_Resource_Db4 extends Smarty_Resource_Source_File
     public function getContent()
     {
         /** TODO Cofig return
-        if ($this->smarty->usage == Smarty::IS_CONFIG) {
+        if ($this->smarty->_usage == Smarty::IS_CONFIG) {
         return "foo = 'bar'\n";
         }
          */

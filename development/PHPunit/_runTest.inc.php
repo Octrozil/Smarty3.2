@@ -7,7 +7,7 @@
  */
 
 require_once '../../lib/Smarty/Autoloader.php';
-Smarty_Autoloader::$checkFile = true;
+Smarty_Autoloader::register();
 /**
  * class for running test suite
  */

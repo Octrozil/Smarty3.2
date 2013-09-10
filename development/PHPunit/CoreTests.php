@@ -31,14 +31,6 @@ class CoreTests extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * _loadPlugin test Smarty_Debug exists
-     */
-    public function test_loadPluginSmartyInternalDebug()
-    {
-        $this->assertTrue($this->smarty->_loadPlugin('Smarty_Debug') == true);
-    }
-
-    /**
      * _loadPlugin test loaging from plugins_dir
      */
     public function test_loadPluginSmartyPluginCounter()
