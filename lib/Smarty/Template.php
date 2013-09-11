@@ -195,7 +195,7 @@ class  Smarty_Template extends Smarty_Exception_Magic
                     } elseif ($_file_to_check[2] == 'string') {
                         continue;
                     } else {
-                        $source = $this->tpl_obj->_load(Smarty::SOURCE, $_file_to_check[0]);
+                        $source = $this->tpl_obj->_loadResource(Smarty::SOURCE, $_file_to_check[0]);
                         $mtime = $source->timestamp;
                     }
                     if (!$mtime || $mtime > $_file_to_check[1]) {
@@ -221,15 +221,14 @@ class  Smarty_Template extends Smarty_Exception_Magic
     /**
      * get rendered template output from compiled template
      *
+     * @param Smarty_Variable_Scope $scope variable scope
      * @param  int $scope_type
-     * @param  null|array $data
      * @param  boolean $no_output_filter true if output filter shall nit run
      * @throws Exception
      * @return string
      */
-    public function getRenderedTemplate($scope_type = Smarty::SCOPE_LOCAL, $data = null, $no_output_filter = true)
+    public function getRenderedTemplate($scope, $scope_type = Smarty::SCOPE_LOCAL, $no_output_filter = true)
     {
-        $this->_buildScope($scope_type, $data);
         $this->tpl_obj->cached_subtemplates = array();
         try {
             $level = ob_get_level();
@@ -241,7 +240,7 @@ class  Smarty_Template extends Smarty_Exception_Magic
             //
             // render compiled template
             //
-            $output = $this->_renderTemplate($this->tpl_obj, $this->_tpl_vars);
+            $output = $this->_renderTemplate($this->tpl_obj, $scope);
             array_shift(self::$call_stack);
             // any unclosed {capture} tags ?
             if (isset($this->_capture_stack[0][0])) {
@@ -271,89 +270,6 @@ class  Smarty_Template extends Smarty_Exception_Magic
         return $output;
     }
 
-    /**
-     *
-     *  runtime routine to create a new variable scope
-     *
-     * @param  int $scope_type
-     * @param  null $data
-     * @return array|null|\Smarty_Variable_Scope|\stdClass
-     */
-    public function _buildScope($scope_type = Smarty::SCOPE_LOCAL, $data = null)
-    {
-        if (true) {
-            switch ($scope_type) {
-                case Smarty::SCOPE_LOCAL:
-                    if ($this->parent == null) {
-                        $this->_tpl_vars = new Smarty_Variable_Scope();
-                        break;
-                    }
-                    if ($this->parent instanceof Smarty_Variable_Scope) {
-                        $this->_tpl_vars = clone $this->parent;
-                        break;
-                    }
-                    if ($this->parent->_usage == Smarty::IS_SMARTY || $this->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
-                        $this->_tpl_vars = clone $this->parent->_tpl_vars;
-                        break;
-                    }
-                    $this->_tpl_vars = $this->_mergeScopes($this->parent);
-                    break;
-                case Smarty::SCOPE_PARENT:
-                    $this->_tpl_vars = $this->parent->_tpl_vars;
-                    break;
-                case Smarty::SCOPE_GLOBAL:
-                    $this->_tpl_vars = Smarty::$_global_tpl_vars;
-                    break;
-                case Smarty::SCOPE_ROOT:
-                    $ptr = $this;
-                    while ($ptr->parent && $ptr->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
-                        $ptr = $ptr->parent;
-                    }
-                    $this->_tpl_vars = $ptr->_tpl_vars;
-                    break;
-            }
-            if ($this->tpl_obj->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
-                foreach ($this->tpl_obj->_tpl_vars as $var => $data) {
-                    $this->_tpl_vars->$var = $data;
-                }
-            }
-        } else {
-            $this->_tpl_vars = $this->parent->_tpl_vars;
-        }
-
-        // fill data if present
-        if ($data != null) {
-            // set up variable values
-            foreach ($data as $varname => $value) {
-                $this->_tpl_vars->$varname = new Smarty_Variable($value);
-            }
-        }
-
-        return;
-    }
-
-    /**
-     *
-     *  merge tpl vars
-     *
-     * @param  Smarty|Smarty_Data|Smarty_Template $ptr
-     * @return Smarty_Variable_Scope                    merged tpl vars
-     */
-    public function _mergeScopes($ptr)
-    {
-        // Smarty::triggerTraceCallback('trace', ' merge tpl ');
-
-        if ($ptr->parent) {
-            $tpl_vars = $this->_mergeScopes($ptr->parent);
-            foreach ($ptr->_tpl_vars as $var => $data) {
-                $tpl_vars->$var = $data;
-            }
-
-            return $tpl_vars;
-        } else {
-            return clone $ptr->parent->_tpl_vars;
-        }
-    }
 
     /**
      * Template runtime function to call a template function

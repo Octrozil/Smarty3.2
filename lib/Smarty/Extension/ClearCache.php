@@ -49,7 +49,7 @@ class Smarty_Extension_ClearCache
     {
         // load cache resource and call clear
         $type = $type ? $type : $this->smarty->caching_type;
-        $cache = $this->smarty->_load(Smarty::CACHE, null, $type);
+        $cache = $this->smarty->_loadResource(Smarty::CACHE, null, $type);
         // invalidate complete cache
         // invalidate complete cache
         unset(Smarty::$resource_cache[Smarty::CACHE]);

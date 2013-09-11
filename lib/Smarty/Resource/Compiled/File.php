@@ -173,14 +173,14 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
     /**
      * @param Smarty $tpl_obj
      * @param Smarty $parent
+     * @param  Smarty_Variable_Scope $_scope
      * @param  int $scope_type
-     * @param  null|array $data
      * @param  boolean $no_output_filter true if output filter shall nit run
      * @return string html output
      */
-    public function getRenderedTemplate($tpl_obj, $parent, $scope_type = Smarty::SCOPE_LOCAL, $data = null, $no_output_filter = true)
+    public function getRenderedTemplate($tpl_obj, $parent, $scope, $scope_type = Smarty::SCOPE_LOCAL, $no_output_filter = true)
     {
-        return $this->instanceTemplate($tpl_obj, $parent)->getRenderedTemplate($scope_type, $data, $no_output_filter);
+        return $this->instanceTemplate($tpl_obj, $parent)->getRenderedTemplate($scope, $scope_type, $no_output_filter);
     }
 
     /**

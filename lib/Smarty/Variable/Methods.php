@@ -289,6 +289,25 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
                 $_ptr = null;
             }
         }
+
+        // try global variable
+        if (null !== $var = self::getGlobalVariable($varname, $property)) {
+            return $var;
+        }
+
+        // try default variable
+        return self::getDefaultVariable($this, $varname, $property, $error_enable);
+     }
+
+    /**
+     * get the object or property of global template variable
+     *
+     * @param  string $varname        the name of the Smarty variable
+     * @param  null $property         optional requested variable property
+     * @return mixed                  null|Smarty_variable object|property of variable
+     */
+
+    public static function getGlobalVariable($varname, $property = null) {
         if (isset(Smarty::$_global_tpl_vars->$varname)) {
             // found it, return it
             if ($property === null) {
@@ -297,15 +316,24 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
                 return isset(Smarty::$_global_tpl_vars->$varname->$property) ? Smarty::$_global_tpl_vars->$varname->$property : null;
             }
         }
-        if ($this->_usage == Smarty::IS_DATA) {
-            $error_unassigned = $this->_tpl_vars->___attributes->tpl_ptr->error_unassigned;
-        } else {
-            $error_unassigned = $this->error_unassigned;
-        }
+        return null;
+    }
+
+    /**
+     * get the object or property of default template variable
+     *
+     * @param  Smarty $smarty         Smarty object
+     * @param  string $varname        the name of the Smarty variable
+     * @param  null $property         optional requested variable property
+     * @return mixed                  null|Smarty_variable object|property of variable
+     */
+
+    public static function getDefaultVariable($smarty, $varname, $property = null, $error_enable = true) {
+           $error_unassigned = $smarty->error_unassigned;
         if (strpos($varname, '___config_var_') !== 0) {
-            if (isset($this->default_variable_handler_func)) {
+            if (isset($smarty->default_variable_handler_func)) {
                 $value = null;
-                if (call_user_func_array($this->default_variable_handler_func, array($varname, &$value, $this))) {
+                if (call_user_func_array($smarty->default_variable_handler_func, array($varname, &$value, $smarty))) {
                     if ($value instanceof Smarty_Variable) {
                         $var = $value;
                     } else {
@@ -324,7 +352,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
                     // force a notice
                     trigger_error($err_msg);
                 } elseif ($error_unassigned == Smarty::UNASSIGNED_EXCEPTION) {
-                    throw new Smarty_Exception_Runtime($err_msg, $this);
+                    throw new Smarty_Exception_Runtime($err_msg);
                 }
             }
             $var = new Smarty_Variable();
@@ -336,9 +364,9 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
 
         } else {
             $real_varname = substr($varname, 14);
-            if (isset($this->default_config_variable_handler_func)) {
+            if (isset($smarty->default_config_variable_handler_func)) {
                 $value = null;
-                if (call_user_func_array($this->default_config_variable_handler_func, array($real_varname, &$value, $this))) {
+                if (call_user_func_array($smarty->default_config_variable_handler_func, array($real_varname, &$value, $smarty))) {
                     return $value;
                 }
             }
@@ -348,7 +376,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
                     // force a notice
                     trigger_error($err_msg);
                 } elseif ($error_unassigned == Smarty::UNASSIGNED_EXCEPTION) {
-                    throw new Smarty_Exception_Runtime($err_msg, $this);
+                    throw new Smarty_Exception_Runtime($err_msg);
                 }
             }
         }

@@ -225,7 +225,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
                 if ($this->source->uncompiled) {
                     $_output = $this->source->getRenderedTemplate($smarty, $_scope, $scope_type, $data);
                 } else {
-                    $_output = $smarty->_load(Smarty::COMPILED, $this->source, $this->compile_id, $this->caching)->getRenderedTemplate($smarty, $parent, $scope_type, $data, $no_output_filter);
+                    $_output = $smarty->_loadResource(Smarty::COMPILED, $this->source, $this->compile_id, $this->caching)->getRenderedTemplate($smarty, $parent, $scope_type, $data, $no_output_filter);
                 }
                 // write to cache when necessary
                 if (!$this->source->recompiled) {

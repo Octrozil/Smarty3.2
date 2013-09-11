@@ -54,7 +54,7 @@ class Smarty_Extension_CompileTemplate
             $tpl_obj = $template;
         } else {
             //get source object from cache  or create new one
-            $source = $this->smarty->_load(Smarty::SOURCE, $template);
+            $source = $this->smarty->_loadResource(Smarty::SOURCE, $template);
             if (!$source->exists) {
                 throw new Smarty_Exception_SourceNotFound($source->type, $source->name);
             }
@@ -65,7 +65,7 @@ class Smarty_Extension_CompileTemplate
             return true;
         }
         try {
-            $compiled = $tpl_obj->_load(Smarty::COMPILED, $source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
+            $compiled = $tpl_obj->_loadResource(Smarty::COMPILED, $source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
                 $tpl_obj->caching);
             if ($tpl_obj->debugging) {
                 Smarty_Debug::start_compile($source);

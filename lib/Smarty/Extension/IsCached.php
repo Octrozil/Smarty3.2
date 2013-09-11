@@ -60,7 +60,7 @@ class Smarty_Extension_IsCached
                 $tpl_obj = $template;
             } else {
                 //get source object from cache  or create new one
-                $source = $this->smarty->_load(Smarty::SOURCE, $template);
+                $source = $this->smarty->_loadResource(Smarty::SOURCE, $template);
                 if (!$source->exists) {
                     throw new Smarty_Exception("Can not find '{$source->type}:{$source->name}'");
                 }
@@ -70,7 +70,7 @@ class Smarty_Extension_IsCached
                 // recompiled source can't be cached
                 return false;
             }
-            $cache = $tpl_obj->_load(Smarty::CACHE, $source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
+            $cache = $tpl_obj->_loadResource(Smarty::CACHE, $source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
                 isset($cache_id) ? $cache_id : $tpl_obj->cache_id, $tpl_obj->caching);
             if (!$cache->exists) {
                 return false;
