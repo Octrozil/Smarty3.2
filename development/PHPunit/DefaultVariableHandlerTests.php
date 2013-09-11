@@ -75,7 +75,7 @@ class DefaultVariableHandlerTests extends PHPUnit_Framework_TestCase
         try {
             $tpl->fetch();
         } catch (Smarty_Exception $e) {
-            $this->assertEquals("Unassigned template variable 'foo'", $e->getMessage());
+            $this->assertContains("Unassigned template variable 'foo'", $e->getMessage());
 
             return;
         }
