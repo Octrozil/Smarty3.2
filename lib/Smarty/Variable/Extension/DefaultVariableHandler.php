@@ -14,7 +14,7 @@
  *
  * @package Smarty\Extension
  */
-class Smarty_Extension_DefaultVariableHandler
+class Smarty_Variable_Extension_DefaultVariableHandler
 {
     /**
      * get the object or property of default template variable

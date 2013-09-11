@@ -715,7 +715,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
         if (strpos($variable, '(') === false) {
             // not a variable variable
             $var = trim($variable, '\'"');
-            $this->tag_nocache = $this->tag_nocache | $this->tpl_obj->getVariable($var, null, true, false, 'nocache');
+            $this->tag_nocache = $this->tag_nocache | Smarty_Variable_Extension_GetVariable::getVariable($this->tpl_obj, $var, null, true, false, 'nocache');
 //			    $this->compiler->tpl_obj->properties['variables'][$var] = $this->compiler->tag_nocache|$this->compiler->nocache;
         } else {
             $var = '{' . $variable . '}';

@@ -2546,7 +2546,7 @@ static public $yy_action = array(
                 preg_match('/\$_scope->([0-9]*[a-zA-Z_]\w*)(.*)/',$par,$match);
                 if (isset($match[1])) {
                     $search = array('/\$_scope->([0-9]*[a-zA-Z_]\w*)/','/->value.*/');
-                    $replace = array('$_smarty_tpl->getVariable(\'\1\', null, true, false)','');
+                    $replace = array('Smarty_Variable_Extension_GetVariable::getVariable($_smarty_tpl, \'\1\', null, false, false)','');
                     $this->prefix_number++;
                     $code = new Smarty_Compiler_Code();
                     $code->iniTagCode($this->compiler);

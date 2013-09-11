@@ -127,53 +127,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      */
     public function append($tpl_var, $value = null, $merge = false, $nocache = false)
     {
-        if (is_array($tpl_var)) {
-            // $tpl_var is an array, ignore $value
-            foreach ($tpl_var as $varname => $_val) {
-                if ($varname != '') {
-                    if (!isset($this->_tpl_vars->$varname)) {
-                        $tpl_var_inst = $this->getVariable($varname, null, true, false);
-                        if ($tpl_var_inst === null) {
-                            $this->_tpl_vars->$varname = new Smarty_Variable(null, $nocache);
-                        } else {
-                            $this->_tpl_vars->$varname = clone $tpl_var_inst;
-                        }
-                    }
-                    if (!(is_array($this->_tpl_vars->$varname->value) || $this->_tpl_vars->$varname->value instanceof ArrayAccess)) {
-                        settype($this->_tpl_vars->$varname->value, 'array');
-                    }
-                    if ($merge && is_array($_val)) {
-                        foreach ($_val as $_mkey => $_mval) {
-                            $this->_tpl_vars->$varname->value[$_mkey] = $_mval;
-                        }
-                    } else {
-                        $this->_tpl_vars->$varname->value[] = $_val;
-                    }
-                }
-            }
-        } else {
-            if ($tpl_var != '' && isset($value)) {
-                if (!isset($this->_tpl_vars->$tpl_var)) {
-                    $tpl_var_inst = $this->getVariable($tpl_var, null, true, false);
-                    if ($tpl_var_inst === null) {
-                        $this->_tpl_vars->$tpl_var = new Smarty_Variable(null, $nocache);
-                    } else {
-                        $this->_tpl_vars->$tpl_var = clone $tpl_var_inst;
-                    }
-                }
-                if (!(is_array($this->_tpl_vars->$tpl_var->value) || $this->_tpl_vars->$tpl_var->value instanceof ArrayAccess)) {
-                    settype($this->_tpl_vars->$tpl_var->value, 'array');
-                }
-                if ($merge && is_array($value)) {
-                    foreach ($value as $_mkey => $_mval) {
-                        $this->_tpl_vars->$tpl_var->value[$_mkey] = $_mval;
-                    }
-                } else {
-                    $this->_tpl_vars->$tpl_var->value[] = $value;
-                }
-            }
-        }
-
+        Smarty_Variable_Extension_Append::append($this, $tpl_var, $value, $merge, $nocache);
         return $this;
     }
 
@@ -220,84 +174,9 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      */
     public function getTemplateVars($varname = null, $_ptr = null, $search_parents = true)
     {
-        if (isset($varname)) {
-            $result = $this->getVariable($varname, $_ptr, $search_parents, false);
-            if ($result === null) {
-                return false;
-            } else {
-                return $result->value;
-            }
-        } else {
-            $_result = array();
-            if ($_ptr === null) {
-                $_ptr = $this;
-            }
-            while ($_ptr !== null) {
-                foreach ($_ptr->_tpl_vars AS $varname => $data) {
-                    if (strpos($varname, '___') !== 0 && !isset($_result[$varname])) {
-                        $_result[$varname] = $data->value;
-                    }
-                }
-                // not found, try at parent
-                if ($search_parents) {
-                    $_ptr = $_ptr->parent;
-                } else {
-                    $_ptr = null;
-                }
-            }
-            if ($search_parents && isset(Smarty::$_global_tpl_vars)) {
-                foreach (Smarty::$_global_tpl_vars AS $varname => $data) {
-                    if (strpos($varname, '___') !== 0 && !isset($_result[$varname])) {
-                        $_result[$varname] = $data->value;
-                    }
-                }
-            }
-
-            return $_result;
-        }
-    }
-
-    /**
-     * gets the object of a template variable
-     *
-     * @param  string $varname        the name of the Smarty variable
-     * @param  object $_ptr           optional pointer to data object
-     * @param  boolean $search_parents search also in parent data
-     * @param  boolean $error_enable   enable error handling
-     * @param  null $property       optional requested variable property
-     * @throws Smarty_Exception_Runtime
-     * @return mixed                    Smarty_variable object|property of variable
-     */
-    public function getVariable($varname, $_ptr = null, $search_parents = true, $error_enable = true, $property = null)
-    {
-        if ($_ptr === null) {
-            $_ptr = $this;
-        }
-        while ($_ptr !== null) {
-            if (isset($_ptr->_tpl_vars->$varname)) {
-                // found it, return it
-                if ($property === null) {
-                    return $_ptr->_tpl_vars->$varname;
-                } else {
-                    return isset($_ptr->_tpl_vars->$varname->$property) ? $_ptr->_tpl_vars->$varname->$property : null;
-                }
-            }
-            // not found, try at parent
-            if ($search_parents) {
-                $_ptr = $_ptr->parent;
-            } else {
-                $_ptr = null;
-            }
-        }
-
-        // try global variable
-        if (null !== $var = self::getGlobalVariable($varname, $property)) {
-            return $var;
-        }
-
-        // try default variable
-        return Smarty_Extension_DefaultVariableHandler::getDefaultVariable($this, $varname, $property, $error_enable);
+        return Smarty_Variable_Extension_GetVariable::getTemplateVars($this, $varname, $_ptr, $search_parents);
      }
+
 
     /**
      * get the object or property of global template variable
@@ -330,31 +209,8 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      */
     public function getConfigVars($varname = null, $search_parents = true)
     {
-        $_ptr = $this;
-        if (isset($varname)) {
-            $result = $this->getVariable('___config_var_' . $varname, $_ptr, $search_parents, false);
-
-            return $result;
-        } else {
-            $_result = array();
-            while ($_ptr !== null) {
-                foreach ($_ptr->_tpl_vars AS $varname => $data) {
-                    $real_varname = substr($varname, 14);
-                    if (strpos($varname, '___config_var_') === 0 && !isset($_result[$real_varname])) {
-                        $_result[$real_varname] = $data;
-                    }
-                }
-                // not found, try at parent
-                if ($search_parents) {
-                    $_ptr = $_ptr->parent;
-                } else {
-                    $_ptr = null;
-                }
-            }
-
-            return $_result;
-        }
-    }
+        return Smarty_Variable_Extension_GetConfigVariable::getConfigVars($this, $varname, $search_parents);
+   }
 
     /**
      * Deassigns a single or all config variables
@@ -408,21 +264,6 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      */
     public function getStreamVariable($variable)
     {
-        $_result = '';
-        $fp = fopen($variable, 'r+');
-        if ($fp) {
-            while (!feof($fp) && ($current_line = fgets($fp)) !== false) {
-                $_result .= $current_line;
-            }
-            fclose($fp);
-
-            return $_result;
-        }
-
-        if ($this->smarty->error_unassigned) {
-            throw new Smarty_Exception('Undefined stream variable "' . $variable . '"');
-        } else {
-            return null;
-        }
+        return Smarty_Variable_Extension_GetStreamVariable::getStreamVariable($this, $variable);
     }
 }
