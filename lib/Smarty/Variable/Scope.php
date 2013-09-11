@@ -45,7 +45,7 @@ class Smarty_Variable_Scope
     public function __get($varname)
     {
         if (null === $var = Smarty_Variable_Methods::getGlobalVariable($varname)) {
-            $var = Smarty_Variable_Methods::getDefaultVariable(Smarty_Template::$call_stack[0]->tpl_obj, $varname);
+            $var = Smarty_Extension_DefaultVariableHandler::getDefaultVariable(Smarty_Template::$call_stack[0]->tpl_obj, $varname);
         }
         return $this->$varname = $var;
     }
