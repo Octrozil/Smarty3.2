@@ -54,11 +54,11 @@ class Smarty_Compiler_Template_Php_Tag_Internal_InheritanceTemplate extends Smar
         $this->iniTagCode($compiler);
 
         if ($_attr['child'] === true) {
-            $this->php("\$compiled_obj = \$this->_getInheritanceTemplate ('{$file}', \$_smarty_tpl->cache_id, \$_smarty_tpl->compile_id, {$_caching}, (isset(\$tpl) ? \$tpl : \$_smarty_tpl), true);")->newline();
-            $this->php("\$compiled_obj->getRenderedTemplate\$_smarty_tpl, \$_scope);")->newline();
+            $this->php("\$compiled_obj = \$this->_getInheritanceTemplate ('{$file}', \$this->smarty->cache_id, \$this->smarty->compile_id, {$_caching}, (isset(\$tpl) ? \$tpl : \$this->smarty), true);")->newline();
+            $this->php("\$compiled_obj->getRenderedTemplate\$this->smarty, \$_scope);")->newline();
         } else {
-            $this->php("\$compiled_obj = \$this->_getInheritanceTemplate ('{$file}', \$_smarty_tpl->cache_id, \$_smarty_tpl->compile_id, {$_caching}, (isset(\$tpl) ? \$tpl : \$_smarty_tpl));")->newline();
-            $this->php("echo \$compiled_obj->getRenderedTemplate(\$_smarty_tpl, \$_scope);")->newline();
+            $this->php("\$compiled_obj = \$this->_getInheritanceTemplate ('{$file}', \$this->smarty->cache_id, \$this->smarty->compile_id, {$_caching}, (isset(\$tpl) ? \$tpl : \$this->smarty));")->newline();
+            $this->php("echo \$compiled_obj->getRenderedTemplate(\$this->smarty, \$_scope);")->newline();
         }
         $compiler->has_code = true;
 

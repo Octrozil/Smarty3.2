@@ -73,10 +73,10 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
                 return 'dirname($this->source->filepath)';
 
             case 'is_cached':
-                return '$_smarty_tpl->cached->valid';
+                return '$this->smarty->cached->valid';
 
             case 'is_nocache':
-                return '$_smarty_tpl->is_nocache';
+                return '$this->smarty->is_nocache';
 
             case 'version':
                 $_version = Smarty::SMARTY_VERSION;

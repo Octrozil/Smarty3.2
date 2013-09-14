@@ -134,7 +134,7 @@ class Smarty_Compiler_Template_Php_Tag_Blockclose extends Smarty_Compiler_Templa
         if ($saved_data[0]['overwrite']) $compiler->block_nesting_info[0]['overwrite'] = true;
 
         $block_code = new Smarty_Compiler_Code(2);
-        $block_code->php("public function " . $compiler->block_nesting_info[0]['function'] . " (\$_smarty_tpl, \$_scope) {")->newline()->indent();
+        $block_code->php("public function " . $compiler->block_nesting_info[0]['function'] . " (\$this->smarty, \$_scope) {")->newline()->indent();
         $block_code->php("ob_start();")->newline();
         $block_code->php("/* Line {$saved_data[5]} */")->newline();
         $block_code->buffer .= $compiler->template_code->buffer;
@@ -163,11 +163,11 @@ class Smarty_Compiler_Template_Php_Tag_Blockclose extends Smarty_Compiler_Templa
             if ($compiler->tag_nocache) {
                 $code = new Smarty_Compiler_Code();
                 $code->iniTagCode($this);
-                $code->php("echo \$this->_getInheritanceBlock ('{$int_name}', \$_smarty_tpl, \$_scope, 1);")->newline();
+                $code->php("echo \$this->_getInheritanceBlock ('{$int_name}', \$this->smarty, \$_scope, 1);")->newline();
                 $compiler->postfix_code[] = $code;
             } else {
 //                $this->php("\$this->inheritance_blocks['$int_name']['valid'] = true;")->newline();
-                $this->php("echo \$this->_getInheritanceBlock ('{$int_name}', \$_smarty_tpl, \$_scope, 0);")->newline();
+                $this->php("echo \$this->_getInheritanceBlock ('{$int_name}', \$this->smarty, \$_scope, 0);")->newline();
             }
         }
         if ($compiler->block_nesting_level > 1) {
@@ -212,7 +212,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Block_Parent extends Smarty_Comp
 
         $this->iniTagCode($compiler);
 
-        $this->raw("\$this->_getInheritanceParentBlock ('{$compiler->block_nesting_info[0]['int_name']}', \$_smarty_tpl, \$_scope)");
+        $this->raw("\$this->_getInheritanceParentBlock ('{$compiler->block_nesting_info[0]['int_name']}', \$this->smarty, \$_scope)");
 
         return $this->returnTagCode($compiler);
     }
@@ -246,7 +246,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Block_Child extends Smarty_Compi
 
         $this->raw("\$this->inheritance_blocks['{$compiler->block_nesting_info[0]['int_name']}']['child_content']");
 // TODO  remove this
-//       $this->raw("\$this->_getInheritanceChildBlock ('{$compiler->block_nesting_info[0]['int_name']}', \$_smarty_tpl, \$_scope, 0, \$current_tpl)");
+//       $this->raw("\$this->_getInheritanceChildBlock ('{$compiler->block_nesting_info[0]['int_name']}', \$this->smarty, \$_scope, 0, \$current_tpl)");
         return $this->returnTagCode($compiler);
     }
 

@@ -52,7 +52,7 @@ class Smarty_Extension_ClearCache
         $cache = $this->smarty->_loadResource(Smarty::CACHE, null, $type);
         // invalidate complete cache
         // invalidate complete cache
-        unset(Smarty::$resource_cache[Smarty::CACHE]);
+        unset(Smarty::$template_cache[Smarty::CACHE]);
         // call clear
         return $cache->clear($this->smarty, $template_name, $cache_id, $compile_id, $exp_time);
     }

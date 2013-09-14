@@ -62,9 +62,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_ObjectBlockFunction extends Smar
             // maybe nocache because of nocache variables or nocache plugin
             $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
             // compile code
-            $this->php("\$_smarty_tpl->_tag_stack[] = array('{$tag}->{$method}', {$_params});")->newline();
+            $this->php("\$this->smarty->_tag_stack[] = array('{$tag}->{$method}', {$_params});")->newline();
             $this->php("\$_block_repeat=true;")->newline();
-            $this->php("echo \$_smarty_tpl->registered_objects['{$tag}'][0]->{$method}({$_params}, null, \$_smarty_tpl, \$_block_repeat);")->newline();
+            $this->php("echo \$this->smarty->registered_objects['{$tag}'][0]->{$method}({$_params}, null, \$this->smarty, \$_block_repeat);")->newline();
             $this->php("while (\$_block_repeat) {")->newline()->indent();
             $this->php("ob_start();")->newline();
         } else {
@@ -85,12 +85,12 @@ class Smarty_Compiler_Template_Php_Tag_Internal_ObjectBlockFunction extends Smar
             if (isset($parameter['modifier_list'])) {
                 $this->php("ob_start();")->newline();
             }
-            $this->php("echo \$_smarty_tpl->registered_objects['{$base_tag}'][0]->{$method}({$_params}, \$_block_content, \$_smarty_tpl, \$_block_repeat);")->newline();
+            $this->php("echo \$this->smarty->registered_objects['{$base_tag}'][0]->{$method}({$_params}, \$_block_content, \$this->smarty, \$_block_repeat);")->newline();
             if (isset($parameter['modifier_list'])) {
                 $this->php('echo ' . $compiler->compileTag('Internal_Modifier', array(), array('modifierlist' => $parameter['modifier_list'], 'value' => 'ob_get_clean()')) . ';')->newline();
             }
             $this->outdent()->php("}")->newline();
-            $this->php("array_pop(\$_smarty_tpl->_tag_stack);")->newline();
+            $this->php("array_pop(\$this->smarty->_tag_stack);")->newline();
         }
 
         return $this->returnTagCode($compiler);

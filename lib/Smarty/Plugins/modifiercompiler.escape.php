@@ -99,5 +99,5 @@ function smarty_modifiercompiler_escape(Smarty_Compiler $compiler, $input, $esc_
         $compiler->required_plugins['compiled']['escape']['modifier']['function'] = 'smarty_modifier_escape';
     }
 
-    return "smarty_modifier_escape(\$_smarty_tpl, {$input}, {$esc_type}, {$char_set}, {$double_encode})";
+    return "smarty_modifier_escape(\$this->smarty, {$input}, {$esc_type}, {$char_set}, {$double_encode})";
 }

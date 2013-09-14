@@ -63,14 +63,14 @@ class Smarty_Compiler_Template_Php_Tag_Internal_ObjectFunction extends Smarty_Co
                     }
                 }
                 $_params = 'array(' . implode(",", $_paramsArray) . ')';
-                $return = "\$_smarty_tpl->registered_objects['{$tag}'][0]->{$method}({$_params},\$_smarty_tpl)";
+                $return = "\$this->smarty->registered_objects['{$tag}'][0]->{$method}({$_params},\$this->smarty)";
             } else {
                 $_params = implode(",", $_attr);
-                $return = "\$_smarty_tpl->registered_objects['{$tag}'][0]->{$method}({$_params})";
+                $return = "\$this->smarty->registered_objects['{$tag}'][0]->{$method}({$_params})";
             }
         } else {
             // object property
-            $return = "\$_smarty_tpl->registered_objects['{$tag}'][0]->{$method}";
+            $return = "\$this->smarty->registered_objects['{$tag}'][0]->{$method}";
         }
 
         $this->iniTagCode($compiler);
@@ -80,7 +80,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_ObjectFunction extends Smarty_Co
             $compiler->has_output = true;
             $this->php("echo {$return};")->newline();
         } else {
-            $this->php("\$_smarty_tpl->assign({$_assign},{$return});")->newline();
+            $this->php("\$this->smarty->assign({$_assign},{$return});")->newline();
         }
 
         return $this->returnTagCode($compiler);

@@ -69,7 +69,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginBlock extends Smarty_Compi
 
             if (is_array($par_string)) {
                 // old style with params array
-                $this->php("\$_smarty_tpl->_tag_stack[] = array('{$tag}', {$par_string['par']});")->newline();
+                $this->php("\$this->smarty->_tag_stack[] = array('{$tag}', {$par_string['par']});")->newline();
                 $this->php("\$_block_repeat=true;")->newline();
                 $this->php("echo {$function}({$par_string['par']}, null, {$par_string['obj']}, \$_block_repeat);")->newline();
                 $this->php("while (\$_block_repeat) {")->newline()->indent();
@@ -77,7 +77,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginBlock extends Smarty_Compi
             } else {
                 // new style with real parameter
                 $par_string = str_replace('__content__', 'null', $par_string);
-                $this->php("\$_smarty_tpl->_tag_stack[] = array('{$tag}', {$par_string});")->newline();
+                $this->php("\$this->smarty->_tag_stack[] = array('{$tag}', {$par_string});")->newline();
                 $this->php("\$_block_repeat=true;")->newline();
                 $this->php("echo {$function}({$par_string};")->newline();
                 $this->php("while (\$_block_repeat) {")->newline()->indent();
@@ -112,7 +112,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginBlock extends Smarty_Compi
                 $this->php('echo ' . $compiler->compileTag('Internal_Modifier', array(), array('modifierlist' => $parameter['modifier_list'], 'value' => 'ob_get_clean()')) . ';')->newline();
             }
             $this->outdent()->php("}")->newline();
-            $this->php("array_pop(\$_smarty_tpl->_tag_stack);")->newline();
+            $this->php("array_pop(\$this->smarty->_tag_stack);")->newline();
         }
 
         return $this->returnTagCode($compiler);

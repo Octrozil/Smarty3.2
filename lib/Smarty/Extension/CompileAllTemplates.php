@@ -90,7 +90,7 @@ class Smarty_Extension_CompileAllTemplates
                 }
                 // free memory
                 Smarty::$resource_cache = array();
-                $_tpl = null;
+                Smarty::$template_cache = array();
                 if ($max_errors !== null && $_error_count == $max_errors) {
                     echo '<br><br>too many errors';
                     exit();

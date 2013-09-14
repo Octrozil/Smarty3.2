@@ -60,11 +60,11 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredFunction extends Smart
         $this->iniTagCode($compiler);
 
         if ($function instanceof Closure) {
-            $this->php("echo \$_smarty_tpl->registered_plugins[Smarty::PLUGIN_FUNCTION]['{$tag}'][0]({$result});")->newline();
+            $this->php("echo \$this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['{$tag}'][0]({$result});")->newline();
         } elseif (!is_array($function)) {
             $this->php("echo {$function}({$result});")->newline();
         } elseif (is_object($function[0])) {
-            $this->php("echo \$_smarty_tpl->registered_plugins[Smarty::PLUGIN_FUNCTION]['{$tag}'][0][0]->{$function[1]}({$result});")->newline();
+            $this->php("echo \$this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['{$tag}'][0][0]->{$function[1]}({$result});")->newline();
         } else {
             $this->php("echo {$function[0]}::{$function[1]}({$result});")->newline();
         }

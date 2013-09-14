@@ -21,16 +21,23 @@ class  Smarty_Template extends Smarty_Exception_Magic
 
     /**
      * flag if class is valid
-     * @var boolean assumed true
+     * @var boolean
      * @internal
      */
     public $isValid = false;
 
     /**
+     * flag if class was updated
+     * @var boolean
+     * @internal
+     */
+    public $isUpdated = false;
+
+    /**
      * Smarty object
      * @var Smarty
      */
-    public $tpl_obj = null;
+    public $smarty = null;
 
     /**
      * Parent object
@@ -168,13 +175,11 @@ class  Smarty_Template extends Smarty_Exception_Magic
      * constructor
      *
      * @param Smarty $smarty Smarty object
-     * @param Smarty|Smarty_Data|Smarty_Template $parent parent object
      * @param Smarty_Resource_Source_File $source source resource
      */
-    public function __construct($tpl_obj, $parent, $source)
+    public function __construct($smarty, $source)
     {
-        $this->tpl_obj = $tpl_obj;
-        $this->parent = $parent;
+        $this->smarty = $smarty;
         $this->source = $source;
         if (!$this->isValid) {
             // check if class is still valid
@@ -182,7 +187,7 @@ class  Smarty_Template extends Smarty_Exception_Magic
                 // not valid because new Smarty version
                 return;
             }
-            if ((!$this->is_cache && $this->tpl_obj->compile_check) || ($this->is_cache && ($this->tpl_obj->compile_check === true || $this->tpl_obj->compile_check === Smarty::COMPILECHECK_ON)) && !empty($this->file_dependency)) {
+            if ((!$this->is_cache && $this->smarty->compile_check) || ($this->is_cache && ($this->smarty->compile_check === true || $this->smarty->compile_check === Smarty::COMPILECHECK_ON)) && !empty($this->file_dependency)) {
                 foreach ($this->file_dependency as $_file_to_check) {
                     if ($_file_to_check[2] == 'file' || $_file_to_check[2] == 'php') {
                         if ($this->source->filepath == $_file_to_check[0]) {
@@ -195,7 +200,7 @@ class  Smarty_Template extends Smarty_Exception_Magic
                     } elseif ($_file_to_check[2] == 'string') {
                         continue;
                     } else {
-                        $source = $this->tpl_obj->_loadResource(Smarty::SOURCE, $_file_to_check[0]);
+                        $source = $this->smarty->_loadResource(Smarty::SOURCE, $_file_to_check[0]);
                         $mtime = $source->timestamp;
                     }
                     if (!$mtime || $mtime > $_file_to_check[1]) {
@@ -212,8 +217,8 @@ class  Smarty_Template extends Smarty_Exception_Magic
             $this->isValid = true;
         }
         if (!$this->is_cache) {
-            if (!empty($this->template_functions) && isset($tpl_obj->parent) && $tpl_obj->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
-                $tpl_obj->parent->template_function_chain = $tpl_obj;
+            if (!empty($this->template_functions) && isset($smarty->parent) && $smarty->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
+                $smarty->parent->template_function_chain = $smarty;
             }
         }
     }
@@ -221,27 +226,33 @@ class  Smarty_Template extends Smarty_Exception_Magic
     /**
      * get rendered template output from compiled template
      *
+     * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
      * @param Smarty_Variable_Scope $scope variable scope
      * @param  int $scope_type
      * @param  boolean $no_output_filter true if output filter shall nit run
      * @throws Exception
      * @return string
      */
-    public function getRenderedTemplate($scope, $scope_type = Smarty::SCOPE_LOCAL, $no_output_filter = true)
+    public function getRenderedTemplate($parent, Smarty_Variable_Scope $scope, $scope_type = Smarty::SCOPE_LOCAL, $no_output_filter = true, $display = false)
     {
-        $this->tpl_obj->cached_subtemplates = array();
+        $this->smarty->cached_subtemplates = array();
+        $level = ob_get_level();
         try {
-            $level = ob_get_level();
-            if ($this->tpl_obj->debugging) {
+             if ($this->smarty->debugging) {
                 Smarty_Debug::start_render($this->source);
             }
-            array_unshift(self::$call_stack, $this);
+            self::$call_stack[] = array($this,$this->_tpl_vars, $this->parent);
+            $this->_tpl_vars = $scope;
+            $this->parent = $parent;
             array_unshift($this->_capture_stack, array());
             //
             // render compiled template
             //
-            $output = $this->_renderTemplate($this->tpl_obj, $scope);
-            array_shift(self::$call_stack);
+            $output = $this->_renderTemplate($scope);
+            $restore = array_pop(self::$call_stack);
+            $this->_tpl_vars = $restore[1];
+            $this->parent = $restore[2];
+
             // any unclosed {capture} tags ?
             if (isset($this->_capture_stack[0][0])) {
                 throw new Smarty_Exception_CaptureError();
@@ -259,11 +270,11 @@ class  Smarty_Template extends Smarty_Exception_Magic
         if ($this->caching) {
             Smarty_Resource_Cache::$creator[0]->_mergeFromCompiled($this);
         }
-        if (!$no_output_filter && (isset($this->tpl_obj->autoload_filters['output']) || isset($this->tpl_obj->registered_filters['output']))) {
-            $output = $this->tpl_obj->runFilter('output', $output);
+        if (!$no_output_filter && (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))) {
+            $output = $this->smarty->runFilter('output', $output);
         }
 
-        if ($this->tpl_obj->debugging) {
+        if ($this->smarty->debugging) {
             Smarty_Debug::end_render($this->source);
         }
 
@@ -275,19 +286,19 @@ class  Smarty_Template extends Smarty_Exception_Magic
      * Template runtime function to call a template function
      *
      * @param  string $name    name of template function
-     * @param  Smarty $tpl_obj calling template object
+     * @param  Smarty $smarty calling template object
      * @param  Smarty_Variable_Scope $_scope
      * @param  array $params  array with calling parameter
      * @param  string $assign  optional template variable for result
      * @throws Smarty_Exception_Runtime
      * @return bool
      */
-    public function _callTemplateFunction($name, $tpl_obj, $_scope, $params, $assign)
+    public function _callTemplateFunction($name, $smarty, $_scope, $params, $assign)
     {
-        if ($this->is_cache && isset($tpl_obj->cached->template_obj->template_functions[$name])) {
-            $content_ptr = $tpl_obj->cached->template_obj;
+        if ($this->is_cache && isset($smarty->cached->template_obj->template_functions[$name])) {
+            $content_ptr = $smarty->cached->template_obj;
         } else {
-            $ptr = $tpl = $tpl_obj;
+            $ptr = $tpl = $smarty;
             while ($ptr != null && !isset($ptr->compiled->template_obj->template_functions[$name])) {
                 $ptr = $ptr->template_function_chain;
                 if ($ptr == null && $tpl->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
@@ -303,14 +314,14 @@ class  Smarty_Template extends Smarty_Exception_Magic
                 ob_start();
             }
             $func_name = "_renderTemplateFunction_{$name}";
-            $content_ptr->$func_name($tpl_obj, $_scope, $params);
+            $content_ptr->$func_name($smarty, $_scope, $params);
             if (!empty($assign)) {
-                $tpl_obj->assign($assign, ob_get_clean());
+                $smarty->assign($assign, ob_get_clean());
             }
 
             return true;
         }
-        throw new Smarty_Exception_Runtime("Call to undefined template function '{$name}'", $tpl_obj);
+        throw new Smarty_Exception_Runtime("Call to undefined template function '{$name}'", $smarty);
     }
 
     /**
@@ -403,11 +414,11 @@ class  Smarty_Template extends Smarty_Exception_Magic
 
             return $result;
         } else {
-            if ($this->tpl_obj->caching && $caching && $caching != Smarty::CACHING_NOCACHE_CODE) {
-                $this->tpl_obj->cached_subtemplates[$template_resource] = array($template_resource, $cache_id, $compile_id, $caching, $cache_lifetime);
+            if ($this->smarty->caching && $caching && $caching != Smarty::CACHING_NOCACHE_CODE) {
+                $this->smarty->cached_subtemplates[$template_resource] = array($template_resource, $cache_id, $compile_id, $caching, $cache_lifetime);
             }
 
-            return $this->tpl_obj->fetch($template_resource, $cache_id, $compile_id, $_scope, false, true, $data, $scope_type, $caching, $cache_lifetime);
+            return $this->smarty->fetch($template_resource, $cache_id, $compile_id, $_scope, false, true, $data, $scope_type, $caching, $cache_lifetime);
         }
 
     }

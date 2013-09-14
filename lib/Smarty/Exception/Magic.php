@@ -50,7 +50,7 @@ class Smarty_Exception_Magic
      */
     public function __destruct()
     {
-//           echo '<br>'.get_class($this).' destructed <br>';
+          echo '<br>'.get_class($this).' destructed <br>';
     }
 
 }

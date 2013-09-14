@@ -75,7 +75,5 @@ class Smarty_Variable_Extension_Append
                 }
             }
         }
-
-        return $holder;
     }
 }

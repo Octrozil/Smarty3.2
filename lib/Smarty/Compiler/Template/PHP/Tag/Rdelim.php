@@ -38,7 +38,7 @@ class Smarty_Compiler_Template_Php_Tag_Rdelim extends Smarty_Compiler_Template_P
 
         $this->iniTagCode($compiler);
 
-        $this->php("echo \$_smarty_tpl->right_delimiter;")->newline();
+        $this->php("echo \$this->smarty->right_delimiter;")->newline();
 
         return $this->returnTagCode($compiler);
     }

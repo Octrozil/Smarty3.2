@@ -66,8 +66,8 @@ class Smarty_Compiler_Template_Php_Tag_Extends extends Smarty_Compiler_Template_
         $this->iniTagCode($compiler);
 
         $this->php("ob_get_clean();")->newline();
-        $this->php("\$compiled_obj = \$this->_getInheritanceTemplate ({$_attr['file']}, \$_smarty_tpl->cache_id, \$_smarty_tpl->compile_id, {$_caching}, \$_smarty_tpl);")->newline();
-        $this->php("echo \$compiled_obj->getRenderedTemplate(\$_smarty_tpl, \$_scope);")->newline();
+        $this->php("\$compiled_obj = \$this->_getInheritanceTemplate ({$_attr['file']}, \$this->smarty->cache_id, \$this->smarty->compile_id, {$_caching}, \$this->smarty);")->newline();
+        $this->php("echo \$compiled_obj->getRenderedTemplate(\$this->smarty, \$_scope);")->newline();
 
         $compiler->compiled_footer_code[] = $this->buffer;
         $this->buffer = '';

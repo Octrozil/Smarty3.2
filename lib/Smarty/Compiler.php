@@ -21,18 +21,18 @@
  */
 class Smarty_Compiler extends Smarty_Compiler_Code
 {
-    public static function  load(Smarty $tpl_obj, $source, $caching = false)
+    public static function  load(Smarty $smarty, $source, $filepath, $caching = false)
     {
-        if ($source->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
-            $compiler = isset($source->compiler_class) ? $source->compiler_class : $tpl_obj->template_compiler_class;
-            $lexer = isset($source->lexer_class) ? $source->lexer_class : $tpl_obj->template_lexer_class;
-            $parser = isset($source->parser_class) ? $source->parser_class : $tpl_obj->template_parser_class;
-            return new $compiler($lexer, $parser, $tpl_obj, $source, $caching);
+        if ($source->_usage !== Smarty::IS_CONFIG) {
+            $compiler = isset($source->handler->compiler_class) ? $source->handler->compiler_class : $smarty->template_compiler_class;
+            $lexer = isset($source->handler->lexer_class) ? $source->handler->lexer_class : $smarty->template_lexer_class;
+            $parser = isset($source->handler->parser_class) ? $source->handler->parser_class : $smarty->template_parser_class;
+            return new $compiler($lexer, $parser, $smarty, $source, $filepath, $caching);
         } else {
-            $compiler = isset($source->compiler_class) ? $source->compiler_class : $tpl_obj->config_compiler_class;
-            $lexer = isset($source->lexer_class) ? $source->lexer_class : $tpl_obj->config_lexer_class;
-            $parser = isset($source->parser_class) ? $source->parser_class : $tpl_obj->config_parser_class;
-            return new $compiler($lexer, $parser, $tpl_obj);
+            $compiler = isset($source->handler->config_compiler_class) ? $source->handler->config_compiler_class : $smarty->config_compiler_class;
+            $lexer = isset($source->handler->config_lexer_class) ? $source->handler->config_lexer_class : $smarty->config_lexer_class;
+            $parser = isset($source->handler->config_parser_class) ? $source->handler->config_parser_class : $smarty->config_parser_class;
+            return new $compiler($lexer, $parser, $smarty, $source, $filepath);
         }
     }
 }

@@ -86,7 +86,7 @@ class Smarty_Compiler_Template_Php_Tag_Call extends Smarty_Compiler_Template_Php
 
         $_params = 'array(' . implode(",", $_paramsArray) . ')';
 
-        $this->php("\$this->_callTemplateFunction ($_name,\$_smarty_tpl, \$_scope, {$_params},{$_assign});")->newline();
+        $this->php("\$this->_callTemplateFunction ($_name,\$this->smarty, \$_scope, {$_params},{$_assign});")->newline();
 
         $compiler->has_code = true;
 

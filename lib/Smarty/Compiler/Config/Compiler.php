@@ -129,8 +129,8 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
         $this->php("public \$file_dependency = ")->repr($this->file_dependency, false)->raw(";")->newline()->newline();
         $this->php("public \$config_data = ")->repr($this->config_data)->raw(";")->newline()->newline();
 
-        $this->php("function _renderTemplate (\$_smarty_tpl) {")->newline()->indent();
-        $this->php("\$this->_loadConfigVars(\$_smarty_tpl);")->newline();
+        $this->php("function _renderTemplate (\$_scope) {")->newline()->indent();
+        $this->php("\$this->_loadConfigVars(\$this->smarty);")->newline();
         $this->outdent()->php("}")->newline();
 
         $this->outdent()->php("}")->newline()->outdent()->php("}")->newline();

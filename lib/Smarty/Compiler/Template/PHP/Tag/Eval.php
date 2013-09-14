@@ -63,10 +63,10 @@ class Smarty_Compiler_Template_Php_Tag_Eval extends Smarty_Compiler_Template_Php
         $this->iniTagCode($compiler);
 
         // create template object
-        $this->php("\$tpl_obj = \$_smarty_tpl->createTemplate('eval:'." . $_attr['var'] . ", \$_smarty_tpl);")->newline();
+        $this->php("\$tpl_obj = \$this->smarty->createTemplate('eval:'." . $_attr['var'] . ", \$this->smarty);")->newline();
         //was there an assign attribute?
         if (isset($_assign)) {
-            $this->php("\$_smarty_tpl->assign($_assign,\$tpl_obj->fetch());")->newline();
+            $this->php("\$this->smarty->assign($_assign,\$tpl_obj->fetch());")->newline();
         } else {
             $this->php("echo \$tpl_obj->fetch();")->newline();
         }

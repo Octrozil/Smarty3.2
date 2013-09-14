@@ -99,7 +99,7 @@ class Smarty_Compiler_Template_Php_Tag_Functionclose extends Smarty_Compiler_Tem
         unset($saved_data[0]['name']);
         // set flag that we are compiling a template function
         $compiler->template_functions[$_name]['parameter'] = array();
-        $_smarty_tpl = $compiler->tpl_obj;
+        $this->smarty = $compiler->tpl_obj;
         foreach ($saved_data[0] as $_key => $_data) {
             eval('$tmp=' . $_data . ';');
             $compiler->template_functions[$_name]['parameter'][$_key] = $tmp;
@@ -136,7 +136,7 @@ class Smarty_Compiler_Template_Php_Tag_Functionclose extends Smarty_Compiler_Tem
         }
 
         $code = new Smarty_Compiler_Code(1);
-        $code->php("function _renderTemplateFunction_{$_name}(\$_smarty_tpl, \$_scope, \$params) {")->newline()->indent();
+        $code->php("function _renderTemplateFunction_{$_name}(\$this->smarty, \$_scope, \$params) {")->newline()->indent();
         $code->addSourceLineNo($saved_data[3]);
         $code->php("\$_scope = clone \$_scope;")->newline();
         $code->php("foreach (\$this->template_functions['{$_name}']['parameter'] as \$key => \$value) {")->newline()->indent();

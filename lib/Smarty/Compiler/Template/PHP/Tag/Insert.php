@@ -57,7 +57,7 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
         // never compile as nocache code
         $compiler->suppressNocacheProcessing = true;
         $compiler->tag_nocache = true;
-        $_smarty_tpl = $compiler->tpl_obj;
+        $this->smarty = $compiler->tpl_obj;
         $_name = null;
         $_script = null;
 
@@ -74,7 +74,7 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
         if (isset($_attr['script'])) {
             // script which must be included
             $_function = "smarty_insert_{$_name}";
-            $_smarty_tpl = $compiler->tpl_obj;
+            $this->smarty = $compiler->tpl_obj;
             $_filepath = false;
             eval('$_script = ' . $_attr['script'] . ';');
             if (!isset($compiler->tpl_obj->security_policy) && is_file($_script)) {
@@ -124,21 +124,21 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
         $_params = 'array(' . implode(", ", $_paramsArray) . ')';
         // call insert
         if (isset($_assign)) {
-            if ($_smarty_tpl->caching) {
+            if ($this->smarty->caching) {
                 $this->buffer .= str_repeat(' ', $this->indentation * 4);
 
                 $this->raw(str_repeat(' ', $this->indentation * 4))->raw("\$tmp_p = var_export({$_params}, true);")->raw("\n");
-                $this->raw(str_repeat(' ', $this->indentation * 4))->raw("echo \"/*%%SmartyNocache%%*/\\\$_smarty_tpl->assign({$_assign} , {$_function}(\$tmp_p, \\\$_smarty_tpl), true);/*/%%SmartyNocache%%*/\";")->raw("\n");
+                $this->raw(str_repeat(' ', $this->indentation * 4))->raw("echo \"/*%%SmartyNocache%%*/\\\$this->smarty->assign({$_assign} , {$_function}(\$tmp_p, \\\$this->smarty), true);/*/%%SmartyNocache%%*/\";")->raw("\n");
             } else {
-                $this->php("\$_smarty_tpl->assign({$_assign} , {$_function} ({$_params},\$_smarty_tpl), true);")->newline();
+                $this->php("\$this->smarty->assign({$_assign} , {$_function} ({$_params},\$this->smarty), true);")->newline();
             }
         } else {
             $compiler->has_output = true;
-            if ($_smarty_tpl->caching) {
+            if ($this->smarty->caching) {
                 $this->raw(str_repeat(' ', $this->indentation * 4))->raw("\$tmp_p = var_export({$_params}, true);")->raw("\n");
-                $this->raw(str_repeat(' ', $this->indentation * 4))->raw("echo \"/*%%SmartyNocache%%*/echo {$_function}(\$tmp_p, \\\$_smarty_tpl);/*/%%SmartyNocache%%*/\";")->raw("\n");
+                $this->raw(str_repeat(' ', $this->indentation * 4))->raw("echo \"/*%%SmartyNocache%%*/echo {$_function}(\$tmp_p, \\\$this->smarty);/*/%%SmartyNocache%%*/\";")->raw("\n");
             } else {
-                $this->php("echo {$_function}({$_params},\$_smarty_tpl);")->newline();
+                $this->php("echo {$_function}({$_params},\$this->smarty);")->newline();
             }
         }
 

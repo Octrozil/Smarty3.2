@@ -108,12 +108,12 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
             $compiler->nocache_nolog = true;
             $_caching = Smarty::CACHING_LIFETIME_CURRENT;
         } else {
-            $_cache_id = '$_smarty_tpl->cache_id';
+            $_cache_id = '$this->smarty->cache_id';
         }
         if (isset($_attr['compile_id'])) {
             $_compile_id = $_attr['compile_id'];
         } else {
-            $_compile_id = '$_smarty_tpl->compile_id';
+            $_compile_id = '$this->smarty->compile_id';
         }
         if ($_attr['caching'] === true) {
             $compiler->nocache_nolog = true;
@@ -132,7 +132,7 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
         ) {
             // check if compiled code can be merged (contains no variable part)
             if ((substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2)
-                and substr_count($include_file, '(') == 0 and substr_count($include_file, '$_smarty_tpl->') == 0
+                and substr_count($include_file, '(') == 0 and substr_count($include_file, '$this->smarty->') == 0
             ) {
                 $tpl_name = null;
                 eval("\$tpl_name = $include_file;");

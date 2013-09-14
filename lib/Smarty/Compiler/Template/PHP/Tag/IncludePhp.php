@@ -58,7 +58,7 @@ class Smarty_Compiler_Template_Php_Tag_IncludePhp extends Smarty_Compiler_Templa
         }
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        $_smarty_tpl = $compiler->tpl_obj;
+        $this->smarty = $compiler->tpl_obj;
         $_filepath = false;
         eval('$_file = ' . $_attr['file'] . ';');
         if (!isset($compiler->tpl_obj->security_policy) && is_file($_file)) {
@@ -103,7 +103,7 @@ class Smarty_Compiler_Template_Php_Tag_IncludePhp extends Smarty_Compiler_Templa
         if (isset($_assign)) {
             $this->php('ob_start();')->newline();
             $this->php("include{$_once} ('{$_filepath}');")->newline();
-            $this->php("\$_smarty_tpl->assign({$_assign},ob_get_clean());")->newline();
+            $this->php("\$this->smarty->assign({$_assign},ob_get_clean());")->newline();
         } else {
             $this->php("include{$_once} ('{$_filepath}');")->newline();
         }

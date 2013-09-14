@@ -61,7 +61,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
         $this->iniTagCode($compiler);
         if (isset($_attr['assign'])) {
             // assign output to variable
-            $this->php("\$_smarty_tpl->assign({$_attr['assign']},{$parameter['value']});")->newline();
+            $this->php("\$this->smarty->assign({$_attr['assign']},{$parameter['value']});")->newline();
         } else {
             $this->php("echo ");
             // display value
@@ -95,13 +95,13 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
                 if (!empty($compiler->tpl_obj->registered_filters[Smarty::FILTER_VARIABLE])) {
                     foreach ($compiler->tpl_obj->registered_filters[Smarty::FILTER_VARIABLE] as $key => $function) {
                         if ($function instanceof Closure) {
-                            $output = "\$_smarty_tpl->registered_filters[Smarty::FILTER_VARIABLE]['{$key}']({$output},\$_smarty_tpl)";
+                            $output = "\$this->smarty->registered_filters[Smarty::FILTER_VARIABLE]['{$key}']({$output},\$this->smarty)";
                         } elseif (!is_array($function)) {
-                            $output = "{$function}({$output},\$_smarty_tpl)";
+                            $output = "{$function}({$output},\$this->smarty)";
                         } elseif (is_object($function[0])) {
-                            $output = "\$_smarty_tpl->registered_filters[Smarty::FILTER_VARIABLE]['{$key}'][0]->{$function[1]}({$output},\$_smarty_tpl)";
+                            $output = "\$this->smarty->registered_filters[Smarty::FILTER_VARIABLE]['{$key}'][0]->{$function[1]}({$output},\$this->smarty)";
                         } else {
-                            $output = "{$function[0]}::{$function[1]}({$output},\$_smarty_tpl)";
+                            $output = "{$function[0]}::{$function[1]}({$output},\$this->smarty)";
                         }
                     }
                 }
@@ -158,7 +158,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
             return false;
         }
 
-        return "{$plugin_name}({$output},\$_smarty_tpl)";
+        return "{$plugin_name}({$output},\$this->smarty)";
     }
 
 }

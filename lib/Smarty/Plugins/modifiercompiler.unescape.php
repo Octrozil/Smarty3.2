@@ -59,5 +59,5 @@ function smarty_modifiercompiler_unescape(Smarty_Compiler $compiler, $input, $es
         $compiler->required_plugins['compiled']['escape']['modifier']['function'] = 'smarty_modifier_unescape';
     }
 
-    return "smarty_modifier_unescape(\$_smarty_tpl, {$input}, {$esc_type}, {$char_set})";
+    return "smarty_modifier_unescape(\$this->smarty, {$input}, {$esc_type}, {$char_set})";
 }
