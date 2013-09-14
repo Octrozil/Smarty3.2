@@ -18,29 +18,19 @@
  *
  * @package Resource\Source
  */
-class Smarty_Resource_Source_String extends Smarty_Resource_Source_File
+class Smarty_Resource_Source_String extends Smarty_Exception_Magic
 {
-
-    /**
-     * populate Source Object filepath
-     *
-     * @param  Smarty $tpl_obj template object
-     * @return void
-     */
-    public function buildFilepath(Smarty $tpl_obj = null)
-    {
-    }
 
     /**
      * populate Source Object with meta data from Resource
      *
      * @param Smarty $smarty Smarty object
      */
-    public function populate(Smarty $smarty)
+    public function populate(Smarty $smarty, $source)
     {
-        $this->uid = $this->filepath = sha1($this->name);
-        $this->timestamp = 0;
-        $this->exists = true;
+        $source->uid = $source->filepath = sha1($source->name);
+        $source->timestamp = 0;
+        $source->exists = true;
     }
 
     /**
@@ -49,9 +39,9 @@ class Smarty_Resource_Source_String extends Smarty_Resource_Source_File
      * @uses decode() to decode base64 and urlencoded template_resources
      * @return string template source
      */
-    public function getContent()
+    public function getContent($source)
     {
-        return $this->decode($this->name);
+        return $this->decode($source->name);
     }
 
     /**

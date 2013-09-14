@@ -77,28 +77,27 @@ class Smarty_Resource_Compiled_Recompiled extends Smarty_Exception_Magic
 
 
     /**
-     * @param Smarty $tpl_obj
-     * @param Smarty $parent
+     * @param Smarty $smarty
+     * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
      * @param  Smarty_Variable_Scope $_scope
      * @param  int $scope_type
      * @param  null|array $data
      * @param  boolean $no_output_filter true if output filter shall nit run
      * @return string html output
      */
-    public function getRenderedTemplate($tpl_obj, $parent, $scope, $scope_type = Smarty::SCOPE_LOCAL, $data = null, $no_output_filter = true)
+    public function getRenderedTemplate(Smarty $smarty, $parent, Smarty_Variable_Scope $scope, $scope_type = Smarty::SCOPE_LOCAL, $data = null, $no_output_filter = true)
     {
-        return $this->instanceTemplate($tpl_obj, $parent)->getRenderedTemplate($scope, $scope_type, $data, $no_output_filter);
+        return $this->instanceTemplate($smarty)->getRenderedTemplate($parent, $scope, $scope_type, $data, $no_output_filter);
     }
 
     /**
      * Load compiled template
      *
      * @param Smarty $smarty     Smarty object
-     * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
      * @returns Smarty_Template
      * @throws Smarty_Exception
      */
-    public function instanceTemplate($smarty, $parent)
+    public function instanceTemplate(Smarty $smarty)
     {
         try {
             if ($this->isValid && isset($this->template_obj) && ($this->isCompiled || !$smarty->force_compile)) {
@@ -124,7 +123,7 @@ class Smarty_Resource_Compiled_Recompiled extends Smarty_Exception_Magic
             }
             if (class_exists($this->template_class_name, false)) {
                 $this->isCompiled = true;
-                $this->template_obj = new $this->template_class_name($smarty, $parent, $this->source);
+                $this->template_obj = new $this->template_class_name($smarty, $this->source);
                 $this->isValid = $this->template_obj->isValid;
             }
 

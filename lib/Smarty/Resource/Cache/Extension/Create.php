@@ -190,7 +190,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         if (!empty($this->inheritance_blocks)) {
             $template_code->php("public \$inheritance_blocks = ")->repr($this->inheritance_blocks, false)->raw(';')->newline();
         }
-        $template_code->newline()->php("function _renderTemplate (\$_smarty_tpl, \$_scope) {")->newline()->indent();
+        $template_code->newline()->php("function _renderTemplate (\$_scope) {")->newline()->indent();
         $template_code->php("ob_start();")->newline();
         $template_code->mergeCode($this->template_code);
         $template_code->php('return ob_get_clean();')->newline();

@@ -119,14 +119,14 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      * @param  Smarty $tpl_obj template object
      * @return string filepath
      */
-    public function buildFilepath(Smarty $tpl_obj = null)
+    public function buildFilepath($smarty, $source, $compile_id, $cache_id)
     {
-        $_source_file_path = str_replace(':', '.', $this->source->filepath);
-        $_cache_id = isset($tpl_obj->cache_id) ? preg_replace('![^\w\|]+!', '_', $tpl_obj->cache_id) : null;
-        $_compile_id = isset($tpl_obj->compile_id) ? preg_replace('![^\w\|]+!', '_', $tpl_obj->compile_id) : null;
+        $_source_file_path = str_replace(':', '.', $source->filepath);
+        $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
+        $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
         // if use_sub_dirs build subfolders
-        if ($tpl_obj->use_sub_dirs) {
-            $_filepath = substr($this->source->uid, 0, 2) . '/' . $this->source->uid . '/';
+        if ($smarty->use_sub_dirs) {
+            $_filepath = substr($source->uid, 0, 2) . '/' . $source->uid . '/';
             if (isset($_cache_id)) {
                 $_cache_id_parts = explode('|', $_cache_id);
                 $_cache_id_last = count($_cache_id_parts) - 1;
@@ -143,10 +143,10 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
             }
             $_filepath .= '^' . $_compile_id . '^';
         } else {
-            $_filepath = str_replace('|', '.', $_cache_id) . '^' . $_compile_id . '^' . $this->source->uid . '.';
+            $_filepath = str_replace('|', '.', $_cache_id) . '^' . $_compile_id . '^' . $source->uid . '.';
         }
-        $_cache_dir = $tpl_obj->getCacheDir();
-        if ($tpl_obj->cache_locking) {
+        $_cache_dir = $smarty->getCacheDir();
+        if ($smarty->cache_locking) {
             // create locking file name
             // relative file name?
             if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_cache_dir)) {
@@ -154,7 +154,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
             } else {
                 $_lock_dir = $_cache_dir;
             }
-            $this->lock_id = $_lock_dir . sha1($_cache_id . $_compile_id . $this->source->uid) . '.lock';
+            $this->lock_id = $_lock_dir . sha1($_cache_id . $_compile_id . $source->uid) . '.lock';
         }
 
         return $_cache_dir . $_filepath . basename($_source_file_path) . '.php';
@@ -164,33 +164,63 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      * Instance compiled template
      *
      * @param Smarty $smarty     Smarty object
-     * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
-     * @param  int $scope_type
-     * @param  array $data             array with variable names and values which must be assigned
-     * @param  bool $no_output_filter flag that output filter shall be ignored
-     * @returns Smarty_Template
+      * @returns Smarty_Template
      */
-    function instanceTemplate($smarty, $parent, $scope_type, $data, $no_output_filter)
+    function instanceTemplate($smarty, $source, $compile_id, $cache_id, $caching, $parent, $_scope, $scope_type, $no_output_filter)
     {
-        if ($this->template_class_name == '') {
-            return $this->loadTemplate($smarty, $parent, $scope_type, $data, $no_output_filter);
-        } else {
-            return new $this->template_class_name($smarty, $parent, $this->source);
-        }
+        $timestamp = $exists = false;
+        $filepath = $this->buildFilepath($smarty, $source, $compile_id, $cache_id);
+        $this->populateTimestamp($smarty, $filepath, $timestamp, $exists);
 
+        try {
+            $level = ob_get_level();
+            $isValid = false;
+            if ($this->exists && !$smarty->force_compile && !$smarty->force_cache && $this->timestamp >= $this->source->timestamp) {
+                $template_class_name = '';
+                // load existing compiled template class
+                $template_class_name = $this->loadTemplateClass($filepath);
+                if (class_exists($template_class_name, false)) {
+                    $template_obj = new $template_class_name($smarty, $source, $filepath, $timestamp);
+                    $isValid = $template_obj->isValid;
+                }
+            }
+            if (!$isValid) {
+                // unshift new handler for cache creation in first position
+                // cache could be nested as subtemplates can have individual cache
+                array_unshift(self::$creator, new Smarty_Resource_Cache_Extension_Create());
+                if ($source->uncompiled) {
+                    $_output = $source->getRenderedTemplate($smarty, $_scope, $scope_type, $data);
+                } else {
+                    $_output = $smarty->_getRenderedTemplate(Smarty::COMPILED, $source, $parent, $compile_id, null, $caching, $scope, $scope_type, $no_output_filter);
+                }
+                // write to cache when necessary
+                if (!$this->source->recompiled) {
+                    self::$creator[0]->_createCacheFile($this, $smarty, $_output, $no_output_filter);
+                }
+                unset($_output);
+                array_shift(self::$creator);
+                $template_class_name = '';
+                // load existing compiled template class
+                $template_class_name = $this->loadTemplateClass($filepath);
+                if (class_exists($template_class_name, false)) {
+                    $template_obj = new $template_class_name($smarty, $source, $filepath, $timestamp);
+                    $template_obj->isUpdated = true;
+                    $isValid = $template_obj->isValid;
+                }
+                if (!$isValid) {
+                    throw new Smarty_Exception("Unable to load compiled template file '{$this->filepath}'");
+                }
+            }
+        } catch (Exception $e) {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+//            throw new Smarty_Exception_Runtime('resource ', -1, null, null, $e);
+            throw $e;
+        }
+        return $template_obj;
     }
 
-
-    /**
-     * load compiled template class
-     *     * @return void
-     */
-    public function loadTemplateClass()
-    {
-        if ($this->exists) {
-            include $this->filepath;
-        }
-    }
 
     /**
      * Load compiled template
@@ -198,12 +228,11 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      * @param Smarty $smarty     Smarty object
      * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
      * @param  int $scope_type
-     * @param  array $data             array with variable names and values which must be assigned
      * @param  bool $no_output_filter flag that output filter shall be ignored
      * @returns Smarty_Template
      * @throws Smarty_Exception
      */
-    public function loadTemplate($smarty, $parent, $scope_type, $data, $no_output_filter)
+    public function loadTemplate($smarty, $parent, $scope, $scope_type, $no_output_filter)
     {
         try {
             $level = ob_get_level();
@@ -212,7 +241,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
                 // load existing compiled template class
                 $this->loadTemplateClass();
                 if (class_exists($this->template_class_name, false)) {
-                    $template_obj = new $this->template_class_name($smarty, $parent, $this->source);
+                    $template_obj = new $this->template_class_name($smarty, $this->source);
                     // existing class could got invalid
                     $isValid = $template_obj->isValid;
                 }
@@ -225,7 +254,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
                 if ($this->source->uncompiled) {
                     $_output = $this->source->getRenderedTemplate($smarty, $_scope, $scope_type, $data);
                 } else {
-                    $_output = $smarty->_loadResource(Smarty::COMPILED, $this->source, $this->compile_id, $this->caching)->getRenderedTemplate($smarty, $parent, $scope_type, $data, $no_output_filter);
+                    $_output = $smarty->_getRenderedTemplate(Smarty::COMPILED, $this->source, $parent, $this->compile_id, null, $this->caching, $scope, $scope_type, $no_output_filter);
                 }
                 // write to cache when necessary
                 if (!$this->source->recompiled) {
@@ -235,7 +264,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
                 array_shift(self::$creator);
                 $this->loadTemplateClass($this);
                 if (class_exists($this->template_class_name, false)) {
-                    $template_obj = new $this->template_class_name($smarty, $parent, $this->source);
+                    $template_obj = new $this->template_class_name($smarty, $this->source);
                     $isValid = $template_obj->isValid;
                 }
                 if (!$isValid) {
@@ -259,15 +288,14 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
      * @param  Smarty_Variable_Scope $_scope
      * @param  int $scope_type
-     * @param  array $data             array with variable names and values which must be assigned
      * @param  bool $no_output_filter flag that output filter shall be ignored
      * @param  bool $display
      * @throws Exception
      * @return bool|string
      */
-    public function getRenderedTemplate($smarty, $parent, $scope_type = Smarty::SCOPE_LOCAL, $data, $no_output_filter, $display)
+    public function getRenderedTemplate($smarty, $parent, $scope, $scope_type = Smarty::SCOPE_LOCAL, $no_output_filter, $display)
     {
-        $template_obj = $this->instanceTemplate($smarty, $parent, $scope_type, $data, $no_output_filter);
+        $template_obj = $this->instanceTemplate($smarty, $parent, $scope, $scope_type, $no_output_filter);
         $browser_cache_valid = false;
         if ($display && $smarty->cache_modified_check && $this->isValid && !$template_obj->has_nocache_code) {
             $_last_modified_date = @substr($_SERVER['HTTP_IF_MODIFIED_SINCE'], 0, strpos($_SERVER['HTTP_IF_MODIFIED_SINCE'], 'GMT') + 3);
@@ -297,7 +325,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
             }
         }
         if (!$browser_cache_valid) {
-            $output = $template_obj->getRenderedTemplate($scope_type, $data, $no_output_filter);
+            $output = $template_obj->getRenderedTemplate($parent, $scope, $scope_type, $no_output_filter);
             $smarty->is_nocache = false;
             if ($template_obj->has_nocache_code && !$no_output_filter && (isset($smarty->autoload_filters['output']) || isset($smarty->registered_filters['output']))) {
                 $output = $smarty->runFilter('output', $output);
@@ -340,20 +368,31 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
         return true;
     }
 
-
     /**
-     * populate Cached Object with timestamp and exists from Resource
-     *
-     * @return void
+     * load compiled template class
+     *     * @return void
      */
-    public function populateTimestamp(Smarty $tpl_obj)
+    public function loadTemplateClass($filepath)
     {
-        if (is_file($this->filepath)){
-            $this->timestamp = filemtime($this->filepath);
-            return $this->exists = true;
-        }
-        return $this->timestamp = $this->exists = false;
+        include $filepath;
+        return $template_class_name;
     }
+
+/**
+ * get timestamp and exists from Resource
+ *
+ * @param  Smarty $smarty     Smarty object
+ * @return boolean  true if file exits
+ */
+public function populateTimestamp(Smarty $smarty, $filepath, &$timestamp, &$exists)
+{
+    if (is_file($filepath)) {
+        $timestamp = filemtime($filepath);
+        $exists = true;
+    } else {
+        $timestamp = $exists = false;
+    }
+}
 
     /**
      * Write the rendered template output to cache

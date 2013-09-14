@@ -15,26 +15,6 @@
  */
 class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
 {
-
-    /**
-     * resource filepath
-     *
-     * @var string| boolean false
-     */
-    public $filepath = false;
-
-    /**
-     * Resource Timestamp
-     * @var integer
-     */
-    public $timestamp = null;
-
-    /**
-     * Resource Existence
-     * @var boolean
-     */
-    public $exists = false;
-
     /**
      * Template was recompiled
      * @var boolean
@@ -47,42 +27,6 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
      * @var array
      */
     public $file_dependency = array();
-
-    /**
-     * Template Compile Id (Smarty::$compile_id)
-     * @var string
-     */
-    public $compile_id = null;
-
-    /**
-     * Flag if caching enabled
-     * @var boolean
-     */
-    public $caching = false;
-
-    /**
-     * Source Object
-     * @var Smarty_Template_Source
-     */
-    public $source = null;
-
-    /**
-     * Template Class Name
-     * @var string
-     */
-    public $template_class_name = '';
-
-    /**
-     * Template object is valid
-     * @var string
-     */
-    public $isValid = false;
-
-    /**
-     * Template object
-     * @var Smarty_Template
-     */
-    public $template_obj = null;
 
     /**
      * populate Compiled Resource Object with meta data from Resource
@@ -101,29 +45,29 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
     }
 
     /**
-     * populate Cached Object with timestamp and exists from Resource
+     * get timestamp and exists from Resource
      *
      * @param  Smarty $smarty     Smarty object
      * @return boolean  true if file exits
      */
-    public function populateTimestamp(Smarty $tpl_obj)
+    public function populateTimestamp(Smarty $smarty, $filepath, &$timestamp, &$exists)
     {
-        if (is_file($this->filepath)) {
-            $this->timestamp = filemtime($this->filepath);
-            return $this->exists = true;
+        if (is_file($filepath)) {
+            $timestamp = filemtime($filepath);
+            $exists = true;
+        } else {
+            $timestamp = $exists = false;
         }
-        return $this->timestamp = $this->exists = false;
     }
 
     /**
      * load compiled template class
      *     * @return void
      */
-    public function loadTemplateClass()
+    public function loadTemplateClass($filepath)
     {
-        if ($this->exists) {
-            include $this->filepath;
-        }
+            include $filepath;
+            return $template_class_name;
     }
 
     /**
@@ -132,10 +76,10 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
      * @param  Smarty $smarty     Smarty object
      * @return string
      */
-    public function buildFilepath($smarty)
+    public function buildFilepath($smarty, $source, $compile_id, $caching)
     {
-        $_compile_id = isset($this->compile_id) ? preg_replace('![^\w\|]+!', '_', $this->compile_id) : null;
-        $_filepath = $this->source->uid . '_' . $smarty->compiletime_options;
+        $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
+        $_filepath = $source->uid . '_' . $smarty->compiletime_options;
         // if use_sub_dirs, break file into directories
         if ($smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . '/'
@@ -148,89 +92,74 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
             $_filepath = $_compile_id . $_compile_dir_sep . $_filepath;
         }
         // subtype
-        if ($this->source->_usage == Smarty::IS_CONFIG) {
+        if ($source->_usage == Smarty::IS_CONFIG) {
             $_subtype = '.config';
             // TODO must caching be a compiled property?
-        } elseif ($this->caching) {
+        } elseif ($caching) {
             $_subtype = '.cache';
         } else {
             $_subtype = '';
         }
         $_compile_dir = $smarty->getCompileDir();
         // set basename if not specified
-        $_basename = $this->source->getBasename();
+        $_basename = $source->handler->getBasename($source);
         if ($_basename === null) {
-            $_basename = basename(preg_replace('![^\w\/]+!', '_', $this->source->name));
+            $_basename = basename(preg_replace('![^\w\/]+!', '_', $source->name));
         }
         // separate (optional) basename by dot
         if ($_basename) {
             $_basename = '.' . $_basename;
         }
 
-        return $_compile_dir . $_filepath . '.' . $this->source->type . $_basename . $_subtype . '.php';
-    }
-
-    /**
-     * @param Smarty $tpl_obj
-     * @param Smarty $parent
-     * @param  Smarty_Variable_Scope $_scope
-     * @param  int $scope_type
-     * @param  boolean $no_output_filter true if output filter shall nit run
-     * @return string html output
-     */
-    public function getRenderedTemplate($tpl_obj, $parent, $scope, $scope_type = Smarty::SCOPE_LOCAL, $no_output_filter = true)
-    {
-        return $this->instanceTemplate($tpl_obj, $parent)->getRenderedTemplate($scope, $scope_type, $no_output_filter);
+        return $_compile_dir . $_filepath . '.' . $source->type . $_basename . $_subtype . '.php';
     }
 
     /**
      * Load compiled template
      *
      * @param Smarty $smarty     Smarty object
-     * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
      * @returns Smarty_Template
      * @throws Smarty_Exception
      */
-    public function instanceTemplate($smarty, $parent)
+    public function instanceTemplate($smarty, $source, $compile_id, $caching)
     {
+        $timestamp = $exists = false;
+        $filepath = $this->buildFilepath($smarty, $source, $compile_id, $caching);
+        $this->populateTimestamp($smarty, $filepath, $timestamp, $exists);
+
         try {
-            if ($this->isValid && isset($this->template_obj) && ($this->isCompiled || !$smarty->force_compile)) {
-                return $this->template_obj;
-            }
-            $level = ob_get_level();
-            $this->isValid = false;
-            if ($this->exists && !$smarty->force_compile && $this->timestamp >= $this->source->timestamp) {
-                $this->template_class_name = '';
+           $level = ob_get_level();
+            $isValid = false;
+            if ($exists && !$smarty->force_compile && $timestamp >= $source->timestamp) {
+                $template_class_name = '';
                 // load existing compiled template class
-                $this->loadTemplateClass();
-                if (class_exists($this->template_class_name, false)) {
-                    $this->template_obj = new $this->template_class_name($smarty, $parent, $this->source);
-                    $this->isValid = $this->template_obj->isValid;
+                $template_class_name = $this->loadTemplateClass($filepath);
+                if (class_exists($template_class_name, false)) {
+                    $template_obj = new $template_class_name($smarty, $source, $filepath, $timestamp);
+                    $isValid = $template_obj->isValid;
                 }
             }
-            if (!$this->isValid) {
-                $this->template_class_name = '';
-                $this->template_obj = null;
-                $this->isValid = $this->isCompiled = false;
+            if (!$isValid) {
+                $template_class_name = '';
                 // we must compile from source
                 if ($smarty->debugging) {
-                    Smarty_Debug::start_compile($this->source);
+                    Smarty_Debug::start_compile($source);
                 }
-                $compiler = Smarty_Compiler::load($smarty, $this->source, $this->caching);
-                $compiler->compileTemplateSource($this);
+                $compiler = Smarty_Compiler::load($smarty, $source, $filepath, $caching);
+                $compiler->compileTemplateSource();
                 unset($compiler);
                 if ($smarty->debugging) {
-                    Smarty_Debug::end_compile($this->source);
+                    Smarty_Debug::end_compile($source);
                 }
-                $this->isCompiled = true;
-                $this->populateTimestamp($smarty);
-                $this->loadTemplateClass($this);
-                if (class_exists($this->template_class_name, false)) {
-                    $this->template_obj = new $this->template_class_name($smarty, $parent, $this->source);
-                    $this->isValid = $this->template_obj->isValid;
+                $this->populateTimestamp($smarty, $filepath, $timestamp, $exists);
+                $template_class_name = $this->loadTemplateClass($filepath);
+                if (class_exists($template_class_name, false)) {
+                    $template_obj = new $template_class_name($smarty, $source, $filepath, $timestamp);
+                    $template_obj->isUpdated = true;
+                    $isValid = $template_obj->isValid;
                 }
-                if (!$this->isValid) {
-                    throw new FileLoadError('compiled template', $this->filepath);
+                if (!$isValid) {
+                    throw new Smarty_Exception_FileLoadError('compiled template', $filepath);
                 }
             }
         } catch (Exception $e) {
@@ -240,7 +169,7 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
 //            throw new Smarty_Exception_Runtime('resource ', -1, null, null, $e);
             throw $e;
         }
-        return $this->template_obj;
+        return $template_obj;
     }
 
     /**
