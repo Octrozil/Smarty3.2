@@ -27,7 +27,7 @@ class Smarty_Extension_CompileTemplate
     /**
      *  Constructor
      *
-     * @param Smarty $this->smarty Smarty object
+     * @param Smarty $smarty
      */
     public function __construct(Smarty $smarty)
     {
@@ -41,7 +41,9 @@ class Smarty_Extension_CompileTemplate
      * @param  string|object $template   the resource handle of the template file or template object
      * @param  mixed $compile_id compile id to be used with this template
      * @param  object $parent     next higher level of Smarty variables
-     * @return boolean       cache status
+     * @throws Smarty_Exception_SourceNotFound
+     * @throws Exception
+     * @return boolean      status of compilation
      */
     public function compileTemplate($template = null, $compile_id = null, $parent = null)
     {
@@ -54,7 +56,7 @@ class Smarty_Extension_CompileTemplate
             $tpl_obj = $template;
         } else {
             //get source object from cache  or create new one
-            $source = $this->smarty->_loadResource(Smarty::SOURCE, $template);
+            $source = $this->smarty->_getSourceObject($template);
             if (!$source->exists) {
                 throw new Smarty_Exception_SourceNotFound($source->type, $source->name);
             }

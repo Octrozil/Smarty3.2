@@ -24,19 +24,20 @@ class Smarty_Resource_Compiled_Extension_File
      * @param  string $template_resource template name
      * @param  string $compile_id        compile id
      * @param  integer $exp_time          expiration time
+     * @param  boolean $isConfig         true if a config file
      * @return integer number of template files deleted
      */
-    public static function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time,  $is_config)
+    public static function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time, $isConfig)
     {
         $_compile_dir = $smarty->getCompileDir();
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
         $compiletime_options = 0;
         $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
         if (isset($template_resource)) {
-            $source = $smarty->_getSourceObject($template_resource);
+            $source = $smarty->_getSourceObject($template_resource, $isConfig);
            if ($source->exists) {
                 // set basename if not specified
-                $_basename = $source->getBasename($source);
+                $_basename = $source->getBasename();
                 if ($_basename === null) {
                     $_basename = basename(preg_replace('![^\w\/]+!', '_', $source->name));
                 }

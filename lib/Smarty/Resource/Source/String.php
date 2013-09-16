@@ -22,9 +22,24 @@ class Smarty_Resource_Source_String extends Smarty_Exception_Magic
 {
 
     /**
+     * Flag if source needs no compiler
+     *
+     * @var bool
+     */
+    public $uncompiled = false;
+
+    /**
+     * Flag if source needs to be always recompiled
+     *
+     * @var bool
+     */
+    public $recompiled = false;
+
+    /**
      * populate Source Object with meta data from Resource
      *
      * @param Smarty $smarty Smarty object
+     * @param Smarty_Source $source
      */
     public function populate(Smarty $smarty, $source)
     {
@@ -37,6 +52,7 @@ class Smarty_Resource_Source_String extends Smarty_Exception_Magic
      * Load template's source from $resource_name into current template object
      *
      * @uses decode() to decode base64 and urlencoded template_resources
+     * @param Smarty_Source $source
      * @return string template source
      */
     public function getContent($source)

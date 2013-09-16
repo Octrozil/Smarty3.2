@@ -40,7 +40,7 @@ class Smarty_Resource_Cache_Extension_File
         $_time = time();
 
         if (isset($resource_name)) {
-            $source = $smarty->_loadResource(Smarty::SOURCE, $resource_name);
+            $source = $smarty->_getSourceObject($resource_name);
             if ($source->exists) {
                 // set basename if not specified
                 $_basename = $source->getBasename($source);

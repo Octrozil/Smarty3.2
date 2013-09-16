@@ -22,6 +22,7 @@ class Smarty_Resource_Source_Extends extends Smarty_Resource_Source_File
      * populate Source Object with meta data from Resource
      *
      * @param Smarty $smarty Smarty object
+     * @throws Smarty_Exception_SourceNotFound
      */
     public function populate(Smarty $smarty)
     {
@@ -30,7 +31,7 @@ class Smarty_Resource_Source_Extends extends Smarty_Resource_Source_File
         $components = explode('|', $this->name);
         $exists = true;
         foreach ($components as $component) {
-            $s = $smarty->_loadResource(Smarty::SOURCE, $component);
+            $s = $smarty->_getSourceObject($component);
             // checks if source exists
             if (!$s->exists) {
                 throw new Smarty_Exception_SourceNotFound($s->type, $s->name);

@@ -48,22 +48,10 @@ class Smarty_Resource_Compiled_Recompiled extends Smarty_Exception_Magic
     public $source = null;
 
     /**
-     * Template Class Name
-     * @var string
-     */
-    public $template_class_name = '';
-
-    /**
      * Template object is valid
      * @var string
      */
     public $isValid = false;
-
-    /**
-     * Template object
-     * @var Smarty_Template
-     */
-    public $template_obj = null;
 
     /**
      * populate Compiled Resource Object with meta data from Resource
@@ -75,56 +63,43 @@ class Smarty_Resource_Compiled_Recompiled extends Smarty_Exception_Magic
     {
     }
 
-
-    /**
-     * @param Smarty $smarty
-     * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
-     * @param  Smarty_Variable_Scope $_scope
-     * @param  int $scope_type
-     * @param  null|array $data
-     * @param  boolean $no_output_filter true if output filter shall nit run
-     * @return string html output
-     */
-    public function getRenderedTemplate(Smarty $smarty, $parent, Smarty_Variable_Scope $scope, $scope_type = Smarty::SCOPE_LOCAL, $data = null, $no_output_filter = true)
-    {
-        return $this->instanceTemplate($smarty)->getRenderedTemplate($parent, $scope, $scope_type, $data, $no_output_filter);
-    }
-
     /**
      * Load compiled template
      *
      * @param Smarty $smarty     Smarty object
+     * @param $source
+     * @param $compile_id
+     * @param $caching
+     * @throws Exception
      * @returns Smarty_Template
-     * @throws Smarty_Exception
      */
-    public function instanceTemplate(Smarty $smarty)
+    public function instanceTemplate($smarty, $source, $compile_id, $caching)
     {
         try {
-            if ($this->isValid && isset($this->template_obj) && ($this->isCompiled || !$smarty->force_compile)) {
-                return $this->template_obj;
-            }
             $level = ob_get_level();
-            $this->template_obj = null;
-            $this->template_class_name = '';
-            $this->isValid = $this->isCompiled = false;
+            $template_class_name = '';
+            $isValid =  false;
             if ($smarty->debugging) {
-                Smarty_Debug::start_compile($this->source);
+                Smarty_Debug::start_compile($source);
             }
 
-            $compiler = Smarty_Compiler::load($smarty, $this->source, $this->caching);
+            $compiler = Smarty_Compiler::load($smarty, $source, false, $caching);
             $compiler->compileTemplate();
             if ($smarty->debugging) {
-                Smarty_Debug::end_compile($this->source);
+                Smarty_Debug::end_compile($source);
             }
             eval('?>' . $compiler->template_code->buffer);
             unset($compiler);
             if ($smarty->debugging) {
-                Smarty_Debug::end_compile($this->source);
+                Smarty_Debug::end_compile($source);
             }
-            if (class_exists($this->template_class_name, false)) {
-                $this->isCompiled = true;
-                $this->template_obj = new $this->template_class_name($smarty, $this->source);
-                $this->isValid = $this->template_obj->isValid;
+            if (class_exists($template_class_name, false)) {
+                $template_obj = new $template_class_name($smarty, $source, false, 0);
+                $template_obj->isUpdated = true;
+                $isValid = $template_obj->isValid;
+            }
+            if (!$isValid) {
+                throw new Smarty_Exception_FileLoadError('compiled template', $source->filepath);
             }
 
         } catch (Exception $e) {
@@ -134,7 +109,7 @@ class Smarty_Resource_Compiled_Recompiled extends Smarty_Exception_Magic
 //            throw new Smarty_Exception_Runtime('resource ', -1, null, null, $e);
             throw $e;
         }
-        return $this->template_obj;
+        return $template_obj;
     }
 
     /**
@@ -145,9 +120,10 @@ class Smarty_Resource_Compiled_Recompiled extends Smarty_Exception_Magic
      * @param  string $template_resource template name
      * @param  string $compile_id        compile id
      * @param  integer $exp_time          expiration time
+     * @param $isConfig
      * @return integer number of template files deleted
      */
-    public function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time, $is_config)
+    public function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time, $isConfig)
     {
         // is a noop on recompiled resources
         return 0;

@@ -25,6 +25,13 @@ class Smarty_Extension_RegisterResource
     public $smarty;
 
     /**
+     * registered resources
+     * @var array
+     * @internal
+     */
+    public $registered_resources = array();
+
+    /**
      *  Constructor
      *
      * @param Smarty $smarty Smarty object
@@ -35,17 +42,16 @@ class Smarty_Extension_RegisterResource
     }
 
     /**
-     * Registers a resource to fetch a template
+     * Registers a resource for source templates
      *
      * @api
-     * @param  string $type     name of resource type
-     * @param  Smarty_Resource_Source|array $callback or instance of Smarty_Resource_Source, or array of callbacks to handle resource (deprecated)
+     * @param  string                         $type     name of resource type
+     * @param  Smarty_Resource_Source|array   $callback or instance of Smarty_Resource_Source, or array of callbacks to handle resource (deprecated)
      * @return Smarty
      */
     public function registerResource($type, $callback)
     {
-        $this->smarty->registered_resources[Smarty::SOURCE][$type] = $callback instanceof Smarty_Resource_Source_File ? $callback : array($callback, false);
-
+        $this->registered_resources[Smarty::SOURCE][$type] = $callback instanceof Smarty_Resource_Source_File ? $callback : array($callback, false);
         return $this->smarty;
     }
 }

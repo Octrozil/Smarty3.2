@@ -29,51 +29,12 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
     public $file_dependency = array();
 
     /**
-     * populate Compiled Resource Object with meta data from Resource
-     *
-     * @param  Smarty $smarty     Smarty object
-     * @return boolean  true if file exits
-     */
-    public function populate(Smarty $smarty)
-    {
-        $this->filepath = $this->buildFilepath($smarty);
-        if (is_file($this->filepath)) {
-            $this->timestamp = filemtime($this->filepath);
-            return $this->exists = true;
-        }
-        return $this->timestamp = $this->exists = false;
-    }
-
-    /**
-     * get timestamp and exists from Resource
-     *
-     * @param  Smarty $smarty     Smarty object
-     * @return boolean  true if file exits
-     */
-    public function populateTimestamp(Smarty $smarty, $filepath, &$timestamp, &$exists)
-    {
-        if (is_file($filepath)) {
-            $timestamp = filemtime($filepath);
-            $exists = true;
-        } else {
-            $timestamp = $exists = false;
-        }
-    }
-
-    /**
-     * load compiled template class
-     *     * @return void
-     */
-    public function loadTemplateClass($filepath)
-    {
-            include $filepath;
-            return $template_class_name;
-    }
-
-    /**
      * populate Compiled Object with compiled filepath
      *
      * @param  Smarty $smarty     Smarty object
+     * @param $source
+     * @param $compile_id
+     * @param $caching
      * @return string
      */
     public function buildFilepath($smarty, $source, $compile_id, $caching)
@@ -115,11 +76,44 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
     }
 
     /**
+     * get timestamp and exists from Resource
+     *
+     * @param  Smarty $smarty     Smarty object
+     * @param  string  $filepath
+     * @param  reference integer $timestamp
+     * @param  reference boolean $exists
+     */
+    public function populateTimestamp(Smarty $smarty, $filepath, &$timestamp, &$exists)
+    {
+        if (is_file($filepath)) {
+            $timestamp = filemtime($filepath);
+            $exists = true;
+        } else {
+            $timestamp = $exists = false;
+        }
+    }
+
+    /**
+     * load compiled template class
+     *
+     * @param string $filepath
+     * @return string  template class name
+     */
+    public function loadTemplateClass($filepath)
+    {
+        include $filepath;
+        return $template_class_name;
+    }
+
+    /**
      * Load compiled template
      *
      * @param Smarty $smarty     Smarty object
+     * @param Smarty_Source $source
+     * @param $compile_id
+     * @param $caching
+     * @throws Exception
      * @returns Smarty_Template
-     * @throws Smarty_Exception
      */
     public function instanceTemplate($smarty, $source, $compile_id, $caching)
     {
@@ -180,11 +174,12 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
      * @param  string $template_resource template name
      * @param  string $compile_id        compile id
      * @param  integer $exp_time          expiration time
+     * @param  boolean $isConfig
      * @return integer number of template files deleted
      */
-    public function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time, $is_config)
+    public function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time, $isConfig)
     {
         // is external to save memory
-        return Smarty_Resource_Compiled_Extension_File::clear($smarty, $template_resource, $compile_id, $exp_time, $is_config);
+        return Smarty_Resource_Compiled_Extension_File::clear($smarty, $template_resource, $compile_id, $exp_time, $isConfig);
     }
 }

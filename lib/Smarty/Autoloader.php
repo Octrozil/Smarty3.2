@@ -41,10 +41,13 @@ class Smarty_Autoloader
             self::$Smarty_Dir = $this->smartyBaseDir = rtrim($baseDir, '/') . '/';
         }
     }
+
     /**
      * Registers Smarty_Autoloader as an SPL autoloader.
      *
+     * @param null $baseDir
      * @param Boolean $prepend Whether to prepend the autoloader or not.
+     * @return Smarty_Autoloader
      */
     public static function register($baseDir = null, $prepend = false)
     {

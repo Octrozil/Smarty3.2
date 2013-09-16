@@ -63,23 +63,12 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
  */
 
 /**
- * Dummy Template class for Smarty 3.1 BC
- *
- * @package Smarty3.1_BC
- * @deprecated
- */
-class Smarty_Internal_Template extends Smarty
-{
-
-}
-
-/**
  * Smarty Backward Compatibility Wrapper Class for Smarty 3.1
  *
  * @package Smarty\BC
  * @deprecated
  */
-class SmartyBC31 extends Smarty_Internal_Template
+class SmartyBC31 extends Smarty
 {
     /**
      * Flag denoting if Multibyte String functions are available

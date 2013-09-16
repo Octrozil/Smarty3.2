@@ -11,12 +11,21 @@
  */
 
 /**
+ * Class Smarty Internal Template
+ *
+ * For backward compatibility to Smarty 3.1
+ */
+class Smarty_Internal_Template extends Smarty_Variable_Methods
+{
+}
+
+/**
  * Class Smarty Template
  *
  *
  * @package Smarty\Template
  */
-class  Smarty_Template extends Smarty_Exception_Magic
+class  Smarty_Template extends Smarty_Internal_Template
 {
 
     /**
@@ -148,6 +157,13 @@ class  Smarty_Template extends Smarty_Exception_Magic
     public $timestamp = null;
 
     /**
+     * resource filepath
+     *
+     * @var string
+     */
+    public $filepath = null;
+
+    /**
      * Template Compile Id (Smarty::$compile_id)
      * @var string
      */
@@ -175,12 +191,16 @@ class  Smarty_Template extends Smarty_Exception_Magic
      * constructor
      *
      * @param Smarty $smarty Smarty object
-     * @param Smarty_Resource_Source_File $source source resource
+     * @param Smarty_Source $source source resource
+     * @param $filepath
+     * @param $timestamp
      */
-    public function __construct($smarty, $source)
+    public function __construct($smarty, $source, $filepath, $timestamp)
     {
         $this->smarty = $smarty;
         $this->source = $source;
+        $this->filepath = $filepath;
+        $this->timestamp = $timestamp;
         if (!$this->isValid) {
             // check if class is still valid
             if ($this->version != Smarty::SMARTY_VERSION) {
@@ -200,7 +220,7 @@ class  Smarty_Template extends Smarty_Exception_Magic
                     } elseif ($_file_to_check[2] == 'string') {
                         continue;
                     } else {
-                        $source = $this->smarty->_loadResource(Smarty::SOURCE, $_file_to_check[0]);
+                        $source = $this->smarty->_getSourceObject($_file_to_check[0]);
                         $mtime = $source->timestamp;
                     }
                     if (!$mtime || $mtime > $_file_to_check[1]) {
@@ -228,8 +248,9 @@ class  Smarty_Template extends Smarty_Exception_Magic
      *
      * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
      * @param Smarty_Variable_Scope $scope variable scope
-     * @param  int $scope_type
+     * @param int $scope_type
      * @param  boolean $no_output_filter true if output filter shall nit run
+     * @param bool $display
      * @throws Exception
      * @return string
      */
@@ -418,7 +439,7 @@ class  Smarty_Template extends Smarty_Exception_Magic
                 $this->smarty->cached_subtemplates[$template_resource] = array($template_resource, $cache_id, $compile_id, $caching, $cache_lifetime);
             }
 
-            return $this->smarty->fetch($template_resource, $cache_id, $compile_id, $_scope, false, true, $data, $scope_type, $caching, $cache_lifetime);
+            return $this->smarty->fetch($template_resource, $cache_id, $compile_id, $this, false, true, $data, $scope_type, $caching, $cache_lifetime);
         }
 
     }

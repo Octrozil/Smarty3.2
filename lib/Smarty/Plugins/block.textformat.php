@@ -62,7 +62,7 @@ function smarty_block_textformat($params, $content, $tpl_obj, &$repeat)
                 break;
 
             default:
-                trigger_error("textformat: unknown attribute '$_key'");
+                trigger_error("[plugin block.textformat] unknown attribute '$_key'");
         }
     }
 

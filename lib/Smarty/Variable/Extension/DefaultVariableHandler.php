@@ -23,6 +23,8 @@ class Smarty_Variable_Extension_DefaultVariableHandler
      * @param  Smarty $smarty         Smarty object
      * @param  string $varname        the name of the Smarty variable
      * @param  null $property         optional requested variable property
+     * @param bool $error_enable
+     * @throws Smarty_Exception_Runtime
      * @return mixed                  null|Smarty_variable object|property of variable
      */
 

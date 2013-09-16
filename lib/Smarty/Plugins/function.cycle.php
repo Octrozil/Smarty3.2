@@ -53,7 +53,7 @@ function smarty_function_cycle($params, $tpl_obj)
 
     if (!isset($params['values'])) {
         if (!isset($cycle_vars[$name]['values'])) {
-            trigger_error("cycle: missing 'values' parameter");
+            trigger_error("[plugin function.cycle] missing 'values' parameter");
 
             return;
         }

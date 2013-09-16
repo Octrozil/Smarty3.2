@@ -24,7 +24,7 @@
 function smarty_function_fetch($params, $tpl_obj)
 {
     if (empty($params['file'])) {
-        trigger_error("[plugin] fetch parameter 'file' cannot be empty", E_USER_NOTICE);
+        trigger_error("[plugin function.fetch] fetch parameter 'file' cannot be empty", E_USER_NOTICE);
 
         return;
     }
@@ -102,7 +102,7 @@ function smarty_function_fetch($params, $tpl_obj)
                     case "header":
                         if (!empty($param_value)) {
                             if (!preg_match('![\w\d-]+: .+!', $param_value)) {
-                                trigger_error("[plugin] invalid header format '" . $param_value . "'", E_USER_NOTICE);
+                                trigger_error("[plugin function.fetch] invalid header format '" . $param_value . "'", E_USER_NOTICE);
 
                                 return;
                             } else {
@@ -119,7 +119,7 @@ function smarty_function_fetch($params, $tpl_obj)
                         if (!preg_match('!\D!', $param_value)) {
                             $proxy_port = (int)$param_value;
                         } else {
-                            trigger_error("[plugin] invalid value for attribute '" . $param_key . "'", E_USER_NOTICE);
+                            trigger_error("[plugin function.fetch] invalid value for attribute '" . $param_key . "'", E_USER_NOTICE);
 
                             return;
                         }
@@ -138,13 +138,13 @@ function smarty_function_fetch($params, $tpl_obj)
                         if (!preg_match('!\D!', $param_value)) {
                             $timeout = (int)$param_value;
                         } else {
-                            trigger_error("[plugin] invalid value for attribute '" . $param_key . "'", E_USER_NOTICE);
+                            trigger_error("[plugin function.fetch] invalid value for attribute '" . $param_key . "'", E_USER_NOTICE);
 
                             return;
                         }
                         break;
                     default:
-                        trigger_error("[plugin] unrecognized attribute '" . $param_key . "'", E_USER_NOTICE);
+                        trigger_error("[plugin function.fetch] unrecognized attribute '" . $param_key . "'", E_USER_NOTICE);
 
                         return;
                 }
@@ -157,7 +157,7 @@ function smarty_function_fetch($params, $tpl_obj)
             }
 
             if (!$fp) {
-                trigger_error("[plugin] unable to fetch: $errstr ($errno)", E_USER_NOTICE);
+                trigger_error("[plugin function.fetch] unable to fetch: $errstr ($errno)", E_USER_NOTICE);
 
                 return;
             } else {
@@ -201,7 +201,7 @@ function smarty_function_fetch($params, $tpl_obj)
                 }
             }
         } else {
-            trigger_error("[plugin fetch] unable to parse URL, check syntax", E_USER_NOTICE);
+            trigger_error("[plugin function.fetch] unable to parse URL, check syntax", E_USER_NOTICE);
 
             return;
         }

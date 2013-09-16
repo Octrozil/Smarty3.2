@@ -97,6 +97,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      * @param  string $varname the variable name
      * @param  callback $callback PHP callback to get variable value
      * @param  boolean $nocache if true any output of this variable will be not cached
+     * @throws Smarty_Exception
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function assignCallback($varname, $callback, $nocache = false)

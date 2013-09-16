@@ -33,7 +33,7 @@ class Smarty_Extension_WriteFile
     /**
      *  Constructor
      *
-     * @param Smarty $this->smarty Smarty object
+     * @param Smarty $smarty
      */
     public function __construct(Smarty $smarty)
     {

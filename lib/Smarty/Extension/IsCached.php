@@ -27,7 +27,7 @@ class Smarty_Extension_IsCached
     /**
      *  Constructor
      *
-     * @param Smarty $this->smarty Smarty object
+     * @param Smarty $smarty
      */
     public function __construct(Smarty $smarty)
     {
@@ -42,6 +42,7 @@ class Smarty_Extension_IsCached
      * @param  mixed $cache_id   cache id to be used with this template
      * @param  mixed $compile_id compile id to be used with this template
      * @param  object $parent     next higher level of Smarty variables
+     * @throws Smarty_Exception
      * @return boolean       cache status
      */
     public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null)
@@ -60,7 +61,7 @@ class Smarty_Extension_IsCached
                 $tpl_obj = $template;
             } else {
                 //get source object from cache  or create new one
-                $source = $this->smarty->_loadResource(Smarty::SOURCE, $template);
+                $source = $this->smarty->_getSourceObject($template);
                 if (!$source->exists) {
                     throw new Smarty_Exception("Can not find '{$source->type}:{$source->name}'");
                 }

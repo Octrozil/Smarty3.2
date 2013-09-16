@@ -15,7 +15,7 @@ class Smarty_Exception_DefaultHandlerNotCallable extends Smarty_Exception_Runtim
 {
     public function __construct($type)
     {
-        $message = sprintf("Default %s handler not callable", $type);
+        $message = sprintf("Default '%s' file handler not callable", $type);
         parent::__construct($message, 0);
     }
 }

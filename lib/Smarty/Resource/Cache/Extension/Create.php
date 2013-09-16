@@ -105,6 +105,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * @param $cache_obj            cache object
      * @param  Smarty $tpl_obj          current template
      * @param  string $output           cache file content
+     * @param $no_output_filter
      * @throws Exception
      * @return string
      */
@@ -137,8 +138,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         if (!$cache_obj->source->recompiled && ($cache_obj->caching == Smarty::CACHING_LIFETIME_CURRENT || $cache_obj->caching == Smarty::CACHING_LIFETIME_SAVED)) {
             $this->template_code = $this->_createSmartyContentClass($tpl_obj);
             $cache_obj->writeCache($tpl_obj, $this->template_code->buffer);
-            $cache_obj->populate($tpl_obj);
-            $this->template_code = null;
+           $this->template_code = null;
             return;
 
             // TODO Remove this
@@ -208,7 +208,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         $template_code->outdent()->php('}')->newline();
 
         $template_code->outdent()->php('}')->newline()->outdent()->php('}')->newline();
-        $template_code->php("\$this->template_class_name = '{$class}';")->newline();
+        $template_code->php("\$template_class_name = '{$class}';")->newline();
 
         return $template_code;
     }

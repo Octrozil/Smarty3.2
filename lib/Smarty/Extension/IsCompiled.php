@@ -27,7 +27,7 @@ class Smarty_Extension_IsCompiled
     /**
      *  Constructor
      *
-     * @param Smarty $this->smarty Smarty object
+     * @param Smarty $smarty
      */
     public function __construct(Smarty $smarty)
     {
@@ -40,10 +40,12 @@ class Smarty_Extension_IsCompiled
      * @api
      * @param  string|object $template   the resource handle of the template file or template object
      * @param  mixed $compile_id compile id to be used with this template
-     * @param  object $parent     next higher level of Smarty variables
-     * @return boolean       cache status
+     * @param  null $caching
+     * @throws Smarty_Exception_SourceNotFound
+     * @throws Exception
+     * @return boolean       compilation status
      */
-    public function isCompiled($template = null, $compile_id = null, $parent = null)
+    public function isCompiled($template = null, $compile_id = null, $caching = null)
     {
         if ($this->smarty->force_compile) {
             return false;
@@ -57,7 +59,7 @@ class Smarty_Extension_IsCompiled
             $tpl_obj = $template;
         } else {
             //get source object from cache  or create new one
-            $source = $this->smarty->_loadResource(Smarty::SOURCE, $template);
+            $source = $this->smarty->_getSourceObject($template);
             if (!$source->exists) {
                 throw new Smarty_Exception_SourceNotFound($source->type, $source->name);
             }
@@ -72,17 +74,11 @@ class Smarty_Extension_IsCompiled
             return true;
         }
         try {
-            $compiled = $tpl_obj->_loadResource(Smarty::COMPILED, $source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
-                $tpl_obj->caching);
-            if (!$compiled->exists || $compiled->timestamp < $source->timestamp) {
+            $template_obj = $tpl_obj->_getTemplateObject(Smarty::COMPILED, $source, null, isset($compile_id) ? $compile_id : $tpl_obj->compile_id, null, isset($caching) ? $caching : $tpl_obj->caching, true);
+            if ($template_obj === false || $template_obj->timestamp < $source->timestamp) {
                 return false;
             }
-            $compiled->loadTemplateClass();
-            if (class_exists($compiled->template_class_name, false)) {
-                $template_obj =  new $compiled->template_class_name($this->smarty, $parent, $compiled->source);
-                return  $template_obj->isValid;
-            }
-            return false;
+            return  $template_obj->isValid;
         } catch (Exception $e) {
             throw $e;
         }

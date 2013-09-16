@@ -88,7 +88,7 @@ function smarty_function_html_checkboxes($params, $tpl_obj)
                             if (method_exists($_sel, "__toString")) {
                                 $_sel = smarty_function_escape_special_chars((string)$_sel->__toString());
                             } else {
-                                trigger_error("html_checkboxes: selected attribute contains an object of class '" . get_class($_sel) . "' without __toString() method", E_USER_NOTICE);
+                                trigger_error("[plugin function.html_checkboxes] selected attribute contains an object of class '" . get_class($_sel) . "' without __toString() method", E_USER_NOTICE);
                                 continue;
                             }
                         } else {
@@ -100,7 +100,7 @@ function smarty_function_html_checkboxes($params, $tpl_obj)
                     if (method_exists($_val, "__toString")) {
                         $selected = smarty_function_escape_special_chars((string)$_val->__toString());
                     } else {
-                        trigger_error("html_checkboxes: selected attribute is an object of class '" . get_class($_val) . "' without __toString() method", E_USER_NOTICE);
+                        trigger_error("[plugin function.html_checkboxes] selected attribute is an object of class '" . get_class($_val) . "' without __toString() method", E_USER_NOTICE);
                     }
                 } else {
                     $selected = smarty_function_escape_special_chars((string)$_val);
@@ -108,7 +108,7 @@ function smarty_function_html_checkboxes($params, $tpl_obj)
                 break;
 
             case 'checkboxes':
-                trigger_error('html_checkboxes: the use of the "checkboxes" attribute is deprecated, use "options" instead', E_USER_WARNING);
+                trigger_error('[plugin function.html_checkboxes] the use of the "checkboxes" attribute is deprecated, use "options" instead', E_USER_WARNING);
                 $options = (array)$_val;
                 break;
 
@@ -137,7 +137,7 @@ function smarty_function_html_checkboxes($params, $tpl_obj)
                 if (!is_array($_val)) {
                     $extra .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_val) . '"';
                 } else {
-                    trigger_error("html_checkboxes: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    trigger_error("[plugin function.html_checkboxes] extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }

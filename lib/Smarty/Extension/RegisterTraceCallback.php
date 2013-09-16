@@ -43,6 +43,7 @@ class Smarty_Extension_RegisterTraceCallback
      * @api
      * @param  string|array $event
      * @param  callable $callback class/method name
+     * @return Smarty
      * @throws Smarty_Exception
      */
     public function registerTraceCallback($event, $callback = null)
