@@ -104,10 +104,10 @@ class Smarty_Compiler_Template_Php_Tag_CaptureClose extends Smarty_Compiler_Temp
         $this->php("list(\$_capture_buffer, \$_capture_assign, \$_capture_append) = array_pop(\$this->_capture_stack[0]);")->newline();
         $this->php("if (!empty(\$_capture_buffer)) {")->newline()->indent();
         $this->php("if (isset(\$_capture_assign)) {")->newline()->indent();
-        $this->php("\$this->smarty->assign(\$_capture_assign, ob_get_contents());")->newline();
+        $this->php("\$this->assign(\$_capture_assign, ob_get_contents());")->newline();
         $this->outdent()->php("}")->newline();
         $this->php("if (isset( \$_capture_append)) {")->newline()->indent();
-        $this->php("\$this->smarty->append(\$_capture_append, ob_get_contents());")->newline();
+        $this->php("\$this->append(\$_capture_append, ob_get_contents());")->newline();
         $this->outdent()->php("}")->newline();
         $this->php("Smarty::\$_smarty_vars['capture'][\$_capture_buffer]=ob_get_clean();")->newline();
         $this->outdent()->php("} else {")->newline()->indent();

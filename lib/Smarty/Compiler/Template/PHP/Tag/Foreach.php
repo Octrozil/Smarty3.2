@@ -98,6 +98,7 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
             $usesSmartyShow = false;
         }
 
+        $usesPropKey = strpos($compiler->lex->data, $ItemVarName . 'key') !== false;
         $usesPropFirst = $usesSmartyFirst || strpos($compiler->lex->data, $ItemVarName . 'first') !== false;
         $usesPropLast = $usesSmartyLast || strpos($compiler->lex->data, $ItemVarName . 'last') !== false;
         $usesPropIndex = $usesPropFirst || strpos($compiler->lex->data, $ItemVarName . 'index') !== false;
@@ -140,10 +141,16 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
                 $this->php("\$_scope->{$varname}->value['show']=(\$_scope->{$item}->total > 0);")->newline();
             }
         }
-        $this->php("foreach (\$_from as \$_scope->{$item}->key => \$_scope->{$item}->value) {")->indent()->newline();
-        $this->php("\$_scope->{$item}->_loop = true;")->newline();
+        $keyterm = '';
         if ($key != null) {
-            $this->php("\$_scope->{$key}->value = \$_scope->{$item}->key;")->newline();
+            $keyterm = "\$_scope->{$key}->value =>";;
+        } else if ($usesPropKey) {
+            $keyterm = "\$_scope->{$item}->key =>";
+        }
+        $this->php("foreach (\$_from as " . $keyterm . " \$_scope->{$item}->value) {")->indent()->newline();
+        $this->php("\$_scope->{$item}->_loop = true;")->newline();
+        if ($key != null && $usesPropKey ) {
+            $this->php("\$_scope->{$item}->key = \$_scope->{$key}->value;")->newline();
         }
         if ($usesPropIteration) {
             $this->php("\$_scope->{$item}->iteration++;")->newline();

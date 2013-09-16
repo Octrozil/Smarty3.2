@@ -61,7 +61,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
         $this->iniTagCode($compiler);
         if (isset($_attr['assign'])) {
             // assign output to variable
-            $this->php("\$this->smarty->assign({$_attr['assign']},{$parameter['value']});")->newline();
+            $this->php("\$this->assign({$_attr['assign']},{$parameter['value']});")->newline();
         } else {
             $this->php("echo ");
             // display value

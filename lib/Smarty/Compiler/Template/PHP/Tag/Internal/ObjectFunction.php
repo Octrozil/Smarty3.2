@@ -80,7 +80,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_ObjectFunction extends Smarty_Co
             $compiler->has_output = true;
             $this->php("echo {$return};")->newline();
         } else {
-            $this->php("\$this->smarty->assign({$_assign},{$return});")->newline();
+            $this->php("\$this->assign({$_assign},{$return});")->newline();
         }
 
         return $this->returnTagCode($compiler);

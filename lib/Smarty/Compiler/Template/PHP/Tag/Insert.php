@@ -128,9 +128,9 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
                 $this->buffer .= str_repeat(' ', $this->indentation * 4);
 
                 $this->raw(str_repeat(' ', $this->indentation * 4))->raw("\$tmp_p = var_export({$_params}, true);")->raw("\n");
-                $this->raw(str_repeat(' ', $this->indentation * 4))->raw("echo \"/*%%SmartyNocache%%*/\\\$this->smarty->assign({$_assign} , {$_function}(\$tmp_p, \\\$this->smarty), true);/*/%%SmartyNocache%%*/\";")->raw("\n");
+                $this->raw(str_repeat(' ', $this->indentation * 4))->raw("echo \"/*%%SmartyNocache%%*/\\\$this->assign({$_assign} , {$_function}(\$tmp_p, \\\$this->smarty), true);/*/%%SmartyNocache%%*/\";")->raw("\n");
             } else {
-                $this->php("\$this->smarty->assign({$_assign} , {$_function} ({$_params},\$this->smarty), true);")->newline();
+                $this->php("\$this->assign({$_assign} , {$_function} ({$_params},\$this->smarty), true);")->newline();
             }
         } else {
             $compiler->has_output = true;

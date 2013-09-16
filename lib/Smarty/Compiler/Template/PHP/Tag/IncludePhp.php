@@ -103,7 +103,7 @@ class Smarty_Compiler_Template_Php_Tag_IncludePhp extends Smarty_Compiler_Templa
         if (isset($_assign)) {
             $this->php('ob_start();')->newline();
             $this->php("include{$_once} ('{$_filepath}');")->newline();
-            $this->php("\$this->smarty->assign({$_assign},ob_get_clean());")->newline();
+            $this->php("\$this->assign({$_assign},ob_get_clean());")->newline();
         } else {
             $this->php("include{$_once} ('{$_filepath}');")->newline();
         }

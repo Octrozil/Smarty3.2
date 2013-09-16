@@ -70,7 +70,7 @@ class Smarty_Compiler_Template_Php_Tag_Import extends Smarty_Compiler_Template_P
         }
 
         eval("\$tpl_name = $include_file;");
-        $source = $compiler->tpl_obj->_loadResource(Smarty::SOURCE, $tpl_name);
+        $source = $compiler->tpl_obj->_getSourceObject($tpl_name);
         $comp = Smarty_Compiler::load($compiler->tpl_obj, $source, $compiler->caching);
         $comp->nocache = $compiler->nocache;
         // set up parameter
