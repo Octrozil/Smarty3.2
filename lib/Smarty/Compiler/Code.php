@@ -122,7 +122,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
 
     /**
      * Update buffer line number and offset
-     * @param  int $lineNo source line number
+     *
      * @return Smarty_Compiler_code
      */
     public function updateBufferInfo()
