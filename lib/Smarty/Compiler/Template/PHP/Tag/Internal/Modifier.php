@@ -172,9 +172,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
         $object = '';
         //NOTE: For some PHP functions in PHP < 5.3 getParameters() did not return a result
         if ($parameters = $this->buildReflection($callback)->getParameters()) {
-            if ($result = $this->injectObject($callback, array('Smarty', 'Smarty_Internal_Template', 'Smarty_Compiler'), 0)) {
+            if ($result = $this->injectObject($callback, array('Smarty', 'Smarty_Internal_Template', 'Smarty_Compiler_Template_Php_Compiler'), 0)) {
                 if ($result[0] == 'Smarty' || $result[0] == 'Smarty_Internal_Template') {
-                    $object = '$this->smarty, ';
+                    $object = '$this, ';
                 } else {
                     $object = $compiler;
                 }

@@ -16,7 +16,7 @@
  *
  * @package Smarty\Compiler\PHP
  */
-class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
+class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
 {
 
     /**
@@ -336,6 +336,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
      * @param string $parser_class class name
      * @param Smarty $tpl_obj
      * @param Smarty_Resource_Source_File $source
+     * @param $compiled_filepath
      * @param boolean $caching      flag if caching enabled
      */
     public function __construct($lexer_class, $parser_class, $tpl_obj, $source, $compiled_filepath, $caching)
@@ -376,10 +377,10 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
             $this->file_dependency[$this->source->uid] = array($this->source->filepath, $this->source->timestamp, $source->type);
         }
         if ($this->tpl_obj->debugging) {
-            Smarty_Debug::start_compile($this->tpl_obj);
+            Smarty_Debug::start_compile($this->source);
         }
         // compile locking
-        if ($this->tpl_obj->compile_locking && !$this->source->handler->recompiled) {
+        if ($this->tpl_obj->compile_locking && !$this->source->recompiled) {
             if (is_file($this->compiled_filepath)) {
             $saved_timestamp = filemtime($this->compiled_filepath);
             // touch old compiled template if file did exists
@@ -393,7 +394,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
             $code = $this->compileTemplate();
         } catch (Smarty_Exception $e) {
             // restore old timestamp in case of error
-            if ($this->tpl_obj->compile_locking && !$this->source->handler->recompiled && $saved_timestamp) {
+            if ($this->tpl_obj->compile_locking && !$this->source->recompiled && $saved_timestamp) {
                 touch($this->compiled_filepath, $saved_timestamp);
             }
             throw $e;
@@ -401,7 +402,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
             throw new Smarty_Exception_Runtime(sprintf('An exception has been thrown during the compilation of a template ("%s").', $e->getMessage()), -1, $name, $e);
         }
         // compiling succeded
-        if (!$this->source->handler->recompiled && $this->write_compiled_code) {
+        if (!$this->source->recompiled && $this->write_compiled_code) {
             // write compiled template
             $_filepath = $this->compiled_filepath;
             if ($_filepath === false)
@@ -409,7 +410,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
             $this->tpl_obj->writeFile($_filepath, $code);
         }
         if ($this->tpl_obj->debugging) {
-            Smarty_Debug::end_compile($this->tpl_obj);
+            Smarty_Debug::end_compile($this->source);
         }
     }
 
@@ -440,9 +441,9 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Compiler
 
         // get source and run prefilter if required and pass iit to lexer
         if (isset($this->tpl_obj->autoload_filters['pre']) || isset($this->tpl_obj->registered_filters['pre'])) {
-            $this->lex->data = $this->tpl_obj->runFilter('pre', $this->source->handler->getContent($this->source), $this->tpl_obj);
+            $this->lex->data = $this->tpl_obj->runFilter('pre', $this->source->getContent(), $this->tpl_obj);
         } else {
-            $this->lex->data = $this->source->handler->getContent($this->source);
+            $this->lex->data = $this->source->getContent();
         }
         // call compiler
         $this->doCompile();
