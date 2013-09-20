@@ -60,13 +60,16 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      * @param  boolean $nocache if true any output of this variable will be not cached
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
-    public function assignParents($tpl_var, $value = null, $nocache = false)
+    public function assignRoot($tpl_var, $value = null, $nocache = false)
     {
         $this->assign($tpl_var, $value, $nocache);
         $node = $this->parent;
 
         while ($node) {
-            $node->assign($tpl_var, $value, $nocache);
+            // do not assign to data objects
+            if ($node->_usage != Smarty::IS_DATA) {
+                $node->assign($tpl_var, $value, $nocache);
+            }
             $node = $node->parent;
         }
 
@@ -176,7 +179,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     public function getTemplateVars($varname = null, $_ptr = null, $search_parents = true)
     {
         return Smarty_Variable_Extension_GetVariable::getTemplateVars($this, $varname, $_ptr, $search_parents);
-     }
+    }
 
 
     /**
@@ -187,7 +190,8 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      * @return mixed                  null|Smarty_variable object|property of variable
      */
 
-    public static function getGlobalVariable($varname, $property = null) {
+    public static function getGlobalVariable($varname, $property = null)
+    {
         if (isset(Smarty::$_global_tpl_vars->$varname)) {
             // found it, return it
             if ($property === null) {
@@ -211,7 +215,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     public function getConfigVars($varname = null, $search_parents = true)
     {
         return Smarty_Variable_Extension_GetConfigVariable::getConfigVars($this, $varname, $search_parents);
-   }
+    }
 
     /**
      * Deassigns a single or all config variables
@@ -266,5 +270,64 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     public function getStreamVariable($variable)
     {
         return Smarty_Variable_Extension_GetStreamVariable::getStreamVariable($this, $variable);
+    }
+
+    /**
+     * Assign variable in scope
+     * bubble up if required
+     *
+     * @internal
+     * @param string $varname variable name
+     * @param Smarty_Variable $variable_obj variable object
+     * @param int $scope_type
+     */
+    public function _assignInScope($varname, $variable_obj, $scope_type = Smarty::SCOPE_LOCAL)
+    {
+        if ($scope_type == Smarty::SCOPE_GLOBAL) {
+            Smarty::$_global_tpl_vars->{$varname} = $variable_obj;
+            if ($this->_usage == Smarty::IS_TEMPLATE) {
+                // we must bubble from current template
+                $scope_type = Smarty::SCOPE_ROOT;
+            } else {
+                // otherwise done
+                return;
+            }
+        }
+
+        // must always assign in local scope
+        $this->_tpl_vars->{$varname} = $variable_obj;
+
+        // if called on data object return
+        if ($this->_usage == Smarty::IS_DATA) {
+            return;
+        }
+
+        // if called from template object ($this->scope_type set) we must consider
+        // the scope type if template object
+        if (isset($this->scope_type)) {
+            if ($scope_type != Smarty::SCOPE_ROOT) {
+                if ($this->scope_type == Smarty::SCOPE_ROOT) {
+                    $scope_type = Smarty::SCOPE_ROOT;
+                } else if ($scope_type == Smarty::SCOPE_LOCAL) {
+                    $scope_type = $this->scope_type;
+                }
+            }
+        }
+
+        if ($scope_type == Smarty::SCOPE_LOCAL) {
+            return;
+        }
+
+        $node = $this->parent;
+        while ($node) {
+            // bubble up only in template objects
+            if ($node->_usage == Smarty::IS_TEMPLATE) {
+                $node->_tpl_vars->{$varname} = $variable_obj;
+                if ($scope_type == Smarty::SCOPE_PARENT) {
+                    break;
+                }
+            }
+            $node = $node->parent;
+        }
     }
 }

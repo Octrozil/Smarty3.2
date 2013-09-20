@@ -67,8 +67,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
             // display value
             $output = $parameter['value'];
             // tag modifier
-            if (!empty($parameter['modifierlist'])) {
-                $output = $compiler->compileTag('Internal_Modifier', array(), array('modifierlist' => $parameter['modifierlist'], 'value' => $output));
+            if (!empty($parameter['modifier_list'])) {
+                $output = $compiler->compileTag('Internal_Modifier', array(), array('modifier_list' => $parameter['modifier_list'], 'value' => $output));
             }
             if (!$_attr['nofilter']) {
                 // default modifier
@@ -85,7 +85,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
                         }
                         $compiler->default_modifier_list = $modifierlist;
                     }
-                    $output = $compiler->compileTag('Internal_Modifier', array(), array('modifierlist' => $compiler->default_modifier_list, 'value' => $output));
+                    $output = $compiler->compileTag('Internal_Modifier', array(), array('modifier_list' => $compiler->default_modifier_list, 'value' => $output));
                 }
                 // autoescape html
                 if ($compiler->tpl_obj->escape_html) {
@@ -122,7 +122,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
                         if (count($filter) == 1 && ($result = $this->compile_output_filter($compiler, $filter[0], $output)) !== false) {
                             $output = $result;
                         } else {
-                            $output = $compiler->compileTag('Internal_Modifier', array(), array('modifierlist' => array($filter), 'value' => $output));
+                            $output = $compiler->compileTag('Internal_Modifier', array(), array('modifier_list' => array($filter), 'value' => $output));
                         }
                     }
                 }

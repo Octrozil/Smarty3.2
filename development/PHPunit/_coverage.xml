@@ -1,4 +1,5 @@
 <phpunit stopOnFailure="false">
+    processIsolation="true"
 
     <filter>
         <whitelist>
@@ -10,6 +11,8 @@
                 <directory suffix=".php">./</directory>
                 <directory suffix=".php">../../demo/cache</directory>
                 <directory suffix=".php">../../demo/templates_c</directory>
+                <directory suffix=".php">../../development/PHPunit</directory>
+                <directory suffix=".php">c:/wamp/bin</directory>
             </exclude>
         </whitelist>
     </filter>

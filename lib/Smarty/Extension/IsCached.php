@@ -71,14 +71,22 @@ class Smarty_Extension_IsCached
                 // recompiled source can't be cached
                 return false;
             }
-            $cache = $tpl_obj->_loadResource(Smarty::CACHE, $source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
-                isset($cache_id) ? $cache_id : $tpl_obj->cache_id, $tpl_obj->caching);
-            if (!$cache->exists) {
+            $res_obj = $tpl_obj->_loadResource(Smarty::CACHE, $tpl_obj->caching_type);
+            $timestamp = $exists = false;
+            $filepath = $res_obj->buildFilepath($tpl_obj, $source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
+                isset($cache_id) ? $cache_id : $tpl_obj->cache_id);
+            $res_obj->populateTimestamp($tpl_obj, $filepath, $timestamp, $exists);
+            if (!$exists || $timestamp < $source->timestamp) {
                 return false;
             }
-            $cache->loadTemplateClass();
-            $template_obj = new $cache->template_class_name($this->smarty, $parent, $cache->source);
-            return $template_obj->isValid;
+            $template_class_name = $res_obj->loadTemplateClass($filepath);
+            if (class_exists($template_class_name, false)) {
+                $template_obj = new $template_class_name($tpl_obj, $source, $filepath, $timestamp, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
+                    isset($cache_id) ? $cache_id : $tpl_obj->cache_id, $this->smarty->caching);
+                $template_obj->isUpdated = true;
+                return $template_obj->isValid;
+            }
+            return false;
         }
     }
 }

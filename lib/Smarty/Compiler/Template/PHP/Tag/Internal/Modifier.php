@@ -33,7 +33,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
         $_attr = $this->getAttributes($compiler, $args);
         $output = $parameter['value'];
         // loop over list of modifiers
-        foreach ($parameter['modifierlist'] as $single_modifier) {
+        foreach ($parameter['modifier_list'] as $single_modifier) {
             $modifier = $single_modifier[0];
             $single_modifier[0] = $output;
             $params = implode(',', $single_modifier);

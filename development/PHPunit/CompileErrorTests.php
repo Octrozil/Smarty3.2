@@ -30,8 +30,7 @@ class CompileErrorTests extends PHPUnit_Framework_TestCase
         try {
             $this->smarty->fetch('eval:{include file=\'no.tpl\'}');
         } catch (Exception $e) {
-            $this->assertContains('Unable to load template', $e->getMessage());
-
+            $this->assertContains("Can not find source 'file:no.tpl'" , $e->getMessage());
             return;
         }
         $this->fail('Exception for none existing template has not been raised.');
@@ -75,9 +74,8 @@ class CompileErrorTests extends PHPUnit_Framework_TestCase
         try {
             $this->smarty->fetch('eval:{assign var=}');
         } catch (Exception $e) {
-            $this->assertContains('<b>Syntax Error</b> in template <b>\'599a9cf0e3623a3206bd02a0f5c151d5f5f3f69e\'', $e->getMessage());
-            $this->assertContains('Unexpected \'<b>}</b>\'', $e->getMessage());
-
+            $this->assertContains('at line 1 "{assign var=}" ', $e->getMessage());
+            $this->assertContains("Syntax error :Unexpected '<b>}</b>' in ", $e->getMessage());
             return;
         }
         $this->fail('Exception for syntax error has not been raised.');

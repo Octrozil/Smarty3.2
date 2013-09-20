@@ -162,7 +162,8 @@ class Smarty_Debug extends Smarty_Variable_Methods
         $tpl_obj->assign('assigned_vars', $_assigned_vars);
         $tpl_obj->assign('config_vars', $_config_vars);
         $tpl_obj->assign('execution_time', microtime(true) - $tpl_obj->start_time);
-        echo $tpl_obj->fetch($tpl_obj->debug_tpl);
+        $debug_tpl = isset($tpl_obj->debug_tpl) ? $tpl_obj->debug_tpl : 'file:' . dirname(__FILE__) . '/debug.tpl';
+        echo $tpl_obj->fetch($debug_tpl);
     }
 
     /**

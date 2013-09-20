@@ -9,7 +9,7 @@
  * @package CacheResource-examples
  * @author Uwe Tews
  */
-class Smarty_Cache_Resource_Apc extends Smarty_Cache_Resource_KeyValueStore
+class Smarty_Resource_Cache_Apc extends Smarty_Resource_Cache_KeyValueStore
 {
 
     public function __construct()

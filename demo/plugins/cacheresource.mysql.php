@@ -24,7 +24,7 @@
  * @package CacheResource-examples
  * @author Rodney Rehm
  */
-class Smarty_Cache_Resource_Mysql extends Smarty_Cache_Resource_Custom
+class Smarty_Resource_Cache_Mysql extends Smarty_Resource_Cache_Custom
 {
     // PDO instance
     protected $db;
@@ -37,7 +37,7 @@ class Smarty_Cache_Resource_Mysql extends Smarty_Cache_Resource_Custom
         try {
             $this->db = new PDO("mysql:dbname=test;host=localhost", "smarty");
         } catch (PDOException $e) {
-            throw new SmartyException('Mysql Resource failed: ' . $e->getMessage());
+            throw new Smarty_Exception('Mysql Resource failed: ' . $e->getMessage());
         }
         $this->fetch = $this->db->prepare('SELECT modified, content FROM output_cache WHERE id = :id');
         $this->fetchTimestamp = $this->db->prepare('SELECT modified FROM output_cache WHERE id = :id');

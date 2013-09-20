@@ -21,6 +21,7 @@ class ExtendsResourceTests extends PHPUnit_Framework_TestCase
 
     static function isRunnable()
     {
+        // TODO
         return false;
     }
 

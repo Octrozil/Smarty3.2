@@ -65,7 +65,9 @@ class SmartyTests
         self::_init(SmartyTests::$smarty);
         self::_init(SmartyTests::$smartyBC);
         self::_init(SmartyTests::$smartyBC31);
+        Smarty::$source_cache = array();
         Smarty::$resource_cache = array();
+        Smarty::$template_cache = array();
         Smarty::$_global_tpl_vars = new stdClass;
         Smarty::$_smarty_vars = array();
         SmartyTests::$smartyBC->registerPlugin('block', 'php', 'smarty_php_tag');

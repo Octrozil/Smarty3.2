@@ -136,7 +136,7 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
             ) {
                 $tpl_name = null;
                 eval("\$tpl_name = $include_file;");
-                if (!isset(Smarty_Compiler::$merged_inline_content_classes[$tpl_name])) {
+                if (!isset(Smarty_Compiler_Template_Php_Compiler::$merged_inline_content_classes[$tpl_name])) {
                     $tpl = clone $compiler->tpl_obj;
                     unset($tpl->source, $tpl->compiled, $tpl->cached, $tpl->compiler, $tpl->mustCompile);
                     $tpl->template_resource = $tpl_name;
@@ -145,13 +145,13 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
                         // needs code for cached page but no cache file
                         $tpl->caching = Smarty::CACHING_NOCACHE_CODE;
                     }
-                    // make sure whole chain gest compiled
+                    // make sure whole chain gets compiled
                     $tpl->mustCompile = true;
                     if (!$tpl->source->uncompiled && $tpl->source->exists) {
                         // get compiled code
                         $tpl->compiler->suppressTemplatePropertyHeader = true;
                         $tpl->compiler->write_compiled_code = false;
-                        $tpl->compiler->content_class = Smarty_Compiler::$merged_inline_content_classes[$tpl_name]['class'] = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
+                        $tpl->compiler->content_class = Smarty_Compiler_Template_Php_Compiler::$merged_inline_content_classes[$tpl_name]['class'] = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
                         $tpl->compiler->template_code->newline()->php("/* Inline subtemplate compiled from \"{$tpl->source->filepath}\" */")->newline();
                         $tpl->compiler->compileTemplate();
                         $compiler->required_plugins['compiled'] = array_merge($compiler->required_plugins['compiled'], $tpl->compiler->required_plugins['compiled']);
@@ -203,8 +203,8 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
         }
         // was there an assign attribute
         if (isset($_assign)) {
-            $this->php("\$_scope->{$_assign} = new Smarty_Variable (\$this->_getSubTemplate ($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope , \$_scope, $_class));")->newline();
-        } else {
+            $this->php("\$this->_assignInScope('{$_assign}',  new Smarty_Variable (\$this->_getSubTemplate ($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope , \$_scope, $_class)));")->newline();
+       } else {
             $this->php("echo \$this->_getSubTemplate ($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, \$_scope, $_class);")->newline();
         }
 

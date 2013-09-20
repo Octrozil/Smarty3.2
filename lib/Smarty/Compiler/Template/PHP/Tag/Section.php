@@ -65,7 +65,7 @@ class Smarty_Compiler_Template_Php_Tag_Section extends Smarty_Compiler_Template_
 
         $section_props = "\$_scope->smarty_section_{$section_name}->value";
 
-        $this->php("\$_scope->smarty_section_{$section_name} = new Smarty_Variable();")->newline();
+        $this->php("\$this->_assignInScope('smarty_section_{$section_name}',  new Smarty_Variable ());")->newline();
 
         foreach ($_attr as $attr_name => $attr_value) {
             switch ($attr_name) {

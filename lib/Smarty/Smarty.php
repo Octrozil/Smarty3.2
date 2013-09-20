@@ -48,12 +48,13 @@ class Smarty extends Smarty_Variable_Methods
     const SMARTY_VERSION = 'Smarty 3.2-DEV';
 
     /**
-     * define variable scopes
+     * define scopes for variable assignments
      */
     const SCOPE_LOCAL = 0;
     const SCOPE_PARENT = 1;
     const SCOPE_ROOT = 2;
     const SCOPE_GLOBAL = 3;
+    const SCOPE_SMARTY = 4;
 
     /**
      * define object and variable scope type
@@ -152,7 +153,7 @@ class Smarty extends Smarty_Variable_Methods
      * @internal
      * @var array
      */
-    public static $_muted_directories = array();
+    public static $_muted_directories = array('./templates_c/' => null, './cache/' => null);
 
     /**
      * contains trace callbacks to invoke on events
@@ -228,14 +229,14 @@ class Smarty extends Smarty_Variable_Methods
      * @internal
      * @link http://www.smarty.net/docs/en/variable.template.dir.tpl
      */
-    private $_template_dir = array();
+    private $_template_dir = array(0 => './templates/');
 
     /**
      * joined template directory string used in cache keys
      * @var string
      * @internal
      */
-    public $_joined_template_dir = null;
+    public $_joined_template_dir = './templates/';
 
     /**
      * config directory
@@ -243,14 +244,14 @@ class Smarty extends Smarty_Variable_Methods
      * @internal
      * @link http://www.smarty.net/docs/en/variable.fooobar.tpl
      */
-    private $_config_dir = array();
+    private $_config_dir = array(0 => './configs/');
 
     /**
      * joined config directory string used in cache keys
      * @var string
      * @internal
      */
-    public $_joined_config_dir = null;
+    public $_joined_config_dir = './configs/';
 
     /**
      * compile directory
@@ -258,7 +259,7 @@ class Smarty extends Smarty_Variable_Methods
      * @internal
      * @link http://www.smarty.net/docs/en/variable.compile.dir.tpl
      */
-    private $_compile_dir = '';
+    private $_compile_dir = './templates_c/';
 
     /**
      * plugins directory
@@ -274,7 +275,7 @@ class Smarty extends Smarty_Variable_Methods
      * @internal
      * @link http://www.smarty.net/docs/en/variable.cache.dir.tpl
      */
-    private $_cache_dir = '';
+    private $_cache_dir = './cache/';
 
     /**
      * disable core plugins in {@link loadPlugin()}
@@ -538,6 +539,14 @@ class Smarty extends Smarty_Variable_Methods
      * @link http://www.smarty.net/docs/en/variable.error.reporting.tpl
      */
     public $error_reporting = null;
+
+    /**
+     * Counter for nested calls of fetch() and isCached()
+     *
+     * @internal
+     * @var int
+     */
+    public $_fetch_nesting_level = 0;
 
     /**
      * Internal flag for getTags()
@@ -918,6 +927,11 @@ class Smarty extends Smarty_Variable_Methods
      */
     public static $source_cache = array();
 
+    public static $_resource_class_prefix = array(
+        self::SOURCE => 'Smarty_Resource_Source_',
+        self::COMPILED => 'Smarty_Resource_Compiled_',
+        self::CACHE => 'Smarty_Resource_Cache_'
+    );
 
     /*     * #@- */
 
@@ -940,16 +954,7 @@ class Smarty extends Smarty_Variable_Methods
         if (empty(Smarty::$_SMARTY_PLUGINS_DIR)) {
             Smarty::$_SMARTY_PLUGINS_DIR = dirname(__FILE__) . '/Plugins/';
         }
-        $this->setTemplateDir('./templates/')
-            ->setCompileDir('./templates_c/')
-            // this plugins dir should not be set at start up to be able to disable with
-            // $smarty->disable_core_plugins = true
-            //->setPluginsDir(Smarty::$_SMARTY_PLUGINS_DIR)
-            ->setCacheDir('./cache/')
-            ->setConfigDir('./configs/');
 
-        $this->debug_tpl = 'file:' . dirname(__FILE__) . '/debug.tpl';
-        $this->error_tpl = 'file:' . dirname(__FILE__) . '/error.tpl';
         if (isset($_SERVER['SCRIPT_NAME'])) {
             $this->assignGlobal('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
         }
@@ -972,7 +977,7 @@ class Smarty extends Smarty_Variable_Methods
      * @param  null| Smarty_Variable_Scope $_scope
      * @throws Smarty_Exception
      * @throws Smarty_Exception_Runtime
-     * @return string                      rendered template output
+     * @return string   rendered template HTML output
      */
 
     public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $no_output_filter = false, $data = null, $scope_type = Smarty::SCOPE_LOCAL, $caching = null, $cache_lifetime = null, $_scope = null)
@@ -1002,9 +1007,10 @@ class Smarty extends Smarty_Variable_Methods
             $tpl_obj = $this;
         }
 
-        if (isset($tpl_obj->error_reporting)) {
+        if (isset($tpl_obj->error_reporting) && $tpl_obj->_fetch_nesting_level == 0) {
             $_smarty_old_error_level = error_reporting($tpl_obj->error_reporting);
         }
+        $tpl_obj->_fetch_nesting_level++;
         // check URL debugging control
         if (!$tpl_obj->debugging && $tpl_obj->debugging_ctrl == 'URL') {
             Smarty_Debug::checkURLDebug($tpl_obj);
@@ -1024,8 +1030,9 @@ class Smarty extends Smarty_Variable_Methods
         } else {
             $_output = $source->_getRenderedTemplate($tpl_obj, self::COMPILED, $parent, $compile_id, $cache_id, $caching, $data, $scope_type, $no_output_filter, $display);
         }
-        if (isset($tpl_obj->error_reporting)) {
-            error_reporting($_smarty_old_error_level);
+        $tpl_obj->_fetch_nesting_level--;
+        if (isset($tpl_obj->error_reporting) && $tpl_obj->_fetch_nesting_level == 0) {
+           error_reporting($_smarty_old_error_level);
         }
 
         // display or fetch
@@ -1503,56 +1510,10 @@ class Smarty extends Smarty_Variable_Methods
     }
 
     /**
-     *
-     *  runtime routine to create a new variable scope
-     *
-     * @param  null $data
-     * @param $parent
-     * @return \Smarty_Variable_Scope
+     * @param  null | string $resource         template resource name
+     * @param  null | Smarty $parent           next higher level of Smarty variables
+     * @return bool|Smarty_Source
      */
-    public function _buildScope($data, $parent)
-    {
-        if ($parent instanceof Smarty_Variable_Scope) {
-            $scope = clone $parent;
-        } elseif ($this->_usage == self::IS_SMARTY) {
-            return clone $this->_tpl_vars;
-        } else {
-            $scope = $this->_tpl_vars = $this->_mergeScopes($this);
-        }
-        // fill data if present
-        if ($data != null) {
-            // set up variable values
-            foreach ($data as $varname => $value) {
-                $scope->$varname = new Smarty_Variable($value);
-            }
-        }
-
-        return $scope;
-    }
-
-    /**
-     *
-     *  merge recursively template variables into one scope
-     *
-     * @param   Smarty|Smarty_Data|Smarty_Template $ptr
-     * @return Smarty_Variable_Scope                    merged tpl vars
-     */
-    public function _mergeScopes($ptr)
-    {
-        // Smarty::triggerTraceCallback('trace', ' merge tpl ');
-
-        if ($ptr->parent) {
-            $_tpl_vars = $this->_mergeScopes($ptr->parent);
-            foreach ($ptr->_tpl_vars as $var => $data) {
-                $_tpl_vars->$var = $data;
-            }
-
-            return $_tpl_vars;
-        } else {
-            return clone $ptr->_tpl_vars;
-        }
-    }
-
     public function _getSourceObject($resource, $parent = null)
     {
         $parent = isset($parent) ? $parent : $this->parent;
@@ -1620,109 +1581,16 @@ class Smarty extends Smarty_Variable_Methods
     }
 
 
-    public function _getRenderedTemplate($resource_group, $source, $parent, $compile_id, $cache_id, $caching, $data, $scope_type, $no_output_filter = false, $display = false)
-    {
-        if ($parent instanceof Smarty_Variable_Scope) {
-            $scope = clone $parent;
-        } elseif ($this->_usage == self::IS_SMARTY) {
-            $scope = clone $this->_tpl_vars;
-        } else {
-            $scope = $this->_mergeScopes($this);
-        }
-        // fill data if present
-        if ($data != null) {
-            // set up variable values
-            foreach ($data as $varname => $value) {
-                $scope->$varname = new Smarty_Variable($value);
-            }
-        }
-
-        // get template object
-        $template_obj = $this->_getTemplateObject($resource_group, $source, $parent, $compile_id, $cache_id, $caching);
-
-        //render template
-        return $template_obj->getRenderedTemplate($parent, $scope, $scope_type, $no_output_filter, $display);
-    }
-
-    public function _getTemplateObject($resource_group, $source, $parent, $compile_id, $cache_id, $caching, $check = false)
-    {
-        switch ($resource_group) {
-            case self::SOURCE:
-            case self::COMPILED:
-                if ($source->recompiled) {
-                    $type = 'recompiled';
-                } else {
-                    $type = $this->compiled_type;
-                }
-                // check runtime cache
-                $source_key = isset($source->uid) ? $source->uid : '#null#';
-                $compiled_key = $compile_id ? $compile_id : '#null#';
-                if ($caching) {
-                    $compiled_key .= '#caching';
-                }
-                if (isset(self::$template_cache[self::COMPILED][$type][$source_key][$compiled_key])) {
-                    // is already in cache
-                    $template_obj = self::$template_cache[self::COMPILED][$type][$source_key][$compiled_key];
-                    // check if up to date
-                    if (!$this->force_compile || $template_obj->isUpdated) {
-                        break;
-                    }
-                }
-                if ($check) {
-                    return false;
-                }
-                if (isset(self::$resource_cache[self::COMPILED][$type])) {
-                    // resource already in cache
-                    $res_obj = self::$resource_cache[self::COMPILED][$type];
-                } else {
-                    $res_obj = $this->_loadResource(self::COMPILED, $type);
-                }
-                $template_obj = $res_obj->instanceTemplate($this, $source, $compile_id, $caching);
-                self::$template_cache[self::COMPILED][$type][$source_key][$compiled_key] = $template_obj;
-                break;
-
-            case self::CACHE:
-                // check runtime cache
-                $source_key = isset($source->uid) ? $source->uid : '#null#';
-                $compiled_key = $compile_id ? $compile_id : '#null#';
-                $cache_key = $cache_id ? $cache_id : '#null#';
-                if (isset(self::$template_cache[self::CACHE][$this->caching_type][$source_key][$compiled_key][$cache_key])) {
-                    // is already in cache
-                    $template_obj = self::$template_cache[self::CACHE][$this->caching_type][$source_key][$compiled_key][$cache_key];
-                    // check if up to date
-                    if ((!$this->force_compile && !$this->force_cache) || $template_obj->isUpdated) {
-                        break;
-                    }
-                }
-                if ($check) {
-                    return false;
-                }
-                if (isset(self::$resource_cache[self::CACHE][$this->caching_type])) {
-                    // resource already in cache
-                    $res_obj = self::$resource_cache[self::CACHE][$this->caching_type];
-                } else {
-                    $res_obj = $this->_loadResource(self::CACHE, $this->caching_type);
-                }
-                $template_obj = $res_obj->instanceTemplate($this, $source, $compile_id, $caching, $parent, $_scope, $scope_type, $no_output_filter);
-        }
-        return $template_obj;
-    }
-
     /**
      *  Get handler and create resource object
      *
      * @param  int $resource_group SOURCE|COMPILED|CACHE
-     * @param  string $type resource hamdler
+     * @param  string $type resource handler type
      * @throws Smarty_Exception
      * @return Smarty_Resource_xxx | false
      */
     public function _loadResource($resource_group, $type)
     {
-        static $class_prefix = array(
-            self::SOURCE => 'Smarty_Resource_Source',
-            self::COMPILED => 'Smarty_Resource_Compiled',
-            self::CACHE => 'Smarty_Resource_Cache'
-        );
 
         // resource group and type already in cache
         if (isset(self::$resource_cache[$resource_group][$type])) {
@@ -1734,7 +1602,7 @@ class Smarty extends Smarty_Variable_Methods
         $res_obj = null;
 
         if (!$res_obj) {
-            $resource_class = $class_prefix[$resource_group] . '_' . ucfirst($type);
+            $resource_class = self::$_resource_class_prefix[$resource_group]  . ucfirst($type);
             if (isset($this->registered_resources[$resource_group][$type])) {
                 if ($this->registered_resources[$resource_group][$type] instanceof $resource_class) {
                     $res_obj = $this->registered_resources[$resource_group][$type];
@@ -1781,7 +1649,7 @@ class Smarty extends Smarty_Variable_Methods
 
         // TODO: try default_(template|config)_handler
         // give up
-        throw new Smarty_Exception_UnknownResourceType($class_prefix[$resource_group], $type);
+        throw new Smarty_Exception_UnknownResourceType(self::$_resource_class_prefix[$resource_group], $type);
     }
 
     /**
@@ -1882,7 +1750,7 @@ class Smarty extends Smarty_Variable_Methods
      *
      * @param  string $property_name property name
      * @throws Smarty_Exception
-     * @return $this|bool|\Smarty_Compiled|\Smarty_template_Cached|\Smarty_Template_Source
+     * @return mixed
      */
     public function __get($property_name)
     {
@@ -1958,7 +1826,7 @@ class Smarty extends Smarty_Variable_Methods
      * @param  string $name unknown method-name
      * @param  array $args argument array
      * @throws Smarty_Exception
-     * @return $this|bool|\Smarty_Compiled|\Smarty_template_Cached|\Smarty_Template_Source
+     * @return mixed    function results
      */
     public function __call($name, $args)
     {

@@ -505,7 +505,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         if (count($this->_tag_stack) > 0) {
             // get stacked info
             list($openTag, $_data) = array_pop($this->_tag_stack);
-            $this->error("unclosed {" . $openTag . "} tag");
+            $this->error("unclosed " . $this->tpl_obj->left_delimiter . $openTag . $this->tpl_obj->right_delimiter . " tag");
         }
         // return compiled code
         // return str_replace(array("? >\n<?php","? ><?php"), array('',''), $this->parser->retvalue);

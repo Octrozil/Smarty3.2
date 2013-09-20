@@ -41,7 +41,7 @@ class CacheResourceFileTests extends PHPUnit_Framework_TestCase
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->use_sub_dirs = true;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $sha1 = sha1($this->smarty->getTemplateDir(0) . 'helloworld.tpl');
+        $sha1 = $tpl->source->uid;
         $expected = sprintf('./cache/%s/%s/^^helloworld.tpl.php',
             substr($sha1, 0, 2),
             $sha1
@@ -58,7 +58,7 @@ class CacheResourceFileTests extends PHPUnit_Framework_TestCase
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->use_sub_dirs = true;
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar');
-        $sha1 = sha1($this->smarty->getTemplateDir(0) . 'helloworld.tpl');
+        $sha1 = $tpl->source->uid;
         $md5 = md5('bar');
         $expected = sprintf('./cache/%s/%s/foo/%s/%s/%s/bar^^helloworld.tpl.php',
             substr($sha1, 0, 2),
@@ -79,7 +79,7 @@ class CacheResourceFileTests extends PHPUnit_Framework_TestCase
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->use_sub_dirs = true;
         $tpl = $this->smarty->createTemplate('helloworld.tpl', null, 'blar');
-        $sha1 = sha1($this->smarty->getTemplateDir(0) . 'helloworld.tpl');
+        $sha1 = $tpl->source->uid;
         $expected = sprintf('./cache/%s/%s/^blar^helloworld.tpl.php',
             substr($sha1, 0, 2),
             $sha1
@@ -96,7 +96,7 @@ class CacheResourceFileTests extends PHPUnit_Framework_TestCase
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->use_sub_dirs = true;
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
-        $sha1 = sha1($this->smarty->getTemplateDir(0) . 'helloworld.tpl');
+        $sha1 = $tpl->source->uid;
         $md5 = md5('bar');
         $expected = sprintf('./cache/%s/%s/foo/%s/%s/%s/bar^blar^helloworld.tpl.php',
             substr($sha1, 0, 2),

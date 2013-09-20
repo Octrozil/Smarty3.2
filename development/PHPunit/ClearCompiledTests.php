@@ -93,7 +93,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase
             unset($tpl);
         }
         */
-        Smarty::$resource_cache = array();
+        Smarty::$template_cache = array();
 
         return $this->_files;
     }

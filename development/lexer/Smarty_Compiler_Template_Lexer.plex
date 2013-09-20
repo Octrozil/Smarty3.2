@@ -717,6 +717,70 @@ text {
 /*!lex2php
 %statename DOUBLEQUOTEDSTRING
 
+ldel slash {
+  $parser_class = $this->parser_class;
+  if ($this->autoLiteral($this->value)) {
+     $this->token = $parser_class::TP_TEXT;
+  } else {
+    if($this->dqtag) {
+       $this->dqtag = false;
+       $this->token = $parser_class::TP_LDELSLASH;
+        $this->yypushstate(self::SMARTY);
+    } else {
+       $this->dqtag = true;
+       $this->token = $parser_class::TP_DQTAG;
+       $this->value = '';
+    }
+  }
+}
+ldel if {
+  $parser_class = $this->parser_class;
+  if ($this->autoLiteral($this->value)) {
+     $this->token = $parser_class::TP_TEXT;
+  } else {
+    if($this->dqtag) {
+       $this->dqtag = false;
+       $this->token = $parser_class::TP_LDELIF;
+        $this->yypushstate(self::SMARTY);
+    } else {
+       $this->dqtag = true;
+       $this->token = $parser_class::TP_DQTAG;
+       $this->value = '';
+    }
+  }
+}
+ldel for {
+  $parser_class = $this->parser_class;
+  if ($this->autoLiteral($this->value)) {
+     $this->token = $parser_class::TP_TEXT;
+  } else {
+    if($this->dqtag) {
+       $this->dqtag = false;
+       $this->token = $parser_class::TP_LDELFOR;
+        $this->yypushstate(self::SMARTY);
+    } else {
+       $this->dqtag = true;
+       $this->token = $parser_class::TP_DQTAG;
+       $this->value = '';
+    }
+  }
+}
+ldel foreach {
+  $parser_class = $this->parser_class;
+  if ($this->autoLiteral($this->value)) {
+     $this->token = $parser_class::TP_TEXT;
+  } else {
+    if($this->dqtag) {
+       $this->dqtag = false;
+       $this->token = $parser_class::TP_LDELFOREACH;
+        $this->yypushstate(self::SMARTY);
+    } else {
+       $this->dqtag = true;
+       $this->token = $parser_class::TP_DQTAG;
+       $this->value = '';
+    }
+  }
+}
 ldel {
   $parser_class = $this->parser_class;
   if ($this->autoLiteral($this->value)) {

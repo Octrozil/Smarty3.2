@@ -306,7 +306,7 @@ literal_element(res) ::= ASPENDTAG(et). {
 //}
 
 //smartytag(res)   ::= LDEL expr(e) modifierlist(l) attributes(a). {
-//    res = $this->compiler->compileTag('Internal_PrintExpression',a,array('value'=>e,'modifierlist'=>l));
+//    res = $this->compiler->compileTag('Internal_PrintExpression',a,array('value'=>e,'modifier_list'=>l));
 //}
 
 smartytag(res)   ::= LDEL expr(e) attributes(a). {
@@ -351,13 +351,13 @@ smartytag(res)   ::= LDEL ID(i) attributes(a). {
                   // tag with modifier and optional Smarty2 style attributes
 smartytag(res)   ::= LDEL ID(i) modifierlist(l)attributes(a). {
     res = 'ob_start(); '.$this->compiler->compileTag(i,a).' echo ';
-    res .= $this->compiler->compileTag('Internal_Modifier',array(),array('modifierlist'=>l,'value'=>'ob_get_clean()')).';';
+    res .= $this->compiler->compileTag('Internal_Modifier',array(),array('modifier_list'=>l,'value'=>'ob_get_clean()')).';';
 }
 
                   // registered object tag with modifiers
 smartytag(res)   ::= LDEL ID(i) PTR ID(me) modifierlist(l) attributes(a). {
     res = 'ob_start(); '.$this->compiler->compileTag(i,a,array('object_method'=>me)).' echo ';
-    res .= $this->compiler->compileTag('Internal_Modifier',array(),array('modifierlist'=>l,'value'=>'ob_get_clean()')).';';
+    res .= $this->compiler->compileTag('Internal_Modifier',array(),array('modifier_list'=>l,'value'=>'ob_get_clean()')).';';
 }
 
                   // {if}, {elseif} and {while} tag
@@ -437,7 +437,7 @@ smartytag(res)   ::= LDELSLASH ID(i). {
 }
 
 smartytag(res)   ::= LDELSLASH ID(i) modifierlist(l). {
-    res = $this->compiler->compileTag(i.'close',array(),array('modifierlist'=>l));
+    res = $this->compiler->compileTag(i.'close',array(),array('modifier_list'=>l));
 }
 
                   // end of block object tag  {/....}                 
@@ -446,7 +446,7 @@ smartytag(res)   ::= LDELSLASH ID(i) PTR ID(m). {
 }
 
 smartytag(res)   ::= LDELSLASH ID(i) PTR ID(m) modifierlist(l). {
-    res = $this->compiler->compileTag(i.'close',array(),array('object_method'=>m,'modifierlist'=>l));
+    res = $this->compiler->compileTag(i.'close',array(),array('object_method'=>m,'modifier_list'=>l));
 }
 
 //
@@ -546,7 +546,7 @@ expr(res)        ::= ternary(v). {
 
                  // resources/streams
 expr(res)        ::= DOLLAR ID(i) COLON ID(i2). {
-    res = '$_smarty_tpl->getStreamVariable(\''. i .'://'. i2 . '\')';
+    res = '$this->smarty->getStreamVariable(\''. i .'://'. i2 . '\')';
 }
 
                   // arithmetic expression
@@ -570,7 +570,7 @@ expr(res)        ::= expr(e) ANDSYM(m) value(v). {
 
                   // modifier
 expr(res)        ::= expr(e) modifierlist(l). {
-    res = $this->compiler->compileTag('Internal_Modifier',array(),array('value'=>e,'modifierlist'=>l));
+    res = $this->compiler->compileTag('Internal_Modifier',array(),array('value'=>e,'modifier_list'=>l));
 }
 
 // if expression
@@ -789,7 +789,7 @@ value(res)       ::= smartytag(st). {
 
 
 value(res)       ::= value(v) modifierlist(l). {
-    res = $this->compiler->compileTag('Internal_Modifier',array(),array('value'=>v,'modifierlist'=>l));
+    res = $this->compiler->compileTag('Internal_Modifier',array(),array('value'=>v,'modifier_list'=>l));
 }
 
 
@@ -1004,7 +1004,7 @@ function(res)     ::= ID(f) OPENP params(p) CLOSEP. {
                 preg_match('/\$_scope->([0-9]*[a-zA-Z_]\w*)(.*)/',$par,$match);
                 if (isset($match[1])) {
                     $search = array('/\$_scope->([0-9]*[a-zA-Z_]\w*)/','/->value.*/');
-                    $replace = array('Smarty_Variable_Extension_GetVariable::getVariable($_smarty_tpl, \'\1\', null, false, false)','');
+                    $replace = array('Smarty_Variable_Extension_GetVariable::getVariable($this, \'\1\', null, false, false)','');
                     $this->prefix_number++;
                     $code = new Smarty_Compiler_Code();
                     $code->iniTagCode($this->compiler);
@@ -1259,14 +1259,14 @@ doublequotedcontent(res)           ::=  DQTAG ldelexprrdel(e). {
 
 doublequotedcontent(res)     ::=  DQTAG smartytag(st) RDEL. {
     if (empty($this->db_quote_code_buffer)) {
-            $this->db_quote_code_buffer = 'ob_start();';
+            $this->db_quote_code_buffer = "ob_start();\n";
     }
     $this->db_quote_code_buffer .= st->buffer;
         if ($this->block_nesting_level == count($this->compiler->_tag_stack)) {
         $this->prefix_number++;
         $code = new Smarty_Compiler_Code();
         $code->iniTagCode($this->compiler);
-        $code->php( $this->db_quote_code_buffer . ' $_tmp'.$this->prefix_number.'=ob_get_clean();')->newline();
+        $code->formatPHP( $this->db_quote_code_buffer . ' $_tmp'.$this->prefix_number.'=ob_get_clean();')->newline();
         $this->compiler->prefix_code[] = $code;
         $this->db_quote_code_buffer = '';
         res = '$_tmp'.$this->prefix_number;

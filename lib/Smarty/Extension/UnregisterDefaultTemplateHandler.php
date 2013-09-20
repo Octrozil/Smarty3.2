@@ -13,7 +13,7 @@
  *
  * @package Smarty\Extension
  */
-class Smarty_Extension_RnregisterDefaultTemplateHandler
+class Smarty_Extension_UnregisterDefaultTemplateHandler
 {
     /**
      *  Smarty object

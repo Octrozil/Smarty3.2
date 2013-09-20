@@ -111,20 +111,14 @@ class StringResourceTests extends PHPUnit_Framework_TestCase
     /**
      * test getRenderedTemplate
      */
-    public function testGetRenderedTemplate()
+    public function testGetRenderedTemplateAndMustCompile3()
     {
         $tpl = $this->smarty->createTemplate('string:hello world');
         $this->assertEquals('hello world', $tpl->fetch());
-    }
-
-    /**
-     * test mustCompile
-     */
-    public function testMustCompile3()
-    {
         $tpl = $this->smarty->createTemplate('string:hello world');
         $this->assertFalse($tpl->mustCompile);
     }
+
 
     /**
      * test getCompiledFilepath

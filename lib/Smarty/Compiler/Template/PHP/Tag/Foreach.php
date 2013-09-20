@@ -106,10 +106,12 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
         $usesPropShow = strpos($compiler->lex->data, $ItemVarName . 'show') !== false;
         $usesPropTotal = $usesSmartyTotal || $usesSmartyShow || $usesPropShow || $usesPropLast || strpos($compiler->lex->data, $ItemVarName . 'total') !== false;
         // generate output code
-        $this->php("\$_scope->$item = new Smarty_Variable;")->newline();
+        $this->php("\$this->_assignInScope('$item', new Smarty_Variable);")->newline();
+//        $this->php("\$_scope->$item = new Smarty_Variable;")->newline();
         $this->php("\$_scope->{$item}->_loop = false;")->newline();
         if ($key != null) {
-            $this->php("\$_scope->$key = new Smarty_Variable;")->newline();
+            $this->php("\$this->_assignInScope('$key', new Smarty_Variable);")->newline();
+//            $this->php("\$_scope->$key = new Smarty_Variable;")->newline();
         }
         $this->php("\$_from = $from;")->newline();
         $this->php("if (!is_array(\$_from) && !is_object(\$_from)) {")->newline()->indent()->php("settype(\$_from, 'array');")->newline()->outdent()->php("}")->newline();
@@ -127,7 +129,8 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
         }
         if ($has_name) {
             $varname = 'smarty_foreach_' .trim($name, '\'"');
-            $this->php("\$_scope->{$varname} = new Smarty_Variable;")->newline();
+            $this->php("\$this->_assignInScope('$varname', new Smarty_Variable);")->newline();
+//            $this->php("\$_scope->{$varname} = new Smarty_Variable;")->newline();
             if ($usesSmartyTotal) {
                 $this->php("\$_scope->{$varname}->value['total'] = \$_scope->{$item}->total;")->newline();
             }

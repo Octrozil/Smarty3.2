@@ -73,12 +73,20 @@ class Smarty_Extension_IsCompiled
             // uncompiled source returns always false
             return true;
         }
+        $res_obj = $tpl_obj->_loadResource(Smarty::COMPILED, $tpl_obj->compiled_type);
+        $timestamp = $exists = false;
+        $filepath = $res_obj->buildFilepath($tpl_obj, $source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
+            isset($caching) ? $caching : $tpl_obj->caching);
+        $res_obj->populateTimestamp($tpl_obj, $filepath, $timestamp, $exists);
+        if (!$exists || $timestamp < $source->timestamp) {
+            return false;
+        }
         try {
-            $template_obj = $tpl_obj->_getTemplateObject(Smarty::COMPILED, $source, null, isset($compile_id) ? $compile_id : $tpl_obj->compile_id, null, isset($caching) ? $caching : $tpl_obj->caching, true);
-            if ($template_obj === false || $template_obj->timestamp < $source->timestamp) {
+            $template_obj = $source->_getTemplateObject($tpl_obj, Smarty::COMPILED, null, isset($compile_id) ? $compile_id : $tpl_obj->compile_id, null, isset($caching) ? $caching : $tpl_obj->caching);
+            if ($template_obj === false) {
                 return false;
             }
-            return  $template_obj->isValid;
+            return $template_obj->isValid;
         } catch (Exception $e) {
             throw $e;
         }

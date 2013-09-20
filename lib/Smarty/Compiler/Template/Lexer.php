@@ -1138,21 +1138,22 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
     public function yylex5()
     {
         $tokenMap = array (
-              1 => 2,
-              4 => 1,
+              1 => 1,
+              3 => 2,
               6 => 1,
               8 => 1,
-              10 => 0,
-              11 => 0,
+              10 => 1,
               12 => 0,
               13 => 0,
-              14 => 3,
-              18 => 0,
+              14 => 0,
+              15 => 0,
+              16 => 3,
+              20 => 0,
             );
         if ($this->counter >= ($this->mbstring_overload ? mb_strlen($this->data,'latin1'): strlen($this->data))) {
             return false; // end of input
         }
-        $yy_global_pattern = "/\G((\\s*".$this->ldel."--|[^\S\r\n]*".$this->ldel."-|".$this->ldel.")\\s*(if|elseif|else if|while)\\s+)|\G((\\s*".$this->ldel."--|[^\S\r\n]*".$this->ldel."-|".$this->ldel.")\\s*for\\s+)|\G((\\s*".$this->ldel."--|[^\S\r\n]*".$this->ldel."-|".$this->ldel.")\\s*foreach(?![^\s]))|\G((\\s*".$this->ldel."--|[^\S\r\n]*".$this->ldel."-|".$this->ldel.")\\s*)|\G(\")|\G(`\\$)|\G(\\$[0-9]*[a-zA-Z_]\\w*)|\G(\\$)|\G(([^\"\\\\]*?)((?:\\\\.[^\"\\\\]*?)*?)(?=(".$this->ldel."|\\$|`\\$|\")))|\G([\S\s])/iS";
+        $yy_global_pattern = "/\G((\\s*".$this->ldel."--|[^\S\r\n]*".$this->ldel."-|".$this->ldel.")\\s*\/)|\G((\\s*".$this->ldel."--|[^\S\r\n]*".$this->ldel."-|".$this->ldel.")\\s*(if|elseif|else if|while)\\s+)|\G((\\s*".$this->ldel."--|[^\S\r\n]*".$this->ldel."-|".$this->ldel.")\\s*for\\s+)|\G((\\s*".$this->ldel."--|[^\S\r\n]*".$this->ldel."-|".$this->ldel.")\\s*foreach(?![^\s]))|\G((\\s*".$this->ldel."--|[^\S\r\n]*".$this->ldel."-|".$this->ldel.")\\s*)|\G(\")|\G(`\\$)|\G(\\$[0-9]*[a-zA-Z_]\\w*)|\G(\\$)|\G(([^\"\\\\]*?)((?:\\\\.[^\"\\\\]*?)*?)(?=(".$this->ldel."|\\$|`\\$|\")))|\G([\S\s])/iS";
 
         do {
             if ($this->mbstring_overload ? preg_match($yy_global_pattern, mb_substr($this->data, $this->counter,2000000000,'latin1'), $yymatches) : preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
@@ -1211,7 +1212,7 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
   } else {
     if($this->dqtag) {
        $this->dqtag = false;
-       $this->token = $parser_class::TP_LDELIF;
+       $this->token = $parser_class::TP_LDELSLASH;
         $this->yypushstate(self::SMARTY);
     } else {
        $this->dqtag = true;
@@ -1220,7 +1221,7 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
     }
   }
     }
-    function yy_r5_4($yy_subpatterns)
+    function yy_r5_3($yy_subpatterns)
     {
 
   $parser_class = $this->parser_class;
@@ -1229,7 +1230,7 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
   } else {
     if($this->dqtag) {
        $this->dqtag = false;
-       $this->token = $parser_class::TP_LDELFOR;
+       $this->token = $parser_class::TP_LDELIF;
         $this->yypushstate(self::SMARTY);
     } else {
        $this->dqtag = true;
@@ -1247,7 +1248,7 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
   } else {
     if($this->dqtag) {
        $this->dqtag = false;
-       $this->token = $parser_class::TP_LDELFOREACH;
+       $this->token = $parser_class::TP_LDELFOR;
         $this->yypushstate(self::SMARTY);
     } else {
        $this->dqtag = true;
@@ -1257,6 +1258,24 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
   }
     }
     function yy_r5_8($yy_subpatterns)
+    {
+
+  $parser_class = $this->parser_class;
+  if ($this->autoLiteral($this->value)) {
+     $this->token = $parser_class::TP_TEXT;
+  } else {
+    if($this->dqtag) {
+       $this->dqtag = false;
+       $this->token = $parser_class::TP_LDELFOREACH;
+        $this->yypushstate(self::SMARTY);
+    } else {
+       $this->dqtag = true;
+       $this->token = $parser_class::TP_DQTAG;
+       $this->value = '';
+    }
+  }
+    }
+    function yy_r5_10($yy_subpatterns)
     {
 
   $parser_class = $this->parser_class;
@@ -1274,14 +1293,14 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
     }
   }
     }
-    function yy_r5_10($yy_subpatterns)
+    function yy_r5_12($yy_subpatterns)
     {
 
   $parser_class = $this->parser_class;
   $this->token = $parser_class::TP_QUOTE;
   $this->yypopstate();
     }
-    function yy_r5_11($yy_subpatterns)
+    function yy_r5_13($yy_subpatterns)
     {
 
   $parser_class = $this->parser_class;
@@ -1290,25 +1309,25 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
   $this->yypushstate(self::SMARTY);
   $this->taglineno = $this->line + $this->line_offset;
     }
-    function yy_r5_12($yy_subpatterns)
+    function yy_r5_14($yy_subpatterns)
     {
 
   $parser_class = $this->parser_class;
   $this->token = $parser_class::TP_DOLLARID;
     }
-    function yy_r5_13($yy_subpatterns)
+    function yy_r5_15($yy_subpatterns)
     {
 
   $parser_class = $this->parser_class;
   $this->token = $parser_class::TP_TEXT;
     }
-    function yy_r5_14($yy_subpatterns)
+    function yy_r5_16($yy_subpatterns)
     {
 
   $parser_class = $this->parser_class;
   $this->token = $parser_class::TP_TEXT;
     }
-    function yy_r5_18($yy_subpatterns)
+    function yy_r5_20($yy_subpatterns)
     {
 
      $parser_class = $this->parser_class;

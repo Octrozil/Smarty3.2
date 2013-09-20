@@ -35,7 +35,7 @@ class Smarty_Resource_Cache_Extension_File
         $_preg_compile_id = ($_compile_id == null) ? '(.*)?' : preg_quote($_compile_id);
         $_preg_cache_id = '(.*)?';
         $_preg_file = '(.*)?';
-        $_cache_dir = $smarty->getCacheDir();
+        $_cache_dir = str_replace('\\', '/', $smarty->getCacheDir());
         $_count = 0;
         $_time = time();
 
@@ -131,10 +131,6 @@ class Smarty_Resource_Cache_Extension_File
                     if ($i == 0 || isset($_cache_id)) {
                         $regex = "/^{$_preg_cache_id}\^{$_preg_compile_id}\^{$_preg_file}\.php\$/i";
                         foreach ($_cacheDirs as $_file) {
-                            $path = $_file->getPathname();
-                            $filename = basename($path);
-                            if (substr($filename, 0, 1) == '.' || strpos($_file, '.svn') !== false)
-                                continue;
                             // directory ?
                             if ($_file->isDir()) {
                                 if (!$_cacheDirs->isDot()) {
@@ -143,6 +139,11 @@ class Smarty_Resource_Cache_Extension_File
                                     continue;
                                 }
                             }
+                            $path = $_file->getPathname();
+                            if (substr(basename($path), 0, 1) == '.') {
+                                continue;
+                            }
+                            $filename = str_replace('\\', '/', $path);
                             // does file match selections?
                             if (!preg_match($regex, $filename, $matches)) {
                                 continue;
@@ -178,12 +179,12 @@ class Smarty_Resource_Cache_Extension_File
             $regex = "/^{$_preg_cache_id}\^{$_preg_compile_id}\^{$_preg_file}\.php\$/i";
             $_cacheDirs = new DirectoryIterator($_cache_dir);
             foreach ($_cacheDirs as $_file) {
-                $path = $_file->getPathname();
-                $filename = basename($path);
                 // directory ?
                 if ($_file->isDir()) {
                     continue;
                 }
+                $path = $_file->getPathname();
+                $filename = basename($path);
                 // does file match selections?
                 if (!preg_match($regex, $filename, $matches)) {
                     continue;
@@ -191,12 +192,12 @@ class Smarty_Resource_Cache_Extension_File
                 // expired ?
                 if (isset($exp_time)) {
                     if ($exp_time < 0) {
-                        preg_match('#$cache_lifetime =\s*(\d*)#', file_get_contents($_file), $match);
-                        if ($_time < (@filemtime($_file) + $match[1])) {
+                        preg_match('#$cache_lifetime =\s*(\d*)#', file_get_contents($path), $match);
+                        if ($_time < (@filemtime($path) + $match[1])) {
                             continue;
                         }
                     } else {
-                        if ($_time - @filemtime($_file) < $exp_time) {
+                        if ($_time - @filemtime($path) < $exp_time) {
                             continue;
                         }
                     }

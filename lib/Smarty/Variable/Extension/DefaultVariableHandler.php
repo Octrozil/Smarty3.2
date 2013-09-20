@@ -29,6 +29,9 @@ class Smarty_Variable_Extension_DefaultVariableHandler
      */
 
     public static function getDefaultVariable($smarty, $varname, $property = null, $error_enable = true) {
+        if ($smarty instanceof Smarty_Template) {
+            $smarty = $smarty->smarty;
+        }
         $error_unassigned = $smarty->error_unassigned;
         if (strpos($varname, '___config_var_') !== 0) {
             if (isset($smarty->default_variable_handler_func)) {

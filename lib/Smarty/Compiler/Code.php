@@ -344,7 +344,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
     {
         $save = $this->indentOn;
         $this->indentOn = true;
-        preg_replace_callback('%(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*")|([\r\n\t ]*(\?>|<\?php)[\r\n\t ]*)|(;[\r\n\t ]*)|({[\r\n\t ]*)|([\r\n\t ]*}[\r\n\t ]*)|([\r\n\t ]*)|([\r\n\t ]*// line (\d*)[\r\n\t ]*)|(.*?(?=[\'";{}/\n]))%', array($this, '_processPHPoutput'), $value);
+        preg_replace_callback('%(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*")|([\r\n\t ]*(\?>|<\?php)[\r\n\t ]*)|(;[\r\n\t ]*)|({[\r\n\t ]*)|([\r\n\t ]*})|([\r\n\t ]*)|([\r\n\t ]*// line (\d*)[\r\n\t ]*)|(.*?(?=[\'";{}/\n]))%', array($this, '_processPHPoutput'), $value);
         $this->buffer .= "\n";
         $this->indentOn = $save;
 
@@ -374,24 +374,19 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
             return;
         }
         if (!empty($match[4])) {
-            $this->raw(";");
+            $this->raw(";\n");
             $this->indentOn = true;
 
             return;
         }
         if (!empty($match[5])) {
-            $this->raw("{")->indent();
+            $this->raw("{\n")->indent();
             $this->indentOn = true;
 
             return;
         }
         if (!empty($match[6])) {
-            if ($this->indentOn) {
-                $this->raw("\n");
-                $this->indentOn = true;
-            }
-            $this->outdent()->addIndentation()->raw('}');
-
+            $this->outdent()->addIndentation()->raw("}\n");
             return;
         }
         if (!empty($match[9])) {

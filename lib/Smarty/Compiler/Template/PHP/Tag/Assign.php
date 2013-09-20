@@ -36,7 +36,7 @@ class Smarty_Compiler_Template_Php_Tag_Assign extends Smarty_Compiler_Template_P
         $this->option_flags = array('nocache', 'cachevalue');
 
         $_nocache = 'false';
-        $_scope = Smarty::SCOPE_LOCAL;
+        $scope_type = Smarty::SCOPE_LOCAL;
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         $var = trim($_attr['var'], '\'"');
@@ -54,11 +54,11 @@ class Smarty_Compiler_Template_Php_Tag_Assign extends Smarty_Compiler_Template_P
         if (isset($_attr['scope'])) {
             $_attr['scope'] = trim($_attr['scope'], "'\"");
             if ($_attr['scope'] == 'parent') {
-                $_scope = Smarty::SCOPE_PARENT;
+                $scope_type = Smarty::SCOPE_PARENT;
             } elseif ($_attr['scope'] == 'root') {
-                $_scope = Smarty::SCOPE_ROOT;
+                $scope_type = Smarty::SCOPE_ROOT;
             } elseif ($_attr['scope'] == 'global') {
-                $_scope = Smarty::SCOPE_GLOBAL;
+                $scope_type = Smarty::SCOPE_GLOBAL;
             } else {
                 $compiler->error('illegal value for "scope" attribute', $compiler->lex->taglineno);
             }
@@ -66,35 +66,19 @@ class Smarty_Compiler_Template_Php_Tag_Assign extends Smarty_Compiler_Template_P
         // compiled output
         $this->iniTagCode($compiler);
 
-        if (isset($parameter['smarty_internal_index'])) {
-            $this->php("\$this->_createLocalArrayVariable('{$var}', \$_scope, {$_nocache});")->newline();
-            $this->php("\$_scope->{$var}->value{$parameter['smarty_internal_index']} = {$_attr['value']};")->newline();
+        if ($scope_type == Smarty::SCOPE_GLOBAL) {
+            $scopeString = 'Smarty::$_global_tpl_vars';
         } else {
-            if ($compiler->tpl_obj instanceof SmartyBC) {
-                $this->php("if (isset(\$_scope->{$var})) {")->newline()->indent();
-                $this->php("\$_scope->{$var} = clone \$_scope->{$var};")->newline();
-                $this->php("\$_scope->{$var}->value = {$_attr['value']};")->newline();
-                $this->outdent()->php("} else {")->newline()->indent();
-                $this->php("\$_scope->{$var} = new Smarty_Variable($_attr[value], $_nocache);")->newline();
-                $this->outdent()->php("}")->newline();
-            } else {
-                $this->php("\$_scope->{$var} = new Smarty_Variable($_attr[value], $_nocache);")->newline();
-            }
+            $scopeString = '$_scope';
         }
-        if ($_scope == Smarty::SCOPE_PARENT) {
-            $this->php("if (\$_scope->___attributes->parent_scope != null) {")->newline()->indent();
-            $this->php("\$_scope->___attributes->parent_scope->{$var} = clone \$_scope->{$var};")->newline();
-            $this->outdent()->php("}")->newline();
-        } elseif ($_scope == Smarty::SCOPE_ROOT || $_scope == Smarty::SCOPE_GLOBAL) {
-            $this->php("\$_ptr = \$_scope->___attributes->parent_scope;")->newline();
-            $this->php("while (\$_ptr != null) {")->newline()->indent();
-            $this->php("\$_ptr->{$var} = clone \$_scope->{$var};")->newline();
-            $this->php("\$_ptr = \$_ptr->___attributes->parent_scope;")->newline();
-            $this->outdent()->php("}")->newline();
+
+        if (isset($parameter['smarty_internal_index'])) {
+            $this->php("\$this->_createLocalArrayVariable('{$var}', {$_nocache}, {$scope_type});")->newline();
+            $this->php("{$scopeString}->{$var}->value{$parameter['smarty_internal_index']} = {$_attr['value']};")->newline();
+        } else {
+            $this->php("\$this->_assignInScope('{$var}', new Smarty_Variable($_attr[value], $_nocache), {$scope_type});")->newline();
         }
-        if ($_scope == Smarty::SCOPE_GLOBAL) {
-            $this->php("Smarty::\$_global_tpl_vars->{$var} =  clone \$_scope->{$var};")->newline();
-        }
+
         if ($_attr['cachevalue'] === true && $compiler->caching) {
             if (isset($parameter['smarty_internal_index'])) {
                 $compiler->error('cannot assign to array with "cachevalue" option', $compiler->lex->taglineno);

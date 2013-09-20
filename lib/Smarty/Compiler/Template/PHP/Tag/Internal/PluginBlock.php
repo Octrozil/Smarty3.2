@@ -109,7 +109,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginBlock extends Smarty_Compi
                 $this->php("echo {$function}({$par_string});")->newline();
             }
             if (isset($parameter['modifier_list'])) {
-                $this->php('echo ' . $compiler->compileTag('Internal_Modifier', array(), array('modifierlist' => $parameter['modifier_list'], 'value' => 'ob_get_clean()')) . ';')->newline();
+                $this->php('echo ' . $compiler->compileTag('Internal_Modifier', array(), array('modifier_list' => $parameter['modifier_list'], 'value' => 'ob_get_clean()')) . ';')->newline();
             }
             $this->outdent()->php("}")->newline();
             $this->php("array_pop(\$this->smarty->_tag_stack);")->newline();

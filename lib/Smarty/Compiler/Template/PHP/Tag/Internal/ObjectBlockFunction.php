@@ -87,7 +87,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_ObjectBlockFunction extends Smar
             }
             $this->php("echo \$this->smarty->registered_objects['{$base_tag}'][0]->{$method}({$_params}, \$_block_content, \$this->smarty, \$_block_repeat);")->newline();
             if (isset($parameter['modifier_list'])) {
-                $this->php('echo ' . $compiler->compileTag('Internal_Modifier', array(), array('modifierlist' => $parameter['modifier_list'], 'value' => 'ob_get_clean()')) . ';')->newline();
+                $this->php('echo ' . $compiler->compileTag('Internal_Modifier', array(), array('modifier_list' => $parameter['modifier_list'], 'value' => 'ob_get_clean()')) . ';')->newline();
             }
             $this->outdent()->php("}")->newline();
             $this->php("array_pop(\$this->smarty->_tag_stack);")->newline();

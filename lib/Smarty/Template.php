@@ -170,6 +170,12 @@ class  Smarty_Template extends Smarty_Internal_Template
     public $compile_id = null;
 
     /**
+     * Template Cache Id (Smarty::cache_id)
+     * @var string
+     */
+    public $cache_id = null;
+
+    /**
      * Flag if caching enabled
      * @var boolean
      */
@@ -180,6 +186,13 @@ class  Smarty_Template extends Smarty_Internal_Template
      * @var array
      */
     public $_capture_stack = array(0 => array());
+
+    /**
+     * Variable scope type template executes in
+     *
+     * @var integer
+     */
+    public $scope_type = Smarty::SCOPE_LOCAL;
 
     /**
      * call stack
@@ -195,12 +208,15 @@ class  Smarty_Template extends Smarty_Internal_Template
      * @param $filepath
      * @param $timestamp
      */
-    public function __construct($smarty, $source, $filepath, $timestamp)
+    public function __construct($smarty, $source, $filepath, $timestamp, $compile_id = null, $cache_id = null, $caching = 0)
     {
         $this->smarty = $smarty;
         $this->source = $source;
         $this->filepath = $filepath;
         $this->timestamp = $timestamp;
+        $this->compile_id = $compile_id;
+        $this->cache_id = $cache_id;
+        $this->caching = $caching;
         if (!$this->isValid) {
             // check if class is still valid
             if ($this->version != Smarty::SMARTY_VERSION) {
@@ -259,12 +275,13 @@ class  Smarty_Template extends Smarty_Internal_Template
         $this->smarty->cached_subtemplates = array();
         $level = ob_get_level();
         try {
-             if ($this->smarty->debugging) {
+            if ($this->smarty->debugging) {
                 Smarty_Debug::start_render($this->source);
             }
-            self::$call_stack[] = array($this,$this->_tpl_vars, $this->parent);
+            self::$call_stack[] = array($this, $this->_tpl_vars, $this->parent, $this->scope_type);
             $this->_tpl_vars = $scope;
             $this->parent = $parent;
+            $this->scope_type = $scope_type;
             array_unshift($this->_capture_stack, array());
             //
             // render compiled template
@@ -273,6 +290,7 @@ class  Smarty_Template extends Smarty_Internal_Template
             $restore = array_pop(self::$call_stack);
             $this->_tpl_vars = $restore[1];
             $this->parent = $restore[2];
+            $this->scope_type = $restore[3];
 
             // any unclosed {capture} tags ?
             if (isset($this->_capture_stack[0][0])) {
@@ -288,9 +306,10 @@ class  Smarty_Template extends Smarty_Internal_Template
 //        if ($this->source->recompiled && empty($this->file_dependency[$this->source->uid])) {
 //            $this->file_dependency[$this->source->uid] = array($this->source->filepath, $this->source->timestamp, $this->source->type);
 //        }
-        if ($this->caching) {
-            Smarty_Resource_Cache::$creator[0]->_mergeFromCompiled($this);
-        }
+        // TODO
+//        if ($this->caching && isset(Smarty_Resource_Cache_Extension_Create::$creator[0])) {
+//            Smarty_Resource_Cache_Extension_Create::$creator[0]->_mergeFromCompiled($this);
+//        }
         if (!$no_output_filter && (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))) {
             $output = $this->smarty->runFilter('output', $output);
         }
@@ -379,26 +398,24 @@ class  Smarty_Template extends Smarty_Internal_Template
     /**
      * Template code runtime function to create a local Smarty variable for array assignments
      *
-     * @param string $tpl_var template variable name
-     * @param Smarty_Variable_Scope $_scope  variable scope
+     * @param string $varname template variable name
      * @param bool $nocache cache mode of variable
+     * @param int $scope_type
      */
-    public function _createLocalArrayVariable($tpl_var, $_scope, $nocache = false)
+    public function _createLocalArrayVariable($varname, $nocache = false, $scope_type = Smarty::SCOPE_LOCAL)
     {
-        if (isset($_scope->{$tpl_var})) {
-            $_scope->{$tpl_var} = clone $_scope->{$tpl_var};
-// TODO
-//        } elseif ($result = $_scope->___attributes->tpl_ptr->getVariable($tpl_var, $_scope->___attributes->tpl_ptr->parent, true, false)) {
-//            $_scope->{$tpl_var} = clone $result;
-        } else {
-            $_scope->{$tpl_var} = new Smarty_Variable(array(), $nocache);
+        $_scope = ($scope_type == Smarty::SCOPE_GLOBAL) ? Smarty::$_global_tpl_vars : $this->_tpl_vars;
 
-            return;
+        if (isset($_scope->{$varname})) {
+            $variable_obj = clone $_scope->{$varname};
+            $variable_obj->nocache = $nocache;
+            if (!(is_array($variable_obj->value) || $variable_obj->value instanceof ArrayAccess)) {
+                settype($variable_obj->value, 'array');
+            }
+        } else {
+            $variable_obj = new Smarty_Variable(array(), $nocache);
         }
-        $_scope->{$tpl_var}->nocache = $nocache;
-        if (!(is_array($_scope->{$tpl_var}->value) || $_scope->{$tpl_var}->value instanceof ArrayAccess)) {
-            settype($_scope->{$tpl_var}->value, 'array');
-        }
+        $this->_assignInScope($varname, $variable_obj, $scope_type);
     }
 
 

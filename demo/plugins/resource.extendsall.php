@@ -25,7 +25,7 @@ class Smarty_Resource_Extendsall extends Smarty_Resource_Extends
         $exists = true;
         foreach ($tpl_obj->getTemplateDir() as $key => $directory) {
             try {
-                $s =  Smarty_Resource::loadSource($tpl_obj, '[' . $key . ']' . $this->name);
+                $s =  Smarty_Resource_Source::loadSource($tpl_obj, '[' . $key . ']' . $this->name);
                 if (!$s->exists) {
                     continue;
                 }

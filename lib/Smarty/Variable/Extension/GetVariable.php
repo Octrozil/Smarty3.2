@@ -20,7 +20,7 @@ class Smarty_Variable_Extension_GetVariable
      * Returns a single or all template variables
      *
      * @internal
-     * @param  Smarty | Smarty_Data   $holder  object with contains variable scope
+     * @param  Smarty | Smarty_Data $holder  object with contains variable scope
      * @param  string $varname        variable name or null
      * @param  string $_ptr           optional pointer to data object
      * @param  boolean $search_parents include parent templates?
@@ -69,15 +69,16 @@ class Smarty_Variable_Extension_GetVariable
      * gets the object of a template variable
      *
      * @internal
-     * @param  Smarty | Smarty_Data   $holder  object with contains variable scope
+     * @param  Smarty | Smarty_Data $holder  object with contains variable scope
      * @param  string $varname        the name of the Smarty variable
      * @param  object $_ptr           optional pointer to data object
      * @param  boolean $search_parents search also in parent data
      * @param  boolean $error_enable   enable error handling
-     * @param  null $property       optional requested variable property
+     * @param  null $property          optional requested variable property
+     * @param  boolean $disable_default       if true disable default handler
      * @return mixed                    Smarty_variable object|property of variable
      */
-    public static function getVariable($holder, $varname, $_ptr = null, $search_parents = true, $error_enable = true, $property = null)
+    public static function getVariable($holder, $varname, $_ptr = null, $search_parents = true, $error_enable = true, $property = null, $disable_default = false)
     {
         if ($_ptr === null) {
             $_ptr = $holder;
@@ -104,7 +105,11 @@ class Smarty_Variable_Extension_GetVariable
             return $var;
         }
 
-        // try default variable
-        return Smarty_Variable_Extension_DefaultVariableHandler::getDefaultVariable($holder, $varname, $property, $error_enable);
+        if ($disable_default) {
+            return null;
+        } else {
+            // try default variable
+            return Smarty_Variable_Extension_DefaultVariableHandler::getDefaultVariable($holder, $varname, $property, $error_enable);
+        }
     }
 }

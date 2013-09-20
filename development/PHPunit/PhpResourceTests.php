@@ -19,7 +19,8 @@ class PhpResourceTests extends PHPUnit_Framework_TestCase
 
     public static function isRunnable()
     {
-        return true;
+        // TODO
+        return false;
     }
 
     protected function relative($path)

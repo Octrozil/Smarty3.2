@@ -56,14 +56,14 @@ class Smarty_Compiler_Template_Php_Tag_For extends Smarty_Compiler_Template_Php_
             $var2 = trim($_attr['var'], '\'"');
             foreach ($_attr['start'] as $_statement) {
                 $var = trim($_statement['var'], '\'"');
-                $this->php("\$_scope->{$var} = new Smarty_Variable ({$_statement['value']});")->newline();
+                $this->php("\$this->_assignInScope('{$var}',  new Smarty_Variable ({$_statement['value']}));")->newline();
             }
             $this->php("if ({$_attr['ifexp']}) {")->newline()->indent();
             $this->php("for (\$_foo=true;{$_attr['ifexp']}; \$_scope->{$var2}->value{$_attr['step']}) {")->newline()->indent();
         } else {
             $_statement = $_attr['start'];
             $var = trim($_statement['var'], '\'"');
-            $this->php("\$_scope->{$var} = new Smarty_Variable (array());")->newline();
+            $this->php("\$this->_assignInScope('{$var}',  new Smarty_Variable (array()));")->newline();
             if (isset($_attr['step'])) {
                 $this->php("\$_scope->{$var}->step = {$_attr['step']};")->newline();
             } else {

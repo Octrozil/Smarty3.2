@@ -56,7 +56,7 @@ class Smarty_Variable_Extension_Append
         } else {
             if ($tpl_var != '' && isset($value)) {
                 if (!isset($holder->_tpl_vars->$tpl_var)) {
-                    $tpl_var_inst = Smarty_Variable_Extension_GetVariable::getVariable($holder, $tpl_var, null, true, false);
+                    $tpl_var_inst = Smarty_Variable_Extension_GetVariable::getVariable($holder, $tpl_var, null, true, false, null, true);
                     if ($tpl_var_inst === null) {
                         $holder->_tpl_vars->$tpl_var = new Smarty_Variable(null, $nocache);
                     } else {

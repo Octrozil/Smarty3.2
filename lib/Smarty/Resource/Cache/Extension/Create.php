@@ -81,6 +81,13 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
     public $isValid;
 
     /**
+     * Handler for updating cache files
+     * @var array Smarty_Cache_Helper_Create
+     */
+    public static $creator = array();
+
+
+    /**
      * Find template object of cache file and return Smarty_template_Cached
      *
      * @param  Smarty $tpl_obj current template
@@ -109,10 +116,10 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * @throws Exception
      * @return string
      */
-    public function _createCacheFile($cache_obj, $tpl_obj, $output, $no_output_filter)
+    public function _createCacheFile($cache_obj, $tpl_obj, $source, $caching, $filepath, $output, $no_output_filter)
     {
         if ($tpl_obj->debugging) {
-            Smarty_Debug::start_cache($cache_obj->source);
+            Smarty_Debug::start_cache($source);
         }
         $this->template_code = new Smarty_Compiler_Code(3);
         // get text between non-cached items
@@ -132,17 +139,20 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
             }
         }
         if (!$no_output_filter && !$this->has_nocache_code && (isset($tpl_obj->autoload_filters['output']) || isset($tpl_obj->registered_filters['output']))) {
-            $this->template_code->buffer =  $tpl_obj->runFilter('output', $this->template_code->buffer);
+            $this->template_code->buffer = $tpl_obj->runFilter('output', $this->template_code->buffer);
         }
         // write cache file content
-        if (!$cache_obj->source->recompiled && ($cache_obj->caching == Smarty::CACHING_LIFETIME_CURRENT || $cache_obj->caching == Smarty::CACHING_LIFETIME_SAVED)) {
+        if (!$source->recompiled && ($caching == Smarty::CACHING_LIFETIME_CURRENT || $caching == Smarty::CACHING_LIFETIME_SAVED)) {
             $this->template_code = $this->_createSmartyContentClass($tpl_obj);
-            $cache_obj->writeCache($tpl_obj, $this->template_code->buffer);
-           $this->template_code = null;
+            $cache_obj->writeCache($tpl_obj, $filepath, $this->template_code->buffer);
+            $this->template_code = null;
+            if ($tpl_obj->debugging) {
+                Smarty_Debug::end_cache($source);
+            }
             return;
 
             // TODO Remove this
-           try {
+            try {
                 $level = ob_get_level();
                 $output = $cache_obj->template_obj->_renderTemplate($tpl_obj, $_scope);
             } catch (Exception $e) {
@@ -153,10 +163,10 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
             }
         }
         if ($tpl_obj->debugging) {
-            Smarty_Debug::end_cache($cache_obj->source);
+            Smarty_Debug::end_cache($source);
         }
 
-        return $output;
+        return;
     }
 
     /**

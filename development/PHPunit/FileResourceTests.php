@@ -35,7 +35,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
     public function testGetTemplateFilepath()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals('./templates/helloworld.tpl', str_replace('\\', '/', $tpl->source->filepath));
+        $this->assertEquals('templates/helloworld.tpl', str_replace('\\', '/', $tpl->source->filepath));
     }
 
     /**
@@ -123,15 +123,6 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
         $this->assertFalse($tpl->source->recompiled);
     }
 
-    /**
-     * test getCompiledFilepath
-     */
-    public function testGetCompiledFilepath()
-    {
-        $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $expected = './templates_c/' . sha1($this->smarty->getTemplateDir(0) . 'helloworld.tpl') . '_0.file.helloworld.tpl.php';
-        $this->assertEquals($expected, $this->relative($tpl->compiled->filepath));
-    }
 
     /**
      * test getCompiledTimestamp
@@ -208,27 +199,14 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test getCachedFilepath
-     */
-    public function testGetCachedFilepath()
-    {
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $expected = './cache/^^' . sha1($this->smarty->getTemplateDir(0) . 'helloworld.tpl') . '.helloworld.tpl.php';
-        $this->assertEquals($expected, $this->relative($tpl->cached->filepath));
-    }
-
-    /**
      * test getCachedTimestamp caching enabled
      */
     public function testGetCachedTimestamp()
     {
-        // create dummy cache file for the following test
-        file_put_contents('./cache/^^' . sha1($this->smarty->getTemplateDir(0) . 'helloworld.tpl') . '.helloworld.tpl.php', '<?php ?>');
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
+        $this->smarty->fetch($tpl);
         $this->assertTrue(is_integer($tpl->cached->timestamp));
         $this->assertEquals(10, strlen($tpl->cached->timestamp));
     }

@@ -98,11 +98,18 @@ class Smarty_Source extends Smarty_Exception_Magic
     public $handler = null;
 
     /**
-     * root of compiled and cache objects
+     * compiled cache
      *
-     * @var object
+     * @var array
      */
-    public $cacheRoot = null;
+    public $compiled = array();
+
+    /**
+     * cached cache
+     *
+     * @var array
+     */
+    public $cached = array();
 
 
     /**
@@ -134,7 +141,6 @@ class Smarty_Source extends Smarty_Exception_Magic
         } else {
             $this->handler->populate($smarty, $this);
         }
-        $this->cacheRoot = new stdClass();
         return $this;
     }
 
@@ -158,16 +164,121 @@ class Smarty_Source extends Smarty_Exception_Magic
         return $this->handler->getBasename($this);
     }
 
+    /**
+     * @param  Smarty $smarty
+     * @param  int $resource_group  SOURCE|COMPILED|CACHE
+     * @param  null|Smarty|Smarty_Data|Smarty_Template  $parent     parent scope
+     * @param  mixed $compile_id       compile id to be used with this template
+     * @param  mixed $cache_id         cache id to be used with this template
+     * @param  int $caching
+     * @param  null | array $data       array of variable names/values
+     * @param  int $scope_type
+     * @param  bool $no_output_filter if true do not run output filter
+     * @param  bool $display          true: display, false: fetch
+     * @return string   rendered template HTML output
+     */
     public function _getRenderedTemplate($smarty, $resource_group, $parent, $compile_id, $cache_id, $caching, $data, $scope_type, $no_output_filter = false, $display = false)
+    {
+            // build variable scope
+            $scope = $this->_buildScope ($smarty, $parent, $scope_type, $data);
+
+            // get template object
+            $template_obj = $this->_getTemplateObject($smarty, $resource_group, $parent, $compile_id, $cache_id, $caching, $data, $scope_type, $no_output_filter, $display, $scope);
+
+            //render template
+            return $template_obj->getRenderedTemplate($parent, $scope, $scope_type, $no_output_filter, $display);
+    }
+
+    /**
+     * @param  Smarty $smarty
+     * @param  int $resource_group  SOURCE|COMPILED|CACHE
+     * @param  null|Smarty|Smarty_Data|Smarty_Template  $parent     parent scope
+     * @param  mixed $compile_id       compile id to be used with this template
+     * @param  mixed $cache_id         cache id to be used with this template
+     * @param  int $caching
+     * @param  null | array $data       array of variable names/values
+     * @param  int $scope_type
+     * @param  bool $no_output_filter if true do not run output filter
+     * @param  bool $display          true: display, false: fetch
+     * @param  Smarty_Variable_Scope $scope
+     * @return Smarty_Template  template object
+     */
+    public function _getTemplateObject($smarty, $resource_group, $parent, $compile_id, $cache_id, $caching, $data =null, $scope_type = null, $no_output_filter = false, $display = false, $scope = null)
+    {
+        if ($resource_group != Smarty::SOURCE) {
+            $compile_key = isset($compile_id) ? $compile_id : '';
+            $caching_key = (($caching) ? 1 : 0);
+            if ($resource_group == Smarty::COMPILED) {
+                if ($this->recompiled) {
+                    $type_key = $compiled_type = 'recompiled';
+                } else {
+                    $type_key = $compiled_type = $smarty->compiled_type;
+                }
+                if (isset($this->compiled[$compile_key][$caching_key][$type_key])) {
+                    $template_obj = $this->compiled[$compile_key][$caching_key][$type_key];
+                } else {
+                    if (isset(Smarty::$resource_cache[Smarty::COMPILED][$compiled_type])) {
+                        // resource already in cache
+                        $res_obj = Smarty::$resource_cache[Smarty::COMPILED][$compiled_type];
+                    } else {
+                        $res_obj = $smarty->_loadResource(Smarty::COMPILED, $compiled_type);
+                    }
+                    $template_obj = $this->compiled[$compile_key][$caching_key][$type_key] = $res_obj->instanceTemplate($smarty, $this, $compile_id, $caching);
+                }
+            }
+            if ($resource_group == Smarty::CACHE) {
+                $cache_key = isset($cache_id) ? $cache_id : '';
+                if (isset($this->cached[$compile_key][$cache_key][$smarty->caching_type])) {
+                    $template_obj = $this->cached[$compile_key][$cache_key][$smarty->caching_type];
+                } else {
+                    if (isset(Smarty::$resource_cache[Smarty::CACHE][$smarty->caching_type])) {
+                        // resource already in cache
+                        $res_obj = Smarty::$resource_cache[Smarty::CACHE][$smarty->caching_type];
+                    } else {
+                        $res_obj = $smarty->_loadResource(Smarty::CACHE, $smarty->caching_type);
+                    }
+                    // build variable scope
+                    if ($scope == null) {
+                        $scope = $this->_buildScope($smarty, $parent, $scope_type, $data);
+                    }
+                    $template_obj = $this->cached[$compile_key][$cache_key][$smarty->caching_type] = $res_obj->instanceTemplate($smarty, $this, $compile_id, $cache_id,
+                        $caching, $parent, $scope, $scope_type, $no_output_filter);
+                }
+            }
+
+            return $template_obj;
+        }
+    }
+
+    /**
+     * Build variable scope
+     *
+     * @internal
+     * @param   Smarty                              $smarty
+     * @param   null|Smarty|Smarty_Data|Smarty_Template  $parent     parent socpe
+     * @param   int                                 $scope_type
+     * @param   null | array                        $data       array of variable names/values
+     * @return  Smarty_Variable_Scope    merged tpl vars
+     */
+    public function _buildScope ($smarty, $parent, $scope_type, $data = null)
     {
         // local variable scope for this call
         if ($parent instanceof Smarty_Variable_Scope) {
             $scope = clone $parent;
-        } elseif ($smarty->_usage == Smarty::IS_SMARTY) {
-            $scope = clone $smarty->_tpl_vars;
         } else {
-            $scope = $this->_mergeScopes($smarty);
+            if ($smarty->_usage == Smarty::IS_SMARTY) {
+                $scope = clone $smarty->_tpl_vars;
+            } else {
+                $scope = $this->_mergeScopes($smarty);
+            }
+            // merge global variables
+            foreach (Smarty::$_global_tpl_vars as $var => $obj) {
+                if (!isset($scope->$var)) {
+                    $scope->var = $obj;
+                }
+            }
         }
+
         // fill data if present
         if ($data != null) {
             // set up variable values
@@ -179,67 +290,22 @@ class Smarty_Source extends Smarty_Exception_Magic
                 }
             }
         }
-
-
-        if ($resource_group != Smarty::SOURCE) {
-            $comp = 'c_' . $compile_id . '_o' . ($caching) ? 1 : 0;
-          $ptr = isset($this->cacheRoot->$comp) ? $this->cacheRoot->$comp : $this->cacheRoot->$comp = new stdClass();
-            $type = $resource_group . '_';
-            if ($resource_group == Smarty::COMPILED) {
-                if ($this->recompiled) {
-                    $type .= $compiled_type = 'recompiled';
-                } else {
-                    $type .= $compiled_type = $smarty->compiled_type;
-                }
-                $ptr = isset($ptr->$type) ? $ptr->$type : $ptr->$type = new stdClass();
-                if (isset($ptr->template_obj)) {
-                    $template_obj = $ptr->template_obj;
-                } else {
-                    if (isset(Smarty::$resource_cache[Smarty::COMPILED][$compiled_type])) {
-                        // resource already in cache
-                        $res_obj = Smarty::$resource_cache[Smarty::COMPILED][$compiled_type];
-                    } else {
-                        $res_obj = $smarty->_loadResource(Smarty::COMPILED, $compiled_type);
-                    }
-                    $ptr->template_obj = $template_obj = $res_obj->instanceTemplate($smarty, $this, $compile_id, $caching);
-                }
-            }
-            if ($resource_group == Smarty::CACHE) {
-                $type .= $smarty->caching_type;
-                $ptr = isset($ptr->$type) ? $ptr->$type : $ptr->$type = new stdClass();
-                $cache_id = 'c_' . $cache_id . '_o';
-                $ptr = isset($ptr->cache_id) ? $ptr->cache_id : $ptr->cache_id = new stdClass();
-                if (isset($ptr->template_obj)) {
-                    $template_obj = $ptr->template_obj;
-                } else {
-                    if (isset(Smarty::$resource_cache[Smarty::CACHE][$smarty->caching_type])) {
-                        // resource already in cache
-                        $res_obj = Smarty::$resource_cache[Smarty::CACHE][$smarty->caching_type];
-                    } else {
-                        $res_obj = $smarty->_loadResource(Smarty::CACHE, $smarty->caching_type);
-                    }
-                    $ptr->template_obj = $template_obj = $res_obj->instanceTemplate($smarty, $this, $compile_id, $cache_id,
-                        $caching, $parent, $scope, $scope_type, $no_output_filter);
-                }
-
-            }
-            //render template
-            return $template_obj->getRenderedTemplate($parent, $scope, $scope_type, $no_output_filter, $display);
-        }
+        return $scope;
     }
 
     /**
      *
      *  merge recursively template variables into one scope
      *
+     * @internal
      * @param   Smarty|Smarty_Data|Smarty_Template $ptr
-     * @return Smarty_Variable_Scope                    merged tpl vars
+     * @return Smarty_Variable_Scope    merged tpl vars
      */
     public function _mergeScopes($ptr)
     {
         // Smarty::triggerTraceCallback('trace', ' merge tpl ');
 
-        if ($ptr->parent) {
+        if (isset($ptr->parent)) {
             $_tpl_vars = $this->_mergeScopes($ptr->parent);
             foreach ($ptr->_tpl_vars as $var => $data) {
                 $_tpl_vars->$var = $data;

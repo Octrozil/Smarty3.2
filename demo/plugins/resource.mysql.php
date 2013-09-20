@@ -20,7 +20,7 @@
  * @package Resource-examples
  * @author Rodney Rehm
  */
-class Smarty_Resource_Mysql extends Smarty_Resource_Custom
+class Smarty_Resource_Mysql extends Smarty_Resource_Source_Custom
 {
     // PDO instance
     protected $db;

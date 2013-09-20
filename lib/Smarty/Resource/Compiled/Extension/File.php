@@ -29,7 +29,7 @@ class Smarty_Resource_Compiled_Extension_File
      */
     public static function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time, $isConfig)
     {
-        $_compile_dir = $smarty->getCompileDir();
+        $_compile_dir = str_replace('\\', '/', $smarty->getCompileDir());
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
         $compiletime_options = 0;
         $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
@@ -73,7 +73,7 @@ class Smarty_Resource_Compiled_Extension_File
             if (substr($_file->getBasename(), 0, 1) == '.' || strpos($_file, '.svn') !== false)
                 continue;
 
-            $_filepath = (string)$_file;
+            $_filepath =  str_replace('\\', '/', (string)$_file);
 
             if ($_file->isDir()) {
                 if (!$_compile->isDot()) {

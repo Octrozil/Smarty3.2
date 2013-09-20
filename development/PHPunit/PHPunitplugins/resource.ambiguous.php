@@ -25,20 +25,22 @@ class Smarty_Resource_Source_Ambiguous extends Smarty_Resource_Source_File
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty $_template template object
+     * @param Smarty            $smarty Smarty object
+     * @param Smarty_Source     $source Source object
+     * @param Smarty            $parent
      */
-    public function populate(Smarty $tpl_obj = null)
+    public function populate(Smarty $smarty, Smarty_Source $source, $parent = null)
     {
         $segment = '';
+
         if ($this->segment) {
             $segment = rtrim($this->segment, "/\\") . '/';
         }
 
-        $this->filepath = $this->directory . $segment . $this->name;
-        $this->uid = sha1($this->filepath);
-        if ($tpl_obj->compile_check && !isset($this->timestamp)) {
-            $this->timestamp = @filemtime($this->filepath);
-            $this->exists = !!$this->timestamp;
+        $source->filepath = $this->directory . $segment . $source->name;
+
+        if ($this->fileExists($source->filepath, $source)) {
+            $source->uid = sha1($source->filepath);
         }
     }
 }

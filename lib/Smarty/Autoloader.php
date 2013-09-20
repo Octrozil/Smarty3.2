@@ -79,6 +79,8 @@ class Smarty_Autoloader
         }
         if (is_file($file)) {
             require $file;
+        } else {
+            return false;
         }
     }
 }

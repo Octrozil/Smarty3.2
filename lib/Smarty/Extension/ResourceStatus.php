@@ -41,7 +41,7 @@ class Smarty_Extension_ResourceStatus extends Smarty_Exception_Magic
      * Resource Timestamp
      * @var integer
      */
-    public $timestamp = null;
+    public $timestamp = false;
 
     /**
      * Resource Existence
@@ -208,7 +208,8 @@ class Smarty_Extension_ResourceStatus extends Smarty_Exception_Magic
             if ($this->timestamp < $source->timestamp) {
                 return $this;
             }
-            $template_obj = $tpl_obj->_getTemplateObject($resource_group, $source, null, $compile_id, $cache_id, $caching, true);
+            $template_obj = $source->_getTemplateObject($tpl_obj, $resource_group, $parent, $this->compile_id, $this->cache_id, $this->caching);
+//            $template_obj = $tpl_obj->_getTemplateObject($resource_group, $source, null, $compile_id, $cache_id, $caching, true);
             if ($template_obj === false) {
                 if ($tpl_obj->force_compile) {
                     return $this;

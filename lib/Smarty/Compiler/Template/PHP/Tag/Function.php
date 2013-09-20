@@ -140,10 +140,10 @@ class Smarty_Compiler_Template_Php_Tag_Functionclose extends Smarty_Compiler_Tem
         $code->addSourceLineNo($saved_data[3]);
         $code->php("\$_scope = clone \$_scope;")->newline();
         $code->php("foreach (\$this->template_functions['{$_name}']['parameter'] as \$key => \$value) {")->newline()->indent();
-        $code->php("\$_scope->\$key = new Smarty_Variable (\$value);")->newline();
+        $this->php("\$this->_assignInScope(\$key,  new Smarty_Variable (\$value));")->newline();
         $code->outdent()->php("}")->newline();
         $code->php("foreach (\$params as \$key => \$value) {")->newline()->indent();
-        $code->php("\$_scope->\$key = new Smarty_Variable (\$value);")->newline();
+        $this->php("\$this->_assignInScope(\$key,  new Smarty_Variable (\$value));")->newline();
         $code->outdent()->php("}")->newline();
         $code->mergeCode($compiler->template_code);
         $code->outdent()->php("}")->newline();
