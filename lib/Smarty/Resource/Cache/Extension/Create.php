@@ -138,7 +138,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
                 $this->template_code->formatPHP($cache_parts[1][$curr_idx]);
             }
         }
-        if (!$no_output_filter && !$this->has_nocache_code && (isset($tpl_obj->autoload_filters['output']) || isset($tpl_obj->registered_filters['output']))) {
+        if (!$no_output_filter && !$this->has_nocache_code && (isset($tpl_obj->autoload_filters['output']) || isset($tpl_obj->_registered['filter']['output']))) {
             $this->template_code->buffer = $tpl_obj->runFilter('output', $this->template_code->buffer);
         }
         // write cache file content

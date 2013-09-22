@@ -46,7 +46,7 @@ class Smarty_Extension_RegisterPlugin
      */
     public function registerPlugin($type, $tag, $callback, $cacheable = true, $cache_attr = null)
     {
-        if (isset($this->smarty->registered_plugins[$type][$tag])) {
+        if (isset($this->smarty->_registered['plugin'][$type][$tag])) {
             throw new Smarty_Exception("registerPlugin(): Plugin tag \"{$tag}\" already registered");
         } elseif (!is_callable($callback)) {
             throw new Smarty_Exception("registerPlugin(): Plugin \"{$tag}\" not callable");
@@ -54,7 +54,7 @@ class Smarty_Extension_RegisterPlugin
             if (is_object($callback)) {
                 $callback = array($callback, '__invoke');
             }
-            $this->smarty->registered_plugins[$type][$tag] = array($callback, (bool)$cacheable, (array)$cache_attr);
+            $this->smarty->_registered['plugin'][$type][$tag] = array($callback, (bool)$cacheable, (array)$cache_attr);
         }
 
         return $this->smarty;

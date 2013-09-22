@@ -55,7 +55,7 @@ class Smarty_Extension_LoadFilter
                 $_plugin = array($_plugin, 'execute');
             }
             if (is_callable($_plugin)) {
-                $this->smarty->registered_filters[$type][$_filter_name] = $_plugin;
+                $this->smarty->_registered['filter'][$type][$_filter_name] = $_plugin;
                 return true;
             }
         }

@@ -47,16 +47,16 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                 switch ($type) {
                     case 1:
                         // registered modifier
-                        if (isset($compiler->tpl_obj->registered_plugins[Smarty::PLUGIN_MODIFIER][$modifier])) {
-                            $function = $compiler->tpl_obj->registered_plugins[Smarty::PLUGIN_MODIFIER][$modifier][0];
+                        if (isset($compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_MODIFIER][$modifier])) {
+                            $function = $compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_MODIFIER][$modifier][0];
                             $object = $this->testParameter($modifier, $function, $single_modifier, $compiler);
                             if ($function instanceof Closure) {
-                                $output = '$this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][\'' . $modifier . '\'][0](' . $object . $params . ')';
+                                $output = '$this->smarty->_registered[\'plugin\'][Smarty::PLUGIN_MODIFIER][\'' . $modifier . '\'][0](' . $object . $params . ')';
                             } elseif (!is_array($function)) {
                                 $output = "{$function}({$object}{$params})";
                             } else {
                                 if (is_object($function[0])) {
-                                    $output = '$this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][\'' . $modifier . '\'][0][0]->' . $function[1] . '(' . $object . $params . ')';
+                                    $output = '$this->smarty->_registered[\'plugin\'][Smarty::PLUGIN_MODIFIER][\'' . $modifier . '\'][0][0]->' . $function[1] . '(' . $object . $params . ')';
                                 } else {
                                     $output = $function[0] . '::' . $function[1] . '(' . $object . $params . ')';
                                 }
@@ -67,8 +67,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                         break;
                     case 2:
                         // registered modifier compiler
-                        if (isset($compiler->tpl_obj->registered_plugins[Smarty::PLUGIN_MODIFIERCOMPILER][$modifier][0])) {
-                            $output = call_user_func($compiler->tpl_obj->registered_plugins[Smarty::PLUGIN_MODIFIERCOMPILER][$modifier][0], $single_modifier, $compiler->tpl_obj);
+                        if (isset($compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_MODIFIERCOMPILER][$modifier][0])) {
+                            $output = call_user_func($compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_MODIFIERCOMPILER][$modifier][0], $single_modifier, $compiler->tpl_obj);
                             $compiler->known_modifier_type[$modifier] = $type;
                             break 2;
                         }
@@ -134,7 +134,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                                     $output = "{$function}({$params})";
                                 } else {
                                     if (is_object($function[0])) {
-                                        $output = '$this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][\'' . $modifier . '\'][0][0]->' . $function[1] . '(' . $params . ')';
+                                        $output = '$this->smarty->_registered[\'plugin\'][Smarty::PLUGIN_MODIFIER][\'' . $modifier . '\'][0][0]->' . $function[1] . '(' . $params . ')';
                                     } else {
                                         $output = $function[0] . '::' . $function[1] . '(' . $params . ')';
                                     }

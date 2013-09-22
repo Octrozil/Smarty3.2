@@ -44,7 +44,7 @@ class Smarty_Extension_RegisterCacheResource
      */
     public function registerCacheResource($type, $callback)
     {
-        $this->smarty->registered_resources[Smarty::CACHE][$type] = $callback instanceof Smarty_Resource_Cache ? $callback : array($callback, false);
+        $this->smarty->_registered['resource'][Smarty::CACHE][$type] = $callback instanceof Smarty_Resource_Cache ? $callback : array($callback, false);
 
         return $this->smarty;
     }

@@ -129,6 +129,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      * @param  mixed $compile_id       compile id to be used with this template
      * @param  mixed $cache_id         cache id to be used with this template
      * @param integer $caching
+     * @param integer $cache_lifetime
      * @param Smarty|Smarty_Data|Smarty_Template $parent     parent object
      * @param  null| Smarty_Variable_Scope $_scope
      * @param $scope_type
@@ -136,7 +137,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      * @throws Exception
      * @returns Smarty_Template
      */
-    function instanceTemplate($smarty, $source, $compile_id, $cache_id, $caching, $parent, $scope, $scope_type, $no_output_filter)
+    function instanceTemplate($smarty, $source, $compile_id, $cache_id, $caching, $cache_lifetime, $parent, $scope, $scope_type, $no_output_filter)
     {
 //        $this->source = $source;
 //        $this->compile_id = $compile_id;
@@ -163,7 +164,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
                 // unshift new handler for cache creation in first position
                 // cache could be nested as subtemplates can have individual cache
                 array_unshift(Smarty_Resource_Cache_Extension_Create::$creator, new Smarty_Resource_Cache_Extension_Create());
-                $_output = $source->_getRenderedTemplate($smarty, Smarty::COMPILED, $parent, $compile_id, $cache_id, $caching, $scope, $scope_type, $no_output_filter);
+                $_output = $source->_getRenderedTemplate($smarty, Smarty::COMPILED, $parent, $compile_id, $cache_id, $caching, $cache_lifetime, $scope, $scope_type, $no_output_filter);
                 // write to cache when necessary
                 if (!$source->recompiled) {
                     Smarty_Resource_Cache_Extension_Create::$creator[0]->_createCacheFile($this, $smarty, $source, $caching, $filepath, $_output, $no_output_filter);

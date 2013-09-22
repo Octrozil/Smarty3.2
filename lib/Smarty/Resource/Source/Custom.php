@@ -17,6 +17,12 @@
  */
 abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source_File
 {
+    /**
+     * This resource allows relative path
+     *
+     * @var false
+     */
+    public $_allow_relative_path = false;
 
     /**
      * fetch template and its modification time from data source

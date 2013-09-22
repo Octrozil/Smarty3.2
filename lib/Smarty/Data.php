@@ -41,7 +41,7 @@ class Smarty_Data extends Smarty_Variable_Methods
      *
      * @var Smarty
      */
-    private $smarty = null;
+    public $smarty = null;
 
     /**
      * Name of data Object

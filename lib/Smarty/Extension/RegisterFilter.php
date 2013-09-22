@@ -50,12 +50,12 @@ class Smarty_Extension_RegisterFilter
         }
         if (is_callable($callback)) {
             if ($callback instanceof Closure) {
-                $this->smarty->registered_filters[$type][] = $callback;
+                $this->smarty->_registered['filter'][$type][] = $callback;
             } else {
                 if (is_object($callback)) {
                     $callback = array($callback, '__invoke');
                 }
-                $this->smarty->registered_filters[$type][$this->_getFilterName($callback)] = $callback;
+                $this->smarty->_registered['filter'][$type][$this->_getFilterName($callback)] = $callback;
             }
         } else {
             throw new Smarty_Exception("registerFilter(): Invalid callback");

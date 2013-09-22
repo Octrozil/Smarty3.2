@@ -582,8 +582,8 @@ class Smarty_Internal_Info
             }
         }
 
-        // scan registered_plugins
-        foreach ($this->smarty->registered_plugins as $type => $plugins) {
+        // scan _registered['plugin']
+        foreach ($this->smarty->_registered['plugin'] as $type => $plugins) {
             if (!isset($this->plugins[$type])) {
                 continue;
             }
@@ -619,8 +619,8 @@ class Smarty_Internal_Info
             }
         }
 
-        // scan registered_filters
-        foreach ($this->smarty->registered_filters as $type => $filters) {
+        // scan _registered['filter]
+        foreach ($this->smarty->_registered['filter'] as $type => $filters) {
             $type .= 'filter';
             if (!isset($this->plugins[$type])) {
                 continue;
@@ -673,8 +673,8 @@ class Smarty_Internal_Info
             'classes' => array(),
         );
 
-        // analyze registered_classes
-        foreach ($this->smarty->registered_classes as $name => $class) {
+        // analyze _registered['class']
+        foreach ($this->smarty->_registered['class'] as $name => $class) {
             $registered['classes'][$name] = array(
                 'name' => $name,
                 'class' => $class,
@@ -682,7 +682,7 @@ class Smarty_Internal_Info
             );
         }
 
-        // TODO: [info] Smarty::$registered_filters might be getting an overhaul
+        // TODO: [info] Smarty::$_registered['filter] might be getting an overhaul
 
         $this->registered = $registered;
     }

@@ -36,30 +36,39 @@ class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
     public $content  = null;
 
     /**
+     * This resource allows relative path
+     *
+     * @var false
+     */
+    public $_allow_relative_path = false;
+
+    /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty $smarty Smarty object
+     * @param Smarty            $smarty Smarty object
+     * @param Smarty_Source     $source Source object
+     * @param Smarty            $parent
      */
-    public function populate(Smarty $smarty)
+    public function populate(Smarty $smarty, Smarty_Source $source, $parent = null)
     {
-        $this->filepath = $this->buildFilepath($smarty);
-        $this->uid = false;
-        $this->timestamp = false;
-        $this->exists = $this->getContent();
+        $source->filepath = $this->buildFilepath($smarty, $source, $parent);
+        $source->uid = false;
+        $source->timestamp = false;
+        $source->exists = $this->getContent($source);
     }
 
     /**
      * build template filepath by traversing the template_dir array
      *
-     * @param  Smarty $smarty template object
+     * @param  Smarty           $smarty template object
+     * @param  Smarty_Source    $source Source object
      * @return string           fully qualified filepath
-     * @throws Smarty_Exception if default template handler is registered but not callable
      */
-    public function buildFilepath(Smarty $smarty = null) {
-        if (strpos($this->name, '://') !== false) {
-            return $this->name;
+    public function buildFilepath(Smarty $smarty, $source, $parent = null) {
+        if (strpos($source->name, '://') !== false) {
+            return $source->name;
         } else {
-            return str_replace(':', '://', $this->name);
+            return str_replace(':', '://', $source->name);
         }
     }
 
@@ -69,7 +78,13 @@ class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
      * @return string           template source
      * @throws Smarty_Exception if source cannot be loaded
      */
-    public function getContent()
+    /**
+     * Load template's source from stream into current template object
+     *
+     * @param Smarty_Source $source
+     * @return boolean false|string
+     */
+    public function getContent($source)
     {
         if ($this->content !== null) {
             return $this->content;
@@ -89,4 +104,16 @@ class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
         }
     }
 
+    /**
+     * Determine basename for compiled filename
+     *
+     * Always returns an empty string.
+     *
+     * @param Smarty_Source $source
+     * @return string resource's basename
+     */
+    public function getBasename($source)
+    {
+        return '';
+    }
 }

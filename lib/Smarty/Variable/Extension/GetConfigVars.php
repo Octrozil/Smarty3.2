@@ -14,22 +14,38 @@
  *
  * @package Smarty\Extension
  */
-class Smarty_Variable_Extension_GetConfigVariable
+class Smarty_Variable_Extension_GetConfigVars
 {
+    /**
+     *  Smarty object
+     *
+     * @var Smarty
+     */
+    public $smarty;
+
+    /**
+     *  Constructor
+     *
+     * @param Smarty $smarty Smarty object
+     */
+    public function __construct($smarty)
+    {
+        $this->smarty = $smarty;
+    }
+
     /**
      * Returns a single or all config variables
      *
-     * @internal
-     * @param  Smarty | Smarty_Data   $holder  object with contains variable scope
+     * @api
      * @param  string $varname        variable name or null
      * @param  boolean $search_parents include parent templates?
      * @return string  variable value or or array of variables
      */
-     public static function getConfigVars($holder, $varname = null, $search_parents = true)
+     public function getConfigVars($varname = null, $search_parents = true)
     {
-        $_ptr = $holder;
+        $_ptr = $this->smarty;
         if (isset($varname)) {
-            $result = Smarty_Variable_Extension_GetVariable::getVariable($holder, '___config_var_' . $varname, $_ptr, $search_parents, false);
+            $result = $this->smarty->getVariable('___config_var_' . $varname, $_ptr, $search_parents, false);
 
             return $result;
         } else {

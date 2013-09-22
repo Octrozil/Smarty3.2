@@ -49,7 +49,7 @@ class Smarty_Extension_RegisterClass
             throw new Smarty_Exception("registerClass(): Undefined class \"{$class_impl}\"");
         }
         // register the class
-        $this->smarty->registered_classes[$class_name] = $class_impl;
+        $this->smarty->_registered['class'][$class_name] = $class_impl;
 
         return $this->smarty;
     }

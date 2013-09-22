@@ -32,9 +32,9 @@ class Smarty_Variable_Scope
      * @param  string $varname name of variable
      * @param  Smarty_Variable $data variable object
      */
-    public function setVariable($varname, $data) {
-        $this->$varname = $data;
-    }
+//    public function setVariable($varname, $data) {
+//        $this->$varname = $data;
+//    }
 
     /**
      * magic __get function called at access of unknown or global variable
@@ -44,8 +44,11 @@ class Smarty_Variable_Scope
      */
     public function __get($varname)
     {
-         $var = Smarty_Variable_Extension_DefaultVariableHandler::getDefaultVariable(Smarty_Template::$call_stack[0][0]->smarty, $varname);
-         return $this->$varname = $var;
+        //get variable from default handler
+        $var = Smarty_Variable_Extension_DefaultVariableHandler::getDefaultVariable(Smarty_Template::$call_stack[0][0]->smarty, $varname);
+        //assign value and bubble up if necessary
+        Smarty_Template::$call_stack[0][0]->_assignInScope($varname, $var);
+        return $var;
     }
 
      /**

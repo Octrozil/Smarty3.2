@@ -64,7 +64,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_ObjectBlockFunction extends Smar
             // compile code
             $this->php("\$this->smarty->_tag_stack[] = array('{$tag}->{$method}', {$_params});")->newline();
             $this->php("\$_block_repeat=true;")->newline();
-            $this->php("echo \$this->smarty->registered_objects['{$tag}'][0]->{$method}({$_params}, null, \$this->smarty, \$_block_repeat);")->newline();
+            $this->php("echo \$this->smarty->_registered['object']['{$tag}'][0]->{$method}({$_params}, null, \$this->smarty, \$_block_repeat);")->newline();
             $this->php("while (\$_block_repeat) {")->newline()->indent();
             $this->php("ob_start();")->newline();
         } else {
@@ -85,7 +85,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_ObjectBlockFunction extends Smar
             if (isset($parameter['modifier_list'])) {
                 $this->php("ob_start();")->newline();
             }
-            $this->php("echo \$this->smarty->registered_objects['{$base_tag}'][0]->{$method}({$_params}, \$_block_content, \$this->smarty, \$_block_repeat);")->newline();
+            $this->php("echo \$this->smarty->_registered['object']['{$base_tag}'][0]->{$method}({$_params}, \$_block_content, \$this->smarty, \$_block_repeat);")->newline();
             if (isset($parameter['modifier_list'])) {
                 $this->php('echo ' . $compiler->compileTag('Internal_Modifier', array(), array('modifier_list' => $parameter['modifier_list'], 'value' => 'ob_get_clean()')) . ';')->newline();
             }

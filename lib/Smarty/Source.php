@@ -129,8 +129,8 @@ class Smarty_Source extends Smarty_Exception_Magic
         $this->name = $name;
         $this->type = $type;
         // get Resource handler
-        if (isset(Smarty::$resource_cache[Smarty::SOURCE][$type])) {
-            $this->handler = Smarty::$resource_cache[Smarty::SOURCE][$type];
+        if (isset(Smarty::$_resource_cache[Smarty::SOURCE][$type])) {
+            $this->handler = Smarty::$_resource_cache[Smarty::SOURCE][$type];
         } else {
             $this->handler = $smarty->_loadResource(Smarty::SOURCE, $type);
         }
@@ -171,19 +171,20 @@ class Smarty_Source extends Smarty_Exception_Magic
      * @param  mixed $compile_id       compile id to be used with this template
      * @param  mixed $cache_id         cache id to be used with this template
      * @param  int $caching
+     * @param  int $cache_lifetime
      * @param  null | array $data       array of variable names/values
      * @param  int $scope_type
      * @param  bool $no_output_filter if true do not run output filter
      * @param  bool $display          true: display, false: fetch
      * @return string   rendered template HTML output
      */
-    public function _getRenderedTemplate($smarty, $resource_group, $parent, $compile_id, $cache_id, $caching, $data, $scope_type, $no_output_filter = false, $display = false)
+    public function _getRenderedTemplate($smarty, $resource_group, $parent, $compile_id, $cache_id, $caching, $cache_lifetime, $data, $scope_type, $no_output_filter = false, $display = false)
     {
             // build variable scope
             $scope = $this->_buildScope ($smarty, $parent, $scope_type, $data);
 
             // get template object
-            $template_obj = $this->_getTemplateObject($smarty, $resource_group, $parent, $compile_id, $cache_id, $caching, $data, $scope_type, $no_output_filter, $display, $scope);
+            $template_obj = $this->_getTemplateObject($smarty, $resource_group, $parent, $compile_id, $cache_id, $caching, $cache_lifetime, $data, $scope_type, $no_output_filter, $display, $scope);
 
             //render template
             return $template_obj->getRenderedTemplate($parent, $scope, $scope_type, $no_output_filter, $display);
@@ -196,6 +197,7 @@ class Smarty_Source extends Smarty_Exception_Magic
      * @param  mixed $compile_id       compile id to be used with this template
      * @param  mixed $cache_id         cache id to be used with this template
      * @param  int $caching
+     * @param  int $cache_lifetime
      * @param  null | array $data       array of variable names/values
      * @param  int $scope_type
      * @param  bool $no_output_filter if true do not run output filter
@@ -203,7 +205,7 @@ class Smarty_Source extends Smarty_Exception_Magic
      * @param  Smarty_Variable_Scope $scope
      * @return Smarty_Template  template object
      */
-    public function _getTemplateObject($smarty, $resource_group, $parent, $compile_id, $cache_id, $caching, $data =null, $scope_type = null, $no_output_filter = false, $display = false, $scope = null)
+    public function _getTemplateObject($smarty, $resource_group, $parent, $compile_id, $cache_id, $caching, $cache_lifetime = 0, $data =null, $scope_type = null, $no_output_filter = false, $display = false, $scope = null)
     {
         if ($resource_group != Smarty::SOURCE) {
             $compile_key = isset($compile_id) ? $compile_id : '';
@@ -217,12 +219,8 @@ class Smarty_Source extends Smarty_Exception_Magic
                 if (isset($this->compiled[$compile_key][$caching_key][$type_key])) {
                     $template_obj = $this->compiled[$compile_key][$caching_key][$type_key];
                 } else {
-                    if (isset(Smarty::$resource_cache[Smarty::COMPILED][$compiled_type])) {
-                        // resource already in cache
-                        $res_obj = Smarty::$resource_cache[Smarty::COMPILED][$compiled_type];
-                    } else {
-                        $res_obj = $smarty->_loadResource(Smarty::COMPILED, $compiled_type);
-                    }
+                    // get compiled resource object
+                    $res_obj = isset(Smarty::$_resource_cache[Smarty::COMPILED][$compiled_type]) ? Smarty::$_resource_cache[Smarty::COMPILED][$compiled_type] : $smarty->_loadResource(Smarty::COMPILED, $compiled_type);
                     $template_obj = $this->compiled[$compile_key][$caching_key][$type_key] = $res_obj->instanceTemplate($smarty, $this, $compile_id, $caching);
                 }
             }
@@ -231,18 +229,14 @@ class Smarty_Source extends Smarty_Exception_Magic
                 if (isset($this->cached[$compile_key][$cache_key][$smarty->caching_type])) {
                     $template_obj = $this->cached[$compile_key][$cache_key][$smarty->caching_type];
                 } else {
-                    if (isset(Smarty::$resource_cache[Smarty::CACHE][$smarty->caching_type])) {
-                        // resource already in cache
-                        $res_obj = Smarty::$resource_cache[Smarty::CACHE][$smarty->caching_type];
-                    } else {
-                        $res_obj = $smarty->_loadResource(Smarty::CACHE, $smarty->caching_type);
-                    }
-                    // build variable scope
+                    // get cached resource object
+                    $res_obj = isset(Smarty::$_resource_cache[Smarty::CACHE][$smarty->caching_type]) ? Smarty::$_resource_cache[Smarty::CACHE][$smarty->caching_type] : $smarty->_loadResource(Smarty::CACHE, $smarty->caching_type);
+                   // build variable scope
                     if ($scope == null) {
                         $scope = $this->_buildScope($smarty, $parent, $scope_type, $data);
                     }
                     $template_obj = $this->cached[$compile_key][$cache_key][$smarty->caching_type] = $res_obj->instanceTemplate($smarty, $this, $compile_id, $cache_id,
-                        $caching, $parent, $scope, $scope_type, $no_output_filter);
+                        $caching, $cache_lifetime, $parent, $scope, $scope_type, $no_output_filter);
                 }
             }
 
@@ -266,10 +260,13 @@ class Smarty_Source extends Smarty_Exception_Magic
         if ($parent instanceof Smarty_Variable_Scope) {
             $scope = clone $parent;
         } else {
-            if ($smarty->_usage == Smarty::IS_SMARTY) {
+            if ($parent == null) {
                 $scope = clone $smarty->_tpl_vars;
             } else {
-                $scope = $this->_mergeScopes($smarty);
+                $scope = $this->_mergeScopes($parent);
+                foreach($smarty->_tpl_vars as $var => $obj) {
+                    $scope->$var = $obj;
+                }
             }
             // merge global variables
             foreach (Smarty::$_global_tpl_vars as $var => $obj) {
@@ -282,11 +279,11 @@ class Smarty_Source extends Smarty_Exception_Magic
         // fill data if present
         if ($data != null) {
             // set up variable values
-            foreach ($data as $varname => $value) {
+            foreach ($data as $var => $value) {
                 if ($value instanceof Smarty_Variable) {
-                    $scope->$varname = $value;
+                    $scope->$var = $value;
                 } else {
-                    $scope->$varname = new Smarty_Variable($value);
+                    $scope->$var = new Smarty_Variable($value);
                 }
             }
         }
@@ -306,12 +303,12 @@ class Smarty_Source extends Smarty_Exception_Magic
         // Smarty::triggerTraceCallback('trace', ' merge tpl ');
 
         if (isset($ptr->parent)) {
-            $_tpl_vars = $this->_mergeScopes($ptr->parent);
-            foreach ($ptr->_tpl_vars as $var => $data) {
-                $_tpl_vars->$var = $data;
+            $scope = $this->_mergeScopes($ptr->parent);
+            foreach ($ptr->_tpl_vars as $var => $obj) {
+                $scope->$var = $obj;
             }
 
-            return $_tpl_vars;
+            return $scope;
         } else {
             return clone $ptr->_tpl_vars;
         }

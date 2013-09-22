@@ -10,66 +10,34 @@
  */
 
 /**
- * Class for static getVariable and getTemplateVars method
+ * Class for static getVariable method
  *
  * @package Smarty\Extension
  */
 class Smarty_Variable_Extension_GetVariable
 {
     /**
-     * Returns a single or all template variables
+     *  Smarty object
      *
-     * @internal
-     * @param  Smarty | Smarty_Data $holder  object with contains variable scope
-     * @param  string $varname        variable name or null
-     * @param  string $_ptr           optional pointer to data object
-     * @param  boolean $search_parents include parent templates?
-     * @return string  variable value or or array of variables
+     * @var Smarty
      */
-    public static function getTemplateVars($holder, $varname = null, $_ptr = null, $search_parents = true)
-    {
-        if (isset($varname)) {
-            $result = self::getVariable($holder, $varname, $_ptr, $search_parents, false);
-            if ($result === null) {
-                return false;
-            } else {
-                return $result->value;
-            }
-        } else {
-            $_result = array();
-            if ($_ptr === null) {
-                $_ptr = $holder;
-            }
-            while ($_ptr !== null) {
-                foreach ($_ptr->_tpl_vars AS $varname => $data) {
-                    if (strpos($varname, '___') !== 0 && !isset($_result[$varname])) {
-                        $_result[$varname] = $data->value;
-                    }
-                }
-                // not found, try at parent
-                if ($search_parents) {
-                    $_ptr = $_ptr->parent;
-                } else {
-                    $_ptr = null;
-                }
-            }
-            if ($search_parents && isset(Smarty::$_global_tpl_vars)) {
-                foreach (Smarty::$_global_tpl_vars AS $varname => $data) {
-                    if (strpos($varname, '___') !== 0 && !isset($_result[$varname])) {
-                        $_result[$varname] = $data->value;
-                    }
-                }
-            }
+    public $smarty;
 
-            return $_result;
-        }
+    /**
+     *  Constructor
+     *
+     * @param Smarty $smarty Smarty object
+     */
+    public function __construct($smarty)
+    {
+        $this->smarty = $smarty;
     }
+
 
     /**
      * gets the object of a template variable
      *
      * @internal
-     * @param  Smarty | Smarty_Data $holder  object with contains variable scope
      * @param  string $varname        the name of the Smarty variable
      * @param  object $_ptr           optional pointer to data object
      * @param  boolean $search_parents search also in parent data
@@ -78,10 +46,10 @@ class Smarty_Variable_Extension_GetVariable
      * @param  boolean $disable_default       if true disable default handler
      * @return mixed                    Smarty_variable object|property of variable
      */
-    public static function getVariable($holder, $varname, $_ptr = null, $search_parents = true, $error_enable = true, $property = null, $disable_default = false)
+    public function getVariable($varname, $_ptr = null, $search_parents = true, $error_enable = true, $property = null, $disable_default = false)
     {
         if ($_ptr === null) {
-            $_ptr = $holder;
+            $_ptr = $this->smarty;
         }
         while ($_ptr !== null) {
             if (isset($_ptr->_tpl_vars->$varname)) {
@@ -101,15 +69,20 @@ class Smarty_Variable_Extension_GetVariable
         }
 
         // try global variable
-        if (null !== $var = Smarty_Variable_Methods::getGlobalVariable($varname, $property)) {
-            return $var;
+        if (isset(Smarty::$_global_tpl_vars->$varname)) {
+            // found it, return it
+            if ($property === null) {
+                return Smarty::$_global_tpl_vars->$varname;
+            } else {
+                return isset(Smarty::$_global_tpl_vars->$varname->$property) ? Smarty::$_global_tpl_vars->$varname->$property : null;
+            }
         }
 
         if ($disable_default) {
             return null;
         } else {
             // try default variable
-            return Smarty_Variable_Extension_DefaultVariableHandler::getDefaultVariable($holder, $varname, $property, $error_enable);
+            return Smarty_Variable_Extension_DefaultVariableHandler::getDefaultVariable($this->smarty, $varname, $property, $error_enable);
         }
     }
 }

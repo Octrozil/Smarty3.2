@@ -440,7 +440,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
 
 
         // get source and run prefilter if required and pass iit to lexer
-        if (isset($this->tpl_obj->autoload_filters['pre']) || isset($this->tpl_obj->registered_filters['pre'])) {
+        if (isset($this->tpl_obj->autoload_filters['pre']) || isset($this->tpl_obj->_registered['filter']['pre'])) {
             $this->lex->data = $this->tpl_obj->runFilter('pre', $this->source->getContent(), $this->tpl_obj);
         } else {
             $this->lex->data = $this->source->getContent();
@@ -457,7 +457,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         self::$_tag_objects = array();
         // return compiled code to template object
         // run postfilter if required on compiled template code
-        if (!$this->suppressPostFilter && (isset($this->tpl_obj->autoload_filters['post']) || isset($this->tpl_obj->registered_filters['post']))) {
+        if (!$this->suppressPostFilter && (isset($this->tpl_obj->autoload_filters['post']) || isset($this->tpl_obj->_registered['filter']['post']))) {
             $this->template_code->buffer = $this->tpl_obj->runFilter('post', $this->template_code->buffer, $this->tpl_obj);
         }
         if (!$this->suppressTemplatePropertyHeader) {
@@ -486,13 +486,13 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
           tags in the templates are replaces with PHP code,
           then written to compiled files. */
 
-        if ($this->tpl_obj->_parserdebug) {
+        if (Smarty_Compiler::$parserdebug) {
             $this->parser->PrintTrace();
             $this->lex->PrintTrace();
         }
         // get tokens from lexer and parse them
         while ($this->lex->yylex()) {
-            if ($this->tpl_obj->_parserdebug) {
+            if (Smarty_Compiler::$parserdebug) {
                 echo "<pre>Line {$this->lex->line} Parsing  {$this->parser->yyTokenName[$this->lex->token]} Token " .
                     htmlentities($this->lex->value) . "</pre>";
             }
@@ -530,6 +530,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
             $this->has_code = true;
             $this->has_output = false;
             // log tag/attributes
+            //TODO mit trace back
             if (isset($this->tpl_obj->get_used_tags) && $this->tpl_obj->get_used_tags) {
                 $this->tpl_obj->used_tags[] = array($tag, $args);
             }
@@ -569,13 +570,13 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
                 // not an internal compiler tag
                 if (strlen($tag) < 6 || substr($tag, -5) != 'close') {
                     // check if tag is a registered object
-                    if (isset($this->tpl_obj->registered_objects[$tag]) && isset($parameter['object_method'])) {
+                    if (isset($this->tpl_obj->_registered['object'][$tag]) && isset($parameter['object_method'])) {
                         $method = $parameter['object_method'];
-                        if (!in_array($method, $this->tpl_obj->registered_objects[$tag][3]) &&
-                            (empty($this->tpl_obj->registered_objects[$tag][1]) || in_array($method, $this->tpl_obj->registered_objects[$tag][1]))
+                        if (!in_array($method, $this->tpl_obj->_registered['object'][$tag][3]) &&
+                            (empty($this->tpl_obj->_registered['object'][$tag][1]) || in_array($method, $this->tpl_obj->_registered['object'][$tag][1]))
                         ) {
                             return $this->compileCoreTag('Internal_ObjectFunction', $args, $parameter, $tag, $method);
-                        } elseif (in_array($method, $this->tpl_obj->registered_objects[$tag][3])) {
+                        } elseif (in_array($method, $this->tpl_obj->_registered['object'][$tag][3])) {
                             return $this->compileCoreTag('Internal_ObjectBlockFunction', $args, $parameter, $tag, $method);
                         } else {
                             $this->error('unallowed method "' . $method . '" in registered object "' . $tag . '"', $this->lex->taglineno);
@@ -583,7 +584,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
                     }
                     // check if tag is registered
                     foreach (array(Smarty::PLUGIN_COMPILER, Smarty::PLUGIN_FUNCTION, Smarty::PLUGIN_BLOCK) as $plugin_type) {
-                        if (isset($this->tpl_obj->registered_plugins[$plugin_type][$tag])) {
+                        if (isset($this->tpl_obj->_registered['plugin'][$plugin_type][$tag])) {
                             // if compiler function plugin call it now
                             if ($plugin_type == Smarty::PLUGIN_COMPILER) {
                                 return $this->compileCoreTag('Internal_PluginCompiler', $args, $parameter, $tag);
@@ -595,7 +596,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
                         }
                     }
                     // check plugins from plugins folder
-                    foreach ($this->tpl_obj->plugin_search_order as $plugin_type) {
+                    foreach (Smarty_Compiler::$plugin_search_order as $plugin_type) {
                         if ($plugin_type == Smarty::PLUGIN_COMPILER && $this->tpl_obj->_loadPlugin('smarty_compiler_' . $tag) && (!isset($this->tpl_obj->security_policy) || $this->tpl_obj->security_policy->isTrustedTag($tag, $this))) {
                             $plugin = 'smarty_compiler_' . $tag;
                             if (is_callable($plugin) || class_exists($plugin, false)) {
@@ -613,7 +614,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
                     if (is_callable($this->tpl_obj->default_plugin_handler_func)) {
                         $found = false;
                         // look for already resolved tags
-                        foreach ($this->tpl_obj->plugin_search_order as $plugin_type) {
+                        foreach (Smarty_Compiler::$plugin_search_order as $plugin_type) {
                             if (isset($this->default_handler_plugins[$plugin_type][$tag])) {
                                 $found = true;
                                 break;
@@ -621,7 +622,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
                         }
                         if (!$found) {
                             // call default handler
-                            foreach ($this->tpl_obj->plugin_search_order as $plugin_type) {
+                            foreach (Smarty_Compiler::$plugin_search_order as $plugin_type) {
                                 if ($this->getPluginFromDefaultHandler($tag, $plugin_type)) {
                                     $found = true;
                                     break;
@@ -641,20 +642,20 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
                     // compile closing tag of block function
                     $base_tag = substr($tag, 0, -5);
                     // check if closing tag is a registered object
-                    if (isset($this->tpl_obj->registered_objects[$base_tag]) && isset($parameter['object_method'])) {
+                    if (isset($this->tpl_obj->_registered['object'][$base_tag]) && isset($parameter['object_method'])) {
                         $method = $parameter['object_method'];
-                        if (in_array($method, $this->tpl_obj->registered_objects[$base_tag][3])) {
+                        if (in_array($method, $this->tpl_obj->_registered['object'][$base_tag][3])) {
                             return $this->compileCoreTag('Internal_ObjectBlockFunction', $args, $parameter, $tag, $method);
                         } else {
                             $this->error('unallowed closing tag method "' . $method . '" in registered object "' . $base_tag . '"', $this->lex->taglineno);
                         }
                     }
                     // registered compiler plugin ?
-                    if (isset($this->tpl_obj->registered_plugins[Smarty::PLUGIN_COMPILER][$tag])) {
+                    if (isset($this->tpl_obj->_registered['plugin'][Smarty::PLUGIN_COMPILER][$tag])) {
                         return $this->compileCoreTag('Internal_PluginCompilerclose', $args, $parameter, $tag);
                     }
                     // registered block tag ?
-                    if (isset($this->tpl_obj->registered_plugins[Smarty::PLUGIN_BLOCK][$base_tag]) || isset($this->default_handler_plugins[Smarty::PLUGIN_BLOCK][$base_tag])) {
+                    if (isset($this->tpl_obj->_registered['plugin'][Smarty::PLUGIN_BLOCK][$base_tag]) || isset($this->default_handler_plugins[Smarty::PLUGIN_BLOCK][$base_tag])) {
                         return $this->compileCoreTag('Internal_RegisteredBlock', $args, $parameter, $tag);
                     }
                     // block plugin?
@@ -724,7 +725,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
             if (strpos($variable, '(') === false) {
                 // not a variable variable
                 $var = trim($variable, '\'"');
-                $this->tag_nocache = $this->tag_nocache | Smarty_Variable_Extension_GetVariable::getVariable($this->tpl_obj, $var, null, true, false, 'nocache');
+                $this->tag_nocache = $this->tag_nocache | $this->tpl_obj->getVariable($var, null, true, false, 'nocache');
 //			    $this->compiler->tpl_obj->properties['variables'][$var] = $this->compiler->tag_nocache|$this->compiler->nocache;
             } else {
                 $var = '{' . $variable . '}';

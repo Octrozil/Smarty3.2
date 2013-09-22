@@ -68,12 +68,12 @@ class Smarty_Extension_RunFilter
             }
         }
         // loop over registered filters of specified type
-        if (!empty($this->smarty->registered_filters[$type])) {
-            foreach ($this->smarty->registered_filters[$type] as $key => $name) {
-                if (is_array($this->smarty->registered_filters[$type][$key])) {
-                    $output = call_user_func($this->smarty->registered_filters[$type][$key], $output, $this->smarty);
+        if (!empty($this->smarty->_registered['filter'][$type])) {
+            foreach ($this->smarty->_registered['filter'][$type] as $key => $name) {
+                if (is_array($this->smarty->_registered['filter'][$type][$key])) {
+                    $output = call_user_func($this->smarty->_registered['filter'][$type][$key], $output, $this->smarty);
                 } else {
-                    $output = $this->smarty->registered_filters[$type][$key]($output, $this->smarty);
+                    $output = $this->smarty->_registered['filter'][$type][$key]($output, $this->smarty);
                 }
             }
         }

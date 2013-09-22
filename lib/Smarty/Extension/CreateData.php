@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Extension
  *
@@ -9,11 +10,11 @@
  */
 
 /**
- * Class for unregisterPlugin method
+ * Class for  createData method
  *
  * @package Smarty\Extension
  */
-class Smarty_Extension_UnregisterPlugin
+class Smarty_Extension_CreateData
 {
     /**
      *  Smarty object
@@ -32,20 +33,17 @@ class Smarty_Extension_UnregisterPlugin
         $this->smarty = $smarty;
     }
 
+
     /**
-     * Unregister Plugin
+     * creates a data object
      *
      * @api
-     * @param  string $type of plugin
-     * @param  string $tag  name of plugin
-     * @return Smarty
+     * @param  Smarty|Smarty_Data|Smarty_Variable_Scope $parent     next higher level of Smarty variables
+     * @param  string $name optional name of Smarty_Data object
+     * @return object                                   Smarty_Data
      */
-    public function unregisterPlugin($type, $tag)
+    public function createData($parent = null, $name = 'Data unnamed')
     {
-        if (isset($this->smarty->_registered['plugin'][$type][$tag])) {
-            unset($this->smarty->_registered['plugin'][$type][$tag]);
-        }
-
-        return $this->smarty;
+        return new Smarty_Data($this->smarty, $parent, $name);
     }
 }

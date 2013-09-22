@@ -93,7 +93,7 @@ class  Smarty_Template extends Smarty_Internal_Template
      * @var int
      * @internal
      */
-    public $cache_lifetime = false;
+    public $cache_lifetime = 0;
 
     /**
      * names of cached subtemplates
@@ -208,7 +208,7 @@ class  Smarty_Template extends Smarty_Internal_Template
      * @param $filepath
      * @param $timestamp
      */
-    public function __construct($smarty, $source, $filepath, $timestamp, $compile_id = null, $cache_id = null, $caching = 0)
+    public function __construct($smarty, $source, $filepath, $timestamp, $compile_id = null, $cache_id = null, $caching = 0, $cache_lifetime = 0)
     {
         $this->smarty = $smarty;
         $this->source = $source;
@@ -217,12 +217,18 @@ class  Smarty_Template extends Smarty_Internal_Template
         $this->compile_id = $compile_id;
         $this->cache_id = $cache_id;
         $this->caching = $caching;
+        $this->cache_lifetime = $cache_lifetime;
         if (!$this->isValid) {
             // check if class is still valid
             if ($this->version != Smarty::SMARTY_VERSION) {
                 // not valid because new Smarty version
                 return;
             }
+            if ($this->is_cache && $this->caching === Smarty::CACHING_LIFETIME_SAVED && $this->cache_lifetime >= 0 && (time() > ($this->timestamp + $this->cache_lifetime))) {
+                // saved lifetime expired
+                return;
+            }
+
             if ((!$this->is_cache && $this->smarty->compile_check) || ($this->is_cache && ($this->smarty->compile_check === true || $this->smarty->compile_check === Smarty::COMPILECHECK_ON)) && !empty($this->file_dependency)) {
                 foreach ($this->file_dependency as $_file_to_check) {
                     if ($_file_to_check[2] == 'file' || $_file_to_check[2] == 'php') {
@@ -310,7 +316,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 //        if ($this->caching && isset(Smarty_Resource_Cache_Extension_Create::$creator[0])) {
 //            Smarty_Resource_Cache_Extension_Create::$creator[0]->_mergeFromCompiled($this);
 //        }
-        if (!$no_output_filter && (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))) {
+        if (!$no_output_filter && (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->_registered['filter']['output']))) {
             $output = $this->smarty->runFilter('output', $output);
         }
 
@@ -455,8 +461,13 @@ class  Smarty_Template extends Smarty_Internal_Template
             if ($this->smarty->caching && $caching && $caching != Smarty::CACHING_NOCACHE_CODE) {
                 $this->smarty->cached_subtemplates[$template_resource] = array($template_resource, $cache_id, $compile_id, $caching, $cache_lifetime);
             }
-
-            return $this->smarty->fetch($template_resource, $cache_id, $compile_id, $this, false, true, $data, $scope_type, $caching, $cache_lifetime);
+            //get source object from cache  or create new one
+            $source = $this->smarty->_getSourceObject($template_resource, $this);
+            // checks if source exists
+            if (!$source->exists) {
+                throw new Smarty_Exception_SourceNotFound($source->type, $source->name);
+            }
+            return $source->_getRenderedTemplate($this->smarty, ($caching) ? Smarty::CACHE : Smarty::COMPILED, $this, $compile_id, $cache_id, $caching, $cache_lifetime, $data, $scope_type);
         }
 
     }

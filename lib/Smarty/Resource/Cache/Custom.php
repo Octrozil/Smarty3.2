@@ -15,6 +15,47 @@
  */
 abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
 {
+    /**
+     * Cache Filepath
+     * @var string
+     */
+    public $filepath = false;
+
+    /**
+     * Cache  Content
+     * @var string
+     */
+    public $content = null;
+
+    /**
+     * Cache Id
+     * @var mixed
+     */
+    public $cache_id = null;
+
+    /**
+     * Compile Id
+     * @var mixed
+     */
+    public $compile_id = null;
+
+    /**
+     * Cache  Timestamp
+     * @var integer
+     */
+    public $timestamp = false;
+
+    /**
+     * Cache  Existence
+     * @var boolean
+     */
+    public $exists = false;
+
+    /**
+     * Source object
+     * @var boolean
+     */
+    public $source = null;
 
     /**
      * fetch cached content and its modification time from data source
@@ -71,6 +112,23 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
     abstract protected function delete($name, $cache_id, $compile_id, $exp_time);
 
     /**
+     * build cache file filepath
+     *
+     * @param $smarty
+     * @param $source
+     * @param $compile_id
+     * @param $cache_id
+     * @return string filepath
+     */
+    public function buildFilepath($smarty, $source, $compile_id, $cache_id)
+    {
+        $this->source = $source;
+        $this->compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
+        $this->cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
+        return $this->filepath = sha1($this->source->filepath . $this->cache_id . $this->compile_id);
+    }
+
+    /**
      * populate Cached Object with meta data from Resource
      *
      * @param  Smarty $tpl_obj
@@ -91,19 +149,28 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
      * @param  Smarty $tpl_obj template object
      * @return void
      */
-    public function populateTimestamp(Smarty $tpl_obj)
+    /**
+     * get timestamp and exists from Resource
+     *
+     * @param  Smarty $smarty     Smarty object
+     * @param $filepath
+     * @param $timestamp
+     * @param $exists
+     * @return boolean  true if file exits
+     */
+    public function populateTimestamp(Smarty $smarty, $filepath, &$timestamp, &$exists)
     {
         $mtime = $this->fetchTimestamp($this->filepath, $this->source->name, $this->cache_id, $this->compile_id);
         if ($mtime !== null) {
-            $this->timestamp = $mtime;
-            $this->exists = !!$this->timestamp;
+            $timestamp = $mtime;
+            $exists = !!$timestamp;
 
             return;
         }
         $timestamp = null;
         $this->fetch($this->filepath, $this->source->name, $this->cache_id, $this->compile_id, $this->content, $timestamp);
-        $this->timestamp = isset($timestamp) ? $timestamp : false;
-        $this->exists = !!$this->timestamp;
+        $timestamp = isset($timestamp) ? $timestamp : false;
+        $exists = !!$timestamp;
     }
 
     /**

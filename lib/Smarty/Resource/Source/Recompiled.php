@@ -22,4 +22,11 @@ abstract class Smarty_Resource_Source_Recompiled extends Smarty_Resource_Source_
      * @var bool
      */
     public $recompiled = true;
+
+    /**
+     * This resource allows relative path
+     *
+     * @var false
+     */
+    public $_allow_relative_path = false;
 }

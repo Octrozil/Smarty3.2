@@ -51,9 +51,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_ObjectFunction extends Smarty_Co
             unset($_attr['assign']);
         }
         // method or property ?
-        if (method_exists($compiler->smarty->registered_objects[$tag][0], $method)) {
+        if (method_exists($compiler->smarty->_registered['object'][$tag][0], $method)) {
             // convert attributes into parameter array string
-            if ($compiler->smarty->registered_objects[$tag][2]) {
+            if ($compiler->smarty->_registered['object'][$tag][2]) {
                 $_paramsArray = array();
                 foreach ($_attr as $_key => $_value) {
                     if (is_int($_key)) {
@@ -63,14 +63,14 @@ class Smarty_Compiler_Template_Php_Tag_Internal_ObjectFunction extends Smarty_Co
                     }
                 }
                 $_params = 'array(' . implode(",", $_paramsArray) . ')';
-                $return = "\$this->smarty->registered_objects['{$tag}'][0]->{$method}({$_params},\$this->smarty)";
+                $return = "\$this->smarty->_registered['object']['{$tag}'][0]->{$method}({$_params},\$this->smarty)";
             } else {
                 $_params = implode(",", $_attr);
-                $return = "\$this->smarty->registered_objects['{$tag}'][0]->{$method}({$_params})";
+                $return = "\$this->smarty->_registered['object']['{$tag}'][0]->{$method}({$_params})";
             }
         } else {
             // object property
-            $return = "\$this->smarty->registered_objects['{$tag}'][0]->{$method}";
+            $return = "\$this->smarty->_registered['object']['{$tag}'][0]->{$method}";
         }
 
         $this->iniTagCode($compiler);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Extension
  *
@@ -9,11 +10,11 @@
  */
 
 /**
- * Class for unregisterPlugin method
+ * Class for templateExists method
  *
  * @package Smarty\Extension
  */
-class Smarty_Extension_UnregisterPlugin
+class Smarty_Extension_TemplateExists
 {
     /**
      *  Smarty object
@@ -33,19 +34,17 @@ class Smarty_Extension_UnregisterPlugin
     }
 
     /**
-     * Unregister Plugin
+     * Check if a template resource exists
      *
      * @api
-     * @param  string $type of plugin
-     * @param  string $tag  name of plugin
-     * @return Smarty
+     * @param  string $template_resource template name
+     * @return boolean status
      */
-    public function unregisterPlugin($type, $tag)
+    public function templateExists($template_resource)
     {
-        if (isset($this->smarty->_registered['plugin'][$type][$tag])) {
-            unset($this->smarty->_registered['plugin'][$type][$tag]);
-        }
-
-        return $this->smarty;
+        $source = $this->smarty->_getSourceObject($template_resource, $isConfig);
+        return $source->exists;
     }
+
+
 }

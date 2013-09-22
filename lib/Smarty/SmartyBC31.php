@@ -195,7 +195,7 @@ class SmartyBC31 extends Smarty
             }
         }
         // register the object
-        $this->registered_objects[$object_name] =
+        $this->_registered['object'][$object_name] =
             array($object, (array)$allowed, (boolean)$smarty_args, (array)$block_methods);
 
         return $this;
@@ -212,11 +212,11 @@ class SmartyBC31 extends Smarty
      */
     public function getRegisteredObject($name)
     {
-        if (!isset($this->registered_objects[$name])) {
+        if (!isset($this->_registered['object'][$name])) {
             throw new Smarty_Exception("getRegisteredObject(): No object resgistered for \"{$name}\"");
         }
 
-        return $this->registered_objects[$name][0];
+        return $this->_registered['object'][$name][0];
     }
 
     /**
@@ -229,8 +229,8 @@ class SmartyBC31 extends Smarty
      */
     public function unregisterObject($name)
     {
-        if (isset($this->registered_objects[$name])) {
-            unset($this->registered_objects[$name]);
+        if (isset($this->_registered['object'][$name])) {
+            unset($this->_registered['object'][$name]);
         }
 
         return $this;

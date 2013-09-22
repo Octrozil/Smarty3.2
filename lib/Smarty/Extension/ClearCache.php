@@ -51,8 +51,8 @@ class Smarty_Extension_ClearCache
         $type = $type ? $type : $this->smarty->caching_type;
         $cache = $this->smarty->_loadResource(Smarty::CACHE, $type);
         // invalidate complete cache
-        // invalidate complete cache
-        unset(Smarty::$template_cache[Smarty::CACHE]);
+        // TODO
+        //unset(Smarty::$template_cache[Smarty::CACHE]);
         // call clear
         return $cache->clear($this->smarty, $template_name, $cache_id, $compile_id, $exp_time);
     }

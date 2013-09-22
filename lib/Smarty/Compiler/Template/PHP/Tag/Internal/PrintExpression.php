@@ -92,14 +92,14 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
                     $output = "htmlspecialchars({$output}, ENT_QUOTES, '" . addslashes(Smarty::$_CHARSET) . "')";
                 }
                 // loop over registerd filters
-                if (!empty($compiler->tpl_obj->registered_filters[Smarty::FILTER_VARIABLE])) {
-                    foreach ($compiler->tpl_obj->registered_filters[Smarty::FILTER_VARIABLE] as $key => $function) {
+                if (!empty($compiler->tpl_obj->_registered['filter'][Smarty::FILTER_VARIABLE])) {
+                    foreach ($compiler->tpl_obj->_registered['filter'][Smarty::FILTER_VARIABLE] as $key => $function) {
                         if ($function instanceof Closure) {
-                            $output = "\$this->smarty->registered_filters[Smarty::FILTER_VARIABLE]['{$key}']({$output},\$this->smarty)";
+                            $output = "\$this->smarty->_registered['filter'][Smarty::FILTER_VARIABLE]['{$key}']({$output},\$this->smarty)";
                         } elseif (!is_array($function)) {
                             $output = "{$function}({$output},\$this->smarty)";
                         } elseif (is_object($function[0])) {
-                            $output = "\$this->smarty->registered_filters[Smarty::FILTER_VARIABLE]['{$key}'][0]->{$function[1]}({$output},\$this->smarty)";
+                            $output = "\$this->smarty->_registered['filter'][Smarty::FILTER_VARIABLE]['{$key}'][0]->{$function[1]}({$output},\$this->smarty)";
                         } else {
                             $output = "{$function[0]}::{$function[1]}({$output},\$this->smarty)";
                         }

@@ -43,13 +43,13 @@ class Smarty_Extension_UnregisterFilter
      */
     public function unregisterFilter($type, $callback)
     {
-        if (!isset($this->smarty->registered_filters[$type])) {
+        if (!isset($this->smarty->_registered['filter'][$type])) {
             return $this->smarty;
         }
         if ($callback instanceof Closure) {
-            foreach ($this->smarty->registered_filters[$type] as $key => $_callback) {
+            foreach ($this->smarty->_registered['filter'][$type] as $key => $_callback) {
                 if ($callback === $_callback) {
-                    unset($this->smarty->registered_filters[$type][$key]);
+                    unset($this->smarty->_registered['filter'][$type][$key]);
 
                     return $this->smarty;
                 }
@@ -59,8 +59,8 @@ class Smarty_Extension_UnregisterFilter
                 $callback = array($callback, '__invoke');
             }
             $name = $this->_getFilterName($callback);
-            if (isset($this->smarty->registered_filters[$type][$name])) {
-                unset($this->smarty->registered_filters[$type][$name]);
+            if (isset($this->smarty->_registered['filter'][$type][$name])) {
+                unset($this->smarty->_registered['filter'][$type][$name]);
             }
         }
 

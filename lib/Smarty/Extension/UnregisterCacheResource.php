@@ -41,8 +41,8 @@ class Smarty_Extension_UnregisterCacheResource
      */
     public function unregisterCacheResource($type)
     {
-        if (isset($this->smarty->registered_resources[Smarty::CACHE][$type])) {
-            unset($this->smarty->registered_resources[Smarty::CACHE][$type]);
+        if (isset($this->smarty->_registered['resource'][Smarty::CACHE][$type])) {
+            unset($this->smarty->_registered['resource'][Smarty::CACHE][$type]);
         }
 
         return $this;

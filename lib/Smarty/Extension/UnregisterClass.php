@@ -43,9 +43,9 @@ class Smarty_Extension_UnregisterClass
     public function unregisterClass($class_name = null)
     {
         if ($class_name == null) {
-            $this->smarty->registered_classes = array();
+            $this->smarty->_registered['class'] = array();
         } else {
-            unset($this->smarty->registered_classes[$class_name]);
+            unset($this->smarty->_registered['class'][$class_name]);
         }
 
         return $this->smarty;

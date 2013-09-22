@@ -46,8 +46,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
                 $compiler->tag_nocache = true;
             }
             unset($_attr['nocache']);
-            if (isset($compiler->tpl_obj->registered_plugins[Smarty::PLUGIN_BLOCK][$tag])) {
-                $tag_info = $compiler->tpl_obj->registered_plugins[Smarty::PLUGIN_BLOCK][$tag];
+            if (isset($compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_BLOCK][$tag])) {
+                $tag_info = $compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_BLOCK][$tag];
             } else {
                 $tag_info = $compiler->default_handler_plugins[Smarty::PLUGIN_BLOCK][$tag];
             }
@@ -66,11 +66,11 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
                 $this->php("\$_block_repeat=true;")->newline();
                 // old style with params array
                 if ($function instanceof Closure) {
-                    $this->php("echo \$this->smarty->registered_plugins['block']['{$tag}'][0]({$par_string['par']}, null, {$par_string['obj']}, \$_block_repeat);")->newline();
+                    $this->php("echo \$this->smarty->_registered['plugin']['block']['{$tag}'][0]({$par_string['par']}, null, {$par_string['obj']}, \$_block_repeat);")->newline();
                 } elseif (!is_array($function)) {
                     $this->php("echo {$function}({$par_string['par']}, null, {$par_string['obj']}, \$_block_repeat);")->newline();
                 } elseif (is_object($function[0])) {
-                    $this->php("echo \$this->smarty->registered_plugins['block']['{$tag}'][0][0]->{$function[1]}({$par_string['par']}, null, {$par_string['obj']}, \$_block_repeat);")->newline();
+                    $this->php("echo \$this->smarty->_registered['plugin']['block']['{$tag}'][0][0]->{$function[1]}({$par_string['par']}, null, {$par_string['obj']}, \$_block_repeat);")->newline();
                 } else {
                     $this->php("echo {$function[0]}::{$function[1]}({$par_string['par']}, null, {$par_string['obj']}, \$_block_repeat);")->newline();
                 }
@@ -80,11 +80,11 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
                 $this->php("\$_block_repeat=true;")->newline();
                 $this->php("\$this->smarty->_tag_stack[] = array('{$tag}', {$par_string});")->newline();
                 if ($function instanceof Closure) {
-                    $this->php("echo \$this->smarty->registered_plugins['block']['{$tag}'][0]({$par_string});")->newline();
+                    $this->php("echo \$this->smarty->_registered['plugin']['block']['{$tag}'][0]({$par_string});")->newline();
                 } elseif (!is_array($function)) {
                     $this->php("echo {$function}({$par_string});")->newline();
                 } elseif (is_object($function[0])) {
-                    $this->php("echo \$this->smarty->registered_plugins['block']['{$tag}'][0][0]->{$function[1]}({$par_string});")->newline();
+                    $this->php("echo \$this->smarty->_registered['plugin']['block']['{$tag}'][0][0]->{$function[1]}({$par_string});")->newline();
                 } else {
                     $this->php("echo {$function[0]}::{$function[1]}({$par_string});")->newline();
                 }
@@ -101,8 +101,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
             list($par_string, $compiler->nocache) = $this->closeTag($compiler, $base_tag);
             // This tag does create output
             $compiler->has_output = true;
-            if (isset($compiler->tpl_obj->registered_plugins[Smarty::PLUGIN_BLOCK][$base_tag])) {
-                $function = $compiler->tpl_obj->registered_plugins[Smarty::PLUGIN_BLOCK][$base_tag][0];
+            if (isset($compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_BLOCK][$base_tag])) {
+                $function = $compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_BLOCK][$base_tag][0];
             } else {
                 $function = $compiler->default_handler_plugins[Smarty::PLUGIN_BLOCK][$base_tag][0];
             }
@@ -117,11 +117,11 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
             if (is_array($par_string)) {
                 // old style with params array
                 if ($function instanceof Closure) {
-                    $this->php("echo \$this->smarty->registered_plugins['block']['{$base_tag}'][0]({$par_string['par']}, \$_block_content, {$par_string['obj']}, \$_block_repeat);")->newline();
+                    $this->php("echo \$this->smarty->_registered['plugin']['block']['{$base_tag}'][0]({$par_string['par']}, \$_block_content, {$par_string['obj']}, \$_block_repeat);")->newline();
                 } elseif (!is_array($function)) {
                     $this->php("echo {$function}({$par_string['par']}, \$_block_content, {$par_string['obj']}, \$_block_repeat);")->newline();
                 } elseif (is_object($function[0])) {
-                    $this->php("echo \$this->smarty->registered_plugins['block']['{$base_tag}'][0][0]->{$function[1]}({$par_string['par']}, \$_block_content, {$par_string['obj']}, \$_block_repeat);")->newline();
+                    $this->php("echo \$this->smarty->_registered['plugin']['block']['{$base_tag}'][0][0]->{$function[1]}({$par_string['par']}, \$_block_content, {$par_string['obj']}, \$_block_repeat);")->newline();
                 } else {
                     $this->php("echo {$function[0]}::{$function[1]}({$par_string['par']}, \$_block_content, {$par_string['obj']}, \$_block_repeat);")->newline();
                 }
@@ -129,11 +129,11 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
                 // new style witn real parameter
                 $par_string = str_replace('__content__', '$_block_content', $par_string);
                 if ($function instanceof Closure) {
-                    $this->php("echo \$this->smarty->registered_plugins['block']['{$base_tag}'][0]({$par_string});")->newline();
+                    $this->php("echo \$this->smarty->_registered['plugin']['block']['{$base_tag}'][0]({$par_string});")->newline();
                 } elseif (!is_array($function)) {
                     $this->php("echo {$function}({$par_string});")->newline();
                 } elseif (is_object($function[0])) {
-                    $this->php("echo \$this->smarty->registered_plugins['block']['{$base_tag}'][0][0]->{$function[1]}({$par_string});")->newline();
+                    $this->php("echo \$this->smarty->_registered['plugin']['block']['{$base_tag}'][0][0]->{$function[1]}({$par_string});")->newline();
                 } else {
                     $this->php("echo {$function[0]}::{$function[1]}({$par_string});")->newline();
                 }

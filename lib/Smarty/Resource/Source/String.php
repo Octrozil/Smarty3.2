@@ -18,7 +18,7 @@
  *
  * @package Resource\Source
  */
-class Smarty_Resource_Source_String extends Smarty_Exception_Magic
+class Smarty_Resource_Source_String extends Smarty_Resource_Source_File
 {
 
     /**
@@ -36,12 +36,20 @@ class Smarty_Resource_Source_String extends Smarty_Exception_Magic
     public $recompiled = false;
 
     /**
+     * This resource allows relative path
+     *
+     * @var false
+     */
+    public $_allow_relative_path = false;
+
+    /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty $smarty Smarty object
-     * @param Smarty_Source $source
+     * @param Smarty            $smarty Smarty object
+     * @param Smarty_Source     $source Source object
+     * @param Smarty            $parent
      */
-    public function populate(Smarty $smarty, $source)
+    public function populate(Smarty $smarty, Smarty_Source $source, $parent = null)
     {
         $source->uid = $source->filepath = sha1($source->name);
         $source->timestamp = 0;
@@ -84,9 +92,10 @@ class Smarty_Resource_Source_String extends Smarty_Exception_Magic
      *
      * Always returns an empty string.
      *
+     * @param Smarty_Source $source
      * @return string resource's basename
      */
-    public function getBasename()
+    public function getBasename($source)
     {
         return '';
     }

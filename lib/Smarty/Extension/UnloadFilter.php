@@ -43,8 +43,8 @@ class Smarty_Extension_UnloadFilter
     public function unloadFilter($type, $name)
     {
         $_filter_name = "smarty_{$type}filter_{$name}";
-        if (isset($this->smarty->registered_filters[$type][$_filter_name])) {
-            unset($this->smarty->registered_filters[$type][$_filter_name]);
+        if (isset($this->smarty->_registered['filter'][$type][$_filter_name])) {
+            unset($this->smarty->_registered['filter'][$type][$_filter_name]);
         }
 
         return $this->smarty;

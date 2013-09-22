@@ -134,7 +134,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
         // prepare information of assigned variables
         $ptr = self::get_debug_vars($obj);
         $tpl_obj = clone $obj;
-        $tpl_obj->registered_filters = array();
+        $tpl_obj->_registered = array();
         $tpl_obj->autoload_filters = array();
         $tpl_obj->default_modifiers = array();
         $tpl_obj->force_compile = false;

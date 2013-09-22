@@ -97,7 +97,7 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
           then written to compiled files. */
         $this->file_dependency[$this->tpl_obj->source->uid] = array($this->tpl_obj->source->filepath, $this->tpl_obj->source->timestamp, $this->tpl_obj->source->type);
         // get config file source
-        $_content = $this->tpl_obj->source->content . "\n";
+        $_content = $this->tpl_obj->source->getContent() . "\n";
         // on empty template just return
         if ($_content == '') {
             return true;
@@ -105,13 +105,13 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
         // init the lexer/parser to compile the config file
         $this->lex = new $this->lexer_class($_content, $this);
         $this->parser = new $this->parser_class($this->lex, $this);
-        if ($this->tpl_obj->_parserdebug) {
+        if (Smarty_Compiler::$parserdebug) {
             $this->parser->PrintTrace();
             $this->lex->PrintTrace();
         }
         // get tokens from lexer and parse them
         while ($this->lex->yylex()) {
-            if ($this->tpl_obj->_parserdebug)
+            if (Smarty_Compiler::$parserdebug)
                 echo "<br>Parsing  {$this->parser->yyTokenName[$this->lex->token]} Token {$this->lex->value} Line {$this->lex->line} \n";
             $this->parser->doParse($this->lex->token, $this->lex->value);
         }
@@ -134,6 +134,7 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
         $this->outdent()->php("}")->newline();
 
         $this->outdent()->php("}")->newline()->outdent()->php("}")->newline();
+        $this->php("\$template_class_name = '{$class}';")->newline();
 
         $this->tpl_obj->writeFile($this->tpl_obj->compiled->filepath, $this->buffer);
         $this->buffer = '';
@@ -142,8 +143,6 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
         $this->parser->compiler = null;
         $this->lex = null;
         $this->parser = null;
-        $this->tpl_obj->compiled->exists = true;
-        $this->tpl_obj->compiled->isCompiled = true;
     }
 
     /**

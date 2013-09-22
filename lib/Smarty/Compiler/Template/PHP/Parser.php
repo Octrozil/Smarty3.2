@@ -2334,9 +2334,9 @@ static public $yy_action = array(
 #line 2331 "Smarty_Compiler_Template_Php_Parser.php"
 #line 752 "Smarty_Compiler_Template_Php_Parser.y"
     function yy_r102(){
-    if (!$this->security || isset($this->compiler->tpl_obj->registered_classes[$this->yystack[$this->yyidx + -1]->minor]) || $this->compiler->tpl_obj->security_policy->isTrustedStaticClass($this->yystack[$this->yyidx + -1]->minor, $this->compiler)) {
-        if (isset($this->compiler->tpl_obj->registered_classes[$this->yystack[$this->yyidx + -1]->minor])) {
-            $this->_retvalue = $this->compiler->tpl_obj->registered_classes[$this->yystack[$this->yyidx + -1]->minor].$this->yystack[$this->yyidx + 0]->minor;
+    if (!$this->security || isset($this->compiler->tpl_obj->_registered['class'][$this->yystack[$this->yyidx + -1]->minor]) || $this->compiler->tpl_obj->security_policy->isTrustedStaticClass($this->yystack[$this->yyidx + -1]->minor, $this->compiler)) {
+        if (isset($this->compiler->tpl_obj->_registered['class'][$this->yystack[$this->yyidx + -1]->minor])) {
+            $this->_retvalue = $this->compiler->tpl_obj->_registered['class'][$this->yystack[$this->yyidx + -1]->minor].$this->yystack[$this->yyidx + 0]->minor;
         } else {
             $this->_retvalue = $this->yystack[$this->yyidx + -1]->minor.$this->yystack[$this->yyidx + 0]->minor;
         } 
@@ -2546,7 +2546,7 @@ static public $yy_action = array(
                 preg_match('/\$_scope->([0-9]*[a-zA-Z_]\w*)(.*)/',$par,$match);
                 if (isset($match[1])) {
                     $search = array('/\$_scope->([0-9]*[a-zA-Z_]\w*)/','/->value.*/');
-                    $replace = array('Smarty_Variable_Extension_GetVariable::getVariable($this, \'\1\', null, false, false)','');
+                    $replace = array('$this->getVariable(\'\1\', null, false, false)','');
                     $this->prefix_number++;
                     $code = new Smarty_Compiler_Code();
                     $code->iniTagCode($this->compiler);
