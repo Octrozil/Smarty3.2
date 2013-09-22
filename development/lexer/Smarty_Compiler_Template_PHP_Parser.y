@@ -750,9 +750,9 @@ value(res)    ::= IDINCDEC(v). {
 
                   // static class access
 value(res)       ::= ID(c)static(s). {
-    if (!$this->security || isset($this->compiler->tpl_obj->registered_classes[c]) || $this->compiler->tpl_obj->security_policy->isTrustedStaticClass(c, $this->compiler)) {
-        if (isset($this->compiler->tpl_obj->registered_classes[c])) {
-            res = $this->compiler->tpl_obj->registered_classes[c].s;
+    if (!$this->security || isset($this->compiler->tpl_obj->_registered['class'][c]) || $this->compiler->tpl_obj->security_policy->isTrustedStaticClass(c, $this->compiler)) {
+        if (isset($this->compiler->tpl_obj->_registered['class'][c])) {
+            res = $this->compiler->tpl_obj->_registered['class'][c].s;
         } else {
             res = c.s;
         } 
@@ -1004,7 +1004,7 @@ function(res)     ::= ID(f) OPENP params(p) CLOSEP. {
                 preg_match('/\$_scope->([0-9]*[a-zA-Z_]\w*)(.*)/',$par,$match);
                 if (isset($match[1])) {
                     $search = array('/\$_scope->([0-9]*[a-zA-Z_]\w*)/','/->value.*/');
-                    $replace = array('Smarty_Variable_Extension_GetVariable::getVariable($this, \'\1\', null, false, false)','');
+                    $replace = array('$this->getVariable(\'\1\', null, false, false)','');
                     $this->prefix_number++;
                     $code = new Smarty_Compiler_Code();
                     $code->iniTagCode($this->compiler);

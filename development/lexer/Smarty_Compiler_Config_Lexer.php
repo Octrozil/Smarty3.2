@@ -22,6 +22,8 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
     public $compiler;
     public $mbstring_overload;
     private $state = 1;
+    public static $yyTraceFILE;
+    public static $yyTracePrompt;
     public $smarty_token_names = array (		// Text for parser error messages
    				);
     				
