@@ -11,17 +11,22 @@
  */
 class StreamResourceTests extends PHPUnit_Framework_TestCase
 {
+    public $first = true;
+
     public function setUp()
     {
         $this->smarty = SmartyTests::$smarty;
         SmartyTests::init();
         $this->smarty->security_policy->streams = array('global');
         $this->smarty->assign('foo', 'bar');
+        if ($this->first) {
         stream_wrapper_register("global", "ResourceStream")
         or die("Failed to register protocol");
         $fp = fopen("global://mytest", "r+");
         fwrite($fp, 'hello world {$foo}');
         fclose($fp);
+        $this->first = false;
+        }
     }
 
     public function tearDown()

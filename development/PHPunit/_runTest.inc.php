@@ -31,11 +31,9 @@ class SmartyTests
         $smarty->auto_literal = true;
         $smarty->caching = false;
         $smarty->debugging = false;
-        $smarty->registered_plugins = array();
+        $smarty->_registered = array();
         $smarty->default_plugin_handler_func = null;
-        $smarty->registered_objects = array();
         $smarty->default_modifiers = array();
-        $smarty->registered_filters = array();
         $smarty->autoload_filters = array();
         $smarty->escape_html = false;
         $smarty->use_sub_dirs = false;
@@ -65,9 +63,8 @@ class SmartyTests
         self::_init(SmartyTests::$smarty);
         self::_init(SmartyTests::$smartyBC);
         self::_init(SmartyTests::$smartyBC31);
-        Smarty::$source_cache = array();
-        Smarty::$resource_cache = array();
-        Smarty::$template_cache = array();
+        Smarty::$_source_cache = array();
+        Smarty::$_resource_cache = array();
         Smarty::$_global_tpl_vars = new stdClass;
         Smarty::$_smarty_vars = array();
         SmartyTests::$smartyBC->registerPlugin('block', 'php', 'smarty_php_tag');

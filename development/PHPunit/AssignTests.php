@@ -44,9 +44,10 @@ class AssignTests extends PHPUnit_Framework_TestCase
     public function testAssignRarents()
     {
         $this->smarty->registerPlugin('function', 'myplugin', function ($params, $template) {
-            $template->assignRoot('foo', 'hello');
+            $template->assign('foo', 'hello', false, Smarty::SCOPE_SMARTY);
         });
-        $tpl = $this->smarty->createTemplate('assign1.tpl');
+        $tpl = $this->smarty->createTemplate('assign1.tpl',$this->smarty);
         $this->assertEquals('hello', $tpl->fetch());
+        $this->assertEquals('hello', $this->smarty->getTemplateVars('foo'));
     }
 }

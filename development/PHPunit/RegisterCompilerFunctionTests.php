@@ -28,7 +28,7 @@ class RegisterCompilerFunctionTests extends PHPUnit_Framework_TestCase
     public function testRegisterCompilerFunction()
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'testcompilerfunction', 'mycompilerfunction');
-        $this->assertEquals('mycompilerfunction', $this->smarty->registered_plugins['compiler']['testcompilerfunction'][0]);
+        $this->assertEquals('mycompilerfunction', $this->smarty->_registered['plugin']['compiler']['testcompilerfunction'][0]);
         $this->assertEquals('hello world 1', $this->smarty->fetch('eval:{testcompilerfunction var=1}'));
     }
 
@@ -69,7 +69,7 @@ class RegisterCompilerFunctionTests extends PHPUnit_Framework_TestCase
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'testcompilerfunction', 'mycompilerfunction');
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_COMPILER, 'testcompilerfunction');
-        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_COMPILER]['testcompilerfunction']));
+        $this->assertFalse(isset($this->smarty->_registered['plugin'][Smarty::PLUGIN_COMPILER]['testcompilerfunction']));
     }
 
     /**
@@ -78,7 +78,7 @@ class RegisterCompilerFunctionTests extends PHPUnit_Framework_TestCase
     public function testUnregisterCompilerFunctionNotRegistered()
     {
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_COMPILER, 'testcompilerfunction');
-        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_COMPILER]['testcompilerfunction']));
+        $this->assertFalse(isset($this->smarty->_registered['plugin'][Smarty::PLUGIN_COMPILER]['testcompilerfunction']));
     }
 
     /**
@@ -88,7 +88,7 @@ class RegisterCompilerFunctionTests extends PHPUnit_Framework_TestCase
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testcompilerfunction', 'mycompilerfunction');
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_COMPILER, 'testcompilerfunction');
-        $this->assertTrue(isset($this->smarty->registered_plugins[Smarty::PLUGIN_BLOCK]['testcompilerfunction']));
+        $this->assertTrue(isset($this->smarty->_registered['plugin'][Smarty::PLUGIN_BLOCK]['testcompilerfunction']));
     }
 }
 

@@ -218,14 +218,14 @@ class RegisterBlockTests extends PHPUnit_Framework_TestCase
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testblock', 'myblock');
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_BLOCK, 'testblock');
-        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_BLOCK]['testblock']));
+        $this->assertFalse(isset($this->smarty->_registered['plugin'][Smarty::PLUGIN_BLOCK]['testblock']));
     }
 
     public function testUnregisterBlockWrapper()
     {
         $this->smartyBC->register_block('testblock', 'myblock');
         $this->smartyBC->unregister_block('testblock');
-        $this->assertFalse(isset($this->smartyBC->registered_plugins[Smarty::PLUGIN_BLOCK]['testblock']));
+        $this->assertFalse(isset($this->smartyBC->_registered['plugin'][Smarty::PLUGIN_BLOCK]['testblock']));
     }
 
     /**
@@ -234,7 +234,7 @@ class RegisterBlockTests extends PHPUnit_Framework_TestCase
     public function testUnregisterBlockNotRegistered()
     {
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_BLOCK, 'testblock');
-        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_BLOCK]['testblock']));
+        $this->assertFalse(isset($this->smarty->_registered['plugin'][Smarty::PLUGIN_BLOCK]['testblock']));
     }
 }
 

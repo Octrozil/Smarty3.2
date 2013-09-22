@@ -28,7 +28,7 @@ class RegisterModifierTests extends PHPUnit_Framework_TestCase
     public function testRegisterModifier()
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_MODIFIER, 'testmodifier', 'mymodifier');
-        $this->assertEquals('mymodifier', $this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER]['testmodifier'][0]);
+        $this->assertEquals('mymodifier', $this->smarty->_registered['plugin'][Smarty::PLUGIN_MODIFIER]['testmodifier'][0]);
         $this->smarty->assign('foo', 'foo');
         $this->smarty->assign('bar', 'bar');
         $this->assertEquals('foo function blar bar', $this->smarty->fetch('eval:{$foo|testmodifier:blar:$bar}'));
@@ -64,7 +64,7 @@ class RegisterModifierTests extends PHPUnit_Framework_TestCase
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_MODIFIER, 'testmodifier', 'mymodifier');
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_MODIFIER, 'testmodifier');
-        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER]['testmodifier']));
+        $this->assertFalse(isset($this->smarty->_registered['plugin'][Smarty::PLUGIN_MODIFIER]['testmodifier']));
     }
 
     /**
@@ -73,7 +73,7 @@ class RegisterModifierTests extends PHPUnit_Framework_TestCase
     public function testUnregisterModifierNotRegistered()
     {
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_MODIFIER, 'testmodifier');
-        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER]['testmodifier']));
+        $this->assertFalse(isset($this->smarty->_registered['plugin'][Smarty::PLUGIN_MODIFIER]['testmodifier']));
     }
 
     /**
@@ -83,7 +83,7 @@ class RegisterModifierTests extends PHPUnit_Framework_TestCase
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testmodifier', 'mymodifier');
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_MODIFIER, 'testmodifier');
-        $this->assertTrue(isset($this->smarty->registered_plugins[Smarty::PLUGIN_BLOCK]['testmodifier']));
+        $this->assertTrue(isset($this->smarty->_registered['plugin'][Smarty::PLUGIN_BLOCK]['testmodifier']));
     }
 }
 

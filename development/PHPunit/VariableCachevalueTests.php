@@ -42,12 +42,12 @@ class VariableCachevalueTests extends PHPUnit_Framework_TestCase
         $this->smarty->error_unassigned = Smarty::UNASSIGNED_EXCEPTION;
         $this->smarty->caching = true;
         /*
-         foreach (Smarty_Resource_Source::$resource_cache as $tpl) {
+         foreach (Smarty_Resource_Source::$_resource_cache as $tpl) {
              $tpl->cleanPointer();
              unset($tpl);
          }
          */
-        Smarty::$resource_cache = array();
+        Smarty::$_resource_cache = array();
         try {
             $tpl = $this->smarty->createTemplate('string:{$vars = [1,2,3,4,5]}{foreach $vars as $var}{$v = $var}{nocache}{$v}{/nocache}{/foreach}');
             $tpl->fetch();
@@ -79,12 +79,12 @@ class VariableCachevalueTests extends PHPUnit_Framework_TestCase
         // execute the cached file!
         $this->smarty->caching = true;
         /*
-         foreach (Smarty_Resource_Source::$resource_cache as $tpl) {
+         foreach (Smarty_Resource_Source::$_resource_cache as $tpl) {
              $tpl->cleanPointer();
              unset($tpl);
          }
          */
-        Smarty::$resource_cache = array();
+        Smarty::$_resource_cache = array();
         $tpl = $this->smarty->createTemplate('string:{$vars = [1,2,3,4,5]}{foreach $vars as $var}{$v = $var cachevalue}{nocache}{$v}{/nocache}{/foreach}');
         $this->assertEquals('12345', $tpl->fetch());
     }

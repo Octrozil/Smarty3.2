@@ -9,7 +9,7 @@ include '_runTest.inc.php';
 include '_runDebugTest.inc.php';
 
 // place request PHPunit test class here or leave empty for all
-$_classes = 'ClearAllAssignTests';
+$_classes = 'ConfigVarTests';
 
 // place method name for a singe test here or leave empty for all
 $function = array();

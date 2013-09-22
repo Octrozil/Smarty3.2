@@ -40,7 +40,7 @@ class DefaultVariableHandlerTests extends PHPUnit_Framework_TestCase
         */
         $this->smarty->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->smarty->registerDefaultVariableHandler('DefaultVariableHandlerTests_null');
-        $tpl = $this->smarty->createTemplate('eval:{$foo}');
+        $tpl = $this->smarty->createTemplate('string:{$foo}{$foo}');
         $this->assertEquals('', $tpl->fetch());
     }
 
@@ -58,7 +58,7 @@ class DefaultVariableHandlerTests extends PHPUnit_Framework_TestCase
 
         $this->smarty->error_unassigned = Smarty::UNASSIGNED_NOTICE;
         $this->smarty->registerDefaultVariableHandler('DefaultVariableHandlerTests_null');
-        $tpl = $this->smarty->createTemplate('eval:{$foo}');
+        $tpl = $this->smarty->createTemplate('string:{$foo}');
         $this->assertEquals('', $tpl->fetch());
 
         $this->assertEquals(1, count($this->_errors));
@@ -71,7 +71,7 @@ class DefaultVariableHandlerTests extends PHPUnit_Framework_TestCase
     {
         $this->smarty->error_unassigned = Smarty::UNASSIGNED_EXCEPTION;
         $this->smarty->registerDefaultVariableHandler('DefaultVariableHandlerTests_null');
-        $tpl = $this->smarty->createTemplate('eval:{$foo}');
+        $tpl = $this->smarty->createTemplate('string:{$foo}');
         try {
             $tpl->fetch();
         } catch (Smarty_Exception $e) {

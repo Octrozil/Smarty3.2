@@ -20,8 +20,7 @@ class CompilePhpTests extends PHPUnit_Framework_TestCase
 
     public static function isRunnable()
     {
-        // TODO enable PHP test
-        return false;
+        return true;
     }
 
     /**

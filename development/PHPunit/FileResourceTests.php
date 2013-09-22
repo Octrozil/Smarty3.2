@@ -130,8 +130,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
     public function testGetCompiledTimestampPrepare()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        // create dummy compiled file
-        file_put_contents($tpl->compiled->filepath, '<?php ?>');
+        $tpl->fetch();
         touch($tpl->compiled->filepath, $tpl->source->timestamp);
     }
 
@@ -359,7 +358,8 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
         try {
             $this->smarty->fetch('relative_sub.tpl');
         } catch (Exception $e) {
-            $this->assertContains(htmlentities("Unable to load template"), $e->getMessage());
+            $this->assertContains("Can not find relative source", $e->getMessage());
+            $this->assertContains("templates/../helloworld.tpl", $e->getMessage());
 
             return;
         }
@@ -372,7 +372,8 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
         try {
             $this->smarty->fetch('relative_notexist.tpl');
         } catch (Exception $e) {
-            $this->assertContains(htmlentities("Unable to load template"), $e->getMessage());
+            $this->assertContains("Can not find relative source", $e->getMessage());
+            $this->assertContains("templates/./hello.tpl", $e->getMessage());
 
             return;
         }
@@ -393,9 +394,12 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
     public function testRelativeFetchCwd()
     {
         $cwd = getcwd();
-        chdir(dirname(__FILE__) . '/templates/sub/');
+        $dn = dirname(__FILE__);
+        $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
+        chdir($dn . '/templates/sub/');
         $this->smarty->setTemplateDir(array(
-            dirname(__FILE__) . '/does-not-exist/',
+            $dn . '/does-not-exist/',
         ));
         $this->smarty->security_policy = null;
         $this->assertEquals('hello world', $this->smarty->fetch('./relative.tpl'));
@@ -447,8 +451,8 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
 
         $cwd = getcwd();
         $dn = dirname(__FILE__);
-
         $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
         $this->smarty->setTemplateDir(array(
             $dn . '/templates/relativity/theory/',
         ));
@@ -496,8 +500,9 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
 
         $cwd = getcwd();
         $dn = dirname(__FILE__);
-
         $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
+
         $this->smarty->setTemplateDir(array(
             $dn . '/templates/',
         ));
@@ -525,7 +530,6 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
         $cwd = getcwd();
         $dn = dirname(__FILE__);
 
-        $this->smarty->setCompileDir($dn . '/templates_c/');
         $this->smarty->setTemplateDir(array(
             $dn . '/templates/relativity/theory/einstein/',
         ));
@@ -541,6 +545,8 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
         );
 
         chdir($dn . '/templates/relativity/theory/');
+        $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
         $this->_relativeMap($map, $cwd);
 
         $map = array(
@@ -554,6 +560,8 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
         );
 
         chdir($dn . '/templates/relativity/theory/');
+        $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
         $this->_relativeMap($map, $cwd);
     }
 
@@ -565,6 +573,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
         $dn = dirname(__FILE__);
 
         $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
         $this->smarty->setTemplateDir(array(
             '../..',
         ));
@@ -616,6 +625,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
         $dn = dirname(__FILE__);
 
         $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
         $this->smarty->setTemplateDir(array(
             '..',
         ));
