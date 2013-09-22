@@ -17,6 +17,7 @@
     public $retvalue = 0;
     private $lex;
     public $compiler;
+    public $yymajor;
     private $internalError = false;
 
     function __construct($lex, $compiler) {
