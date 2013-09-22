@@ -59,7 +59,7 @@ class Smarty_Exception extends Exception
         }
 
         if (-1 === $this->lineno || null === $this->filename) {
-            $this->guessTemplateInfo();
+ //           $this->guessTemplateInfo();
         }
 
         $this->rawMessage = $message;

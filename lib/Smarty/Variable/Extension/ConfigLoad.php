@@ -42,10 +42,9 @@ class Smarty_Variable_Extension_ConfigLoad
      * @param  string $scope_type  template scope into which config file shall be loaded
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
-    public function configLoad($config_file, $sections = null, $scope_type = 'local')
+    public function configLoad($config_file, $sections = null, $scope_type = Smarty::SCOPE_LOCAL)
     {
         $smarty = isset($this->smarty->smarty) ? $this->smarty->smarty : $this->smarty;
-        // TODO nneds rewrite ?
         $tpl_obj = $smarty->createTemplate($config_file, null, null, $this->smarty, true);
         $tpl_obj->_tpl_vars->___config_sections = $sections;
         $tpl_obj->_tpl_vars->___config_scope = $scope_type;

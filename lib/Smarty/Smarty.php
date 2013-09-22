@@ -1662,7 +1662,7 @@ class Smarty extends Smarty_Variable_Methods
 
         // try  to load extension
         foreach (array('Smarty_Extension_', 'Smarty_Variable_Extension_') as $class) {
-            $class .= ucfirst($name);
+            $class .= (($name[0] != '_') ? ucfirst($name) : ('Internal_' . ucfirst(substr($name, 1))));
             if (class_exists($class, true)) {
                 $obj = new $class($this);
                 if (method_exists($obj, $name)) {

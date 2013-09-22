@@ -130,7 +130,7 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
         $this->php("public \$config_data = ")->repr($this->config_data)->raw(";")->newline()->newline();
 
         $this->php("function _renderTemplate (\$_scope) {")->newline()->indent();
-        $this->php("\$this->_loadConfigVars(\$this->smarty);")->newline();
+        $this->php("\$this->_loadConfigVars(\$this);")->newline();
         $this->outdent()->php("}")->newline();
 
         $this->outdent()->php("}")->newline()->outdent()->php("}")->newline();
@@ -156,7 +156,7 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
      * @param  string $args individual error message or null
      * @throws Smarty_Exception_Compiler
      */
-    public function trigger_config_file_error($args = null)
+    public function error($args = null)
     {
         // get template source line which has error
         $line = $this->lex->line;

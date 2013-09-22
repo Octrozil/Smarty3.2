@@ -29,7 +29,7 @@ class Smarty_Variable_Extension_DefaultVariableHandler
      */
 
     public static function getDefaultVariable($smarty, $varname, $property = null, $error_enable = true) {
-        if ($smarty instanceof Smarty_Template) {
+        if (isset($smarty->smarty)) {
             $smarty = $smarty->smarty;
         }
         $error_unassigned = $smarty->error_unassigned;

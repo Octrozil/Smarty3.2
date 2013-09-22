@@ -260,7 +260,7 @@ class Smarty_Source extends Smarty_Exception_Magic
         if ($parent instanceof Smarty_Variable_Scope) {
             $scope = clone $parent;
         } else {
-            if ($parent == null) {
+            if ($parent == null || $parent == $smarty) {
                 $scope = clone $smarty->_tpl_vars;
             } else {
                 $scope = $this->_mergeScopes($parent);

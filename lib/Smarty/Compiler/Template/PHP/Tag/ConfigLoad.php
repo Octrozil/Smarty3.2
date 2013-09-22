@@ -52,7 +52,6 @@ class Smarty_Compiler_Template_Php_Tag_ConfigLoad extends Smarty_Compiler_Templa
      */
     public function compile($args, $compiler)
     {
-        static $_is_legal_scope = array('local' => true, 'parent' => true, 'root' => true, 'global' => true);
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
@@ -67,12 +66,16 @@ class Smarty_Compiler_Template_Php_Tag_ConfigLoad extends Smarty_Compiler_Templa
         } else {
             $section = 'null';
         }
-        $scope = 'local';
+        $scope_type = Smarty::SCOPE_LOCAL;
         // scope setup
         if (isset($_attr['scope'])) {
             $_attr['scope'] = trim($_attr['scope'], "'\"");
-            if (isset($_is_legal_scope[$_attr['scope']])) {
-                $scope = $_attr['scope'];
+            if ($_attr['scope'] == 'parent') {
+                $scope_type = Smarty::SCOPE_PARENT;
+            } elseif ($_attr['scope'] == 'root') {
+                $scope_type = Smarty::SCOPE_ROOT;
+            } elseif ($_attr['scope'] == 'global') {
+                $scope_type = Smarty::SCOPE_GLOBAL;
             } else {
                 $compiler->error('illegal value for "scope" attribute', $compiler->lex->taglineno);
             }
@@ -80,7 +83,7 @@ class Smarty_Compiler_Template_Php_Tag_ConfigLoad extends Smarty_Compiler_Templa
         // create config object
         $this->iniTagCode($compiler);
 
-        $this->php("\$this->smarty->configLoad($conf_file, $section, '{$scope}');")->newline();
+        $this->php("\$this->smarty->configLoad($conf_file, $section, {$scope_type});")->newline();
 
         return $this->returnTagCode($compiler);
     }
