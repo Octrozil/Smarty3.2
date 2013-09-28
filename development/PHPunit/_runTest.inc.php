@@ -5,9 +5,9 @@
  * @package PHPunit
  * @author Uwe Tews
  */
-
-require_once '../../lib/Smarty/Autoloader.php';
-Smarty_Autoloader::register();
+require_once '../../lib/SplClassLoader.php';
+$classLoader = new SplClassLoader();
+$classLoader->register();
 /**
  * class for running test suite
  */
@@ -54,6 +54,8 @@ class SmartyTests
         $smarty->compiled_type = 'file';
         $smarty->default_resource_type = 'file';
         $smarty->_loaded_extensions = array();
+        $smarty->enable_trace = false;
+        Smarty::$_trace_callbacks = array();
     }
 
     public static function init()
@@ -72,6 +74,6 @@ class SmartyTests
 }
 
 SmartyTests::$cwd= getcwd();
-SmartyTests::$smartyBC = new SmartyBC();
-SmartyTests::$smartyBC31 = new SmartyBC31();
+SmartyTests::$smartyBC = new Smarty_Smarty2BC();
+SmartyTests::$smartyBC31 = new Smarty_Smarty31BC();
 SmartyTests::$smarty = new Smarty();

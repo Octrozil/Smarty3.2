@@ -53,10 +53,10 @@ class CacheResourceCustomMysqlTests extends PHPUnit_Framework_TestCase
      */
     public function getCachedContent(Smarty $tpl_obj)
     {
-        if ($tpl_obj->cached->process($tpl_obj)) {
-            return $tpl_obj->cached->template_obj->_renderTemplate($tpl_obj, new Smarty_Variable_Scope());
+        $res = $this->smarty->resourceStatus(Smarty::CACHE,$tpl_obj);
+        if ($res->isValid) {
+            return $res->template_obj->_renderTemplate($tpl_obj, new Smarty_Variable_Scope());
         }
-
         return null;
     }
 
@@ -69,7 +69,8 @@ class CacheResourceCustomMysqlTests extends PHPUnit_Framework_TestCase
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $sha1 = sha1($tpl->source->filepath);
-        $this->assertEquals($sha1, $tpl->cached->filepath);
+        $res= $this->smarty->resourceStatus(Smarty::CACHE,$tpl);
+        $this->assertEquals($sha1, $res->filepath);
     }
 
     /**

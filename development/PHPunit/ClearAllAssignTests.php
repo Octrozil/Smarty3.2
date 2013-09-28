@@ -54,8 +54,8 @@ class ClearAllAssignTests extends PHPUnit_Framework_TestCase
      */
     public function testClearAllAssignInTemplate()
     {
-        $this->smarty->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->_tpl->clearAllAssign();
+        $this->_tpl->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->assertEquals('foobar', $this->smarty->fetch($this->_tpl));
     }
 
@@ -68,6 +68,7 @@ class ClearAllAssignTests extends PHPUnit_Framework_TestCase
         $this->_data->clearAllAssign();
         $this->tpl = $this->smarty->createTemplate('eval:{$foo}{$bar}{$blar}', null, null, $this->_data);
         $this->tpl->assign('blar', 'blar');
+        $this->tpl->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->assertEquals('fooblar', $this->smarty->fetch($this->tpl));
     }
 
@@ -76,8 +77,8 @@ class ClearAllAssignTests extends PHPUnit_Framework_TestCase
      */
     public function testClearAllAssignInSmarty()
     {
-        $this->smarty->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->smarty->clearAllAssign();
+        $this->_tpl->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->assertEquals('barblar', $this->smarty->fetch($this->_tpl));
     }
 
@@ -85,6 +86,7 @@ class ClearAllAssignTests extends PHPUnit_Framework_TestCase
     {
         $this->smartyBC->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->smartyBC->clear_all_assign();
+        $this->_tplBC->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->assertEquals('barblar', $this->smartyBC->fetch($this->_tplBC));
     }
 }

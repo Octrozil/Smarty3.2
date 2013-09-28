@@ -131,15 +131,19 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $tpl->fetch();
-        touch($tpl->compiled->filepath, $tpl->source->timestamp);
+        $res = $this->smarty->resourceStatus(Smarty::COMPILED,$tpl);
+        $this->assertTrue($res->isValid);
+        touch($res->filepath, $tpl->source->timestamp);
     }
 
     public function testGetCompiledTimestamp()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue(is_integer($tpl->compiled->timestamp));
-        $this->assertEquals(10, strlen($tpl->compiled->timestamp));
-        $this->assertEquals($tpl->compiled->timestamp, $tpl->source->timestamp);
+        $res = $this->smarty->resourceStatus(Smarty::COMPILED,$tpl);
+        $this->assertTrue($res->isValid);
+        $this->assertTrue(is_integer($res->timestamp));
+        $this->assertEquals(10, strlen($res->timestamp));
+        $this->assertEquals($res->timestamp, $tpl->source->timestamp);
     }
 
     /**

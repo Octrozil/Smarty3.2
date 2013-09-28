@@ -81,7 +81,7 @@ class CompileFunctionTests extends PHPUnit_Framework_TestCase
      */
     public function testExternalDefinedFunction()
     {
-        $tpl = $this->smarty->createTemplate('eval:{include file=\'template_function_lib.tpl\'}{call name=template_func1}');
+        $tpl = $this->smarty->createTemplate('string:{include file=\'template_function_lib.tpl\'}{call name=template_func1}');
         $tpl->assign('foo', 'foo');
         $this->assertContains('foo foo', $this->smarty->fetch($tpl));
     }

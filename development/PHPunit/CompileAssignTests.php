@@ -161,7 +161,7 @@ class CompileAssignTests extends PHPUnit_Framework_TestCase
     public function testAssignArrayAppend3()
     {
         $this->smarty->assign('foo', 1);
-        $tpl = $this->smarty->createTemplate("string:{\$foo[]=2 scope=root}{foreach \$foo as \$x}{\$x@key}{\$x}{/foreach}", null, null, $this->smarty);
+        $tpl = $this->smarty->createTemplate("string:{\$foo[]=2 scope=smarty}{foreach \$foo as \$x}{\$x@key}{\$x}{/foreach}", null, null, $this->smarty);
         $this->assertEquals("0112", $this->smarty->fetch($tpl));
         $tpl2 = $this->smarty->createTemplate("eval:{foreach \$foo as \$x}{\$x@key}{\$x}{/foreach}", null, null, $this->smarty);
         $this->assertEquals("0112", $this->smarty->fetch($tpl2));

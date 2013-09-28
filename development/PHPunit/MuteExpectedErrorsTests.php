@@ -20,7 +20,7 @@ class MuteExpectedErrorsTests extends PHPUnit_Framework_TestCase
 
     public static function isRunnable()
     {
-        return true;
+        return false;
     }
 
     protected $_errors = array();

@@ -49,6 +49,7 @@ class AssignByRefTests extends PHPUnit_Framework_TestCase
     /**
      * test Smarty2's behaviour of assign_By_Ref (Issue 88)
      */
+    // TODO   das geht so nicht mehr
     public function testSmarty2AssignByRef2()
     {
         $bar = 'bar';
