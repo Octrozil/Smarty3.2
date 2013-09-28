@@ -59,7 +59,7 @@ class Smarty_Compiler_Template_Php_Tag_Call extends Smarty_Compiler_Template_Php
             // output will be stored in a smarty variable instead of being displayed
             $_assign = $_attr['assign'];
         } else {
-            $_assign = "''";
+            $_assign = "null";
         }
         $_name = $_attr['name'];
         if ($compiler->compiles_template_function) {
@@ -86,7 +86,7 @@ class Smarty_Compiler_Template_Php_Tag_Call extends Smarty_Compiler_Template_Php
 
         $_params = 'array(' . implode(",", $_paramsArray) . ')';
 
-        $this->php("\$this->_callTemplateFunction ($_name,\$this->smarty, \$_scope, {$_params},{$_assign});")->newline();
+        $this->php("\$this->_callTemplateFunction ($_name, \$_scope, {$_params},{$_assign});")->newline();
 
         $compiler->has_code = true;
 

@@ -866,7 +866,7 @@ class Smarty extends Smarty_Variable_Methods
             $parent = $cache_id;
             $cache_id = null;
         }
-        if ($parent === null && (!($this->_usage == self::IS_SMARTY_TPL_CLONE || $this->_usage == self::IS_CONFIG) || is_string($template))) {
+        if ($parent === null && !is_object($template)) {
             $parent = $this;
         }
 
@@ -1278,7 +1278,7 @@ class Smarty extends Smarty_Variable_Methods
         - between file_exists() and filemtime() a possible race condition is opened,
         which does not exist using the simple @filemtime() approach.
         */
-        $error_handler = array('Smarty_Extension_MutingErrorHandler', 'mutingErrorHandler');
+        $error_handler = array('Smarty_Method_MutingErrorHandler', 'mutingErrorHandler');
         $previous = set_error_handler($error_handler);
 
         // avoid dead loops
@@ -1519,6 +1519,21 @@ class Smarty extends Smarty_Variable_Methods
     }
 
     /**
+     *
+     * @internal
+     * @param string $event  string event
+     * @param mixed $data
+     */
+    public function _triggerTraceCallback($event, $data = array())
+    {
+        if ($this->enable_trace && isset(Smarty::$_trace_callbacks[$event])) {
+            foreach (Smarty::$_trace_callbacks[$event] as $callback) {
+                call_user_func_array($callback, (array)$data);
+            }
+        }
+    }
+
+    /**
      * Class destructor
      */
     public function __destruct()
@@ -1661,7 +1676,7 @@ class Smarty extends Smarty_Variable_Methods
         }
 
         // try  to load extension
-        foreach (array('Smarty_Extension_', 'Smarty_Variable_Extension_') as $class) {
+        foreach (array('Smarty_Method_', 'Smarty_Variable_Method_') as $class) {
             $class .= (($name[0] != '_') ? ucfirst($name) : ('Internal_' . ucfirst(substr($name, 1))));
             if (class_exists($class, true)) {
                 $obj = new $class($this);

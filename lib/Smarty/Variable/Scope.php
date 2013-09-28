@@ -45,7 +45,7 @@ class Smarty_Variable_Scope
     public function __get($varname)
     {
         //get variable from default handler
-        $var = Smarty_Variable_Extension_DefaultVariableHandler::getDefaultVariable(Smarty_Template::$call_stack[0][0]->smarty, $varname);
+        $var = Smarty_Variable_Method_DefaultVariableHandler::getDefaultVariable(Smarty_Template::$call_stack[0][0]->smarty, $varname);
         //assign value and bubble up if necessary
         Smarty_Template::$call_stack[0][0]->_assignInScope($varname, $var);
         return $var;

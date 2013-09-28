@@ -421,6 +421,9 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
      */
     public function compileTemplate()
     {
+        if ($this->tpl_obj->enable_trace && isset(Smarty::$_trace_callbacks['compiler:time:start'])) {
+            $this->tpl_obj->_triggerTraceCallback('compiler:time:start', array($this));
+        }
         // flag for nochache sections
         //        $this->nocache = false;
         $this->tag_nocache = false;
@@ -441,7 +444,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
 
         // get source and run prefilter if required and pass iit to lexer
         if (isset($this->tpl_obj->autoload_filters['pre']) || isset($this->tpl_obj->_registered['filter']['pre'])) {
-            $this->lex->data = $this->tpl_obj->runFilter('pre', $this->source->getContent(), $this->tpl_obj);
+            $this->lex->data = $this->tpl_obj->runFilter('pre', $this->source->getContent(),  $this);
         } else {
             $this->lex->data = $this->source->getContent();
         }
@@ -458,13 +461,15 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         // return compiled code to template object
         // run postfilter if required on compiled template code
         if (!$this->suppressPostFilter && (isset($this->tpl_obj->autoload_filters['post']) || isset($this->tpl_obj->_registered['filter']['post']))) {
-            $this->template_code->buffer = $this->tpl_obj->runFilter('post', $this->template_code->buffer, $this->tpl_obj);
+            $this->template_code->buffer = $this->tpl_obj->runFilter('post', $this->template_code->buffer, $this->tpl_obj, $this);
         }
         if (!$this->suppressTemplatePropertyHeader) {
             $this->content_class = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
             $this->template_code = $this->_createSmartyContentClass($this->tpl_obj);
         }
-
+        if ($this->tpl_obj->enable_trace && isset(Smarty::$_trace_callbacks['compiler:time:end'])) {
+            $this->tpl_obj->_triggerTraceCallback('compiler:time:end', array($this));
+        }
         return $this->template_code->buffer;
     }
 

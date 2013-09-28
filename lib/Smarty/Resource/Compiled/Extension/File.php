@@ -102,7 +102,7 @@ class Smarty_Resource_Compiled_Extension_File
                     $_count++;
                     if ($smarty->enable_trace) {
                         // notify listeners of deleted file
-                        $smarty->triggerTraceCallback('filesystem:delete', array($smarty, $path));
+                        $smarty->_triggerTraceCallback('filesystem:delete', array($smarty, $path));
                     }
                 }
             }

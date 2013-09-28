@@ -154,9 +154,8 @@ class Smarty_Resource_Cache_Extension_File
                             }
                             $_count += @unlink($path) ? 1 : 0;
                             $_deleted[$i] = true;
-                            if ($smarty->enable_trace) {
-                                // notify listeners of deleted file
-                                $smarty->triggerTraceCallback('filesystem:delete', array($smarty, $path));
+                            if ($smarty->enable_trace && isset(Smarty::$_trace_callbacks['cache:delete'])) {
+                                $smarty->_triggerTraceCallback('cache:delete', array($path, $compile_id, $cache_id, $exp_time));
                             }
                         }
                     }
@@ -203,9 +202,8 @@ class Smarty_Resource_Cache_Extension_File
                     }
                 }
                 $_count += @unlink($path) ? 1 : 0;
-                if ($smarty->enable_trace) {
-                    // notify listeners of deleted file
-                    $smarty->triggerTraceCallback('filesystem:delete', array($smarty, $path));
+                if ($smarty->enable_trace && isset(Smarty::$_trace_callbacks['cache:delete'])) {
+                    $smarty->_triggerTraceCallback('cache:delete', array($path, $compile_id, $cache_id, $exp_time));
                 }
             }
         }

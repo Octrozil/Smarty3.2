@@ -83,7 +83,7 @@ class Smarty_Compiler_Template_Php_Tag_ConfigLoad extends Smarty_Compiler_Templa
         // create config object
         $this->iniTagCode($compiler);
 
-        $this->php("\$this->smarty->configLoad($conf_file, $section, {$scope_type});")->newline();
+        $this->php("\$this->configLoad($conf_file, $section, {$scope_type});")->newline();
 
         return $this->returnTagCode($compiler);
     }

@@ -185,7 +185,9 @@ class Smarty_Source extends Smarty_Exception_Magic
 
             // get template object
             $template_obj = $this->_getTemplateObject($smarty, $resource_group, $parent, $compile_id, $cache_id, $caching, $cache_lifetime, $data, $scope_type, $no_output_filter, $display, $scope);
+            if ($template_obj === false) {
 
+            }
             //render template
             return $template_obj->getRenderedTemplate($parent, $scope, $scope_type, $no_output_filter, $display);
     }
@@ -257,8 +259,8 @@ class Smarty_Source extends Smarty_Exception_Magic
     public function _buildScope ($smarty, $parent, $scope_type, $data = null)
     {
         // local variable scope for this call
-        if ($parent instanceof Smarty_Variable_Scope) {
-            $scope = clone $parent;
+        if ($parent instanceof Smarty_Template) {
+            $scope = clone $parent->_tpl_vars;
         } else {
             if ($parent == null || $parent == $smarty) {
                 $scope = clone $smarty->_tpl_vars;
@@ -271,7 +273,7 @@ class Smarty_Source extends Smarty_Exception_Magic
             // merge global variables
             foreach (Smarty::$_global_tpl_vars as $var => $obj) {
                 if (!isset($scope->$var)) {
-                    $scope->var = $obj;
+                    $scope->$var = $obj;
                 }
             }
         }

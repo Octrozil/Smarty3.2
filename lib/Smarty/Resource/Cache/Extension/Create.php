@@ -77,15 +77,65 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      */
     public $template_obj = null;
 
+    /*
+     * Cache Resource Object
+     *
+     * @var object
+     */
+    public $cache_obj = null;
+
+    /*
+     * cache filepath
+     *
+     * @var string
+     */
+    public $filepath = null;
+
     // dummmy
     public $isValid;
 
     /**
-     * Handler for updating cache files
+     * nesting stack
+     *
      * @var array Smarty_Cache_Helper_Create
      */
-    public static $creator = array();
+    public static $stack = array();
 
+    public function __construct ($cache_obj = null, $filepath = null) {
+        $this->cache_obj = $cache_obj;
+        $this->filepath = $filepath;
+        array_unshift(self::$stack, $this);
+    }
+
+    public function __destruct () {
+        array_shift(self::$stack);
+    }
+
+    /**
+     * @param  Smarty_Source $source
+     * @param  Smarty $smarty
+     * @param  null|Smarty|Smarty_Data|Smarty_Template  $parent     parent scope
+     * @param  mixed $compile_id       compile id to be used with this template
+     * @param  mixed $cache_id         cache id to be used with this template
+     * @param  int $caching
+     * @param  int $cache_lifetime
+     * @param  null | array $data       array of variable names/values
+     * @param  int $scope_type
+     * @param  bool $no_output_filter if true do not run output filter
+     * @param  bool $display          true: display, false: fetch
+     * @return string   rendered template HTML output
+     */
+    public function _renderCacheSubTemplate($source, $smarty, $parent, $compile_id, $cache_id, $caching, $cache_lifetime, $data, $scope_type, $no_output_filter = false, $display = false) {
+        $_output = $source->_getRenderedTemplate($smarty, Smarty::COMPILED, $parent, $compile_id, $cache_id, $caching, $cache_lifetime, null, $scope_type, $no_output_filter);
+        if ($this->filepath == null) {
+            return $_output;
+        }
+        // write to cache when necessary
+        if (!$source->recompiled) {
+            $this->_createCacheFile($smarty, $source, $caching, $_output, $no_output_filter);
+        }
+        unset($_output);
+    }
 
     /**
      * Find template object of cache file and return Smarty_template_Cached
@@ -109,14 +159,13 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
     /**
      * Create new cache file
      *
-     * @param $cache_obj            cache object
      * @param  Smarty $tpl_obj          current template
      * @param  string $output           cache file content
      * @param $no_output_filter
      * @throws Exception
      * @return string
      */
-    public function _createCacheFile($cache_obj, $tpl_obj, $source, $caching, $filepath, $output, $no_output_filter)
+    public function _createCacheFile($tpl_obj, $source, $caching, $output, $no_output_filter)
     {
         if ($tpl_obj->debugging) {
             Smarty_Debug::start_cache($source);
@@ -139,12 +188,12 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
             }
         }
         if (!$no_output_filter && !$this->has_nocache_code && (isset($tpl_obj->autoload_filters['output']) || isset($tpl_obj->_registered['filter']['output']))) {
-            $this->template_code->buffer = $tpl_obj->runFilter('output', $this->template_code->buffer);
+            $this->template_code->buffer = $tpl_obj->runFilter('output', $this->template_code->buffer, $this);
         }
         // write cache file content
         if (!$source->recompiled && ($caching == Smarty::CACHING_LIFETIME_CURRENT || $caching == Smarty::CACHING_LIFETIME_SAVED)) {
             $this->template_code = $this->_createSmartyContentClass($tpl_obj);
-            $cache_obj->writeCache($tpl_obj, $filepath, $this->template_code->buffer);
+            $this->cache_obj->writeCache($tpl_obj, $this->filepath, $this->template_code->buffer);
             $this->template_code = null;
             if ($tpl_obj->debugging) {
                 Smarty_Debug::end_cache($source);
@@ -166,7 +215,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
             Smarty_Debug::end_cache($source);
         }
 
-        return;
+        return $this->template_code->buffer;
     }
 
     /**

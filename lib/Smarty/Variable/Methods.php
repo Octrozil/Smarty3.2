@@ -154,7 +154,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
             return call_user_func_array(array($this->_loaded_extensions[$name], $name), $args);
         }
 
-        $class = 'Smarty_Variable_Extension_' . (($name[0] != '_') ? ucfirst($name) : ('Internal_' . ucfirst(substr($name, 1))));
+        $class = 'Smarty_Variable_Method_' . (($name[0] != '_') ? ucfirst($name) : ('Internal_' . ucfirst(substr($name, 1))));
         if (class_exists($class, true)) {
             $obj = new $class($this);
             if (method_exists($obj, $name)) {

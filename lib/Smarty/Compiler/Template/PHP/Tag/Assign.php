@@ -57,6 +57,8 @@ class Smarty_Compiler_Template_Php_Tag_Assign extends Smarty_Compiler_Template_P
                 $scope_type = Smarty::SCOPE_PARENT;
             } elseif ($_attr['scope'] == 'root') {
                 $scope_type = Smarty::SCOPE_ROOT;
+            } elseif ($_attr['scope'] == 'smarty') {
+                $scope_type = Smarty::SCOPE_SMARTY;
             } elseif ($_attr['scope'] == 'global') {
                 $scope_type = Smarty::SCOPE_GLOBAL;
             } else {

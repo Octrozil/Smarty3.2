@@ -201,6 +201,35 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
 
         return false;
     }
+    /**
+     * load cache template class
+     *
+     * @param $filepath
+     * @return string  template class name
+     */
+    public function loadTemplateClass($filepath)
+    {
+        $template_class_name = '';
+        if (isset($this->content)) {
+            $content = $this->content;
+            $this->content = null;
+        } else {
+            $content = null;
+        }
+        $timestamp = $this->timestamp ? $this->timestamp : null;
+        if ($content === null || !$timestamp) {
+            $this->fetch(
+                $this->filepath, $this->source->name, $this->cache_id, $this->compile_id, $content, $timestamp
+            );
+        }
+        if (isset($content)) {
+            eval("?>" . $content);
+
+            return $template_class_name;
+        }
+
+        return false;
+    }
 
     /**
      * Write the rendered template output to cache
@@ -209,10 +238,10 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
      * @param  string $content content to cache
      * @return boolean success
      */
-    public function writeCachedContent(Smarty $tpl_obj, $content)
+    public function writeCache(Smarty $tpl_obj, $filepath, $content)
     {
         return $this->save(
-            $this->filepath, $this->source->name, $this->cache_id, $this->compile_id, $this->template_obj->cache_lifetime, $content
+            $this->filepath, $this->source->name, $this->cache_id, $this->compile_id,$tpl_obj->cache_lifetime, $content
         );
     }
 

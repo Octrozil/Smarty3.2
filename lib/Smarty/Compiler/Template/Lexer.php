@@ -121,7 +121,7 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
             } else if (false !== $pos = strrpos($value, $this->compiler->tpl_obj->left_delimiter)) {
                 $pos += strlen ($this->compiler->tpl_obj->left_delimiter);
             }
-            if (isset($value[$pos]) && $value[$pos] == ' ') {
+            if (isset($value[$pos]) && $c = strpbrk($value[$pos], " \n\t\r")) {
                 return true;
             }
         }
