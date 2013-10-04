@@ -51,8 +51,8 @@ class CompileForeachTests extends PHPUnit_Framework_TestCase
 
     public function testForeachElse()
     {
-        $this->smarty->error_reporting = error_reporting() & ~(E_NOTICE | E_USER_NOTICE);
         $tpl = $this->smarty->createTemplate('eval:{$foo =[]}{foreach item=x from=$foo}{$x}{foreachelse}else{/foreach}');
+        $tpl->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->assertEquals("else", $this->smarty->fetch($tpl));
     }
 
@@ -151,8 +151,8 @@ class CompileForeachTests extends PHPUnit_Framework_TestCase
 
     public function testNewForeachElse()
     {
-        $this->smarty->error_reporting = error_reporting() & ~(E_NOTICE | E_USER_NOTICE);
-        $tpl = $this->smarty->createTemplate('eval:{foreach $foo as $x}{$x}{foreachelse}else{/foreach}');
+        $tpl = $this->smarty->createTemplate('string:{foreach $foo as $x}{$x}{foreachelse}else{/foreach}');
+        $tpl->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->assertEquals("else", $this->smarty->fetch($tpl));
     }
 

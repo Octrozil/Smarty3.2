@@ -25,11 +25,9 @@ class Smarty_Resource_Source_Ambiguous extends Smarty_Resource_Source_File
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty            $smarty Smarty object
-     * @param Smarty_Source     $source Source object
-     * @param Smarty            $parent
+     * @param Smarty_Context $context
      */
-    public function populate(Smarty $smarty, Smarty_Source $source, $parent = null)
+    public function populate(Smarty_Context $context)
     {
         $segment = '';
 
@@ -37,10 +35,10 @@ class Smarty_Resource_Source_Ambiguous extends Smarty_Resource_Source_File
             $segment = rtrim($this->segment, "/\\") . '/';
         }
 
-        $source->filepath = $this->directory . $segment . $source->name;
+        $context->filepath = $this->directory . $segment . $context->name;
 
-        if ($this->fileExists($source->filepath, $source)) {
-            $source->uid = sha1($source->filepath);
+        if ($this->fileExists($context->filepath, $context)) {
+            $context->uid = sha1($context->filepath);
         }
     }
 }

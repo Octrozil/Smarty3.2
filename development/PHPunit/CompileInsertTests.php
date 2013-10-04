@@ -40,7 +40,8 @@ class CompileInsertTests extends PHPUnit_Framework_TestCase
 
     public function testInsertFunctionVariableName()
     {
-        $tpl = $this->smarty->createTemplate("eval:start {insert name=\$variable foo='bar'} end");
+ //       $tpl = $this->smarty->createTemplate("eval:start {insert name=\$variable foo='bar'} end");
+        $tpl = $this->smarty->createTemplate("eval:start {\$variable} end");
         $tpl->assign('variable', 'test');
         $this->assertEquals("start insert function parameter value bar end", $this->smarty->fetch($tpl));
     }

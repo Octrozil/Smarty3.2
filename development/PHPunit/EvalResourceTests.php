@@ -51,7 +51,7 @@ class EvalResourceTests extends PHPUnit_Framework_TestCase
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertFalse($tpl->source->timestamp);
+        $this->assertEquals(0,$tpl->source->timestamp);
     }
 
     /**
@@ -69,7 +69,7 @@ class EvalResourceTests extends PHPUnit_Framework_TestCase
     public function testUsesCompiler()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertFalse($tpl->source->uncompiled);
+        $this->assertFalse($tpl->source->handler->uncompiled);
     }
 
     /**
@@ -78,7 +78,7 @@ class EvalResourceTests extends PHPUnit_Framework_TestCase
     public function testIsEvaluated()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertTrue($tpl->source->recompiled);
+        $this->assertTrue($tpl->source->handler->recompiled);
     }
 
     /**
@@ -106,15 +106,6 @@ class EvalResourceTests extends PHPUnit_Framework_TestCase
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
         $this->assertFalse($tpl->compiled->timestamp);
-    }
-
-    /**
-     * test writeCachedContent
-     */
-    public function testWriteCachedContent()
-    {
-        $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertFalse($tpl->cached->writeCache($tpl, 'dummy'));
     }
 
     /**
@@ -148,6 +139,20 @@ class EvalResourceTests extends PHPUnit_Framework_TestCase
         $this->assertEquals('hello world', $this->smarty->fetch($tpl));
         $this->assertEquals(0, $this->smarty->clearAllCache());
         $this->assertEquals(0, $this->smarty->clearCompiledTemplate());
+    }
+    /**
+     * test that no complied template and cache file was produced
+     */
+    public function testCachingIncludeFile()
+    {
+        $this->smarty->caching = true;
+        $this->smarty->cache_lifetime = 20;
+        $this->smarty->clearCompiledTemplate();
+        $this->smarty->clearAllCache();
+        $tpl = $this->smarty->createTemplate("eval:include {include file='helloworld.tpl'}");
+        $this->assertEquals('include hello world', $this->smarty->fetch($tpl));
+        $this->assertEquals(0, $this->smarty->clearAllCache());
+        $this->assertEquals(1, $this->smarty->clearCompiledTemplate());
     }
 
     /**

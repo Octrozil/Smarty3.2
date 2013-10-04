@@ -111,7 +111,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
     public function testUsesCompiler()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertFalse($tpl->source->uncompiled);
+        $this->assertFalse($tpl->source->handler->uncompiled);
     }
 
     /**
@@ -120,7 +120,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase
     public function testIsEvaluated()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertFalse($tpl->source->recompiled);
+        $this->assertFalse($tpl->source->handler->recompiled);
     }
 
 

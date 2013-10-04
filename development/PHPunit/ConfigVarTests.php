@@ -152,6 +152,7 @@ class ConfigVarTests extends PHPUnit_Framework_TestCase
     {
         $this->smarty->error_reporting = error_reporting() & ~(E_NOTICE | E_USER_NOTICE);
         $this->smarty->config_read_hidden = false;
+        $this->smarty->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->smarty->configLoad('test.conf', 'hidden');
         $this->assertEquals("Welcome to Smarty!", $this->smarty->fetch('eval:{#title#}{#hiddentext#}'));
     }
