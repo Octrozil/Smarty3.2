@@ -544,7 +544,8 @@ class Smarty_Security
      * @param string $file
      * @return string
      */
-    public function realpath($file){
+    public function realpath($file)
+    {
         return str_replace('\\', '/', realpath($file));
     }
 

@@ -17,21 +17,22 @@
 class Smarty_Variable_Method_ClearAllAssign
 {
     /**
-     *  Smarty object
+     *  Master object
      *
-     * @var Smarty
+     * @var Smarty | Smarty_Data | Smarty_Template
      */
-    public $smarty;
+    public $object;
 
     /**
      *  Constructor
      *
-     * @param Smarty $smarty Smarty object
+     * @param Smarty | Smarty_Data | Smarty_Template $object master object
      */
-    public function __construct($smarty)
+    public function __construct($object)
     {
-        $this->smarty = $smarty;
+        $this->object = $object;
     }
+
 
     /**
      * clear all the assigned template variables.
@@ -41,7 +42,7 @@ class Smarty_Variable_Method_ClearAllAssign
      */
     public function clearAllAssign()
     {
-        $this->smarty->_tpl_vars = new Smarty_Variable_Scope();
-        $this->smarty;
+        $this->object->_tpl_vars = new Smarty_Variable_Scope();
+        $this->object;
     }
 }

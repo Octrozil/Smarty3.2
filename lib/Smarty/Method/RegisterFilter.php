@@ -64,14 +64,14 @@ class Smarty_Method_RegisterFilter
         return $this->smarty;
     }
 
-        /**
-         * Return internal filter name
-         *
-         * @internal
-         * @param  callback $function_name
-         * @return string
-         */
-        public function _getFilterName($function_name)
+    /**
+     * Return internal filter name
+     *
+     * @internal
+     * @param  callback $function_name
+     * @return string
+     */
+    public function _getFilterName($function_name)
     {
         if (is_array($function_name)) {
             $_class_name = (is_object($function_name[0]) ?

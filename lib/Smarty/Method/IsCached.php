@@ -55,34 +55,27 @@ class Smarty_Method_IsCached
             if ($template === null && ($this->smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE || $this->smarty->_usage == Smarty::IS_CONFIG)) {
                 $template = $this->smarty;
             }
-            if (is_object($template)) {
-                // get source from template clone
-                $source = $template->source;
-                $tpl_obj = $template;
-            } else {
-                //get source object from cache  or create new one
-                $source = $this->smarty->_getSourceObject($template);
-                if (!$source->exists) {
-                    throw new Smarty_Exception("Can not find '{$source->type}:{$source->name}'");
-                }
-                $tpl_obj = $this->smarty;
+            //get source object from cache  or create new one
+            $context = Smarty_Context::getContext($this->smarty, $template, $cache_id, $compile_id, $parent, true);
+            // checks if source exists
+            if (!$context->exists) {
+                throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
             }
-            if ($source->recompiled) {
+            if ($context->handler->recompiled) {
                 // recompiled source can't be cached
                 return false;
             }
+            $tpl_obj = $context->smarty;
             $res_obj = $tpl_obj->_loadResource(Smarty::CACHE, $tpl_obj->caching_type);
             $timestamp = $exists = false;
-            $filepath = $res_obj->buildFilepath($tpl_obj, $source, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
-                isset($cache_id) ? $cache_id : $tpl_obj->cache_id);
+            $filepath = $res_obj->buildFilepath($context);
             $res_obj->populateTimestamp($tpl_obj, $filepath, $timestamp, $exists);
-            if (!$exists || $timestamp < $source->timestamp) {
+            if (!$exists || $timestamp < $context->timestamp) {
                 return false;
             }
             $template_class_name = $res_obj->loadTemplateClass($filepath);
             if (class_exists($template_class_name, false)) {
-                $template_obj = new $template_class_name($tpl_obj, $source, $filepath, $timestamp, isset($compile_id) ? $compile_id : $tpl_obj->compile_id,
-                    isset($cache_id) ? $cache_id : $tpl_obj->cache_id, $this->smarty->caching);
+                $template_obj = new $template_class_name($context, $filepath, $timestamp);
                 $template_obj->isUpdated = true;
                 return $template_obj->isValid;
             }

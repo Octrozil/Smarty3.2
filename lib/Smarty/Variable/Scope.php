@@ -44,14 +44,20 @@ class Smarty_Variable_Scope
      */
     public function __get($varname)
     {
-        //get variable from default handler
-        $var = Smarty_Variable_Method_DefaultVariableHandler::getDefaultVariable(Smarty_Template::$call_stack[0][0]->smarty, $varname);
-        //assign value and bubble up if necessary
-        Smarty_Template::$call_stack[0][0]->_assignInScope($varname, $var);
-        return $var;
+        if (class_exists('Smarty_Template', false) && Smarty_Template::$call_stack[0][0]->smarty) {
+            //get variable from default handler
+            $var = Smarty_Template::$call_stack[0][0]->smarty->_getDefaultVariable($varname);
+            if ($var != null) {
+                //assign value and bubble up if necessary
+                Smarty_Template::$call_stack[0][0]->_assignInScope($varname, $var);
+            }
+            return $var;
+        } else {
+            return null;
+        }
     }
 
-     /**
+    /**
     public function __destruct()
     {
     }

@@ -51,9 +51,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_ObjectFunction extends Smarty_Co
             unset($_attr['assign']);
         }
         // method or property ?
-        if (method_exists($compiler->smarty->_registered['object'][$tag][0], $method)) {
+        if (method_exists($compiler->context->smarty->_registered['object'][$tag][0], $method)) {
             // convert attributes into parameter array string
-            if ($compiler->smarty->_registered['object'][$tag][2]) {
+            if ($compiler->context->smarty->_registered['object'][$tag][2]) {
                 $_paramsArray = array();
                 foreach ($_attr as $_key => $_value) {
                     if (is_int($_key)) {

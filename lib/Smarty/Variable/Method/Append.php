@@ -17,20 +17,20 @@
 class Smarty_Variable_Method_Append
 {
     /**
-     *  Smarty object
+     *  Master object
      *
-     * @var Smarty
+     * @var Smarty | Smarty_Data | Smarty_Template
      */
-    public $smarty;
+    public $object;
 
     /**
      *  Constructor
      *
-     * @param Smarty $smarty Smarty object
+     * @param Smarty | Smarty_Data | Smarty_Template $object master object
      */
-    public function __construct($smarty)
+    public function __construct($object)
     {
-        $this->smarty = $smarty;
+        $this->object = $object;
     }
 
     /**
@@ -48,22 +48,22 @@ class Smarty_Variable_Method_Append
     {
         if (!is_array($tpl_var)) {
             if ($tpl_var == '' || !isset($value)) {
-                return $this->smarty;
+                return $this->object;
             }
             $tpl_var = array($tpl_var => $value);
         }
 
         foreach ($tpl_var as $varname => $_val) {
             if ($varname != '') {
-                if (!isset($this->smarty->_tpl_vars->$varname)) {
-                    $_var = $this->smarty->getVariable($varname, null, true, false);
+                if (!isset($this->object->_tpl_vars->$varname)) {
+                    $_var = $this->object->_getVariable($varname, null, true, false);
                     if ($_var === null) {
                         $_var = new Smarty_Variable(null, $nocache);
                     } else {
                         $_var = clone $_var;
                     }
                 } else {
-                    $_var = $this->smarty->_tpl_vars->$varname;
+                    $_var = $this->object->_tpl_vars->$varname;
                 }
                 if (!(is_array($_var->value) || $_var->value instanceof ArrayAccess)) {
                     settype($_var->value, 'array');
@@ -76,8 +76,8 @@ class Smarty_Variable_Method_Append
                     $_var->value[] = $_val;
                 }
             }
-            $this->smarty->_assignInScope($varname, $_var, $scope_type);
+            $this->object->_assignInScope($varname, $_var, $scope_type);
         }
-        return $this->smarty;
+        return $this->object;
     }
 }

@@ -41,11 +41,11 @@ class Smarty_Variable_Method_GetConfigVars
      * @param  boolean $search_parents include parent templates?
      * @return string  variable value or or array of variables
      */
-     public function getConfigVars($varname = null, $search_parents = true)
+    public function getConfigVars($varname = null, $search_parents = true)
     {
         $_ptr = $this->smarty;
         if (isset($varname)) {
-            $result = $this->smarty->getVariable('___config_var_' . $varname, $_ptr, $search_parents, false);
+            $result = $this->smarty->_getVariable('___config_var_' . $varname, $_ptr, $search_parents, false);
 
             return $result;
         } else {

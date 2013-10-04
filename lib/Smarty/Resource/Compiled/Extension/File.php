@@ -34,10 +34,10 @@ class Smarty_Resource_Compiled_Extension_File
         $compiletime_options = 0;
         $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
         if (isset($template_resource)) {
-            $source = $smarty->_getSourceObject($template_resource, $isConfig);
-           if ($source->exists) {
+            $context = Smarty_Context::getContext($smarty, $template_resource);
+            if ($context->exists) {
                 // set basename if not specified
-                $_basename = $source->getBasename();
+                $_basename = $context->getBasename();
                 if ($_basename === null) {
                     $_basename = basename(preg_replace('![^\w\/]+!', '_', $source->name));
                 }
@@ -45,7 +45,7 @@ class Smarty_Resource_Compiled_Extension_File
                 if ($_basename) {
                     $_basename = '.' . $_basename;
                 }
-                $_resource_part_1 = $source->uid . '_' . $compiletime_options . '.' . $source->type . $_basename . '.php';
+                $_resource_part_1 = $context->uid . '_' . $compiletime_options . '.' . $context->type . $_basename . '.php';
                 $_resource_part_1_length = strlen($_resource_part_1);
             } else {
                 return 0;
@@ -73,7 +73,7 @@ class Smarty_Resource_Compiled_Extension_File
             if (substr($_file->getBasename(), 0, 1) == '.' || strpos($_file, '.svn') !== false)
                 continue;
 
-            $_filepath =  str_replace('\\', '/', (string)$_file);
+            $_filepath = str_replace('\\', '/', (string)$_file);
 
             if ($_file->isDir()) {
                 if (!$_compile->isDot()) {
@@ -107,6 +107,6 @@ class Smarty_Resource_Compiled_Extension_File
                 }
             }
         }
-       return $_count;
+        return $_count;
     }
 }

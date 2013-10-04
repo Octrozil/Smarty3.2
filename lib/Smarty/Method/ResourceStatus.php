@@ -144,34 +144,20 @@ class Smarty_Method_ResourceStatus extends Smarty_Exception_Magic
             $parent = $cache_id;
             $cache_id = null;
         }
-       if ($template === null && ($status->smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE|| $status->_usage == self::IS_CONFIG)) {
+        if ($template === null && ($status->smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE || $status->_usage == self::IS_CONFIG)) {
             $template = $status->smarty;
         }
-        if (is_object($template)) {
-            // get source from template clone
-            $source = $template->source;
-            $tpl_obj = $template;
-        } else {
-            if ($parent == null) {
-                $tpl_obj = $status->smarty;
-            } else {
-                // if parent was passed we must create a clone
-                $tpl_obj = clone $status->smarty;
-                $tpl_obj->parent = $parent;
-            }
-
-            //get source object from cache  or create new one
-            $source = $tpl_obj->_getSourceObject($template);
-        }
+        //get context object from cache  or create new one
+        $context = Smarty_Context::getContext($status->smarty, $template, $cache_id, $compile_id, $parent, false, false, null, null, $caching);
         // fill basic data
         $status->resource_group = $resource_group;
-        $status->compile_id = isset($compile_id) ? $compile_id : $tpl_obj->compile_id;
-        $status->cache_id = isset($cache_id) ? $cache_id : $tpl_obj->cache_id;
-        $status->caching = isset($caching) ? $caching : $tpl_obj->caching;
-        $status->recompiled = $source->recompiled;
-        $status->uncompiled = $source->uncompiled;
-        $status->exists = $source->exists;
-        $status->uid = $source->uid;
+        $status->compile_id = $context->compile_id;
+        $status->cache_id = $context->cache_id;
+        $status->caching = $context->caching;
+        $status->recompiled = $context->handler->recompiled;
+        $status->uncompiled = $context->handler->uncompiled;
+        $status->exists = $context->exists;
+        $status->uid = $context->uid;
         if (!$status->exists) {
             // source does not exists so exit here
             return $status;
@@ -179,55 +165,40 @@ class Smarty_Method_ResourceStatus extends Smarty_Exception_Magic
         switch ($resource_group) {
             case Smarty::SOURCE:
                 $status->isValid = true;
-                $status->filepath = $source->filepath;
-                $status->timestamp = $source->timestamp;
+                $status->filepath = $context->filepath;
+                $status->timestamp = $context->timestamp;
                 // done for source request
                 return $status;
             case Smarty::COMPILED:
-                if ($source->recompiled) {
+                if ($status->recompiled) {
                     $status->type = 'recompiled';
                 } else {
-                    $status->type = $tpl_obj->compiled_type;
+                    $status->type = $context->smarty->compiled_type;
                 }
-                $param = $status->caching;
                 break;
             case Smarty::CACHE:
-                if (!$status->caching) {
+                if (!$status->caching || $status->recompiled) {
                     $status->exists = false;
                     return $status;
                 }
-                $status->type = $tpl_obj->caching_type;
-                $param = $status->cache_id;
+                $status->type = $context->smarty->caching_type;
                 break;
         }
         // common handling for COMPILED and CACHE
-        $res_obj = $tpl_obj->_loadResource($resource_group, $status->type);
+        $res_obj = $context->smarty->_loadResource($resource_group, $status->type);
         $status->timestamp = $status->exists = false;
-        $status->filepath = $res_obj->buildFilepath($tpl_obj, $source, $status->compile_id, $param);
-        $res_obj->populateTimestamp($tpl_obj, $status->filepath, $status->timestamp, $status->exists);
+        $status->filepath = $res_obj->buildFilepath($context);
+        $res_obj->populateTimestamp($context->smarty, $status->filepath, $status->timestamp, $status->exists);
         if ($status->exists) {
-            if ($status->timestamp < $source->timestamp) {
+            if ($status->timestamp < $context->timestamp || $context->smarty->force_compile) {
                 return $status;
             }
-            $template_obj = $source->_getTemplateObject($tpl_obj, $resource_group, $parent, $status->compile_id, $status->cache_id, $status->caching);
-//            $template_obj = $tpl_obj->_getTemplateObject($resource_group, $source, null, $compile_id, $cache_id, $caching, true);
-            if ($template_obj === false) {
-                if ($tpl_obj->force_compile) {
-                    return $status;
-                }
-                try {
-                    $template_class_name = '';
-                    // load existing compiled template class
-                    $template_class_name = $res_obj->loadTemplateClass($status->filepath);
-                    if (class_exists($template_class_name, false)) {
-                        $template_obj = new $template_class_name($tpl_obj, $source, $status->filepath, $status->timestamp);
-                    } else {
-                        return $status;
-                    }
-                } catch (Exception $e) {
-                    return $status;
-                }
+            try {
+                $template_obj = $context->_getTemplateObject($resource_group);
+            } catch (Exception $e) {
+                return $status;
             }
+
             $status->template_obj = $template_obj;
             $status->isValid = $template_obj->isValid;
         }

@@ -65,19 +65,19 @@ class Smarty_Method_CreateTemplate
         if (isset($compile_id)) {
             $tpl_obj->compile_id = $compile_id;
         }
-        $source = $this->smarty->_getSourceObject($template_resource, $parent);
+        //get context object from cache  or create new one
+        $context = Smarty_Context::getContext($tpl_obj, $template_resource);
         // checks if source exists
-        if (!$source->exists) {
-            throw new Smarty_Exception_SourceNotFound($source->type, $source->name);
+        if (!$context->exists) {
+            throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
         }
-        $tpl_obj->source = $source;
+        $tpl_obj->source = $context;
         $tpl_obj->_tpl_vars = new Smarty_Variable_Scope();
         if (isset($data)) {
             foreach ($data as $varname => $value) {
                 $tpl_obj->_tpl_vars->$varname = new Smarty_Variable($value);
             }
         }
-
         return $tpl_obj;
     }
 }

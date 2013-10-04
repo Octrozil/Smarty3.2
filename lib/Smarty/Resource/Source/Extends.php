@@ -31,22 +31,22 @@ class Smarty_Resource_Source_Extends extends Smarty_Resource_Source_File
         $components = explode('|', $this->name);
         $exists = true;
         foreach ($components as $component) {
-            $s = $smarty->_getSourceObject($component);
+            $context = Smarty_Context::getContext($smarty, $component);
             // checks if source exists
-            if (!$s->exists) {
-                throw new Smarty_Exception_SourceNotFound($s->type, $s->name);
+            if (!$context->exists) {
+                throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
             }
-            if ($s->type == 'php') {
-                throw new IllegalInheritanceResourceType($s->type);
+            if ($context->type == 'php') {
+                throw new IllegalInheritanceResourceType($context->type);
             }
-            $sources[$s->uid] = $s;
-            $uid .= $s->filepath;
+            $sources[$context->uid] = $context;
+            $uid .= $context->filepath;
             if ($smarty && $smarty->compile_check) {
-                $exists = $exists && $s->exists;
+                $exists = $exists && $context->exists;
             }
         }
         $this->components = $sources;
-        $this->filepath = $s->filepath;
+        $this->filepath = $context->filepath;
         $this->uid = sha1($uid);
         $this->filepath = 'extends_resource_' . $this->uid . '.tpl';
         if ($smarty && $smarty->compile_check) {

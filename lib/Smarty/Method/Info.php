@@ -130,7 +130,7 @@ class Smarty_Method_Info
 //        $template = file_get_contents(dirname(__FILE__).'/info.tpl');
 
 //        return $tpl->fetch('eval:' . $template);
-        return $tpl->fetch(dirname(__FILE__).'/info.tpl');
+        return $tpl->fetch(dirname(__FILE__) . '/info.tpl');
     }
 
     protected function analyze($flags = 0)
@@ -595,7 +595,7 @@ class Smarty_Method_Info
                     'type' => $type,
                     'file' => $file->getFilename(),
                     'realpath' => $realpath,
-                   'link' => $link,
+                    'link' => $link,
                     'function' => $_name,
                     'line' => $function instanceof Reflector ? $function->getStartLine() : null,
                     'signature' => $signature,
@@ -612,41 +612,41 @@ class Smarty_Method_Info
 
         // scan _registered['plugin']
         if (isset($this->smarty->_registered['plugin'])) {
-        foreach ($this->smarty->_registered['plugin'] as $type => $plugins) {
-            if (!isset($this->plugins[$type])) {
-                continue;
-            }
-            foreach ($plugins as $name => $_plugin) {
-                list($callback, $nocache, $attributes) = $_plugin;
-                $function = $this->reflectedFunctionOfCallable($callback);
-
-                if (isset($this->plugins[$type][$name])) {
-                    $this->warnings['plugins-' . $type . '-' . $name] = "Plugin '{$name}' found in at least 2 directories";
+            foreach ($this->smarty->_registered['plugin'] as $type => $plugins) {
+                if (!isset($this->plugins[$type])) {
+                    continue;
                 }
+                foreach ($plugins as $name => $_plugin) {
+                    list($callback, $nocache, $attributes) = $_plugin;
+                    $function = $this->reflectedFunctionOfCallable($callback);
 
-                if ($function instanceof ReflectionFunction) {
-                    list(, , $link) = $this->reflectedAnnotations($function);
+                    if (isset($this->plugins[$type][$name])) {
+                        $this->warnings['plugins-' . $type . '-' . $name] = "Plugin '{$name}' found in at least 2 directories";
+                    }
+
+                    if ($function instanceof ReflectionFunction) {
+                        list(, , $link) = $this->reflectedAnnotations($function);
+                    }
+
+                    $this->plugins[$type][$name] = array(
+                        'name' => $name,
+                        'type' => $type,
+                        'file' => $function ? basename($function->getFileName()) : null,
+                        'realpath' => $function ? $function->getFileName() : null,
+                        'link' => $function ? $link : null,
+                        'function' => $function ? $function->getName() : null,
+                        'line' => $function ? $function->getStartLine() : null,
+                        'signature' => $function ? $this->reflectedSignature($function) : null,
+                        'nocache' => $nocache,
+                        'cache_attr' => $attributes,
+                        'registered' => true,
+                        'lazyloaded' => false,
+                        'autoload' => false,
+                        'error' => null,
+                        'warning' => null,
+                    );
                 }
-
-                $this->plugins[$type][$name] = array(
-                    'name' => $name,
-                    'type' => $type,
-                    'file' => $function ? basename($function->getFileName()) : null,
-                    'realpath' => $function ? $function->getFileName() : null,
-                    'link' => $function ? $link : null,
-                    'function' => $function ? $function->getName() : null,
-                    'line' => $function ? $function->getStartLine() : null,
-                    'signature' => $function ? $this->reflectedSignature($function) : null,
-                    'nocache' => $nocache,
-                    'cache_attr' => $attributes,
-                    'registered' => true,
-                    'lazyloaded' => false,
-                    'autoload' => false,
-                    'error' => null,
-                    'warning' => null,
-                );
             }
-        }
         }
 
         // scan _registered['filter]
@@ -709,12 +709,12 @@ class Smarty_Method_Info
         // analyze _registered['class']
         if (isset($this->smarty->_registered['class'])) {
             foreach ($this->smarty->_registered['class'] as $name => $class) {
-            $registered['classes'][$name] = array(
-                'name' => $name,
-                'class' => $class,
-                'exists' => class_exists($class),
-            );
-        }
+                $registered['classes'][$name] = array(
+                    'name' => $name,
+                    'class' => $class,
+                    'exists' => class_exists($class),
+                );
+            }
         }
 
         // TODO: [info] Smarty::$_registered['filter] might be getting an overhaul

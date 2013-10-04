@@ -37,39 +37,39 @@ class Smarty_Resource_Source_Registered extends Smarty_Resource_Source_File
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty $smarty Smarty object
+     * @param Smarty_Context $context
      */
-    public function populate(Smarty $smarty)
+    public function populate(Smarty_Context $context)
     {
-        $this->smarty = $smarty;
-        $this->filepath = $this->type . ':' . $this->name;
-        $this->uid = sha1($this->filepath);
-        if ($smarty->compile_check) {
-            $this->timestamp = $this->getTemplateTimestamp();
-            $this->exists = !!$this->timestamp;
+        $context->filepath = $context->type . ':' . $context->name;
+        $context->uid = sha1($context->filepath);
+        if ($context->smarty->compile_check) {
+            $context->timestamp = $this->getTemplateTimestamp($context);
+            $context->exists = !!$context->timestamp;
         }
     }
 
     /**
      * populate Source Object filepath
      *
-     * @param  Smarty $tpl_obj template object
+     * @param  Smarty_Context $context
      * @return void
      */
-    public function buildFilepath(Smarty $tpl_obj = null)
+    public function buildFilepath(Smarty_Context $context)
     {
     }
 
     /**
      * Get timestamp (epoch) the template source was modified
      *
+     * @param  Smarty_Context $context
      * @return integer|boolean timestamp (epoch) the template was modified, false if resources has no timestamp
      */
-    public function getTemplateTimestamp()
+    public function getTemplateTimestamp(Smarty_Context $context)
     {
         // return timestamp
         $time_stamp = false;
-        call_user_func_array($this->smarty->_registered['resource'][Smarty::SOURCE][$this->type][0][1], array($this->name, &$time_stamp, $this->smarty));
+        call_user_func_array($context->smarty->_registered['resource'][Smarty::SOURCE][$context->type][0][1], array($context->name, &$time_stamp, $context->smarty));
 
         return is_numeric($time_stamp) ? (int)$time_stamp : $time_stamp;
     }
@@ -77,26 +77,28 @@ class Smarty_Resource_Source_Registered extends Smarty_Resource_Source_File
     /**
      * Load template's source by invoking the registered callback into current template object
      *
+     * @param  Smarty_Context $context
      * @return string           template source
      * @throws Smarty_Exception if source cannot be loaded
      */
-    public function getContent()
+    public function getContent(Smarty_Context $context)
     {
         // return template string
-        $t = call_user_func_array($this->smarty->_registered['resource'][Smarty::SOURCE][$this->type][0][0], array($this->name, &$this->content, $this->smarty));
+        $t = call_user_func_array($context->smarty->_registered['resource'][Smarty::SOURCE][$context->type][0][0], array($context->name, &$context->content, $context->smarty));
         if (is_bool($t) && !$t) {
-            throw new Smarty_Exception("Unable to read template {$this->type} '{$this->name}'");
+            throw new Smarty_Exception("Unable to read template {$context->type} '{$context->name}'");
         }
-       return $this->content;
+        return $context->content;
     }
 
     /**
      * Determine basename for compiled filename
      *
+     * @param  Smarty_Context $context
      * @return string resource's basename
      */
-    public function getBasename()
+    public function getBasename(Smarty_Context $context)
     {
-        return basename($this->name);
+        return basename($context->name);
     }
 }

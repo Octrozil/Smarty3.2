@@ -31,7 +31,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      * @internal
      * @var array
      */
-    public $_loaded_extensions = array();
+    public $_autoloaded = array();
 
     /**
      * assigns a Smarty variable
@@ -78,7 +78,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     }
 
 
-     /**
+    /**
      * Assign variable in scope
      * bubble up if required
      *
@@ -111,12 +111,10 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
         // if called from template object ($this->scope_type set) we must consider
         // the scope type if template object
         if (isset($this->scope_type)) {
-            if ($scope_type != Smarty::SCOPE_ROOT && $scope_type != Smarty::SCOPE_SMARTY) {
-                if ($this->scope_type == Smarty::SCOPE_ROOT) {
-                    $scope_type = Smarty::SCOPE_ROOT;
-                } else if ($scope_type == Smarty::SCOPE_LOCAL) {
-                    $scope_type = $this->scope_type;
-                }
+            if (($this->scope_type == Smarty::SCOPE_ROOT || $this->scope_type == Smarty::SCOPE_PARENT) &&
+                $scope_type != Smarty::SCOPE_ROOT && $scope_type != Smarty::SCOPE_SMARTY
+            ) {
+                $scope_type = $this->scope_type;
             }
         }
 
@@ -150,18 +148,19 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     {
 
         // try extensions
-        if (isset($this->_loaded_extensions[$name])) {
-            return call_user_func_array(array($this->_loaded_extensions[$name], $name), $args);
+        if (isset($this->_autoloaded[$name])) {
+            return call_user_func_array(array($this->_autoloaded[$name], $name), $args);
         }
 
-        $class = 'Smarty_Variable_Method_' . (($name[0] != '_') ? ucfirst($name) : ('Internal_' . ucfirst(substr($name, 1))));
+        $class = ($name[0] != '_') ? 'Smarty_Variable_Method_' . ucfirst($name) : ('Smarty_Variable_Internal_' . ucfirst(substr($name, 1)));
         if (class_exists($class, true)) {
             $obj = new $class($this);
             if (method_exists($obj, $name)) {
-                $this->_loaded_extensions[$name] = $obj;
+                $this->_autoloaded[$name] = $obj;
                 return call_user_func_array(array($obj, $name), $args);
             }
         }
-        throw new Smarty_Exception("Call of undefined method '{$name}'");
+        // throw error through magic parent
+        Smarty_Exception_Magic::__call($name, $args);
     }
 }

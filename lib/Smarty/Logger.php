@@ -23,7 +23,8 @@ class Smarty_Logger
     public $smarty = null;
 
     public $template = array();
-     /**
+
+    /**
      * create Smarty Logger object
      *
      * @param  Smarty $smarty     object of Smarty instance
@@ -41,7 +42,8 @@ class Smarty_Logger
         $smarty->registerTraceCallback('cache:delete', array($this, '_cacheDelete'));
     }
 
-    public function templateRenderStart ($template_obj) {
+    public function templateRenderStart($template_obj)
+    {
         $ptr = $this->_getContextPtr($template_obj);
         $ptr->filepath = realpath($template_obj->filepath);
         $ptr->timestamp = $template_obj->timestamp;
@@ -51,7 +53,8 @@ class Smarty_Logger
         $ptr->startTime = time();
     }
 
-    public function templateRenderEnd ($template_obj) {
+    public function templateRenderEnd($template_obj)
+    {
         $ptr = $this->_getContextPtr($template_obj);
         $index = array_shift($ptr->callstack);
         $ptr = $ptr->calls[$index];
@@ -68,34 +71,41 @@ class Smarty_Logger
         }
     }
 
-    public function templateCompilerStart ($compiler_obj) {
+    public function templateCompilerStart($compiler_obj)
+    {
         $ptr = $this->_getCompilerContextPtr($compiler_obj);
         $ptr->startTime = time();
     }
 
-    public function templateCompilerEnd ($compiler_obj) {
+    public function templateCompilerEnd($compiler_obj)
+    {
         $ptr = $this->_getCompilerContextPtr($compiler_obj);
         $ptr->endTime = time();
     }
 
-    public function _filter ($obj, $from, $type, $name, $callback) {
+    public function _filter($obj, $from, $type, $name, $callback)
+    {
         $i = 1;
     }
 
-    public function _cacheUpdate ($template_obj) {
-        $i = 1;
-    }
-    public function _cacheDelete ($template_obj) {
+    public function _cacheUpdate($template_obj)
+    {
         $i = 1;
     }
 
-    public function _getKeysTemplate($obj) {
+    public function _cacheDelete($template_obj)
+    {
+        $i = 1;
+    }
+
+    public function _getKeysTemplate($obj)
+    {
         $keys = array();
         if ($obj instanceof Smarty_Template) {
-        $keys['source'] = $obj->source->uid;
-        $keys['compiled'] = isset($obj->compile_id) ? $obj->compile_id :'';
-        $keys['cache'] = isset($obj->cache_id) ? $obj->cache_id :'';
-        $keys['caching'] = $obj->caching;
+            $keys['source'] = $obj->source->uid;
+            $keys['compiled'] = isset($obj->compile_id) ? $obj->compile_id : '';
+            $keys['cache'] = isset($obj->cache_id) ? $obj->cache_id : '';
+            $keys['caching'] = $obj->caching;
         } else {
             $keys['source'] = $obj->uid;
             $keys['compiled'] = '';
@@ -105,7 +115,8 @@ class Smarty_Logger
         return $keys;
     }
 
-    public function _getSourcePtr ($obj, $keys = null) {
+    public function _getSourcePtr($obj, $keys = null)
+    {
         if (!isset($keys)) {
             $keys = _getKeysTemplate($obj);
         }
@@ -124,14 +135,15 @@ class Smarty_Logger
         return $ptr;
     }
 
-    public function _getContextPtr ($template_obj) {
+    public function _getContextPtr($template_obj)
+    {
         $keys = $this->_getKeysTemplate($template_obj);
-        $source_ptr = $this->_getSourcePtr ($template_obj, $keys);
+        $source_ptr = $this->_getSourcePtr($template_obj, $keys);
         if ($template_obj->is_cache) {
-            if (isset($source_ptr->cache[ $keys['compiled']][$keys['cache']])) {
-                $ptr = $source_ptr->cache[ $keys['compiled']][$keys['cache']];
+            if (isset($source_ptr->cache[$keys['compiled']][$keys['cache']])) {
+                $ptr = $source_ptr->cache[$keys['compiled']][$keys['cache']];
             } else {
-                $ptr = $source_ptr->cache[ $keys['compiled']][$keys['cache']] = new stdClass();
+                $ptr = $source_ptr->cache[$keys['compiled']][$keys['cache']] = new stdClass();
                 $ptr->calls = array();
                 $ptr->callstack = array();
             }
@@ -147,10 +159,11 @@ class Smarty_Logger
         return $ptr;
     }
 
-    public function _getCompilerContextPtr ($compiler_obj) {
+    public function _getCompilerContextPtr($compiler_obj)
+    {
         $keys = $this->_getKeysTemplate($compiler_obj->source);
-        $keys['compiled'] = $keys['compiled'] = isset($compiler_obj->compile_id) ? $compiler_obj->compile_id :'';
-        $source_ptr = $this->_getSourcePtr ($compiler_obj->source, $keys);
+        $keys['compiled'] = $keys['compiled'] = isset($compiler_obj->compile_id) ? $compiler_obj->compile_id : '';
+        $source_ptr = $this->_getSourcePtr($compiler_obj->source, $keys);
         if (isset($source_ptr->compiled[$keys['compiled']])) {
             $ptr = $source_ptr->compiled[$keys['compiled']];
         } else {
@@ -187,117 +200,118 @@ class Smarty_Logger
         return array($tpl_vars, $config_vars);
     }
 
-        public function display() {
+    public function display()
+    {
         $tpl_obj = new Smarty();
         $vars = $this->_get_debug_vars($this->smarty->_tpl_vars);
         ksort($vars[0]);
         ksort($vars[1]);
         $tpl_obj->assign('assigned_vars', $vars[0]);
         $tpl_obj->assign('config_vars', $vars[1]);
-        echo $tpl_obj->fetch(dirname(__FILE__).'/logger.tpl');
+        echo $tpl_obj->fetch(dirname(__FILE__) . '/logger.tpl');
     }
 }
 
 if (!function_exists('smarty_modifier_logger_print_var')) {
-/**
- * Smarty debug_print_var modifier
- *
- * Type:     modifier<br>
- * Name:     debug_print_var<br>
- * Purpose:  formats variable contents for display in the console
- *
- * @param array|object $var     variable to be formatted
- * @param integer $depth   maximum recursion depth if $var is an array
- * @param integer $length  maximum string length if $var is a string
- * @param bool $root    flag true if called in debug.tpl
- * @return string
- */
-function smarty_modifier_logger_print_var($var, $depth = 0, $length = 40, $root = true)
-{
-    $_replace = array("\n" => '<i>\n</i>',
-        "\r" => '<i>\r</i>',
-        "\t" => '<i>\t</i>'
-    );
+    /**
+     * Smarty debug_print_var modifier
+     *
+     * Type:     modifier<br>
+     * Name:     debug_print_var<br>
+     * Purpose:  formats variable contents for display in the console
+     *
+     * @param array|object $var     variable to be formatted
+     * @param integer $depth   maximum recursion depth if $var is an array
+     * @param integer $length  maximum string length if $var is a string
+     * @param bool $root    flag true if called in debug.tpl
+     * @return string
+     */
+    function smarty_modifier_logger_print_var($var, $depth = 0, $length = 40, $root = true)
+    {
+        $_replace = array("\n" => '<i>\n</i>',
+            "\r" => '<i>\r</i>',
+            "\t" => '<i>\t</i>'
+        );
 
-    switch (gettype($var)) {
-        case 'array' :
-            if ($root) {
+        switch (gettype($var)) {
+            case 'array' :
+                if ($root) {
+                    $results = '';
+                } else {
+                    $results = '<b>Array (' . count($var) . ')</b>';
+                }
+                foreach ($var as $curr_key => $curr_val) {
+                    $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
+                        . '<b>' . strtr($curr_key, $_replace) . '</b> =&gt; '
+                        . smarty_modifier_logger_print_var($curr_val, ++$depth, $length, false);
+                    $depth--;
+                }
+                break;
+
+            case 'object' :
+                $object_vars = get_object_vars($var);
                 $results = '';
-            } else {
-                $results = '<b>Array (' . count($var) . ')</b>';
-            }
-            foreach ($var as $curr_key => $curr_val) {
-                $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
-                    . '<b>' . strtr($curr_key, $_replace) . '</b> =&gt; '
-                    . smarty_modifier_logger_print_var($curr_val, ++$depth, $length, false);
-                $depth--;
-            }
-            break;
+                if (!$root) {
+                    $results = '<b>' . get_class($var) . ' Object (' . count($object_vars) . ')</b><br>';
+                }
+                foreach ($object_vars as $curr_key => $curr_val) {
+                    $results .= str_repeat('&nbsp;', $depth * 2)
+                        . '<b> -&gt;' . strtr($curr_key, $_replace) . '</b> = '
+                        . smarty_modifier_logger_print_var($curr_val, ++$depth, $length, false) . '<br>';
+                    $depth--;
+                }
+                break;
 
-        case 'object' :
-            $object_vars = get_object_vars($var);
-            $results = '';
-            if (!$root) {
-                $results = '<b>' . get_class($var) . ' Object (' . count($object_vars) . ')</b><br>';
-            }
-            foreach ($object_vars as $curr_key => $curr_val) {
-                $results .= str_repeat('&nbsp;', $depth * 2)
-                    . '<b> -&gt;' . strtr($curr_key, $_replace) . '</b> = '
-                    . smarty_modifier_logger_print_var($curr_val, ++$depth, $length, false) . '<br>';
-                $depth--;
-            }
-            break;
+            case 'boolean' :
+            case 'NULL' :
+            case 'resource' :
+                if (true === $var) {
+                    $results = 'true';
+                } elseif (false === $var) {
+                    $results = 'false';
+                } elseif (null === $var) {
+                    $results = 'null';
+                } else {
+                    $results = htmlspecialchars((string)$var);
+                }
+                $results = '<i>' . $results . '</i>';
+                break;
 
-        case 'boolean' :
-        case 'NULL' :
-        case 'resource' :
-            if (true === $var) {
-                $results = 'true';
-            } elseif (false === $var) {
-                $results = 'false';
-            } elseif (null === $var) {
-                $results = 'null';
-            } else {
+            case 'integer' :
+            case 'float' :
                 $results = htmlspecialchars((string)$var);
-            }
-            $results = '<i>' . $results . '</i>';
-            break;
+                break;
 
-        case 'integer' :
-        case 'float' :
-            $results = htmlspecialchars((string)$var);
-            break;
-
-        case 'string' :
-            $results = strtr($var, $_replace);
-            if (Smarty::$_MBSTRING) {
-                if (mb_strlen($var, Smarty::$_CHARSET) > $length) {
-                    $results = mb_substr($var, 0, $length - 3, Smarty::$_CHARSET) . '...';
+            case 'string' :
+                $results = strtr($var, $_replace);
+                if (Smarty::$_MBSTRING) {
+                    if (mb_strlen($var, Smarty::$_CHARSET) > $length) {
+                        $results = mb_substr($var, 0, $length - 3, Smarty::$_CHARSET) . '...';
+                    }
+                } else {
+                    if (isset($var[$length])) {
+                        $results = substr($var, 0, $length - 3) . '...';
+                    }
                 }
-            } else {
-                if (isset($var[$length])) {
-                    $results = substr($var, 0, $length - 3) . '...';
-                }
-            }
 
-            $results = htmlspecialchars('"' . $results . '"');
-            break;
+                $results = htmlspecialchars('"' . $results . '"');
+                break;
 
-        case 'unknown type' :
-        default :
-            if (Smarty::$_MBSTRING) {
-                if (mb_strlen($results, Smarty::$_CHARSET) > $length) {
-                    $results = mb_substr($results, 0, $length - 3, Smarty::$_CHARSET) . '...';
+            case 'unknown type' :
+            default :
+                if (Smarty::$_MBSTRING) {
+                    if (mb_strlen($results, Smarty::$_CHARSET) > $length) {
+                        $results = mb_substr($results, 0, $length - 3, Smarty::$_CHARSET) . '...';
+                    }
+                } else {
+                    if (strlen($results) > $length) {
+                        $results = substr($results, 0, $length - 3) . '...';
+                    }
                 }
-            } else {
-                if (strlen($results) > $length) {
-                    $results = substr($results, 0, $length - 3) . '...';
-                }
-            }
 
-            $results = htmlspecialchars($results);
+                $results = htmlspecialchars($results);
+        }
+
+        return $results;
     }
-
-    return $results;
-}
 }

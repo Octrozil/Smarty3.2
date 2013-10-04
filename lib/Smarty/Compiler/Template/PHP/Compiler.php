@@ -20,18 +20,11 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
 {
 
     /**
-     * Smarty object or clone
+     * Context object
      *
-     * @var Smarty
+     * @var Smarty_Context
      */
-    public $tpl_obj = null;
-
-    /**
-     * source object
-     *
-     * @var Smarty_Resource_Source_File
-     */
-    public $source = null;
+    public $context = null;
 
     /**
      * Lexer class name
@@ -39,12 +32,6 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
      * @var string
      */
     public $lexer_class = '';
-
-    /**
-     * Flag if caching enabled
-     * @var boolean
-     */
-    public $caching = false;
 
     /**
      * Parser class name
@@ -318,6 +305,11 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
     public $compiled_filepath = '';
 
     /**
+     * Variable scope
+     */
+    public $scope = null;
+
+    /**
      * Timestamp when we started compilation
      * @var int
      */
@@ -334,18 +326,17 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
      *
      * @param string $lexer_class  class name
      * @param string $parser_class class name
-     * @param Smarty $tpl_obj
+     * @param Smarty_Context $context
      * @param Smarty_Resource_Source_File $source
      * @param $compiled_filepath
-     * @param boolean $caching      flag if caching enabled
      */
-    public function __construct($lexer_class, $parser_class, $tpl_obj, $source, $compiled_filepath, $caching)
+    public function __construct($lexer_class, $parser_class, $context, $compiled_filepath)
     {
         $this->compiled_filepath = $compiled_filepath;
         $this->timestamp = time();
-        $this->tpl_obj = $tpl_obj;
-        $this->source = $source;
-        $this->caching = $caching;
+        $this->context = $context;
+        // the variable scope must be cloned as the compiler may add variables during compilation
+        $this->scope = $context->_buildScope($context->smarty, $context->parent, $context->data);
         // get required plugins
         $this->lexer_class = $lexer_class;
         $this->parser_class = $parser_class;
@@ -366,21 +357,21 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
      */
     public function compileTemplateSource()
     {
-        $this->isInheritance = $this->isInheritanceChild = $this->tpl_obj->is_inheritance_child;
-        if (!$this->source->handler->recompiled) {
-            if ($this->source->components) {
+        $this->isInheritance = $this->isInheritanceChild = $this->context->smarty->is_inheritance_child;
+        if (!$this->context->handler->recompiled) {
+            if ($this->context->components) {
                 // uses real resource for file dependency
-                $source = end($this->source->components);
+                $source = end($this->context->components);
             } else {
-                $source = $this->source;
+                $source = $this->context;
             }
-            $this->file_dependency[$this->source->uid] = array($this->source->filepath, $this->source->timestamp, $source->type);
+            $this->file_dependency[$this->context->uid] = array($this->context->filepath, $this->context->timestamp, $source->type);
         }
-        if ($this->tpl_obj->debugging) {
-            Smarty_Debug::start_compile($this->source);
+        if ($this->context->smarty->debugging) {
+            Smarty_Debug::start_compile($this->context);
         }
         // compile locking
-        if ($this->tpl_obj->compile_locking && !$this->source->recompiled) {
+        if ($this->context->smarty->compile_locking && !$this->context->handler->recompiled) {
             if (is_file($this->compiled_filepath)) {
                 $saved_timestamp = filemtime($this->compiled_filepath);
                 // touch old compiled template if file did exists
@@ -394,7 +385,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
             $code = $this->compileTemplate();
         } catch (Smarty_Exception $e) {
             // restore old timestamp in case of error
-            if ($this->tpl_obj->compile_locking && !$this->source->recompiled && $saved_timestamp) {
+            if ($this->context->smarty->compile_locking && !$this->context->handler->recompiled && $saved_timestamp) {
                 touch($this->compiled_filepath, $saved_timestamp);
             }
             throw $e;
@@ -402,15 +393,15 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
             throw new Smarty_Exception_Runtime(sprintf('An exception has been thrown during the compilation of a template ("%s").', $e->getMessage()), -1, $name, $e);
         }
         // compiling succeded
-        if (!$this->source->recompiled && $this->write_compiled_code) {
+        if (!$this->context->handler->recompiled && $this->write_compiled_code) {
             // write compiled template
             $_filepath = $this->compiled_filepath;
             if ($_filepath === false)
                 throw new Smarty_Exception('Invalid filepath for compiled template');
-            $this->tpl_obj->writeFile($_filepath, $code);
+            $this->context->smarty->writeFile($_filepath, $code);
         }
-        if ($this->tpl_obj->debugging) {
-            Smarty_Debug::end_compile($this->source);
+        if ($this->context->smarty->debugging) {
+            Smarty_Debug::end_compile($this->context);
         }
     }
 
@@ -421,8 +412,8 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
      */
     public function compileTemplate()
     {
-        if ($this->tpl_obj->enable_trace && isset(Smarty::$_trace_callbacks['compiler:time:start'])) {
-            $this->tpl_obj->_triggerTraceCallback('compiler:time:start', array($this));
+        if ($this->context->smarty->enable_trace && isset(Smarty::$_trace_callbacks['compiler:time:start'])) {
+            $this->context->smarty->_triggerTraceCallback('compiler:time:start', array($this));
         }
         // flag for nochache sections
         //        $this->nocache = false;
@@ -433,7 +424,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         if (empty($this->content_class)) {
             $this->content_class = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
         }
-        $this->tpl_obj->_current_file = $saved_filepath = $this->source->filepath;
+        $this->context->smarty->_current_file = $saved_filepath = $this->context->filepath;
 
         // make sure that we don't run into backtrack limit errors
         ini_set('pcre.backtrack_limit', -1);
@@ -443,15 +434,15 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
 
 
         // get source and run prefilter if required and pass iit to lexer
-        if (isset($this->tpl_obj->autoload_filters['pre']) || isset($this->tpl_obj->_registered['filter']['pre'])) {
-            $this->lex->data = $this->tpl_obj->runFilter('pre', $this->source->getContent(),  $this);
+        if (isset($this->context->smarty->autoload_filters['pre']) || isset($this->context->smarty->_registered['filter']['pre'])) {
+            $this->lex->data = $this->context->smarty->runFilter('pre', $this->context->getContent(), $this);
         } else {
-            $this->lex->data = $this->source->getContent();
+            $this->lex->data = $this->context->getContent();
         }
         // call compiler
         $this->doCompile();
 
-        $this->source->filepath = $saved_filepath;
+        $this->context->filepath = $saved_filepath;
         // free memory
         $this->parser->compiler = null;
         $this->parser = null;
@@ -460,15 +451,15 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         self::$_tag_objects = array();
         // return compiled code to template object
         // run postfilter if required on compiled template code
-        if (!$this->suppressPostFilter && (isset($this->tpl_obj->autoload_filters['post']) || isset($this->tpl_obj->_registered['filter']['post']))) {
-            $this->template_code->buffer = $this->tpl_obj->runFilter('post', $this->template_code->buffer, $this->tpl_obj, $this);
+        if (!$this->suppressPostFilter && (isset($this->context->smarty->autoload_filters['post']) || isset($this->context->smarty->_registered['filter']['post']))) {
+            $this->template_code->buffer = $this->context->smarty->runFilter('post', $this->template_code->buffer, $this->context->smarty, $this);
         }
         if (!$this->suppressTemplatePropertyHeader) {
             $this->content_class = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
-            $this->template_code = $this->_createSmartyContentClass($this->tpl_obj);
+            $this->template_code = $this->_createSmartyContentClass($this->context->smarty);
         }
-        if ($this->tpl_obj->enable_trace && isset(Smarty::$_trace_callbacks['compiler:time:end'])) {
-            $this->tpl_obj->_triggerTraceCallback('compiler:time:end', array($this));
+        if ($this->context->smarty->enable_trace && isset(Smarty::$_trace_callbacks['compiler:time:end'])) {
+            $this->context->smarty->_triggerTraceCallback('compiler:time:end', array($this));
         }
         return $this->template_code->buffer;
     }
@@ -510,7 +501,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         if (count($this->_tag_stack) > 0) {
             // get stacked info
             list($openTag, $_data) = array_pop($this->_tag_stack);
-            $this->error("unclosed " . $this->tpl_obj->left_delimiter . $openTag . $this->tpl_obj->right_delimiter . " tag");
+            $this->error("unclosed " . $this->context->smarty->left_delimiter . $openTag . $this->context->smarty->right_delimiter . " tag");
         }
         // return compiled code
         // return str_replace(array("? >\n<?php","? ><?php"), array('',''), $this->parser->retvalue);
@@ -536,8 +527,8 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         $this->has_output = false;
         // log tag/attributes
         //TODO mit trace back
-        if (isset($this->tpl_obj->get_used_tags) && $this->tpl_obj->get_used_tags) {
-            $this->tpl_obj->used_tags[] = array($tag, $args);
+        if (isset($this->context->smarty->get_used_tags) && $this->context->smarty->get_used_tags) {
+            $this->context->smarty->used_tags[] = array($tag, $args);
         }
         // check nocache option flag
         if (in_array("'nocache'", $args) || in_array(array('nocache' => 'true'), $args)
@@ -585,13 +576,13 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
             // not an internal compiler tag
             if (strlen($tag) < 6 || substr($tag, -5) != 'close') {
                 // check if tag is a registered object
-                if (isset($this->tpl_obj->_registered['object'][$tag]) && isset($parameter['object_method'])) {
+                if (isset($this->context->smarty->_registered['object'][$tag]) && isset($parameter['object_method'])) {
                     $method = $parameter['object_method'];
-                    if (!in_array($method, $this->tpl_obj->_registered['object'][$tag][3]) &&
-                        (empty($this->tpl_obj->_registered['object'][$tag][1]) || in_array($method, $this->tpl_obj->_registered['object'][$tag][1]))
+                    if (!in_array($method, $this->context->smarty->_registered['object'][$tag][3]) &&
+                        (empty($this->context->smarty->_registered['object'][$tag][1]) || in_array($method, $this->context->smarty->_registered['object'][$tag][1]))
                     ) {
                         return $this->compileCoreTag('Internal_ObjectFunction', $args, $parameter, $tag, $method);
-                    } elseif (in_array($method, $this->tpl_obj->_registered['object'][$tag][3])) {
+                    } elseif (in_array($method, $this->context->smarty->_registered['object'][$tag][3])) {
                         return $this->compileCoreTag('Internal_ObjectBlockFunction', $args, $parameter, $tag, $method);
                     } else {
                         $this->error('unallowed method "' . $method . '" in registered object "' . $tag . '"', $this->lex->taglineno);
@@ -599,7 +590,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
                 }
                 // check if tag is registered
                 foreach (array(Smarty::PLUGIN_COMPILER, Smarty::PLUGIN_FUNCTION, Smarty::PLUGIN_BLOCK) as $plugin_type) {
-                    if (isset($this->tpl_obj->_registered['plugin'][$plugin_type][$tag])) {
+                    if (isset($this->context->smarty->_registered['plugin'][$plugin_type][$tag])) {
                         // if compiler function plugin call it now
                         if ($plugin_type == Smarty::PLUGIN_COMPILER) {
                             return $this->compileCoreTag('Internal_PluginCompiler', $args, $parameter, $tag);
@@ -612,7 +603,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
                 }
                 // check plugins from plugins folder
                 foreach (Smarty_Compiler::$plugin_search_order as $plugin_type) {
-                    if ($plugin_type == Smarty::PLUGIN_COMPILER && $this->tpl_obj->_loadPlugin('smarty_compiler_' . $tag) && (!isset($this->tpl_obj->security_policy) || $this->tpl_obj->security_policy->isTrustedTag($tag, $this))) {
+                    if ($plugin_type == Smarty::PLUGIN_COMPILER && $this->context->smarty->_loadPlugin('smarty_compiler_' . $tag) && (!isset($this->context->smarty->security_policy) || $this->context->smarty->security_policy->isTrustedTag($tag, $this))) {
                         $plugin = 'smarty_compiler_' . $tag;
                         if (is_callable($plugin) || class_exists($plugin, false)) {
                             return $this->compileCoreTag('Internal_PluginCompiler', $args, $parameter, $tag);
@@ -620,13 +611,13 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
                         $this->error("Plugin '{{$tag}...}' not callable", $this->lex->taglineno);
                     } else {
                         if ($function = $this->getPlugin($tag, $plugin_type)) {
-                            if (!isset($this->tpl_obj->security_policy) || $this->tpl_obj->security_policy->isTrustedTag($tag, $this)) {
+                            if (!isset($this->context->smarty->security_policy) || $this->context->smarty->security_policy->isTrustedTag($tag, $this)) {
                                 return $this->compileCoreTag('Internal_Plugin' . ucfirst($plugin_type), $args, $parameter, $tag, $function);
                             }
                         }
                     }
                 }
-                if (is_callable($this->tpl_obj->default_plugin_handler_func)) {
+                if (is_callable($this->context->smarty->default_plugin_handler_func)) {
                     $found = false;
                     // look for already resolved tags
                     foreach (Smarty_Compiler::$plugin_search_order as $plugin_type) {
@@ -657,27 +648,27 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
                 // compile closing tag of block function
                 $base_tag = substr($tag, 0, -5);
                 // check if closing tag is a registered object
-                if (isset($this->tpl_obj->_registered['object'][$base_tag]) && isset($parameter['object_method'])) {
+                if (isset($this->context->smarty->_registered['object'][$base_tag]) && isset($parameter['object_method'])) {
                     $method = $parameter['object_method'];
-                    if (in_array($method, $this->tpl_obj->_registered['object'][$base_tag][3])) {
+                    if (in_array($method, $this->context->smarty->_registered['object'][$base_tag][3])) {
                         return $this->compileCoreTag('Internal_ObjectBlockFunction', $args, $parameter, $tag, $method);
                     } else {
                         $this->error('unallowed closing tag method "' . $method . '" in registered object "' . $base_tag . '"', $this->lex->taglineno);
                     }
                 }
                 // registered compiler plugin ?
-                if (isset($this->tpl_obj->_registered['plugin'][Smarty::PLUGIN_COMPILER][$tag])) {
+                if (isset($this->context->smarty->_registered['plugin'][Smarty::PLUGIN_COMPILER][$tag])) {
                     return $this->compileCoreTag('Internal_PluginCompilerclose', $args, $parameter, $tag);
                 }
                 // registered block tag ?
-                if (isset($this->tpl_obj->_registered['plugin'][Smarty::PLUGIN_BLOCK][$base_tag]) || isset($this->default_handler_plugins[Smarty::PLUGIN_BLOCK][$base_tag])) {
+                if (isset($this->context->smarty->_registered['plugin'][Smarty::PLUGIN_BLOCK][$base_tag]) || isset($this->default_handler_plugins[Smarty::PLUGIN_BLOCK][$base_tag])) {
                     return $this->compileCoreTag('Internal_RegisteredBlock', $args, $parameter, $tag);
                 }
                 // block plugin?
                 if ($function = $this->getPlugin($base_tag, Smarty::PLUGIN_BLOCK)) {
                     return $this->compileCoreTag('Internal_PluginBlock', $args, $parameter, $tag, $function);
                 }
-                if ($this->tpl_obj->_loadPlugin('smarty_compiler_' . $tag)) {
+                if ($this->context->smarty->_loadPlugin('smarty_compiler_' . $tag)) {
                     return $this->compileCoreTag('Internal_PluginCompilerclose', $args, $parameter, $tag);
                 }
                 $this->error("Plugin '{{$tag}...}' not callable", $this->lex->taglineno);
@@ -707,7 +698,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
             return self::$_tag_objects[$tag]->compile($args, $this, $param1, $param2, $param3);
         }
         // check if tag allowed by security
-        if (!isset($this->tpl_obj->security_policy) || $this->tpl_obj->security_policy->isTrustedTag($tag, $this)) {
+        if (!isset($this->context->smarty->security_policy) || $this->context->smarty->security_policy->isTrustedTag($tag, $this)) {
             $class = 'Smarty_Compiler_Template_Php_Tag_' . $tag;
             if (!class_exists($class, true)) {
                 if (substr($tag, -5) == 'close') {
@@ -738,8 +729,9 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         if (strpos($variable, '(') === false) {
             // not a variable variable
             $var = trim($variable, '\'"');
-            $this->tag_nocache = $this->tag_nocache | $this->tpl_obj->getVariable($var, null, true, false, 'nocache');
-//			    $this->compiler->tpl_obj->properties['variables'][$var] = $this->compiler->tag_nocache|$this->compiler->nocache;
+            if (null != $_var = $this->context->smarty->_getVariable($var, null, true, false)) {
+                $this->tag_nocache = $this->tag_nocache | $_var->nocache;
+            }
         } else {
             $var = '{' . $variable . '}';
         }
@@ -777,7 +769,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
     public function getPlugin($plugin_name, $plugin_type)
     {
         $function = null;
-        if ($this->caching && ($this->nocache || $this->tag_nocache)) {
+        if ($this->context->caching && ($this->nocache || $this->tag_nocache)) {
             if (isset($this->required_plugins['nocache'][$plugin_name][$plugin_type])) {
                 $function = $this->required_plugins['nocache'][$plugin_name][$plugin_type]['function'];
             } elseif (isset($this->required_plugins['compiled'][$plugin_name][$plugin_type])) {
@@ -801,10 +793,10 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         }
         // loop through plugin dirs and find the plugin
         $function = 'smarty_' . $plugin_type . '_' . $plugin_name;
-        $file = $this->tpl_obj->_loadPlugin($function, false);
+        $file = $this->context->smarty->_loadPlugin($function, false);
 
         if (is_string($file)) {
-            if ($this->caching && ($this->nocache || $this->tag_nocache)) {
+            if ($this->context->caching && ($this->nocache || $this->tag_nocache)) {
                 $this->required_plugins['nocache'][$plugin_name][$plugin_type]['file'] = $file;
                 $this->required_plugins['nocache'][$plugin_name][$plugin_type]['function'] = $function;
             } else {
@@ -838,13 +830,13 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         $script = null;
         $cacheable = true;
         $result = call_user_func_array(
-            $this->tpl_obj->default_plugin_handler_func, array($tag, $plugin_type, $this->tpl_obj, &$callback, &$script, &$cacheable)
+            $this->context->smarty->default_plugin_handler_func, array($tag, $plugin_type, $this->context->smarty, &$callback, &$script, &$cacheable)
         );
         if ($result) {
             $this->tag_nocache = $this->tag_nocache || !$cacheable;
             if ($script !== null) {
                 if (is_file($script)) {
-                    if ($this->caching && ($this->nocache || $this->tag_nocache)) {
+                    if ($this->context->caching && ($this->nocache || $this->tag_nocache)) {
                         $this->required_plugins['nocache'][$tag][$plugin_type]['file'] = $script;
                         $this->required_plugins['nocache'][$tag][$plugin_type]['function'] = $callback;
                     } else {
@@ -889,7 +881,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
 
             // generate replacement code
             $make_nocache_code = $this->nocache || $this->tag_nocache || $this->forceNocache == 2;
-            if ((!($this->source->recompiled) || $this->forceNocache) && $this->caching && !$this->suppressNocacheProcessing &&
+            if ((!($this->context->handler->recompiled) || $this->forceNocache) && $this->context->caching && !$this->suppressNocacheProcessing &&
                 ($make_nocache_code || $this->nocache_nolog)
             ) {
                 if ($make_nocache_code) {
@@ -956,7 +948,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         } else {
             $line = $line - $this->line_offset;
         }
-        throw new Smarty_Exception_Compiler($msg, $line, $this->source, $this->lex);
+        throw new Smarty_Exception_Compiler($msg, $line, $this->context, $this->lex);
     }
 
     /**
@@ -969,7 +961,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
     public function _createSmartyContentClass(Smarty $tpl_obj, $noinstance = false)
     {
         $template_code = new Smarty_Compiler_Code();
-        $template_code->php("<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . " compiled from \"{$this->source->filepath}\" */")->newline();
+        $template_code->php("<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . " compiled from \"{$this->context->filepath}\" */")->newline();
         $template_code->php("if (!class_exists('{$this->content_class}',false)) {")->newline()->indent();
         $template_code->php("class {$this->content_class} extends Smarty_Template" . ($this->isInheritance ? '_Inheritance' : '') . " {")->newline()->indent();
         $template_code->php("public \$version = '" . Smarty::SMARTY_VERSION . "';")->newline();

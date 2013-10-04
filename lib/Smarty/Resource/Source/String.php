@@ -45,27 +45,25 @@ class Smarty_Resource_Source_String extends Smarty_Resource_Source_File
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty            $smarty Smarty object
-     * @param Smarty_Source     $source Source object
-     * @param Smarty            $parent
+     * @param Smarty_Context $context
      */
-    public function populate(Smarty $smarty, Smarty_Source $source, $parent = null)
+    public function populate(Smarty_Context $context)
     {
-        $source->uid = $source->filepath = sha1($source->name);
-        $source->timestamp = 0;
-        $source->exists = true;
+        $context->uid = $context->filepath = sha1($context->name);
+        $context->timestamp = 0;
+        $context->exists = true;
     }
 
     /**
      * Load template's source from $resource_name into current template object
      *
      * @uses decode() to decode base64 and urlencoded template_resources
-     * @param Smarty_Source $source
+     * @param Smarty_Context $context
      * @return string template source
      */
-    public function getContent($source)
+    public function getContent(Smarty_Context $context)
     {
-        return $this->decode($source->name);
+        return $this->decode($context->name);
     }
 
     /**
@@ -92,10 +90,10 @@ class Smarty_Resource_Source_String extends Smarty_Resource_Source_File
      *
      * Always returns an empty string.
      *
-     * @param Smarty_Source $source
-     * @return string resource's basename
+     * @param Smarty_Context $context
+     * @return string ''
      */
-    public function getBasename($source)
+    public function getBasename(Smarty_Context $context)
     {
         return '';
     }

@@ -61,79 +61,79 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * Start logging of compile time
      *
-     * @param Smarty_Resource_Source_File $source
+     * @param Smarty_Context $context
      */
-    public static function start_compile($source)
+    public static function start_compile(Smarty_Context $context)
     {
-        $key = self::get_key($source);
+        $key = self::get_key($context);
         self::$_template_data[$key]['start_time'] = microtime(true);
     }
 
     /**
      * End logging of compile time
      *
-     * @param Smarty_Resource_Source_File $source
+     * @param Smarty_Context $context
      */
-    public static function end_compile($source)
+    public static function end_compile(Smarty_Context $context)
     {
-        $key = self::get_key($source);
+        $key = self::get_key($context);
         self::$_template_data[$key]['compile_time'] += microtime(true) - self::$_template_data[$key]['start_time'];
     }
 
     /**
      * Start logging of render time
      *
-     * @param Smarty_Resource_Source_File $source
+     * @param Smarty_Context $context
      */
-    public static function start_render($source)
+    public static function start_render(Smarty_Context $context)
     {
-        $key = self::get_key($source);
+        $key = self::get_key($context);
         self::$_template_data[$key]['start_time'] = microtime(true);
     }
 
     /**
      * End logging of compile time
      *
-     * @param Smarty_Resource_Source_File $source
+     * @param Smarty_Context $context
      */
-    public static function end_render($source)
+    public static function end_render(Smarty_Context $context)
     {
-        $key = self::get_key($source);
+        $key = self::get_key($context);
         self::$_template_data[$key]['render_time'] += microtime(true) - self::$_template_data[$key]['start_time'];
     }
 
     /**
      * Start logging of cache time
      *
-     * @param Smarty_Resource_Source_File $source
+     * @param Smarty_Context $context
      */
-    public static function start_cache($source)
+    public static function start_cache(Smarty_Context $context)
     {
-        $key = self::get_key($source);
+        $key = self::get_key($context);
         self::$_template_data[$key]['start_time'] = microtime(true);
     }
 
     /**
      * End logging of cache time
      *
-     * @param Smarty_Resource_Source_File $source
+     * @param Smarty_Context $context
      */
-    public static function end_cache($source)
+    public static function end_cache(Smarty_Context $context)
     {
-        $key = self::get_key($source);
+        $key = self::get_key($context);
         self::$_template_data[$key]['cache_time'] += microtime(true) - self::$_template_data[$key]['start_time'];
     }
 
     /**
      * Opens a window for the Smarty Debugging Consol and display the data
      *
-     * @param Smarty $obj object to debug
+     * @param Smarty_Context $context
      */
-    public static function display_debug($obj)
+    public static function display_debug(Smarty_Context $context)
     {
         // prepare information of assigned variables
-        $ptr = self::get_debug_vars($obj);
-        $tpl_obj = clone $obj;
+        $ptr = self::get_debug_vars($context->smarty);
+        $tpl_obj = clone $context->smarty;
         $tpl_obj->_registered = array();
         $tpl_obj->autoload_filters = array();
         $tpl_obj->default_modifiers = array();
@@ -148,12 +148,12 @@ class Smarty_Debug extends Smarty_Variable_Methods
         $tpl_obj->cache_id = null;
         $tpl_obj->compile_id = null;
         $tpl_obj->parent = null;
-        $_assigned_vars = $ptr->tpl_vars;
+        $_assigned_vars = $ptr->_tpl_vars;
         ksort($_assigned_vars);
         $_config_vars = $ptr->config_vars;
         ksort($_config_vars);
-        if ($obj->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
-            $tpl_obj->assign('template_name', $obj->source->type . ':' . $obj->source->name);
+        if ($context->smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
+            $tpl_obj->assign('template_name', $context->type . ':' . $context->name);
             $tpl_obj->assign('template_data', null);
         } else {
             $tpl_obj->assign('template_name', null);
@@ -180,11 +180,11 @@ class Smarty_Debug extends Smarty_Variable_Methods
         foreach ($obj->_tpl_vars as $key => $value) {
             if (strpos($key, '___config_var_') !== 0) {
                 $tpl_vars[$key] = $value;
-//                    $tpl_vars[$key]->source = $obj->_tpl_vars->___attributes->name;
+//                    $tpl_vars[$key]->context = $obj->_tpl_vars->___attributes->name;
             } else {
                 $key = substr($key, 14);
                 $config_vars[$key] = $value;
-//                    $config_vars[$key]['source'] = $obj->source->type . ':' . $obj->source->name;
+//                    $config_vars[$key]['source'] = $obj->context->type . ':' . $obj->context->name;
             }
         }
 
@@ -198,7 +198,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
                     if (!isset($tpl_vars[$key])) {
                         if (strpos($key, '___smarty_conf_') !== 0) {
                             $tpl_vars[$key] = $var;
-                            $tpl_vars[$key]->source = 'Smarty global';
+                            $tpl_vars[$key]->context = 'Smarty global';
                         } else {
 
                         }
@@ -207,7 +207,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
             }
         }
 
-        return (object)array('tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
+        return (object)array('_tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
     }
 
     /**

@@ -17,84 +17,31 @@ class Smarty_Resource_Compiled_Recompiled extends Smarty_Exception_Magic
 {
 
     /**
-     * Template was recompiled
-     * @var boolean
-     */
-    public $isCompiled = false;
-
-    /**
-     * file dependencies
-     *
-     * @var array
-     */
-    public $file_dependency = array();
-
-    /**
-     * Template Compile Id (Smarty::$compile_id)
-     * @var string
-     */
-    public $compile_id = null;
-
-    /**
-     * Flag if caching enabled
-     * @var boolean
-     */
-    public $caching = false;
-
-    /**
-     * Source Object
-     * @var Smarty_Template_Source
-     */
-    public $source = null;
-
-    /**
-     * Template object is valid
-     * @var string
-     */
-    public $isValid = false;
-
-    /**
-     * populate Compiled Resource Object with meta data from Resource
-     *
-     * @param  Smarty $smarty     Smarty object
-     * @return boolean  true if file exits
-     */
-    public function populate(Smarty $smarty)
-    {
-    }
-
-    /**
      * Load compiled template
      *
-     * @param Smarty $smarty     Smarty object
-     * @param $source
-     * @param $compile_id
-     * @param $caching
+     * @param Smarty_Context $context
      * @throws Exception
      * @returns Smarty_Template
      */
-    public function instanceTemplate($smarty, $source, $compile_id, $caching)
+    public function instanceTemplate(Smarty_Context $context)
     {
         try {
             $level = ob_get_level();
             $template_class_name = '';
-            $isValid =  false;
-            if ($smarty->debugging) {
-                Smarty_Debug::start_compile($source);
+            $isValid = false;
+            if ($context->smarty->debugging) {
+                Smarty_Debug::start_compile($context);
             }
 
-            $compiler = Smarty_Compiler::load($smarty, $source, false, $caching);
+            $compiler = Smarty_Compiler::load($context, false);
             $compiler->compileTemplate();
-            if ($smarty->debugging) {
-                Smarty_Debug::end_compile($source);
-            }
             eval('?>' . $compiler->template_code->buffer);
             unset($compiler);
-            if ($smarty->debugging) {
-                Smarty_Debug::end_compile($source);
+            if ($context->smarty->debugging) {
+                Smarty_Debug::end_compile($context);
             }
             if (class_exists($template_class_name, false)) {
-                $template_obj = new $template_class_name($smarty, $source, false, 0);
+                $template_obj = new $template_class_name($context, false, false);
                 $template_obj->isUpdated = true;
                 $isValid = $template_obj->isValid;
             }
@@ -110,6 +57,30 @@ class Smarty_Resource_Compiled_Recompiled extends Smarty_Exception_Magic
             throw $e;
         }
         return $template_obj;
+    }
+
+    /**
+     * populate Compiled Object with compiled filepath
+     *
+     * @param  Smarty_Context $context
+     * @return false
+     */
+    public function buildFilepath(Smarty_Context $context)
+    {
+        return false;
+    }
+
+    /**
+     * get timestamp and exists from Resource
+     *
+     * @param  Smarty $smarty     Smarty object
+     * @param  string $filepath
+     * @param  reference integer $timestamp
+     * @param  reference boolean $exists
+     */
+    public function populateTimestamp(Smarty $smarty, $filepath, &$timestamp, &$exists)
+    {
+        $timestamp = $exists = false;
     }
 
     /**

@@ -53,21 +53,21 @@ class Smarty_Compiler_Template_Php_Tag_IncludePhp extends Smarty_Compiler_Templa
      */
     public function compile($args, $compiler)
     {
-        if (!($compiler->tpl_obj instanceof SmartyBC)) {
+        if (!($compiler->context->smarty instanceof SmartyBC)) {
             throw new Smarty_Exception("{include_php} is deprecated, use SmartyBC class to enable");
         }
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        $this->smarty = $compiler->tpl_obj;
+        $this->smarty = $compiler->context->smarty;
         $_filepath = false;
         eval('$_file = ' . $_attr['file'] . ';');
-        if (!isset($compiler->tpl_obj->security_policy) && is_file($_file)) {
+        if (!isset($compiler->context->smarty->security_policy) && is_file($_file)) {
             $_filepath = $_file;
         } else {
-            if (isset($compiler->tpl_obj->security_policy)) {
-                $_dir = $compiler->tpl_obj->security_policy->trusted_dir;
+            if (isset($compiler->context->smarty->security_policy)) {
+                $_dir = $compiler->context->smarty->security_policy->trusted_dir;
             } else {
-                $_dir = $compiler->tpl_obj->trusted_dir;
+                $_dir = $compiler->context->smarty->trusted_dir;
             }
             if (!empty($_dir)) {
                 foreach ((array)$_dir as $_script_dir) {
@@ -83,8 +83,8 @@ class Smarty_Compiler_Template_Php_Tag_IncludePhp extends Smarty_Compiler_Templa
             $compiler->error("{include_php} file '{$_file}' is not readable", $compiler->lex->taglineno);
         }
 
-        if (isset($compiler->tpl_obj->security_policy)) {
-            $compiler->tpl_obj->security_policy->isTrustedPHPDir($_filepath);
+        if (isset($compiler->context->smarty->security_policy)) {
+            $compiler->context->smarty->security_policy->isTrustedPHPDir($_filepath);
         }
 
         if (isset($_attr['assign'])) {

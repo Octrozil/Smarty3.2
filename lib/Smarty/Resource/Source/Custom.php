@@ -50,60 +50,62 @@ abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source_File
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty $smarty Smarty object
+     * @param Smarty_Context $context
      */
-    public function populate(Smarty $smarty)
+    public function populate(Smarty_Context $context)
     {
-        $this->filepath = strtolower($this->type . ':' . $this->name);
-        $this->uid = sha1($this->type . ':' . $this->name);
+        $context->filepath = strtolower($context->type . ':' . $context->name);
+        $context->uid = sha1($context->type . ':' . $context->name);
 
-        $mtime = $this->fetchTimestamp($this->name);
+        $mtime = $this->fetchTimestamp($context->name);
         if ($mtime !== null) {
-            $this->timestamp = $mtime;
+            $context->timestamp = $mtime;
         } else {
-            $this->fetch($this->name, $content, $timestamp);
-            $this->timestamp = isset($timestamp) ? $timestamp : false;
+            $this->fetch($context->name, $content, $timestamp);
+            $context->timestamp = isset($timestamp) ? $timestamp : false;
             if (isset($content))
-                $this->content = $content;
+                $context->content = $content;
         }
-        $this->exists = !!$this->timestamp;
+        $context->exists = !!$context->timestamp;
     }
 
 
     /**
      * populate Source Object filepath
      *
-     * @param  Smarty $tpl_obj template object
+     * @param  Smarty_Context $context
      * @return void
      */
-    public function buildFilepath(Smarty $tpl_obj = null)
+    public function buildFilepath(Smarty_Context $context)
     {
     }
 
     /**
      * Load template's source into current template object
      *
+     * @param  Smarty_Context $context
      * @return string           template source
      * @throws Smarty_Exception if source cannot be loaded
      */
-    public function getContent()
+    public function getContent(Smarty_Context $context)
     {
-        $this->fetch($this->name, $content, $timestamp);
+        $this->fetch($context->name, $content, $timestamp);
         if (isset($content)) {
             return $content;
         }
 
-        throw new Smarty_Exception("Unable to read template {$this->type} '{$this->name}'");
+        throw new Smarty_Exception("Unable to read template {$context->type} '{$context->name}'");
     }
 
     /**
      * Determine basename for compiled filename
      *
+     * @param  Smarty_Context $context
      * @return string resource's basename
      */
-    public function getBasename()
+    public function getBasename(Smarty_Context $context)
     {
-        return basename($this->name);
+        return basename($context->name);
     }
 
 }

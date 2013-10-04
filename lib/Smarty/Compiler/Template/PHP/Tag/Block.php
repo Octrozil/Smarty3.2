@@ -58,7 +58,7 @@ class Smarty_Compiler_Template_Php_Tag_Block extends Smarty_Compiler_Template_Ph
         $name = trim($_attr['name'], "'\"");
 
         $this->openTag($compiler, 'block', array($_attr, $compiler->template_code, $compiler->nocache, $name, $compiler->has_nocache_code, $compiler->lex->taglineno));
-        if ($_attr['nocache'] == true && $compiler->caching) {
+        if ($_attr['nocache'] == true && $compiler->context->caching) {
             $compiler->nocache = true;
         }
         $compiler->template_code = new Smarty_Compiler_Code(3);
@@ -111,15 +111,15 @@ class Smarty_Compiler_Template_Php_Tag_Blockclose extends Smarty_Compiler_Templa
         $name = trim($saved_data[0]['name'], "'\"");
         // must endblock be nocache?
         if ($compiler->nocache) {
-            $compiler->tag_nocache = $compiler->nocache && $compiler->caching;
+            $compiler->tag_nocache = $compiler->nocache && $compiler->context->caching;
         }
         $compiler->nocache = $saved_data[2];
 
         // get resource info for traceback code
-        if ($compiler->source->type == 'eval' || $compiler->source->type == 'string') {
-            $resource = $compiler->source->type;
+        if ($compiler->context->type == 'eval' || $compiler->context->type == 'string') {
+            $resource = $compiler->context->type;
         } else {
-            $resource = $compiler->tpl_obj->template_resource;
+            $resource = $compiler->context->smarty->template_resource;
             // sanitize extends resource
             if (strpos($resource, 'extends:') !== false) {
                 $start = strpos($resource, ':');

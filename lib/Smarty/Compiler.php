@@ -36,12 +36,14 @@ class Smarty_Compiler extends Smarty_Compiler_Code
      */
     public static $plugin_search_order = array('function', 'block', 'compiler', 'class');
 
-    public static function  load(Smarty $smarty, $source, $filepath, $caching = false)
+    public static function  load($context, $filepath)
     {
-        if ($source->_usage !== Smarty::IS_CONFIG) {
-            return new $source->handler->template_compiler_class($source->handler->template_lexer_class, $source->handler->template_parser_class, $smarty, $source, $filepath, $caching);
+        if ($context->_usage === Smarty::IS_CONFIG) {
+            $type = 'Config';
         } else {
-            return new $source->handler->config_compiler_class($source->handler->config_lexer_class, $source->handler->config_parser_class, $smarty, $source, $filepath);
+            $type = 'Template';
         }
+        $class_names = $context->handler->compiler_class_names[$type];
+        return new $class_names[0]($class_names[1], $class_names[2], $context, $filepath);
     }
 }

@@ -41,7 +41,7 @@ class Smarty_Exception extends Exception
      * @param Smarty_Resource_Source_File $source   The template source object
      * @param Exception $previous The previous exception
      */
-    public function __construct($message, $lineno = -1, $source = null, $lex = null, Exception $previous = null)
+    public function __construct($message, $lineno = -1, $context = null, $lex = null, Exception $previous = null)
     {
         if (version_compare(PHP_VERSION, '5.3.0', '<')) {
             $this->previous = $previous;
@@ -51,15 +51,15 @@ class Smarty_Exception extends Exception
         }
 
         $this->lineno = $lineno;
-        $this->source = $source;
+        $this->context = $context;
         $this->lex = $lex;
 
-        if ($this->source !== null) {
-            $this->filename = $this->source->type . ':' . $this->source->filepath;
+        if ($this->context !== null) {
+            $this->filename = $this->context->type . ':' . $this->context->filepath;
         }
 
         if (-1 === $this->lineno || null === $this->filename) {
- //           $this->guessTemplateInfo();
+            //           $this->guessTemplateInfo();
         }
 
         $this->rawMessage = $message;
@@ -191,7 +191,7 @@ class Smarty_Exception extends Exception
 
         foreach ($backtrace as $trace) {
             if (isset($trace['object']) && $trace['object'] instanceof Smarty_Template) {
-                if (null === $this->filename || $this->filename == $trace['object']->source->filepath) {
+                if (null === $this->filename || $this->filename == $trace['object']->context->filepath) {
                     $trace_template = $trace;
                 }
             }

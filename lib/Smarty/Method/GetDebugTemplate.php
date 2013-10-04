@@ -32,6 +32,7 @@ class Smarty_Method_GetDebugTemplate
     {
         $this->smarty = $smarty;
     }
+
     /**
      * return name of debugging template
      *

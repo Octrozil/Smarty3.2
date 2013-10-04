@@ -69,7 +69,7 @@ class Smarty_Compiler_Template_Php_Tag_Call extends Smarty_Compiler_Template_Php
         if ($_attr['nocache'] === true) {
             $compiler->tag_nocache = true;
         }
-        if ($compiler->caching && ($compiler->tag_nocache || $compiler->nocache)) {
+        if ($compiler->context->caching && ($compiler->tag_nocache || $compiler->nocache)) {
             $compiler->called_nocache_template_functions[trim($_name, "'\"")] = true;
         }
         unset($_attr['name'], $_attr['assign'], $_attr['nocache']);

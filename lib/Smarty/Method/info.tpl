@@ -6,20 +6,20 @@
     <title>Smarty::info()</title>
 
     <script language="javascript" type="text/javascript">
-    function showHide(shID) {
-        if (document.getElementById(shID)) {
-            if (document.getElementById(shID+'-plus').style.display != 'none') {
-                document.getElementById(shID+'-plus').style.display = 'none';
-                document.getElementById(shID+'-minus').style.display = 'inline';
-                document.getElementById(shID).style.display = 'block';
-            }
-            else {
-                document.getElementById(shID+'-plus').style.display = 'inline';
-                document.getElementById(shID+'-minus').style.display = 'none';
-                document.getElementById(shID).style.display = 'none';
+        function showHide(shID) {
+            if (document.getElementById(shID)) {
+                if (document.getElementById(shID + '-plus').style.display != 'none') {
+                    document.getElementById(shID + '-plus').style.display = 'none';
+                    document.getElementById(shID + '-minus').style.display = 'inline';
+                    document.getElementById(shID).style.display = 'block';
+                }
+                else {
+                    document.getElementById(shID + '-plus').style.display = 'inline';
+                    document.getElementById(shID + '-minus').style.display = 'none';
+                    document.getElementById(shID).style.display = 'none';
+                }
             }
         }
-    }
     </script>
     <style type="text/css">
         {*
@@ -74,25 +74,35 @@
         .flag {
             font-style: italic;
         }
+
         .more {
             display: none;
             border-top: 1px solid #666;
-            border-bottom: 1px solid #666; }
+            border-bottom: 1px solid #666;
+        }
+
         .minus {
             display: none;
-             }
+        }
+
         .plus {
-           }
+        }
+
         a.showLink, a.hideLink {
             text-decoration: none;
             color: #36f;
             padding-left: 8px;
-            background: transparent  no-repeat left; }
+            background: transparent no-repeat left;
+        }
+
         a.hideLink {
             display: none;
-            background: transparent  no-repeat left; }
+            background: transparent no-repeat left;
+        }
+
         a.showLink:hover, a.hideLink:hover {
-            border-bottom: 1px dotted #36f; }
+            border-bottom: 1px dotted #36f;
+        }
 
     </style>
 </head>
@@ -375,62 +385,66 @@
 {if $data.plugins}
     <section>
         <header>
-            <h1 id="plugins"><a href="#" id="plugin-hide" class="hideLink" onclick="showHide('plugin');return false;">-</a><a href="#" id="plugin-show" class="showLink" onclick="showHide('plugin');return false;">+</a>Plugins</h1>
+            <h1 id="plugins"><a href="#" id="plugin-hide" class="hideLink"
+                                onclick="showHide('plugin');return false;">-</a><a href="#" id="plugin-show"
+                                                                                   class="showLink"
+                                                                                   onclick="showHide('plugin');return false;">+</a>Plugins
+            </h1>
         </header>
         <div id="plugin" class="more">
-        <dl>
-            {foreach $data.plugins as $p => $plugins}
-                <dt id="plugins-{$p|escape}">
-                    {if $p == "function"}Function Plugins
-                    {elseif $p == "modifier"}Modifier Plugins
-                    {elseif $p == "modifiercompiler"}Compiled Modifier Plugins
-                    {elseif $p == "block"}Block Plugins
-                    {elseif $p == "compiler"}Compiler Plugins
-                    {elseif $p == "prefilter"}Prefilter Plugins
-                    {elseif $p == "postfilter"}Postfilter Plugins
-                    {elseif $p == "outputfilter"}Outputfilter Plugins
-                    {elseif $p == "variablefilter"}Variablefilter Plugins
-                    {elseif $p == "insert"}Insert Plugins
-                    {elseif $p == "resource"}Resource Plugins
-                    {elseif $p == "cacheresource"}CacheResource Plugins
-                    {else}{$p|escape}
-                    {/if}
-                </dt>
-                <dd>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Function</th>
-                            <th>Caching</th>
-                            <th>Origin</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {foreach $plugins as $plugin}
+            <dl>
+                {foreach $data.plugins as $p => $plugins}
+                    <dt id="plugins-{$p|escape}">
+                        {if $p == "function"}Function Plugins
+                        {elseif $p == "modifier"}Modifier Plugins
+                        {elseif $p == "modifiercompiler"}Compiled Modifier Plugins
+                        {elseif $p == "block"}Block Plugins
+                        {elseif $p == "compiler"}Compiler Plugins
+                        {elseif $p == "prefilter"}Prefilter Plugins
+                        {elseif $p == "postfilter"}Postfilter Plugins
+                        {elseif $p == "outputfilter"}Outputfilter Plugins
+                        {elseif $p == "variablefilter"}Variablefilter Plugins
+                        {elseif $p == "insert"}Insert Plugins
+                        {elseif $p == "resource"}Resource Plugins
+                        {elseif $p == "cacheresource"}CacheResource Plugins
+                        {else}{$p|escape}
+                        {/if}
+                    </dt>
+                    <dd>
+                        <table>
+                            <thead>
                             <tr>
-                                <td id="plugins-{$p|escape}-{$plugin.name|escape}">
-                                    {if $plugin.link}<a href="{$plugin.link|escape}">{/if}
-                                        {$plugin.name|escape}
-                                        {if $plugin.link}</a>{/if}
-                                </td>
-                                <td>{$plugin.signature|escape}</td>
-                                <td>{if $plugin.nocache}
-                                        <span class="string flag">NOCACHE</span>
-                                        {if $plugin.cache_attr}
-                                            {prettyprint value=$plugin.cache_attr}
-                                        {/if}
-                                    {/if}</td>
-                                <td><span class="directory">{$plugin.realpath}</span> <span
-                                            class="line">{$plugin.line}</span></td>
+                                <th>Name</th>
+                                <th>Function</th>
+                                <th>Caching</th>
+                                <th>Origin</th>
                             </tr>
-                        {/foreach}
-                        </tbody>
-                    </table>
-                </dd>
-            {/foreach}
-        </dl>
-     </div>
+                            </thead>
+                            <tbody>
+                            {foreach $plugins as $plugin}
+                                <tr>
+                                    <td id="plugins-{$p|escape}-{$plugin.name|escape}">
+                                        {if $plugin.link}<a href="{$plugin.link|escape}">{/if}
+                                            {$plugin.name|escape}
+                                            {if $plugin.link}</a>{/if}
+                                    </td>
+                                    <td>{$plugin.signature|escape}</td>
+                                    <td>{if $plugin.nocache}
+                                            <span class="string flag">NOCACHE</span>
+                                            {if $plugin.cache_attr}
+                                                {prettyprint value=$plugin.cache_attr}
+                                            {/if}
+                                        {/if}</td>
+                                    <td><span class="directory">{$plugin.realpath}</span> <span
+                                                class="line">{$plugin.line}</span></td>
+                                </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                    </dd>
+                {/foreach}
+            </dl>
+        </div>
 
     </section>
 {/if}

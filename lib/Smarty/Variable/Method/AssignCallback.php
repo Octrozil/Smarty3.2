@@ -17,20 +17,20 @@
 class Smarty_Variable_Method_AssignCallback
 {
     /**
-     *  Smarty object
+     *  Master object
      *
-     * @var Smarty
+     * @var Smarty | Smarty_Data | Smarty_Template
      */
-    public $smarty;
+    public $object;
 
     /**
      *  Constructor
      *
-     * @param Smarty $smarty Smarty object
+     * @param Smarty | Smarty_Data | Smarty_Template $object master object
      */
-    public function __construct($smarty)
+    public function __construct($object)
     {
-        $this->smarty = $smarty;
+        $this->object = $object;
     }
 
     /**
@@ -53,9 +53,9 @@ class Smarty_Variable_Method_AssignCallback
                 if (is_object($callback)) {
                     $callback = array($callback, '__invoke');
                 }
-                $this->smarty->_assignInScope($varname, new Smarty_Variable_Callback($varname, $callback, $nocache), $scope_type);
+                $this->object->_assignInScope($varname, new Smarty_Variable_Callback($varname, $callback, $nocache), $scope_type);
             }
         }
-        return $this->smarty;
+        return $this->object;
     }
 }

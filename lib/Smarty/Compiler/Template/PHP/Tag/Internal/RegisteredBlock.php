@@ -46,8 +46,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
                 $compiler->tag_nocache = true;
             }
             unset($_attr['nocache']);
-            if (isset($compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_BLOCK][$tag])) {
-                $tag_info = $compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_BLOCK][$tag];
+            if (isset($compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_BLOCK][$tag])) {
+                $tag_info = $compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_BLOCK][$tag];
             } else {
                 $tag_info = $compiler->default_handler_plugins[Smarty::PLUGIN_BLOCK][$tag];
             }
@@ -101,8 +101,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
             list($par_string, $compiler->nocache) = $this->closeTag($compiler, $base_tag);
             // This tag does create output
             $compiler->has_output = true;
-            if (isset($compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_BLOCK][$base_tag])) {
-                $function = $compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_BLOCK][$base_tag][0];
+            if (isset($compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_BLOCK][$base_tag])) {
+                $function = $compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_BLOCK][$base_tag][0];
             } else {
                 $function = $compiler->default_handler_plugins[Smarty::PLUGIN_BLOCK][$base_tag][0];
             }

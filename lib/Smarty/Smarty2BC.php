@@ -66,7 +66,7 @@ class Smarty_Smarty2BC extends Smarty_Smarty31BC
      *
      * @deprecated
      * @api
-       * @param string $tpl_var the template variable name
+     * @param string $tpl_var the template variable name
      * @param mixed &$value  the referenced value to assign
      */
     public function assign_by_ref($tpl_var, &$value)

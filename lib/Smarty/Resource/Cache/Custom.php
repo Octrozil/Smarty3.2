@@ -112,36 +112,19 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
     abstract protected function delete($name, $cache_id, $compile_id, $exp_time);
 
     /**
-     * build cache file filepath
+     * populate Compiled Object with compiled filepath
      *
-     * @param $smarty
-     * @param $source
-     * @param $compile_id
-     * @param $cache_id
-     * @return string filepath
+     * @param  Smarty_Context $context
+     * @return string
      */
-    public function buildFilepath($smarty, $source, $compile_id, $cache_id)
+    public function buildFilepath(Smarty_Context $context)
     {
-        $this->source = $source;
-        $this->compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
-        $this->cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
+        $this->source = $context;
+        $this->compile_id = isset($context->compile_id) ? preg_replace('![^\w\|]+!', '_', $context->compile_id) : null;
+        $this->cache_id = isset($context->cache_id) ? preg_replace('![^\w\|]+!', '_', $context->cache_id) : null;
         return $this->filepath = sha1($this->source->filepath . $this->cache_id . $this->compile_id);
     }
 
-    /**
-     * populate Cached Object with meta data from Resource
-     *
-     * @param  Smarty $tpl_obj
-     * @return void
-     */
-    public function populate(Smarty $tpl_obj)
-    {
-        $_cache_id = isset($this->cache_id) ? preg_replace('![^\w\|]+!', '_', $this->cache_id) : null;
-        $_compile_id = isset($this->compile_id) ? preg_replace('![^\w\|]+!', '_', $this->compile_id) : null;
-
-        $this->filepath = sha1($this->source->filepath . $_cache_id . $_compile_id);
-        $this->populateTimestamp($tpl_obj);
-    }
 
     /**
      * populate Cached Object with timestamp and exists from Resource
@@ -201,6 +184,7 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
 
         return false;
     }
+
     /**
      * load cache template class
      *
@@ -241,7 +225,7 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
     public function writeCache(Smarty $tpl_obj, $filepath, $content)
     {
         return $this->save(
-            $this->filepath, $this->source->name, $this->cache_id, $this->compile_id,$tpl_obj->cache_lifetime, $content
+            $this->filepath, $this->source->name, $this->cache_id, $this->compile_id, $tpl_obj->cache_lifetime, $content
         );
     }
 

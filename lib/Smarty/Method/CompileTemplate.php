@@ -46,34 +46,30 @@ class Smarty_Method_CompileTemplate
      * @throws Exception
      * @return boolean      status of compilation
      */
-    public function compileTemplate($template = null, $compile_id = null, $parent = null,  $caching = null)
+    public function compileTemplate($template = null, $compile_id = null, $parent = null, $caching = null)
     {
         if ($template === null && ($this->smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE || $this->smarty->_usage == Smarty::IS_CONFIG)) {
             $template = $this->smarty;
         }
-        if (is_object($template)) {
-            // get source from template clone
-            $source = $template->source;
-            $tpl_obj = $template;
-        } else {
-            //get source object from cache  or create new one
-            $source = $this->smarty->_getSourceObject($template);
-            if (!$source->exists) {
-                throw new Smarty_Exception_SourceNotFound($source->type, $source->name);
-            }
-            $tpl_obj = $this->smarty;
+        //get source object from cache  or create new one
+        $context = Smarty_Context::getContext($this->smarty, $template, null, $compile_id, $parent, false, null, null, null, $caching);
+        // checks if source exists
+        if (!$context->exists) {
+            throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
         }
-        if ($source->uncompiled) {
-            // uncompiled source returns always false
+        if ($context->handler->uncompiled) {
+            // uncompiled source returns always true
             return true;
         }
-        $compile_id = isset($compile_id) ? $compile_id : $tpl_obj->compile_id;
-        $caching = isset($caching) ? $caching : $tpl_obj->caching;
         try {
-            $res_obj = $tpl_obj->_loadResource(Smarty::COMPILED, $tpl_obj->compiled_type);
-            $filepath = $res_obj->buildFilepath($tpl_obj, $source, $compile_id, $caching);
-            $compiler = Smarty_Compiler::load($tpl_obj, $source, $filepath, $caching);
+            $res_obj = $context->smarty->_loadResource(Smarty::COMPILED, $context->smarty->compiled_type);
+            $filepath = $res_obj->buildFilepath($context);
+            $context->scope = $context->_buildScope($context->smarty, $context->parent);
+            $compiler = Smarty_Compiler::load($context, $filepath);
             $compiler->compileTemplateSource();
+            $compile_key = isset($context->compile_id) ? $context->compile_id : '';
+            $caching_key = (($context->caching) ? 1 : 0);
+            unset(Smarty_Context::$_object_cache[Smarty::COMPILED][$context->_key][$compile_key][$caching_key]);
             return true;
         } catch (Exception $e) {
             throw $e;

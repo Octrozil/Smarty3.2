@@ -128,7 +128,7 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
             $this->php("\$_scope->{$item}->show = (\$_scope->{$item}->total > 0);")->newline();
         }
         if ($has_name) {
-            $varname = 'smarty_foreach_' .trim($name, '\'"');
+            $varname = 'smarty_foreach_' . trim($name, '\'"');
             $this->php("\$this->_assignInScope('$varname', new Smarty_Variable);")->newline();
 //            $this->php("\$_scope->{$varname} = new Smarty_Variable;")->newline();
             if ($usesSmartyTotal) {
@@ -152,7 +152,7 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
         }
         $this->php("foreach (\$_from as " . $keyterm . " \$_scope->{$item}->value) {")->indent()->newline();
         $this->php("\$_scope->{$item}->_loop = true;")->newline();
-        if ($key != null && $usesPropKey ) {
+        if ($key != null && $usesPropKey) {
             $this->php("\$_scope->{$item}->key = \$_scope->{$key}->value;")->newline();
         }
         if ($usesPropIteration) {

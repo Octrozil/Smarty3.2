@@ -40,12 +40,12 @@ class Smarty_Resource_Cache_Extension_File
         $_time = time();
 
         if (isset($resource_name)) {
-            $source = $smarty->_getSourceObject($resource_name);
-            if ($source->exists) {
+            $context = Smarty_Context::getContext($smarty, $resource_name);
+            if ($context->exists) {
                 // set basename if not specified
-                $_basename = $source->getBasename($source);
+                $_basename = $context->getBasename($context);
                 if ($_basename === null) {
-                    $_basename = basename(preg_replace('![^\w\/]+!', '_', $source->name));
+                    $_basename = basename(preg_replace('![^\w\/]+!', '_', $context->name));
                 }
                 // separate (optional) basename by dot
                 //                if ($_basename) {
@@ -53,7 +53,7 @@ class Smarty_Resource_Cache_Extension_File
                 //                }
                 if ($smarty->use_sub_dirs) {
                     $_preg_file = preg_quote($_basename);
-                    $_dirtpl_obj = $_cache_dir . substr($source->uid, 0, 2) . '/' . $source->uid . '/';
+                    $_dirtpl_obj = $_cache_dir . substr($context->uid, 0, 2) . '/' . $context->uid . '/';
                     // does subdir for template exits?
                     if (!is_dir($_dirtpl_obj)) {
                         return 0;
@@ -61,7 +61,7 @@ class Smarty_Resource_Cache_Extension_File
                     // use template subdir as top level
                     $_dir_array = array($_dirtpl_obj);
                 } else {
-                    $_preg_file = preg_quote($source->uid . '.' . $_basename);
+                    $_preg_file = preg_quote($context->uid . '.' . $_basename);
                 }
             } else {
                 // template does not exist

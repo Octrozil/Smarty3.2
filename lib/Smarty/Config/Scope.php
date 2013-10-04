@@ -34,7 +34,7 @@ class Smarty_Config_Scope
      */
     public function __get($varname)
     {
-        return $this->$varname = Smarty_Template::$call_stack[0]->tpl_obj->getVariable($varname, Smarty_Template::$call_stack[0]->parent);
+        return $this->$varname = Smarty_Template::$call_stack[0]->tpl_obj->_getVariable($varname, Smarty_Template::$call_stack[0]->parent);
     }
 
     /**

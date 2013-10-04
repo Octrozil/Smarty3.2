@@ -99,13 +99,13 @@ class Smarty_Compiler_Template_Php_Tag_Functionclose extends Smarty_Compiler_Tem
         unset($saved_data[0]['name']);
         // set flag that we are compiling a template function
         $compiler->template_functions[$_name]['parameter'] = array();
-//        $this->smarty = $compiler->tpl_obj;
+//        $this->smarty = $compiler->context->smarty;
         foreach ($saved_data[0] as $_key => $_data) {
             eval('$tmp=' . $_data . ';');
             $compiler->template_functions[$_name]['parameter'][$_key] = $tmp;
         }
         // if caching save template function for possible nocache call
-        if ($compiler->caching) {
+        if ($compiler->context->caching) {
             if (!empty($compiler->called_template_functions)) {
                 $compiler->template_functions[$_name]['called_functions'] = $compiler->called_template_functions;
                 $compiler->called_template_functions = array();
@@ -123,10 +123,10 @@ class Smarty_Compiler_Template_Php_Tag_Functionclose extends Smarty_Compiler_Tem
             }
         }
 
-        if ($compiler->source->type == 'eval' || $compiler->source->type == 'string') {
-            $resource = $compiler->source->type;
+        if ($compiler->context->type == 'eval' || $compiler->context->type == 'string') {
+            $resource = $compiler->context->type;
         } else {
-            $resource = $compiler->tpl_obj->template_resource;
+            $resource = $compiler->context->smarty->template_resource;
             // santitize extends resource
             if (strpos($resource, 'extends:') !== false) {
                 $start = strpos($resource, ':');

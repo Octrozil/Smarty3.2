@@ -57,7 +57,6 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
         // never compile as nocache code
         $compiler->suppressNocacheProcessing = true;
         $compiler->tag_nocache = true;
-        $this->smarty = $compiler->tpl_obj;
         $_name = null;
         $_script = null;
 
@@ -69,21 +68,20 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
             // output will be stored in a smarty variable instead of being displayed
             $_assign = $_attr['assign'];
             // create variable to make sure that the compiler knows about its nocache status
-            $compiler->tpl_obj->_tpl_vars->{trim($_attr['assign'], "'")} = new Smarty_Variable(null, true);
+            $compiler->context->smarty->_tpl_vars->{trim($_attr['assign'], "'")} = new Smarty_Variable(null, true);
         }
         if (isset($_attr['script'])) {
             // script which must be included
             $_function = "smarty_insert_{$_name}";
-            $this->smarty = $compiler->tpl_obj;
             $_filepath = false;
             eval('$_script = ' . $_attr['script'] . ';');
-            if (!isset($compiler->tpl_obj->security_policy) && is_file($_script)) {
+            if (!isset($compiler->context->smarty->security_policy) && is_file($_script)) {
                 $_filepath = $_script;
             } else {
-                if (isset($compiler->tpl_obj->security_policy)) {
-                    $_dir = $compiler->tpl_obj->security_policy->trusted_dir;
+                if (isset($compiler->context->smarty->security_policy)) {
+                    $_dir = $compiler->context->smarty->security_policy->trusted_dir;
                 } else {
-                    $_dir = $compiler->tpl_obj->trusted_dir;
+                    $_dir = $compiler->context->smarty->trusted_dir;
                 }
                 if (!empty($_dir)) {
                     foreach ((array)$_dir as $_script_dir) {
@@ -124,7 +122,7 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
         $_params = 'array(' . implode(", ", $_paramsArray) . ')';
         // call insert
         if (isset($_assign)) {
-            if ($this->smarty->caching) {
+            if ($compiler->context->smarty->caching) {
                 $this->buffer .= str_repeat(' ', $this->indentation * 4);
 
                 $this->raw(str_repeat(' ', $this->indentation * 4))->raw("\$tmp_p = var_export({$_params}, true);")->raw("\n");
@@ -134,7 +132,7 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
             }
         } else {
             $compiler->has_output = true;
-            if ($this->smarty->caching) {
+            if ($compiler->context->smarty->caching) {
                 $this->raw(str_repeat(' ', $this->indentation * 4))->raw("\$tmp_p = var_export({$_params}, true);")->raw("\n");
                 $this->raw(str_repeat(' ', $this->indentation * 4))->raw("echo \"/*%%SmartyNocache%%*/echo {$_function}(\$tmp_p, \\\$this->smarty);/*/%%SmartyNocache%%*/\";")->raw("\n");
             } else {

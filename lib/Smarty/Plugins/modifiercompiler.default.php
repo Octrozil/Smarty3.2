@@ -36,7 +36,7 @@ function smarty_modifiercompiler_default()
         if ($first) {
             preg_match('/(\$_scope->)([0-9]*[a-zA-Z_]\w*)(.*)/', $output, $match);
             if (isset($match[1])) {
-                $output = "isset({$match[1]}{$match[2]}) ? {$match[1]}{$match[2]} : \$this->smarty->getVariable('{$match[2]}', null, true, false)";
+                $output = "isset({$match[1]}{$match[2]}) ? {$match[1]}{$match[2]} : \$this->smarty->_getVariable('{$match[2]}', null, true, false)";
                 $postfix = $match[3];
             }
             $first = false;

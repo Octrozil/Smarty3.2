@@ -80,6 +80,8 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
                 $_parent_scope = Smarty::SCOPE_ROOT;
             } elseif ($_attr['scope'] == 'global') {
                 $_parent_scope = Smarty::SCOPE_GLOBAL;
+            } elseif ($_attr['scope'] == 'none') {
+                $_parent_scope = Smarty::SCOPE_NONE;
             }
         }
         $_caching = Smarty::CACHING_OFF;
@@ -88,7 +90,7 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
 //            $_caching = Smarty::CACHING_OFF;
 //        }
         // default for included templates
-        if ($compiler->caching && !$compiler->nocache && !$compiler->tag_nocache) {
+        if ($compiler->context->caching && !$compiler->nocache && !$compiler->tag_nocache) {
             $_caching = Smarty::CACHING_NOCACHE_CODE;
         }
         /*
@@ -127,8 +129,8 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
         $this->iniTagCode($compiler);
 
         $has_compiledtpl_obj = false;
-        if (($compiler->tpl_obj->merge_compiled_includes || $_attr['inline'] === true) && !$compiler->source->recompiled
-            && !($compiler->caching && ($compiler->tag_nocache || $compiler->nocache || $compiler->nocache_nolog)) && $_caching != Smarty::CACHING_LIFETIME_CURRENT
+        if (($compiler->context->smarty->merge_compiled_includes || $_attr['inline'] === true) && !$compiler->context->handler->recompiled
+            && !($compiler->context->caching && ($compiler->tag_nocache || $compiler->nocache || $compiler->nocache_nolog)) && $_caching != Smarty::CACHING_LIFETIME_CURRENT
         ) {
             // check if compiled code can be merged (contains no variable part)
             if ((substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2)
@@ -137,22 +139,22 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
                 $tpl_name = null;
                 eval("\$tpl_name = $include_file;");
                 if (!isset(Smarty_Compiler_Template_Php_Compiler::$merged_inline_content_classes[$tpl_name])) {
-                    $tpl = clone $compiler->tpl_obj;
-                    unset($tpl->source, $tpl->compiled, $tpl->cached, $tpl->compiler, $tpl->mustCompile);
+                    $tpl = clone $compiler->context->smarty;
+                    unset($tpl->context, $tpl->compiled, $tpl->cached, $tpl->compiler, $tpl->mustCompile);
                     $tpl->template_resource = $tpl_name;
-                    $tpl->parent = $compiler->tpl_obj;
-                    if ($compiler->caching) {
+                    $tpl->parent = $compiler->context->smarty;
+                    if ($compiler->context->caching) {
                         // needs code for cached page but no cache file
                         $tpl->caching = Smarty::CACHING_NOCACHE_CODE;
                     }
                     // make sure whole chain gets compiled
-                    $tpl->mustCompile = true;
-                    if (!$tpl->source->uncompiled && $tpl->source->exists) {
+                    $tpl->force_compile = true;
+                    if (!$tpl->context->handler->uncompiled && $tpl->context->exists) {
                         // get compiled code
                         $tpl->compiler->suppressTemplatePropertyHeader = true;
                         $tpl->compiler->write_compiled_code = false;
                         $tpl->compiler->content_class = Smarty_Compiler_Template_Php_Compiler::$merged_inline_content_classes[$tpl_name]['class'] = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
-                        $tpl->compiler->template_code->newline()->php("/* Inline subtemplate compiled from \"{$tpl->source->filepath}\" */")->newline();
+                        $tpl->compiler->template_code->newline()->php("/* Inline subtemplate compiled from \"{$tpl->context->filepath}\" */")->newline();
                         $tpl->compiler->compileTemplate();
                         $compiler->required_plugins['compiled'] = array_merge($compiler->required_plugins['compiled'], $tpl->compiler->required_plugins['compiled']);
                         $compiler->required_plugins['nocache'] = array_merge($compiler->required_plugins['nocache'], $tpl->compiler->required_plugins['nocache']);
@@ -165,7 +167,7 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
                         // save merged template
                         Smarty_Compiler::$merged_inline_content_classes[$tpl_name]['code'] = $tpl->compiler->_createSmartyContentClass($tpl, true);
                         // merge file dependency
-                        $compiler->file_dependency[$tpl->source->uid] = array($tpl->source->filepath, $tpl->source->timestamp, $tpl->source->type);
+                        $compiler->file_dependency[$tpl->context->uid] = array($tpl->context->filepath, $tpl->context->timestamp, $tpl->context->type);
                         $compiler->file_dependency = array_merge($compiler->file_dependency, $tpl->compiler->file_dependency);
                         $compiler->has_nocache_code = $compiler->has_nocache_code | $tpl->compiler->has_nocache_code;
                         $has_compiledtpl_obj = true;
@@ -181,7 +183,7 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
         unset($_attr['file'], $_attr['assign'], $_attr['cache_id'], $_attr['compile_id'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']);
         // remaining attributes must be assigned as smarty variable
         if (!empty($_attr)) {
-            if ($_parent_scope == Smarty::SCOPE_LOCAL) {
+            if ($_parent_scope == Smarty::SCOPE_LOCAL || $_parent_scope == Smarty::SCOPE_NONE) {
                 // create variables
                 foreach ($_attr as $key => $value) {
                     $_pairs[] = "'$key'=>$value";
@@ -204,7 +206,7 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
         // was there an assign attribute
         if (isset($_assign)) {
             $this->php("\$this->_assignInScope('{$_assign}',  new Smarty_Variable (\$this->_getSubTemplate ($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope , \$_scope, $_class)));")->newline();
-       } else {
+        } else {
             $this->php("echo \$this->_getSubTemplate ($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, \$_scope, $_class);")->newline();
         }
 

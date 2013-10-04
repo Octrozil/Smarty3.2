@@ -46,8 +46,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredFunction extends Smart
             $compiler->tag_nocache = true;
         }
         unset($_attr['nocache']);
-        if (isset($compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_FUNCTION][$tag])) {
-            $tag_info = $compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_FUNCTION][$tag];
+        if (isset($compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_FUNCTION][$tag])) {
+            $tag_info = $compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_FUNCTION][$tag];
         } else {
             $tag_info = $compiler->default_handler_plugins[Smarty::PLUGIN_FUNCTION][$tag];
         }

@@ -36,8 +36,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
             case 'foreach':
             case 'section':
                 $name = 'smarty';
-                for ($i = 0; $i<count($_index)-1;$i++) {
-                    $name .= '_' .trim($_index[$i], "'");
+                for ($i = 0; $i < count($_index) - 1; $i++) {
+                    $name .= '_' . trim($_index[$i], "'");
                 }
                 $last = end($_index);
                 return "\$_scope->{$name}->value[$last]";
@@ -46,7 +46,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
             case 'now':
                 return 'time()';
             case 'cookies':
-                if (isset($compiler->tpl_obj->security_policy) && !$compiler->tpl_obj->security_policy->allow_super_globals) {
+                if (isset($compiler->context->smarty->security_policy) && !$compiler->context->smarty->security_policy->allow_super_globals) {
                     $compiler->error("(secure mode) super globals not permitted");
                     break;
                 }
@@ -59,7 +59,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
             case 'server':
             case 'session':
             case 'request':
-                if (isset($compiler->tpl_obj->security_policy) && !$compiler->tpl_obj->security_policy->allow_super_globals) {
+                if (isset($compiler->context->smarty->security_policy) && !$compiler->context->smarty->security_policy->allow_super_globals) {
                     $compiler->error("(secure mode) super globals not permitted");
                     break;
                 }
@@ -67,10 +67,10 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
                 break;
 
             case 'template':
-                return 'basename($this->source->filepath)';
+                return 'basename($this->context->filepath)';
 
             case 'current_dir':
-                return 'dirname($this->source->filepath)';
+                return 'dirname($this->context->filepath)';
 
             case 'is_cached':
                 return '$this->smarty->cached->valid';
@@ -84,7 +84,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
                 return "'$_version'";
 
             case 'const':
-                if (isset($compiler->tpl_obj->security_policy) && !$compiler->tpl_obj->security_policy->allow_constants) {
+                if (isset($compiler->context->smarty->security_policy) && !$compiler->context->smarty->security_policy->allow_constants) {
                     $compiler->error("(secure mode) constants not permitted");
                     break;
                 }
@@ -99,12 +99,12 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
                     return "\$_scope->___config_var_{$name}";
                 }
             case 'ldelim':
-                $_ldelim = $compiler->tpl_obj->left_delimiter;
+                $_ldelim = $compiler->context->smarty->left_delimiter;
 
                 return "'$_ldelim'";
 
             case 'rdelim':
-                $_rdelim = $compiler->tpl_obj->right_delimiter;
+                $_rdelim = $compiler->context->smarty->right_delimiter;
 
                 return "'$_rdelim'";
 

@@ -44,8 +44,8 @@ class Smarty_Variable_Method_GetTemplateVars
      */
     public function getTemplateVars($varname = null, $_ptr = null, $search_parents = true)
     {
-         if (isset($varname)) {
-            $result = $this->smarty->getVariable($varname, $_ptr, $search_parents, false);
+        if (isset($varname)) {
+            $result = $this->smarty->_getVariable($varname, $_ptr, $search_parents, false);
             if ($result === null) {
                 return false;
             } else {

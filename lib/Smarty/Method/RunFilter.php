@@ -32,7 +32,7 @@ class Smarty_Method_RunFilter
         $this->smarty = $smarty;
     }
 
-   /**
+    /**
      * Run filters over content
      *
      * The filters will be lazy loaded if required
@@ -65,7 +65,7 @@ class Smarty_Method_RunFilter
                         $output = call_user_func(array($plugin_name, 'execute'), $output, $this->smarty);
                     }
                     if ($this->smarty->enable_trace && isset(Smarty::$_trace_callbacks['filter:'])) {
-                        $this->smarty->_triggerTraceCallback('filter:', array($obj,'autoload', $type, $name, $callback));
+                        $this->smarty->_triggerTraceCallback('filter:', array($obj, 'autoload', $type, $name, $callback));
                     }
                 } else {
                     // nothing found, throw exception

@@ -46,7 +46,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_InheritanceTemplate extends Smar
         // set inheritance flags
         $compiler->isInheritance = $compiler->isInheritanceChild = true;
         // parents must not create cache files
-        if ($compiler->caching) {
+        if ($compiler->context->caching) {
             $_caching = Smarty::CACHING_NOCACHE_CODE;
         }
         $file = realpath(trim($_attr['file'], "'"));

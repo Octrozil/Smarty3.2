@@ -56,6 +56,19 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
     public $tpl_obj = null;
 
     /**
+     * context object
+     *
+     * @var Smarty_Context
+     */
+    public $context = null;
+
+    /**
+     * compiled filepath
+     *
+     * @var string
+     */
+    public $filepath = null;
+    /**
      * file dependencies
      *
      * @var array
@@ -74,13 +87,16 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
      *
      * @param string $lexer_class  config lexer class name
      * @param string $parser_class config parser class name
-     * @param Smarty $tpl_obj      clone of Smarty class for config file
+     * @param Smarty_Context $context context object
+     * @param $compiled_filepath
      */
-    public function __construct($lexer_class, $parser_class, $tpl_obj)
+    public function __construct($lexer_class, $parser_class, Smarty_Context $context, $compiled_filepath)
     {
         $this->lexer_class = $lexer_class;
         $this->parser_class = $parser_class;
-        $this->tpl_obj = $tpl_obj;
+        $this->tpl_obj = $context->smarty;
+        $this->context = $context;
+        $this->filepath = $compiled_filepath;
         $this->config_data['sections'] = array();
         $this->config_data['vars'] = array();
     }
@@ -95,9 +111,9 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
         /* here is where the compiling takes place. Smarty
           tags in the templates are replaces with PHP code,
           then written to compiled files. */
-        $this->file_dependency[$this->tpl_obj->source->uid] = array($this->tpl_obj->source->filepath, $this->tpl_obj->source->timestamp, $this->tpl_obj->source->type);
+        $this->file_dependency[$this->context->uid] = array($this->context->filepath, $this->context->timestamp, $this->context->type);
         // get config file source
-        $_content = $this->tpl_obj->source->getContent() . "\n";
+        $_content = $this->context->getContent() . "\n";
         // on empty template just return
         if ($_content == '') {
             return true;
@@ -123,20 +139,16 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
         // content class name
         $class = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
         $this->raw("<?php")->newline();
-        $this->raw("/* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . " compiled from \"" . $this->tpl_obj->source->filepath . "\" */")->newline();
+        $this->raw("/* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . " compiled from \"" . $this->context->filepath . "\" */")->newline();
         $this->php("if (!class_exists('{$class}',false)) {")->newline()->indent()->php("class {$class} extends Smarty_Template {")->newline()->indent();
         $this->php("public \$version = '" . Smarty::SMARTY_VERSION . "';")->newline();
         $this->php("public \$file_dependency = ")->repr($this->file_dependency, false)->raw(";")->newline()->newline();
         $this->php("public \$config_data = ")->repr($this->config_data)->raw(";")->newline()->newline();
 
-        $this->php("function _renderTemplate (\$_scope) {")->newline()->indent();
-        $this->php("\$this->_loadConfigVars(\$this);")->newline();
-        $this->outdent()->php("}")->newline();
-
         $this->outdent()->php("}")->newline()->outdent()->php("}")->newline();
         $this->php("\$template_class_name = '{$class}';")->newline();
 
-        $this->tpl_obj->writeFile($this->tpl_obj->compiled->filepath, $this->buffer);
+        $this->tpl_obj->writeFile($this->filepath, $this->buffer);
         $this->buffer = '';
         $this->config_data = array();
         $this->lex->compiler = null;
@@ -164,7 +176,7 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
             // $line--;
         }
         $match = preg_split("/\n/", $this->lex->data);
-        $error_text = "Syntax error in config file '{$this->tpl_obj->source->filepath}' on line {$line} '{$match[$line - 1]}' ";
+        $error_text = "Syntax error in config file '{$this->context->filepath}' on line {$line} '{$match[$line - 1]}' ";
         if (isset($args)) {
             // individual error message
             $error_text .= $args;

@@ -14,7 +14,7 @@
  *
  * @package Smarty\Extension
  */
-class Smarty_Variable_Method_GetVariable
+class Smarty_Variable_Internal_GetVariable
 {
     /**
      *  Smarty object
@@ -42,11 +42,10 @@ class Smarty_Variable_Method_GetVariable
      * @param  object $_ptr           optional pointer to data object
      * @param  boolean $search_parents search also in parent data
      * @param  boolean $error_enable   enable error handling
-     * @param  null $property          optional requested variable property
      * @param  boolean $disable_default       if true disable default handler
      * @return mixed                    Smarty_variable object|property of variable
      */
-    public function getVariable($varname, $_ptr = null, $search_parents = true, $error_enable = true, $property = null, $disable_default = false)
+    public function _getVariable($varname, $_ptr = null, $search_parents = true, $error_enable = true, $disable_default = false)
     {
         if ($_ptr === null) {
             $_ptr = $this->smarty;
@@ -54,11 +53,7 @@ class Smarty_Variable_Method_GetVariable
         while ($_ptr !== null) {
             if (isset($_ptr->_tpl_vars->$varname)) {
                 // found it, return it
-                if ($property === null) {
-                    return $_ptr->_tpl_vars->$varname;
-                } else {
-                    return isset($_ptr->_tpl_vars->$varname->$property) ? $_ptr->_tpl_vars->$varname->$property : null;
-                }
+                return $_ptr->_tpl_vars->$varname;
             }
             // not found, try at parent
             if ($search_parents) {
@@ -71,18 +66,14 @@ class Smarty_Variable_Method_GetVariable
         // try global variable
         if (isset(Smarty::$_global_tpl_vars->$varname)) {
             // found it, return it
-            if ($property === null) {
-                return Smarty::$_global_tpl_vars->$varname;
-            } else {
-                return isset(Smarty::$_global_tpl_vars->$varname->$property) ? Smarty::$_global_tpl_vars->$varname->$property : null;
-            }
+            return Smarty::$_global_tpl_vars->$varname;
         }
 
         if ($disable_default) {
             return null;
         } else {
             // try default variable
-            return Smarty_Variable_Method_DefaultVariableHandler::getDefaultVariable($this->smarty, $varname, $property, $error_enable);
+            return $this->smarty->_getDefaultVariable($varname, $error_enable);
         }
     }
 }

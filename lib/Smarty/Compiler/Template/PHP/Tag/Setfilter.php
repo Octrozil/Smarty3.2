@@ -29,8 +29,8 @@ class Smarty_Compiler_Template_Php_Tag_Setfilter extends Smarty_Compiler_Templat
      */
     public function compile($args, $compiler, $parameter)
     {
-        $compiler->variable_filter_stack[] = $compiler->tpl_obj->variable_filters;
-        $compiler->tpl_obj->variable_filters = $parameter['modifier_list'];
+        $compiler->variable_filter_stack[] = $compiler->context->smarty->variable_filters;
+        $compiler->context->smarty->variable_filters = $parameter['modifier_list'];
         // this tag does not return compiled code
         $compiler->has_code = false;
 
@@ -62,9 +62,9 @@ class Smarty_Compiler_Template_Php_Tag_Setfilterclose extends Smarty_Compiler_Te
         $_attr = $this->getAttributes($compiler, $args);
         // reset variable filter to previous state
         if (count($compiler->variable_filter_stack)) {
-            $compiler->tpl_obj->variable_filters = array_pop($compiler->variable_filter_stack);
+            $compiler->context->smarty->variable_filters = array_pop($compiler->variable_filter_stack);
         } else {
-            $compiler->tpl_obj->variable_filters = array();
+            $compiler->context->smarty->variable_filters = array();
         }
         // this tag does not return compiled code
         $compiler->has_code = false;

@@ -33,7 +33,7 @@ class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
      *
      * @var string
      */
-    public $content  = null;
+    public $content = null;
 
     /**
      * This resource allows relative path
@@ -45,34 +45,32 @@ class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty            $smarty Smarty object
-     * @param Smarty_Source     $source Source object
-     * @param Smarty            $parent
+     * @param Smarty_Context $context
      */
-    public function populate(Smarty $smarty, Smarty_Source $source, $parent = null)
+    public function populate(Smarty_Context $context)
     {
-        $source->filepath = $this->buildFilepath($smarty, $source, $parent);
-        $source->uid = false;
-        $source->timestamp = false;
-        $source->exists = $this->getContent($source);
+        $context->filepath = $this->buildFilepath($context);
+        $context->uid = false;
+        $context->timestamp = false;
+        $context->exists = $this->getContent($context);
     }
 
     /**
      * build template filepath by traversing the template_dir array
      *
-     * @param  Smarty           $smarty template object
-     * @param  Smarty_Source    $source Source object
+     * @param  Smarty_Context $context
      * @return string           fully qualified filepath
      */
-    public function buildFilepath(Smarty $smarty, $source, $parent = null) {
-        if (strpos($source->name, '://') !== false) {
-            return $source->name;
+    public function buildFilepath(Smarty_Context $context)
+    {
+        if (strpos($context->name, '//') !== 0) {
+            return $context->type . '://' . $context->name;
         } else {
-            return str_replace(':', '://', $source->name);
+            return $context->type . ':' . $context->name;
         }
     }
 
-     /**
+    /**
      * Load template's source from stream into current template object
      *
      * @return string           template source
@@ -81,27 +79,27 @@ class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
     /**
      * Load template's source from stream into current template object
      *
-     * @param Smarty_Source $source
+     * @param Smarty_Context $context
      * @return boolean false|string
      */
-    public function getContent($source)
+    public function getContent(Smarty_Context $context)
     {
-        if ($this->content !== null) {
-            return $this->content;
+        if ($context->content !== null) {
+            return $context->content;
         }
         // the availability of the stream has already been checked in Smarty_Resource_Source::fetch()
-        $fp = fopen($this->filepath, 'r+');
+        $fp = fopen($context->filepath, 'r+');
         if ($fp) {
-            $this->content = '';
             while (!feof($fp) && ($current_line = fgets($fp)) !== false) {
-                $this->content .= $current_line;
+                $context->content .= $current_line;
             }
             fclose($fp);
 
-            return true;
-        } else {
-            return false;
+            if (isset($context->content)) {
+                return true;
+            }
         }
+        return false;
     }
 
     /**
@@ -109,10 +107,10 @@ class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
      *
      * Always returns an empty string.
      *
-     * @param Smarty_Source $source
+     * @param Smarty_Context $context
      * @return string resource's basename
      */
-    public function getBasename($source)
+    public function getBasename(Smarty_Context $context)
     {
         return '';
     }

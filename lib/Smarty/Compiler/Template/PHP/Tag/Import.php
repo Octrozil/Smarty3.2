@@ -68,10 +68,10 @@ class Smarty_Compiler_Template_Php_Tag_Import extends Smarty_Compiler_Template_P
         if (!(substr_count($include_file, "'") == 2 || substr_count($include_file, '"') == 2)) {
             $compiler->error('illegal variable template name', $compiler->lex->taglineno);
         }
-
+        $_scope = $compiler->context->scope;
         eval("\$tpl_name = $include_file;");
-        $source = $compiler->tpl_obj->_getSourceObject($tpl_name);
-        $comp = Smarty_Compiler::load($compiler->tpl_obj, $source, $compiler->caching);
+        $source = Smarty_Context::getContext($compiler->context->smarty, $tpl_name);
+        $comp = Smarty_Compiler::load($compiler->context->smarty, $source, $compiler->context->caching);
         $comp->nocache = $compiler->nocache;
         // set up parameter
         $comp->suppressTemplatePropertyHeader = true;
@@ -97,7 +97,7 @@ class Smarty_Compiler_Template_Php_Tag_Import extends Smarty_Compiler_Template_P
         $compiler->required_plugins['compiled'] = array_merge($compiler->required_plugins['compiled'], $comp->required_plugins['compiled']);
         $compiler->required_plugins['nocache'] = array_merge($compiler->required_plugins['nocache'], $comp->required_plugins['nocache']);
         // merge filedependency
-        $compiler->file_dependency[$tpl->source->uid] = array($tpl->source->filepath, $tpl->source->timestamp, $tpl->source->type);
+        $compiler->file_dependency[$tpl->context->uid] = array($tpl->context->filepath, $tpl->context->timestamp, $tpl->context->type);
         $compiler->file_dependency = array_merge($compiler->file_dependency, $comp->file_dependency);
         $compiler->has_nocache_code = $compiler->has_nocache_code | $comp->has_nocache_code;
 

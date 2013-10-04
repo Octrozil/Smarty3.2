@@ -47,8 +47,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                 switch ($type) {
                     case 1:
                         // registered modifier
-                        if (isset($compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_MODIFIER][$modifier])) {
-                            $function = $compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_MODIFIER][$modifier][0];
+                        if (isset($compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_MODIFIER][$modifier])) {
+                            $function = $compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_MODIFIER][$modifier][0];
                             $object = $this->testParameter($modifier, $function, $single_modifier, $compiler);
                             if ($function instanceof Closure) {
                                 $output = '$this->smarty->_registered[\'plugin\'][Smarty::PLUGIN_MODIFIER][\'' . $modifier . '\'][0](' . $object . $params . ')';
@@ -67,17 +67,17 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                         break;
                     case 2:
                         // registered modifier compiler
-                        if (isset($compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_MODIFIERCOMPILER][$modifier][0])) {
-                            $output = call_user_func($compiler->tpl_obj->_registered['plugin'][Smarty::PLUGIN_MODIFIERCOMPILER][$modifier][0], $single_modifier, $compiler->tpl_obj);
+                        if (isset($compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_MODIFIERCOMPILER][$modifier][0])) {
+                            $output = call_user_func($compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_MODIFIERCOMPILER][$modifier][0], $single_modifier, $compiler->context->smarty);
                             $compiler->known_modifier_type[$modifier] = $type;
                             break 2;
                         }
                         break;
                     case 3:
                         // modifiercompiler plugin
-                        if ($compiler->tpl_obj->_loadPlugin('smarty_modifiercompiler_' . $modifier)) {
+                        if ($compiler->context->smarty->_loadPlugin('smarty_modifiercompiler_' . $modifier)) {
                             // check if modifier allowed
-                            if (!is_object($compiler->tpl_obj->security_policy) || $compiler->tpl_obj->security_policy->isTrustedModifier($modifier, $compiler)) {
+                            if (!is_object($compiler->context->smarty->security_policy) || $compiler->context->smarty->security_policy->isTrustedModifier($modifier, $compiler)) {
                                 $plugin = 'smarty_modifiercompiler_' . $modifier;
                                 if ($this->getNoOfRequiredParameter($plugin) == 0) {
                                     // NOTE: This covers the modifier like 'default' and 'cat' which can take any number of parameter
@@ -101,7 +101,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                         if ($function = $compiler->getPlugin($modifier, Smarty::PLUGIN_MODIFIER)) {
                             $object = $this->testParameter($modifier, $function, $single_modifier, $compiler);
                             // check if modifier allowed
-                            if (!is_object($compiler->tpl_obj->security_policy) || $compiler->tpl_obj->security_policy->isTrustedModifier($modifier, $compiler)) {
+                            if (!is_object($compiler->context->smarty->security_policy) || $compiler->context->smarty->security_policy->isTrustedModifier($modifier, $compiler)) {
                                 $output = "{$function}({$object}{$params})";
                             }
                             $compiler->known_modifier_type[$modifier] = $type;
@@ -113,7 +113,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                         if (is_callable($modifier)) {
                             $object = $this->testParameter($modifier, $modifier, $single_modifier, $compiler);
                             // check if modifier allowed
-                            if (!is_object($compiler->tpl_obj->security_policy) || $compiler->tpl_obj->security_policy->isTrustedPhpModifier($modifier, $compiler)) {
+                            if (!is_object($compiler->context->smarty->security_policy) || $compiler->context->smarty->security_policy->isTrustedPhpModifier($modifier, $compiler)) {
                                 $output = "{$modifier}({$object}{$params})";
                             }
                             $compiler->known_modifier_type[$modifier] = $type;
@@ -122,14 +122,14 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                         break;
                     case 6:
                         // default plugin handler
-                        if (isset($compiler->default_handler_plugins[Smarty::PLUGIN_MODIFIER][$modifier]) || (is_callable($compiler->tpl_obj->default_plugin_handler_func) && $compiler->getPluginFromDefaultHandler($modifier, Smarty::PLUGIN_MODIFIER))) {
+                        if (isset($compiler->default_handler_plugins[Smarty::PLUGIN_MODIFIER][$modifier]) || (is_callable($compiler->context->smarty->default_plugin_handler_func) && $compiler->getPluginFromDefaultHandler($modifier, Smarty::PLUGIN_MODIFIER))) {
                             $function = $compiler->default_handler_plugins[Smarty::PLUGIN_MODIFIER][$modifier][0];
                             $object = $this->testParameter($modifier, $function, $single_modifier, $compiler);
                             // check if modifier allowed
                             //if ($function instanceof Callable) {
                             if (false) {
                                 // TODO default_handler_plugins closure
-                            } elseif (!is_object($compiler->tpl_obj->security_policy) || $compiler->tpl_obj->security_policy->isTrustedModifier($modifier, $compiler)) {
+                            } elseif (!is_object($compiler->context->smarty->security_policy) || $compiler->context->smarty->security_policy->isTrustedModifier($modifier, $compiler)) {
                                 if (!is_array($function)) {
                                     $output = "{$function}({$params})";
                                 } else {

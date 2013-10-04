@@ -53,7 +53,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
         $this->buffer = '';
         $this->sourceLineNo = $compiler->lex->taglineno;
         $this->indentation = $this->savedIndentation = $compiler->template_code->indentation;
-        $this->noIndent = !$compiler->suppressNocacheProcessing && $compiler->caching && ($compiler->nocache || $compiler->tag_nocache || $compiler->forceNocache);
+        $this->noIndent = !$compiler->suppressNocacheProcessing && $compiler->context->caching && ($compiler->nocache || $compiler->tag_nocache || $compiler->forceNocache);
 
         return $this;
     }

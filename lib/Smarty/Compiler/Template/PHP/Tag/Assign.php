@@ -44,10 +44,10 @@ class Smarty_Compiler_Template_Php_Tag_Assign extends Smarty_Compiler_Template_P
         if ($compiler->tag_nocache || $compiler->nocache) {
             $_nocache = 'true';
             // create nocache var to make it know for further compiling
-            if (isset($compiler->tpl_obj->_tpl_vars->$var)) {
-                $compiler->tpl_obj->_tpl_vars->$var->nocache = true;
+            if (isset($compiler->context->smarty->_tpl_vars->$var)) {
+                $compiler->context->smarty->_tpl_vars->$var->nocache = true;
             } else {
-                $compiler->tpl_obj->_tpl_vars->$var = new Smarty_Variable(null, true);
+                $compiler->context->smarty->_tpl_vars->$var = new Smarty_Variable(null, true);
             }
         }
         // scope setup
@@ -81,7 +81,7 @@ class Smarty_Compiler_Template_Php_Tag_Assign extends Smarty_Compiler_Template_P
             $this->php("\$this->_assignInScope('{$var}', new Smarty_Variable($_attr[value], $_nocache), {$scope_type});")->newline();
         }
 
-        if ($_attr['cachevalue'] === true && $compiler->caching) {
+        if ($_attr['cachevalue'] === true && $compiler->context->caching) {
             if (isset($parameter['smarty_internal_index'])) {
                 $compiler->error('cannot assign to array with "cachevalue" option', $compiler->lex->taglineno);
             } else {

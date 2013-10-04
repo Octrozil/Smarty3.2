@@ -9,14 +9,14 @@
         <script language="javascript" type="text/javascript">
             function showHide(shID) {
                 if (document.getElementById(shID)) {
-                    if (document.getElementById(shID+'-show').style.display != 'none') {
-                        document.getElementById(shID+'-show').style.display = 'none';
-                        document.getElementById(shID+'-hide').style.display = 'inline';
+                    if (document.getElementById(shID + '-show').style.display != 'none') {
+                        document.getElementById(shID + '-show').style.display = 'none';
+                        document.getElementById(shID + '-hide').style.display = 'inline';
                         document.getElementById(shID).style.display = 'block';
                     }
                     else {
-                        document.getElementById(shID+'-show').style.display = 'inline';
-                        document.getElementById(shID+'-hide').style.display = 'none';
+                        document.getElementById(shID + '-show').style.display = 'inline';
+                        document.getElementById(shID + '-hide').style.display = 'none';
                         document.getElementById(shID).style.display = 'none';
                     }
                 }
@@ -50,6 +50,7 @@
                 padding: 2px;
                 border-top: 1px solid black;
             }
+
             h3 {
                 background-color: #9B410E;
                 color: white;
@@ -100,25 +101,35 @@
                 font-size: 0.8em;
                 font-style: italic;
             }
+
             .more {
                 display: none;
                 border-top: 1px solid #666;
-                border-bottom: 1px solid #666; }
+                border-bottom: 1px solid #666;
+            }
+
             .hide {
                 display: none;
             }
+
             .show {
             }
+
             a.showLink, a.hideLink {
                 text-decoration: none;
                 color: #36f;
                 padding-left: 8px;
-                background: transparent  no-repeat left; }
+                background: transparent no-repeat left;
+            }
+
             a.hideLink {
                 display: none;
-                background: transparent  no-repeat left; }
+                background: transparent no-repeat left;
+            }
+
             a.showLink:hover, a.hideLink:hover {
-                border-bottom: 1px dotted #36f; }
+                border-bottom: 1px dotted #36f;
+            }
 
             #table_assigned_vars th {
                 color: blue;
@@ -136,31 +147,40 @@
     <h1>Smarty Debug Logger</h1>
 
     <h2>Smarty Root</h2>
-    <h3><a href="#" id="rootvars-hide" class="hideLink" onclick="showHide('rootvars');return false;">-</a><a href="#" id="rootvars-show" class="showLink" onclick="showHide('rootvars');return false;">+</a>template variables</h3>
-     <div id="rootvars" class="more">
 
-    <table id="table_assigned_vars">
-        {foreach $assigned_vars as $vars}
-            <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">
-                <th>${$vars@key|escape:'html'}</th>
-                <td>{$vars|logger_print_var nofilter}</td>
-            </tr>
-        {/foreach}
-    </table>
+    <h3><a href="#" id="rootvars-hide" class="hideLink" onclick="showHide('rootvars');return false;">-</a><a href="#"
+                                                                                                             id="rootvars-show"
+                                                                                                             class="showLink"
+                                                                                                             onclick="showHide('rootvars');return false;">+</a>template
+        variables</h3>
+
+    <div id="rootvars" class="more">
+
+        <table id="table_assigned_vars">
+            {foreach $assigned_vars as $vars}
+                <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">
+                    <th>${$vars@key|escape:'html'}</th>
+                    <td>{$vars|logger_print_var nofilter}</td>
+                </tr>
+            {/foreach}
+        </table>
     </div>
 
-    <h3><a href="#" id="configvars-hide" class="hideLink" onclick="showHide('configvars');return false;">-</a><a href="#" id="configvars-show" class="showLink" onclick="showHide('configvars');return false;">+</a>config variables</h3>
+    <h3><a href="#" id="configvars-hide" class="hideLink" onclick="showHide('configvars');return false;">-</a><a
+                href="#" id="configvars-show" class="showLink" onclick="showHide('configvars');return false;">+</a>config
+        variables</h3>
+
     <div id="configvars" class="more">
 
-    <table id="table_config_vars">
-        {foreach $config_vars as $vars}
-            <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">
-                <th>{$vars@key|escape:'html'}</th>
-                <td>{$vars|logger_print_var nofilter}</td>
-            </tr>
-        {/foreach}
+        <table id="table_config_vars">
+            {foreach $config_vars as $vars}
+                <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">
+                    <th>{$vars@key|escape:'html'}</th>
+                    <td>{$vars|logger_print_var nofilter}</td>
+                </tr>
+            {/foreach}
 
-    </table>
+        </table>
     </body>
     </html>
     </div>

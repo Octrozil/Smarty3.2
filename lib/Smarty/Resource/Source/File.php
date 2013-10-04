@@ -40,83 +40,51 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
     public $_allow_relative_path = true;
 
     /**
-     * Template compiler class
-     * @var string
+     * compiler class names
+     * @var array
      */
-    public $template_compiler_class = 'Smarty_Compiler_Template_Php_Compiler';
-
-    /**
-     * Template lexer class
-     * @var string
-     */
-    public $template_lexer_class = 'Smarty_Compiler_Template_Lexer';
-
-    /**
-     * Template parser class
-     * @var string
-     */
-    public $template_parser_class = 'Smarty_Compiler_Template_Php_Parser';
-
-    /**
-     * Config compiler class
-     * @var string
-     */
-    public $config_compiler_class = 'Smarty_Compiler_Config_Compiler';
-
-    /**
-     * Config lexer class
-     * @var string
-     */
-    public $config_lexer_class = 'Smarty_Compiler_Config_Lexer';
-
-    /**
-     * Config parser class
-     * @var string
-     */
-    public $config_parser_class = 'Smarty_Compiler_Config_Parser';
+    public $compiler_class_names = array('Template' => array('Smarty_Compiler_Template_Php_Compiler', 'Smarty_Compiler_Template_Lexer', 'Smarty_Compiler_Template_Php_Parser'),
+        'Config' => array('Smarty_Compiler_Config_Compiler', 'Smarty_Compiler_Config_Lexer', 'Smarty_Compiler_Config_Parser'));
 
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty $smarty Smarty object
-     * @param Smarty_Source $source Source object
-     * @param Smarty $parent
+     * @param Smarty_Context $context
      */
-    public function populate(Smarty $smarty, Smarty_Source $source, $parent = null)
+    public function populate(Smarty_Context $context)
     {
-        $source->filepath = $this->buildFilepath($smarty, $source, $parent);
+        $context->filepath = $this->buildFilepath($context);
 
-        if ($source->filepath !== false) {
-            if (is_object($smarty->security_policy)) {
-                $smarty->security_policy->isTrustedResourceDir($source->filepath);
+        if ($context->filepath !== false) {
+            if (is_object($context->smarty->security_policy)) {
+                $context->smarty->security_policy->isTrustedResourceDir($context->filepath);
             }
-            $source->uid = sha1($source->filepath);
+            $context->uid = sha1($context->filepath);
         }
     }
 
     /**
      * build template filepath by traversing the template_dir array
      *
-     * @param  Smarty $smarty template object
-     * @param  Smarty_Source $source Source object
+     * @param Smarty_Context $context
      * @throws DefaultHandlerNotCallable
      * @throws Smarty_Exception_IllegalRelativePath
      * @return string           fully qualified filepath
      */
-    public function buildFilepath(Smarty $smarty, $source, $parent = null)
+    public function buildFilepath(Smarty_Context $context)
     {
-        $file = $source->name;
+        $file = $context->name;
 
         // go relative to a given template?
         $_file_is_dotted = $file[0] == '.' && ($file[1] == '.' || $file[1] == '/' || $file[1] == '\\');
-        if ($_file_is_dotted && isset($parent) &&
-            ($parent->_usage == Smarty::IS_SMARTY_TPL_CLONE || $parent->_usage == Smarty::IS_TEMPLATE)
+        if ($_file_is_dotted && isset($context->parent) &&
+            ($context->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE || $context->parent->_usage == Smarty::IS_TEMPLATE)
         ) {
-            if (!isset($parent->source->handler->_allow_relative_path)) {
-                throw new Smarty_Exception_IllegalRelativePath($file, $parent->source->type);
+            if (!isset($context->parent->source->handler->_allow_relative_path)) {
+                throw new Smarty_Exception_IllegalRelativePath($file, $context->parent->source->type);
             }
             // get absolute path relative to given template
-            $file = dirname($parent->source->filepath) . '/' . $file;
+            $file = dirname($context->parent->source->filepath) . '/' . $file;
             $_file_exact_match = true;
             // TODO  can this be remove?
             if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
@@ -130,19 +98,19 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
         }
         // process absolute path
         if (isset($_file_exact_match)) {
-            if ($this->fileExists($file, $source)) {
+            if ($this->fileExists($file, $context)) {
                 return $this->normalizePath($file);
             } else if ($_file_is_dotted) {
-                throw new Smarty_Exception_RelativeSourceNotFound($source->type, $file);
+                throw new Smarty_Exception_RelativeSourceNotFound($context->type, $file);
             }
             return false;
         }
 
         // get source directories
-        if ($source->_usage == Smarty::IS_CONFIG) {
-            $_directories = $smarty->getConfigDir();
+        if ($context->_usage == Smarty::IS_CONFIG) {
+            $_directories = $context->smarty->getConfigDir();
         } else {
-            $_directories = $smarty->getTemplateDir();
+            $_directories = $context->smarty->getTemplateDir();
         }
         // template_dir index?
         if ($file[0] == '[' && preg_match('#^\[(?P<key>[^\]]+)\](?P<file>.+)$#', $file, $match)) {
@@ -165,7 +133,7 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
             if ($_directory) {
                 $_file = substr($file, strpos($file, ']') + 1);
                 $_filepath = $_directory . $_file;
-                if ($this->fileExists($_filepath, $source)) {
+                if ($this->fileExists($_filepath, $context)) {
                     $_filepath = $this->normalizePath($_filepath);
                     return $_filepath;
                 }
@@ -175,38 +143,25 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
         $_stream_resolve_include_path = function_exists('stream_resolve_include_path');
         foreach ($_directories as $_directory) {
             $_filepath = $_directory . $file;
-            if ($this->fileExists($_filepath, $source)) {
+            if ($this->fileExists($_filepath, $context)) {
                 return $this->normalizePath($_filepath);
-            }
-            if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_directory)) {
-                // try PHP include_path
-                if ($_stream_resolve_include_path) {
-                    $_filepath = stream_resolve_include_path($_filepath);
-                } else {
-                    $_filepath = $smarty->getIncludePath($_filepath);
-                }
-                if ($_filepath !== false) {
-                    if ($this->fileExists($_filepath, $source)) {
-                        return $this->normalizePath($_filepath);
-                    }
-                }
             }
         }
 
         // try current working directory
-        if ($this->fileExists($file, $source)) {
+        if ($this->fileExists($file, $context)) {
             return $this->normalizePath($file);
         }
 
         // no source file found check default handler
-        if ($source->_usage == Smarty::IS_CONFIG) {
-            $_default_handler = $smarty->default_config_handler_func;
+        if ($context->_usage == Smarty::IS_CONFIG) {
+            $_default_handler = $context->smarty->default_config_handler_func;
         } else {
-            $_default_handler = $smarty->default_template_handler_func;
+            $_default_handler = $context->smarty->default_template_handler_func;
         }
         if ($_default_handler) {
             if (!is_callable($_default_handler)) {
-                if ($smarty->_usage == Smarty::IS_CONFIG) {
+                if ($context->smarty->_usage == Smarty::IS_CONFIG) {
                     throw new Smarty_Exception_DefaultHandlerNotCallable('config');
                 } else {
                     throw new Smarty_Exception_DefaultHandlerNotCallable('template');
@@ -214,16 +169,16 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
             }
             $_content = '';
             $_timestamp = null;
-            $_filepath = call_user_func_array($_default_handler, array($source->type, $source->name, &$_content, &$_timestamp, $smarty));
+            $_filepath = call_user_func_array($_default_handler, array($context->type, $context->name, &$_content, &$_timestamp, $context->smarty));
             if (is_string($_filepath)) {
-                if ($this->fileExists($_filepath, $source)) {
+                if ($this->fileExists($_filepath, $context)) {
                     return $this->normalizePath($_filepath);
                 }
                 return false;
             } elseif ($_filepath === true) {
-                $source->content = $_content;
-                $source->timestamp = $_timestamp;
-                $source->exists = true;
+                $context->content = $_content;
+                $context->timestamp = $_timestamp;
+                $context->exists = true;
                 return $_filepath;
             }
         }
@@ -256,13 +211,13 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
     /**
      * read file content
      *
-     * @param Smarty_Source $source
+     * @param Smarty_Context $context
      * @return boolean false|string
      */
-    public function getContent($source)
+    public function getContent(Smarty_Context $context)
     {
-        if ($source->exists) {
-            return file_get_contents($source->filepath);
+        if ($context->exists) {
+            return file_get_contents($context->filepath);
         }
         return false;
     }
@@ -270,12 +225,12 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
     /**
      * Determine basename for compiled filename
      *
-     * @param Smarty_Source $source
+     * @param Smarty_Context $context
      * @return string resource's basename
      */
-    public function getBasename($source)
+    public function getBasename(Smarty_Context $context)
     {
-        $_file = $source->name;
+        $_file = $context->name;
         if (($_pos = strpos($_file, ']')) !== false) {
             $_file = substr($_file, $_pos + 1);
         }
@@ -287,15 +242,15 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
      * test is file exists and save timestamp
      *
      * @param  string $file file name
-     * @param  Smarty_Source $source
+     * @param  Smarty_Context $context
      * @return bool   true if file exists
      */
-    public function fileExists($file, $source)
+    public function fileExists($file, Smarty_Context $context)
     {
-        if ($source->exists = is_file($file)) {
-            $source->timestamp = filemtime($file);
+        if ($context->exists = is_file($file)) {
+            $context->timestamp = filemtime($file);
         }
-        return $source->exists;
+        return $context->exists;
     }
 
     /**

@@ -57,7 +57,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginFunction extends Smarty_Co
         }
         unset($_attr['nocache']);
         $cache_attr = null;
-        if ($compiler->caching) {
+        if ($compiler->context->caching) {
             $result = $this->getAnnotation($function, 'smarty_nocache');
             if ($result) {
                 $compiler->tag_nocache = $compiler->tag_nocache || $result;

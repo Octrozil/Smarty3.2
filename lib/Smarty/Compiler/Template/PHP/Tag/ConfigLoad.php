@@ -76,6 +76,8 @@ class Smarty_Compiler_Template_Php_Tag_ConfigLoad extends Smarty_Compiler_Templa
                 $scope_type = Smarty::SCOPE_ROOT;
             } elseif ($_attr['scope'] == 'global') {
                 $scope_type = Smarty::SCOPE_GLOBAL;
+            } elseif ($_attr['scope'] == 'local') {
+                $scope_type = Smarty::SCOPE_LOCAL;
             } else {
                 $compiler->error('illegal value for "scope" attribute', $compiler->lex->taglineno);
             }

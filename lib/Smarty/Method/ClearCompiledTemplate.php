@@ -48,7 +48,7 @@ class Smarty_Method_ClearCompiledTemplate
     {
         $type = $type ? $type : $this->smarty->compiled_type;
         // load compiled resource
-        $compiled =  $this->smarty->_loadResource(Smarty::COMPILED, $type);
+        $compiled = $this->smarty->_loadResource(Smarty::COMPILED, $type);
         // invalidate complete cache
         // TODO
         //unset(Smarty::$template_cache[Smarty::COMPILED]);
