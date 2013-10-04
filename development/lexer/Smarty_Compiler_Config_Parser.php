@@ -145,7 +145,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic#line 80 "Smar
         $key = $var["key"];
         $value = $var["value"];
 
-        if ($this->compiler->tpl_obj->config_overwrite || !isset($target_array['vars'][$key])) {
+        if ($this->compiler->context->smarty->config_overwrite || !isset($target_array['vars'][$key])) {
             $target_array['vars'][$key] = $value;
         } else {
             settype($target_array['vars'][$key], 'array');
@@ -682,7 +682,7 @@ static public $yy_action = array(
 #line 679 "Smarty_Compiler_Config_Parser.php"
 #line 147 "Smarty_Compiler_Config_Parser.y"
     function yy_r5(){
-    if ($this->compiler->tpl_obj->config_read_hidden) {
+    if ($this->compiler->context->smarty->config_read_hidden) {
         $this->add_section_vars($this->yystack[$this->yyidx + -3]->minor, $this->yystack[$this->yyidx + 0]->minor);
     }
     $this->_retvalue = null;

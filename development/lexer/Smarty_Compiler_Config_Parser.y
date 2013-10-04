@@ -69,7 +69,7 @@
         $key = $var["key"];
         $value = $var["value"];
 
-        if ($this->compiler->tpl_obj->config_overwrite || !isset($target_array['vars'][$key])) {
+        if ($this->compiler->context->smarty->config_overwrite || !isset($target_array['vars'][$key])) {
             $target_array['vars'][$key] = $value;
         } else {
             settype($target_array['vars'][$key], 'array');
@@ -145,7 +145,7 @@ section(res) ::= OPENB SECTION(i) CLOSEB newline var_list(vars). {
 }
 
 section(res) ::= OPENB DOT SECTION(i) CLOSEB newline var_list(vars). {
-    if ($this->compiler->tpl_obj->config_read_hidden) {
+    if ($this->compiler->context->smarty->config_read_hidden) {
         $this->add_section_vars(i, vars);
     }
     res = null;

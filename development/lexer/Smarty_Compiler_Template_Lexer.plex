@@ -99,12 +99,12 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
         $this->line = 1;
         $this->line_offset = $compiler->line_offset;
         $this->compiler = $compiler;
-        $this->ldel = preg_quote($this->compiler->tpl_obj->left_delimiter,'/'); 
-        $this->ldel_length = strlen($this->compiler->tpl_obj->left_delimiter); 
-        $this->rdel = preg_quote($this->compiler->tpl_obj->right_delimiter,'/');
-        $this->rdel_length = strlen($this->compiler->tpl_obj->right_delimiter); 
-        $this->smarty_token_names['LDEL'] =	$this->compiler->tpl_obj->left_delimiter;
-        $this->smarty_token_names['RDEL'] =	$this->compiler->tpl_obj->right_delimiter;
+        $this->ldel = preg_quote($this->compiler->context->smarty->left_delimiter,'/');
+        $this->ldel_length = strlen($this->compiler->context->smarty->left_delimiter);
+        $this->rdel = preg_quote($this->compiler->context->smarty->right_delimiter,'/');
+        $this->rdel_length = strlen($this->compiler->context->smarty->right_delimiter);
+        $this->smarty_token_names['LDEL'] =	$this->compiler->context->smarty->left_delimiter;
+        $this->smarty_token_names['RDEL'] =	$this->compiler->context->smarty->right_delimiter;
         $this->mbstring_overload = ini_get('mbstring.func_overload') & 2;
      }
 
@@ -115,13 +115,13 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
     }
 
      function autoLiteral ($value) {
-        if ($this->compiler->tpl_obj->auto_literal) {
+        if ($this->compiler->context->smarty->auto_literal) {
             if (false !== $pos = strrpos($value, '-')) {
                 $pos++;
-            } else if (false !== $pos = strrpos($value, $this->compiler->tpl_obj->left_delimiter)) {
-                $pos += strlen ($this->compiler->tpl_obj->left_delimiter);
+            } else if (false !== $pos = strrpos($value, $this->compiler->context->smarty->left_delimiter)) {
+                $pos += strlen ($this->compiler->context->smarty->left_delimiter);
             }
-            if (isset($value[$pos]) && $value[$pos] == ' ') {
+            if (isset($value[$pos]) && $c = strpbrk($value[$pos], " \n\t\r")) {
                 return true;
             }
         }
@@ -148,8 +148,7 @@ aspendtag = /%>/
 ldel = /(\s*SMARTYldel\-\-|[^\S\r\n]*SMARTYldel\-|SMARTYldel)\s*/
 rdel = /\s*(SMARTYrdel|--SMARTYrdel\s*|-SMARTYrdel[^\S\r\n]*)/
 slash = /\//
-integer = /\d+/
-number =  /0[xX][0-9a-fA-F]+|\d+\.\d+/
+number =  /0[xX][0-9a-fA-F]+|\d*\.\d+|\d+/
 comment = /\*([\S\s]*?)\*/
 math = /\s*(\*|\/|\%)\s*/
 idincdec = /\$[0-9]*[a-zA-Z_]\w*(\+\+|\-\-)/
@@ -177,7 +176,7 @@ vert = /\|/
 andsym = /\s*\&\s*/
 qmark = /\s*\?\s*/
 constant = /([_]+[A-Z0-9][0-9A-Z_]*|[A-Z][0-9A-Z_]*)(?![0-9A-Z_]*[a-z])/
-attr = /\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\s*=\s*/
+attr = /\s+([0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*|\d+)\s*=\s*/
 id = /[0-9]*[a-zA-Z_]\w*/
 literal = /literal/
 strip = /strip/
@@ -200,6 +199,7 @@ if = /(if|elseif|else if|while)\s+/
 for = /for\s+/
 foreach = /foreach(?![^\s])/
 setfilter = /setfilter\s+/
+config = /config\s+/
 instanceof = /\s+instanceof\s+/
 not = /!\s*|not\s+/
 lop = /\s*((\&\&|\|\|)\s*|(and|or|xor)\s+)/
@@ -275,16 +275,6 @@ ldel foreach {
      $this->token = $parser_class::TP_LDELFOREACH;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line;
-  }
-}
-ldel slash {
-  $parser_class = $this->parser_class;
-  if ($this->autoLiteral($this->value)) {
-    $this->token = $parser_class::TP_TEXT;
-  } else {
-    $this->token = $parser_class::TP_LDELSLASH;
-    $this->yypushstate(self::SMARTY);
-    $this->taglineno = $this->line;
   }
 }
 ldel strip rdel {
@@ -565,7 +555,7 @@ number {
 attr {
      $parser_class = $this->parser_class;
   // resolve conflicts with shorttag and right_delimiter starting with '='
-  if (substr($this->data, $this->counter + strlen($this->value) - 1, $this->rdel_length) == $this->compiler->tpl_obj->right_delimiter) {
+  if (substr($this->data, $this->counter + strlen($this->value) - 1, $this->rdel_length) == $this->compiler->context->smarty->right_delimiter) {
      preg_match("/\s+/",$this->value,$match);
      $this->value = $match[0];
      $this->token = $parser_class::TP_SPACE;
@@ -576,10 +566,6 @@ attr {
 id {
   $parser_class = $this->parser_class;
   $this->token = $parser_class::TP_ID;
-}
-integer {
-  $parser_class = $this->parser_class;
-  $this->token = $parser_class::TP_INTEGER;
 }
 space {
   $parser_class = $this->parser_class;

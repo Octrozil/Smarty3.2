@@ -364,7 +364,7 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
     function yy_r3_7($yy_subpatterns)
     {
 
-    if (!$this->compiler->tpl_obj->config_booleanize || !in_array(strtolower($this->value), Array("true", "false", "on", "off", "yes", "no")) ) {
+    if (!$this->compiler->context->smarty->config_booleanize || !in_array(strtolower($this->value), Array("true", "false", "on", "off", "yes", "no")) ) {
         $this->yypopstate();
         $this->yypushstate(self::NAKED_STRING_VALUE);
         return true; //reprocess in new state

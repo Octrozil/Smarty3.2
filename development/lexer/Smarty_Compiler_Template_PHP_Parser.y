@@ -40,10 +40,10 @@
         $this->lex->parser_class = get_class($this);
         $this->compiler = $compiler;
         $this->compiler->prefix_code = array();
-        if ($this->security = isset($this->compiler->tpl_obj->security_policy)) {
-            $this->php_handling = $this->compiler->tpl_obj->security_policy->php_handling;
+        if ($this->security = isset($this->compiler->context->smarty->security_policy)) {
+            $this->php_handling = $this->compiler->context->smarty->security_policy->php_handling;
         } else {
-            $this->php_handling = $this->compiler->tpl_obj->php_handling;
+            $this->php_handling = $this->compiler->context->smarty->php_handling;
         }
        $this->asp_tags = (ini_get('asp_tags') != '0');
     }
@@ -95,7 +95,7 @@
 //
 start ::= template. {
    // execute end of template
-   if ($this->compiler->caching) {
+   if ($this->compiler->context->caching) {
        $this->compiler->has_code = true;
        $this->compiler->nocache_nolog = true;
    }
@@ -501,9 +501,9 @@ attribute(res)   ::= SPACE expr(e). {
 //    res = v;
 //}
 
-attribute(res)   ::= SPACE INTEGER(i) EQUAL expr(e). {
-    res = array(i=>e);
-}
+//attribute(res)   ::= SPACE INTEGER(i) EQUAL expr(e). {
+//    res = array(i=>e);
+//}
 
                   
 
@@ -698,16 +698,8 @@ value(res)       ::= NUMBER(n). {
     res = n;
 }
 
-value(res)       ::= INTEGER(n1). {
-    res = n1;
-}
-
 value(res)       ::= array(a). {
     res = a;
-}
-
-value(res)       ::= DOT INTEGER(n1). {
-    res = '.'.n1;
 }
 
                  // ID, true, false, null
@@ -750,9 +742,9 @@ value(res)    ::= IDINCDEC(v). {
 
                   // static class access
 value(res)       ::= ID(c)static(s). {
-    if (!$this->security || isset($this->compiler->tpl_obj->_registered['class'][c]) || $this->compiler->tpl_obj->security_policy->isTrustedStaticClass(c, $this->compiler)) {
-        if (isset($this->compiler->tpl_obj->_registered['class'][c])) {
-            res = $this->compiler->tpl_obj->_registered['class'][c].s;
+    if (!$this->security || isset($this->compiler->context->smarty->_registered['class'][c]) || $this->compiler->context->smarty->security_policy->isTrustedStaticClass(c, $this->compiler)) {
+        if (isset($this->compiler->context->smarty->_registered['class'][c])) {
+            res = $this->compiler->context->smarty->_registered['class'][c].s;
         } else {
             res = c.s;
         } 
@@ -863,10 +855,6 @@ indexdef(res)    ::= DOT varvar(v) AT ID(p). {
 
 indexdef(res)   ::= DOT ID(i). {
     res = "['". i ."']";
-}
-
-indexdef(res)   ::= DOT INTEGER(n). {
-    res = "[". n ."]";
 }
 
 // tricky handling of  d.d  in index
@@ -993,7 +981,7 @@ objectelement(res)::= PTR method(f).  {
 // function
 //
 function(res)     ::= ID(f) OPENP params(p) CLOSEP. {
-    if (!$this->security || $this->compiler->tpl_obj->security_policy->isTrustedPhpFunction(f, $this->compiler)) {
+    if (!$this->security || $this->compiler->context->smarty->security_policy->isTrustedPhpFunction(f, $this->compiler)) {
         if (strcasecmp(f,'isset') === 0 || strcasecmp(f,'empty') === 0 || strcasecmp(f,'array') === 0 || is_callable(f)) {
             $func_name = strtolower(f);
             if ($func_name == 'isset') {
@@ -1004,7 +992,7 @@ function(res)     ::= ID(f) OPENP params(p) CLOSEP. {
                 preg_match('/\$_scope->([0-9]*[a-zA-Z_]\w*)(.*)/',$par,$match);
                 if (isset($match[1])) {
                     $search = array('/\$_scope->([0-9]*[a-zA-Z_]\w*)/','/->value.*/');
-                    $replace = array('$this->getVariable(\'\1\', null, false, false)','');
+                    $replace = array('$this->_getVariable(\'\1\', null, false, false)','');
                     $this->prefix_number++;
                     $code = new Smarty_Compiler_Code();
                     $code->iniTagCode($this->compiler);
@@ -1038,7 +1026,7 @@ function(res)     ::= ID(f) OPENP params(p) CLOSEP. {
 // namespace function
 //
 function(res)     ::= NAMESPACE(f) OPENP params(p) CLOSEP. {
-    if (!$this->security || $this->compiler->tpl_obj->security_policy->isTrustedPhpFunction(f, $this->compiler)) {
+    if (!$this->security || $this->compiler->context->smarty->security_policy->isTrustedPhpFunction(f, $this->compiler)) {
         if (is_callable(f)) {
             res = f . "(". implode(',',p) .")";
         } else {
