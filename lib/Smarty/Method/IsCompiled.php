@@ -54,7 +54,7 @@ class Smarty_Method_IsCompiled
             $template = $this->smarty;
         }
         //get source object from cache  or create new one
-        $context = Smarty_Context::getContext($this->smarty, $template, null, $compile_id, null, false, null, null, null, $caching);
+        $context = $this->smarty->_getContext($template, null, $compile_id, null, false, null, null, null, $caching);
         // checks if source exists
         if (!$context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);

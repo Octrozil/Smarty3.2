@@ -23,6 +23,7 @@ class Smarty_Resource_Source_Extends extends Smarty_Resource_Source_File
      *
      * @param Smarty $smarty Smarty object
      * @throws Smarty_Exception_SourceNotFound
+     * @throws IllegalInheritanceResourceType
      */
     public function populate(Smarty $smarty)
     {
@@ -31,7 +32,7 @@ class Smarty_Resource_Source_Extends extends Smarty_Resource_Source_File
         $components = explode('|', $this->name);
         $exists = true;
         foreach ($components as $component) {
-            $context = Smarty_Context::getContext($smarty, $component);
+            $context = $smarty->_getContext($component);
             // checks if source exists
             if (!$context->exists) {
                 throw new Smarty_Exception_SourceNotFound($context->type, $context->name);

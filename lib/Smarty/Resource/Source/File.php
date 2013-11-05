@@ -67,7 +67,8 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
      * build template filepath by traversing the template_dir array
      *
      * @param Smarty_Context $context
-     * @throws DefaultHandlerNotCallable
+     * @throws Smarty_Exception_RelativeSourceNotFound
+     * @throws Smarty_Exception_DefaultHandlerNotCallable
      * @throws Smarty_Exception_IllegalRelativePath
      * @return string           fully qualified filepath
      */
@@ -80,11 +81,11 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
         if ($_file_is_dotted && isset($context->parent) &&
             ($context->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE || $context->parent->_usage == Smarty::IS_TEMPLATE)
         ) {
-            if (!isset($context->parent->source->handler->_allow_relative_path)) {
-                throw new Smarty_Exception_IllegalRelativePath($file, $context->parent->source->type);
+            if (!isset($context->parent->context->handler->_allow_relative_path)) {
+                throw new Smarty_Exception_IllegalRelativePath($file, $context->parent->context->type);
             }
             // get absolute path relative to given template
-            $file = dirname($context->parent->source->filepath) . '/' . $file;
+            $file = dirname($context->parent->context->filepath) . '/' . $file;
             $_file_exact_match = true;
             // TODO  can this be remove?
             if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
@@ -190,7 +191,7 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
     /**
      * Normalize Paths "foo/../bar" to "bar"
      *
-     * @param  string $_path path to normalize
+     * @param  string $path path to normalize
      * @return string  normalized path
      */
     function normalizePath($path)
@@ -265,11 +266,11 @@ class Smarty_Resource_Source_File extends Smarty_Exception_Magic
     {
         if ($parent == null) {
             return get_class($this) . '#' . $template_resource;
-        } else if ($parent->_usage == Smarty::IS_SMARTY_TPL_CLONE && isset($parent->source->handler->_allow_relative_path)
+        } else if ($parent->_usage == Smarty::IS_SMARTY_TPL_CLONE && isset($parent->context->handler->_allow_relative_path)
             && $template_resource[0] == '.' && ($template_resource[1] == '.' || $template_resource[1] == '/' || $template_resource[1] == '\\')
         ) {
             // return key for relative path
-            return $smarty->_joined_template_dir . '#' . dirname($parent->source->filepath) . '/' . $template_resource;
+            return $smarty->_joined_template_dir . '#' . dirname($parent->context->filepath) . '/' . $template_resource;
         } else {
             return false;
         }

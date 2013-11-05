@@ -40,7 +40,7 @@ class Smarty_Resource_Cache_Extension_File
         $_time = time();
 
         if (isset($resource_name)) {
-            $context = Smarty_Context::getContext($smarty, $resource_name);
+            $context = $smarty->_getContext($resource_name);
             if ($context->exists) {
                 // set basename if not specified
                 $_basename = $context->getBasename($context);

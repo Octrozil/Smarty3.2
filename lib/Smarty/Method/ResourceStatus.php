@@ -144,11 +144,11 @@ class Smarty_Method_ResourceStatus extends Smarty_Exception_Magic
             $parent = $cache_id;
             $cache_id = null;
         }
-        if ($template === null && ($status->smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE || $status->_usage == self::IS_CONFIG)) {
+        if ($template === null && ($status->smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE || $status->_usage == Smarty::IS_CONFIG)) {
             $template = $status->smarty;
         }
         //get context object from cache  or create new one
-        $context = Smarty_Context::getContext($status->smarty, $template, $cache_id, $compile_id, $parent, false, false, null, null, $caching);
+        $context = $status->smarty->_getContext($template, $cache_id, $compile_id, $parent, false, false, null, null, $caching);
         // fill basic data
         $status->resource_group = $resource_group;
         $status->compile_id = $context->compile_id;

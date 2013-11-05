@@ -48,12 +48,20 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $varname => $value) {
                 if ($varname != '') {
-                    $this->_assignInScope($varname, new Smarty_Variable($value, $nocache), $scope_type);
+                    if ($this->_usage == Smarty::IS_TEMPLATE || $scope_type != Smarty::SCOPE_LOCAL) {
+                        $this->_assignInScope($varname, new Smarty_Variable($value, $nocache), $scope_type);
+                    } else {
+                        $this->_tpl_vars->$varname = new Smarty_Variable($value, $nocache);
+                    }
                 }
             }
         } else {
             if ($tpl_var != '') {
-                $this->_assignInScope($tpl_var, new Smarty_Variable($value, $nocache), $scope_type);
+                if ($this->_usage == Smarty::IS_TEMPLATE || $scope_type != Smarty::SCOPE_LOCAL) {
+                    $this->_assignInScope($tpl_var, new Smarty_Variable($value, $nocache), $scope_type);
+                } else {
+                    $this->_tpl_vars->$tpl_var = new Smarty_Variable($value, $nocache);
+                }
             }
         }
 
@@ -72,7 +80,11 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
     public function assignGlobal($varname, $value = null, $nocache = false)
     {
         if ($varname != '') {
-            $this->_assignInScope($varname, new Smarty_Variable($value, $nocache), Smarty::SCOPE_GLOBAL);
+            if ($this->_usage == Smarty::IS_TEMPLATE) {
+                $this->_assignInScope($varname, new Smarty_Variable($value, $nocache), Smarty::SCOPE_GLOBAL);
+            } else {
+                Smarty::$_global_tpl_vars->$varname = new Smarty_Variable($value, $nocache);
+            }
         }
         return $this;
     }
@@ -84,7 +96,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      *
      * @internal
      * @param string $varname variable name
-     * @param Smarty_Variable $variable_obj variable object
+     * @param Smarty_Variable|Smarty_Variable_Callback $variable_obj variable object
      * @param int $scope_type
      */
     public function _assignInScope($varname, $variable_obj, $scope_type = Smarty::SCOPE_LOCAL)
@@ -110,7 +122,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
 
         // if called from template object ($this->scope_type set) we must consider
         // the scope type if template object
-        if (isset($this->scope_type)) {
+        if ($this->_usage == Smarty::IS_TEMPLATE) {
             if (($this->scope_type == Smarty::SCOPE_ROOT || $this->scope_type == Smarty::SCOPE_PARENT) &&
                 $scope_type != Smarty::SCOPE_ROOT && $scope_type != Smarty::SCOPE_SMARTY
             ) {
@@ -133,34 +145,5 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
             }
             $node = $node->parent;
         }
-    }
-
-    /**
-     * Handle unknown class methods
-     *  - load extensions for external variable methods
-     *
-     * @param  string $name unknown method-name
-     * @param  array $args argument array
-     * @throws Smarty_Exception
-     * @return mixed    function results
-     */
-    public function __call($name, $args)
-    {
-
-        // try extensions
-        if (isset($this->_autoloaded[$name])) {
-            return call_user_func_array(array($this->_autoloaded[$name], $name), $args);
-        }
-
-        $class = ($name[0] != '_') ? 'Smarty_Variable_Method_' . ucfirst($name) : ('Smarty_Variable_Internal_' . ucfirst(substr($name, 1)));
-        if (class_exists($class, true)) {
-            $obj = new $class($this);
-            if (method_exists($obj, $name)) {
-                $this->_autoloaded[$name] = $obj;
-                return call_user_func_array(array($obj, $name), $args);
-            }
-        }
-        // throw error through magic parent
-        Smarty_Exception_Magic::__call($name, $args);
     }
 }

@@ -118,7 +118,7 @@ class Smarty_Logger
     public function _getSourcePtr($obj, $keys = null)
     {
         if (!isset($keys)) {
-            $keys = _getKeysTemplate($obj);
+            $keys = $this->_getKeysTemplate($obj);
         }
         if ($obj instanceof Smarty_Template) {
             $obj = $obj->source;

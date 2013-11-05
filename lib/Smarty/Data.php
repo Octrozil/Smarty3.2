@@ -27,7 +27,6 @@ class Smarty_Data extends Smarty_Variable_Methods
      * @var Smarty_Variable_Scope
      */
     public $_tpl_vars = null;
-
     /**
      * Declare the type template variable storage
      *
@@ -35,21 +34,18 @@ class Smarty_Data extends Smarty_Variable_Methods
      * @var Smarty::IS_DATA
      */
     public $_usage = Smarty::IS_DATA;
-
     /**
      * Smarty Object
      *
      * @var Smarty
      */
     public $smarty = null;
-
     /**
      * Name of data Object
      *
      * @var string
      */
     public $scope_name = null;
-
 
     /**
      * create Smarty data object
@@ -82,5 +78,34 @@ class Smarty_Data extends Smarty_Variable_Methods
                 $this->_tpl_vars->$_key = new Smarty_Variable($_val);
             }
         }
+    }
+
+    /**
+     * Handle unknown class methods
+     *  - load extensions for external variable methods
+     *
+     * @param  string $name unknown method-name
+     * @param  array $args argument array
+     * @throws Smarty_Exception
+     * @return mixed    function results
+     */
+    public function __call($name, $args)
+    {
+
+        // try extensions
+        if (isset($this->_autoloaded[$name])) {
+            return call_user_func_array(array($this->_autoloaded[$name], $name), $args);
+        }
+
+        $class = ($name[0] != '_') ? 'Smarty_Variable_Method_' . ucfirst($name) : ('Smarty_Variable_Internal_' . ucfirst(substr($name, 1)));
+        if (class_exists($class, true)) {
+            $obj = new $class($this);
+            if (method_exists($obj, $name)) {
+                $this->_autoloaded[$name] = $obj;
+                return call_user_func_array(array($obj, $name), $args);
+            }
+        }
+        // throw error through magic parent
+        Smarty_Exception_Magic::__call($name, $args);
     }
 }

@@ -122,7 +122,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
                 // load existing compiled template class
                 $template_class_name = $this->loadTemplateClass($filepath);
                 if (class_exists($template_class_name, false)) {
-                    $template_obj = new $template_class_name($context, $filepath, $timestamp);
+                    $template_obj = new $template_class_name($context);
                     $isValid = $template_obj->isValid;
                 }
             }
@@ -137,7 +137,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
                     $template_class_name = '';
                     $template_class_name = $this->loadTemplateClass($filepath);
                     if (class_exists($template_class_name, false)) {
-                        $template_obj = new $template_class_name($context, $filepath, $timestamp);
+                        $template_obj = new $template_class_name($context);
                         $template_obj->isUpdated = true;
                         $isValid = $template_obj->isValid;
                         if ($context->smarty->enable_trace && isset(Smarty::$_trace_callbacks['cache:update'])) {
@@ -227,6 +227,7 @@ class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
      * Write the rendered template output to cache
      *
      * @param  Smarty $tpl_obj template object
+     * @param  string $filepath filepath
      * @param  string $content content to cache
      * @return boolean success
      */

@@ -13,6 +13,10 @@
  */
 class Smarty_Exception_RelativeSourceNotFound extends Smarty_Exception_Runtime
 {
+    /**
+     * @param string $type
+     * @param int|null $name
+     */
     public function __construct($type, $name)
     {
         $message = sprintf("Can not find relative source '%s:%s'", $type, $name);

@@ -139,7 +139,7 @@ class Smarty_Compiler_Template_Php_Tag_Functionclose extends Smarty_Compiler_Tem
         $code->php("function _renderTemplateFunction_{$_name}(\$_scope, \$params) {")->newline()->indent();
         $code->addSourceLineNo($saved_data[3]);
         $code->php("foreach (\$params as \$key => \$value) {")->newline()->indent();
-        $code->php("\$this->_tpl_vars->\$key = new Smarty_Variable (\$value);")->newline();
+        $code->php("\$_scope->\$key = new Smarty_Variable (\$value);")->newline();
         $code->outdent()->php("}")->newline();
         $code->mergeCode($compiler->template_code);
         $code->outdent()->php("}")->newline();

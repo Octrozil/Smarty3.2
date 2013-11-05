@@ -54,8 +54,8 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {include} tag
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
@@ -126,7 +126,8 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
             $_caching = Smarty::CACHING_OFF;
         }
 
-        $this->iniTagCode($compiler);
+        $code = new Smarty_Compiler_Code();
+        $code->iniTagCode($compiler);
 
         $has_compiledtpl_obj = false;
         if (($compiler->context->smarty->merge_compiled_includes || $_attr['inline'] === true) && !$compiler->context->handler->recompiled
@@ -136,47 +137,50 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
             if ((substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2)
                 and substr_count($include_file, '(') == 0 and substr_count($include_file, '$this->smarty->') == 0
             ) {
-                $tpl_name = null;
+                $_scope = $compiler->context->scope;
                 eval("\$tpl_name = $include_file;");
-                if (!isset(Smarty_Compiler_Template_Php_Compiler::$merged_inline_content_classes[$tpl_name])) {
-                    $tpl = clone $compiler->context->smarty;
-                    unset($tpl->context, $tpl->compiled, $tpl->cached, $tpl->compiler, $tpl->mustCompile);
-                    $tpl->template_resource = $tpl_name;
-                    $tpl->parent = $compiler->context->smarty;
-                    if ($compiler->context->caching) {
-                        // needs code for cached page but no cache file
-                        $tpl->caching = Smarty::CACHING_NOCACHE_CODE;
-                    }
+                // clone object
+                $tpl = clone $compiler->context->smarty;
+                unset($tpl->context);
+                $tpl->parent = $compiler->context->smarty;
+                if ($compiler->context->caching) {
+                    // needs code for cached page but no cache file
+                    $tpl->caching = Smarty::CACHING_NOCACHE_CODE;
+                }
+                // create context
+                $context = $tpl->_getContext($tpl_name);
+                if (!isset(Smarty_Compiler_Template_Php_Compiler::$merged_inline_content_classes[$context->uid])) {
                     // make sure whole chain gets compiled
                     $tpl->force_compile = true;
-                    if (!$tpl->context->handler->uncompiled && $tpl->context->exists) {
+                    if (!$context->handler->uncompiled && $context->exists) {
+                        $comp = Smarty_Compiler::load($context, null);
                         // get compiled code
-                        $tpl->compiler->suppressTemplatePropertyHeader = true;
-                        $tpl->compiler->write_compiled_code = false;
-                        $tpl->compiler->content_class = Smarty_Compiler_Template_Php_Compiler::$merged_inline_content_classes[$tpl_name]['class'] = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
-                        $tpl->compiler->template_code->newline()->php("/* Inline subtemplate compiled from \"{$tpl->context->filepath}\" */")->newline();
-                        $tpl->compiler->compileTemplate();
-                        $compiler->required_plugins['compiled'] = array_merge($compiler->required_plugins['compiled'], $tpl->compiler->required_plugins['compiled']);
-                        $compiler->required_plugins['nocache'] = array_merge($compiler->required_plugins['nocache'], $tpl->compiler->required_plugins['nocache']);
-                        $tpl->compiler->required_plugins = array();
+                        $comp->suppressTemplatePropertyHeader = true;
+                        $comp->write_compiled_code = false;
+                        $comp->content_class = Smarty_Compiler_Template_Php_Compiler::$merged_inline_content_classes[$context->uid]['class'] = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
+                        $comp->template_code->newline()->php("/* Inline subtemplate compiled from \"{$context->filepath}\" */")->newline();
+                        $comp->compileTemplate();
+                        $compiler->required_plugins['compiled'] = array_merge($compiler->required_plugins['compiled'], $comp->required_plugins['compiled']);
+                        $compiler->required_plugins['nocache'] = array_merge($compiler->required_plugins['nocache'], $comp->required_plugins['nocache']);
+                        $comp->required_plugins = array();
                         // merge compiled code for {function} tags
-                        if (!empty($tpl->compiler->template_functions)) {
-                            $compiler->template_functions = array_merge($compiler->template_functions, $tpl->compiler->template_functions);
-                            $compiler->template_functions_code = array_merge($compiler->template_functions_code, $tpl->compiler->template_functions_code);
+                        if (!empty($comp->template_functions)) {
+                            $compiler->template_functions = array_merge($compiler->template_functions, $comp->template_functions);
+                            $compiler->template_functions_code = array_merge($compiler->template_functions_code, $comp->template_functions_code);
                         }
                         // save merged template
-                        Smarty_Compiler::$merged_inline_content_classes[$tpl_name]['code'] = $tpl->compiler->_createSmartyContentClass($tpl, true);
+                        Smarty_Compiler_Template_Php_Compiler::$merged_inline_content_classes[$context->uid]['code'] = $comp->_createSmartyContentClass($tpl, true);
                         // merge file dependency
-                        $compiler->file_dependency[$tpl->context->uid] = array($tpl->context->filepath, $tpl->context->timestamp, $tpl->context->type);
-                        $compiler->file_dependency = array_merge($compiler->file_dependency, $tpl->compiler->file_dependency);
-                        $compiler->has_nocache_code = $compiler->has_nocache_code | $tpl->compiler->has_nocache_code;
+                        $compiler->file_dependency[$context->uid] = array($context->filepath, $context->timestamp, $context->type);
+                        $compiler->file_dependency = array_merge($compiler->file_dependency, $comp->file_dependency);
+                        $compiler->has_nocache_code = $compiler->has_nocache_code | $comp->has_nocache_code;
                         $has_compiledtpl_obj = true;
-                        // release compiler object to free memory
-                        unset($tpl->compiler, $tpl);
                     }
                 } else {
                     $has_compiledtpl_obj = true;
                 }
+                // release compiler object to free memory
+                unset($comp, $tpl);
             }
         }
         // delete {include} standard attributes
@@ -199,18 +203,18 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
         $compiler->nocache_nolog = $save;
         // output compiled code
         if ($has_compiledtpl_obj) {
-            $_class = '\'' . Smarty_Compiler::$merged_inline_content_classes[$tpl_name]['class'] . '\'';
+            $_class = '\'' . Smarty_Compiler_Template_Php_Compiler::$merged_inline_content_classes[$context->uid]['class'] . '\'';
         } else {
             $_class = 'null';
         }
         // was there an assign attribute
         if (isset($_assign)) {
-            $this->php("\$this->_assignInScope('{$_assign}',  new Smarty_Variable (\$this->_getSubTemplate ($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope , \$_scope, $_class)));")->newline();
+            $code->php("\$this->_assignInScope('{$_assign}',  new Smarty_Variable (\$this->_getSubTemplate ($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope , \$_scope, $_class)));")->newline();
         } else {
-            $this->php("echo \$this->_getSubTemplate ($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, \$_scope, $_class);")->newline();
+            $code->php("echo \$this->_getSubTemplate ($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, \$_scope, $_class);")->newline();
         }
 
-        return $this->returnTagCode($compiler);
+        return $code->returnTagCode($compiler);
     }
 
 }

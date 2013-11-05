@@ -36,10 +36,12 @@ class Smarty_Exception extends Exception
      *
      * By default, automatic guessing is enabled.
      *
-     * @param string $message  The error message
-     * @param integer $lineno   The template line where the error occurred
-     * @param Smarty_Resource_Source_File $source   The template source object
+     * @param string $message The error message
+     * @param integer $lineno The template line where the error occurred
+     * @param null $context
+     * @param null $lex
      * @param Exception $previous The previous exception
+     * @internal param \Smarty_Resource_Source_File $source The template source object
      */
     public function __construct($message, $lineno = -1, $context = null, $lex = null, Exception $previous = null)
     {

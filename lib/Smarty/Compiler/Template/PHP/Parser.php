@@ -13,6 +13,10 @@ class TP_yyToken implements ArrayAccess
     public $string = '';
     public $metadata = array();
 
+    /**
+     * @param $s
+     * @param array $m
+     */
     public function __construct($s, $m = array())
     {
         if ($s instanceof TP_yyToken) {

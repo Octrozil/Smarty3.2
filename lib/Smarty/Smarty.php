@@ -815,8 +815,8 @@ class Smarty extends Smarty_Variable_Methods
         }
         $this->start_time = microtime(true);
         // set default dirs
-        if (empty(Smarty::$_SMARTY_PLUGINS_DIR)) {
-            Smarty::$_SMARTY_PLUGINS_DIR = dirname(__FILE__) . '/Plugins/';
+        if (empty(self::$_SMARTY_PLUGINS_DIR)) {
+            self::$_SMARTY_PLUGINS_DIR = dirname(__FILE__) . '/Plugins/';
         }
 
         if (isset($_SERVER['SCRIPT_NAME'])) {
@@ -843,7 +843,7 @@ class Smarty extends Smarty_Variable_Methods
      * @return string   rendered template HTML output
      */
 
-    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $no_output_filter = false, $data = null, $scope_type = Smarty::SCOPE_LOCAL, $caching = null, $cache_lifetime = null)
+    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $no_output_filter = false, $data = null, $scope_type = self::SCOPE_LOCAL, $caching = null, $cache_lifetime = null)
     {
         if ($template === null && ($this->_usage == self::IS_SMARTY_TPL_CLONE || $this->_usage == self::IS_CONFIG)) {
             $template = $this;
@@ -856,7 +856,7 @@ class Smarty extends Smarty_Variable_Methods
             $parent = $this;
         }
         //get context object from cache  or create new one
-        $context = Smarty_Context::getContext($this, $template, $cache_id, $compile_id, $parent, false, $no_output_filter, $data, $scope_type, $caching, $cache_lifetime);
+        $context = $this->_getContext($template, $cache_id, $compile_id, $parent, false, $no_output_filter, $data, $scope_type, $caching, $cache_lifetime);
         // checks if source exists
         if (!$context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
@@ -1271,13 +1271,111 @@ class Smarty extends Smarty_Variable_Methods
     }
 
     /**
-     * clean up object pointer
+     * Get context object from cache or create new one
+     * then populate it with current data
      *
+     *
+     * @internal
+     * @param  null | string $resource template resource name
+     * @param  mixed $cache_id cache id to be used with this template
+     * @param  mixed $compile_id compile id to be used with this template
+     * @param  Smarty $parent next higher level of Smarty variables
+     * @param  bool $cache_context if true force caching of context block (need for isCached() calls
+     * @param  bool $no_output_filter if true do not run output filter
+     * @param  null $data
+     * @param  int $scope_type
+     * @param  null $caching
+     * @param  null|int $cache_lifetime
+     * @param  null|string $tpl_class_name template class name of inline template
+     * @return bool|Smarty_Source
      */
-    public function cleanPointer()
+    public function _getContext($resource, $cache_id = null, $compile_id = null, $parent = null, $cache_context = false, $no_output_filter = false, $data = null, $scope_type = self::SCOPE_LOCAL, $caching = null, $cache_lifetime = null, $tpl_class_name = null)
     {
-        unset($this->source, $this->compiled, $this->cached, $this->compiler, $this->must_compile);
-        $this->_tpl_vars = $this->parent = $this->template_function_chain = $this->rootTemplate = null;
+        if (is_object($resource)) {
+            // get source from template clone
+            $context_obj = clone $resource->source;
+            $context_obj->smarty = $resource;
+        } else {
+            $context_obj = null;
+            $_cacheKey = null;
+            $parent = isset($parent) ? $parent : $this->parent;
+            if ($resource == null) {
+                $resource = $this->template_resource;
+            }
+            if ($this->object_caching || $cache_context || isset(Smarty_Context::$_object_cache[self::SOURCE])) {
+                if (!($this->allow_ambiguous_resources || isset($this->handler_allow_relative_path))) {
+                    $_cacheKey = $this->_joined_template_dir . '#' . $resource;
+                    if (isset($_cacheKey[150])) {
+                        $_cacheKey = sha1($_cacheKey);
+                    }
+                    // source with this $_cacheKey in cache?
+                    $context_obj = isset(Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey]) ? Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey] : null;
+                }
+                if ($context_obj == null && isset($this->handler_allow_relative_path)) {
+                    // parse template_resource into name and type
+                    $parts = explode(':', $resource, 2);
+                    if (!isset($parts[1]) || !isset($parts[0][1])) {
+                        // no resource given, use default
+                        // or single character before the colon is not a resource type, but part of the filepath
+                        $type = $this->default_resource_type;
+                        $name = $resource;
+                    } else {
+                        $type = $parts[0];
+                        $name = $parts[1];
+                    }
+                    $res_obj = isset(self::$_resource_cache[self::SOURCE][$type]) ? self::$_resource_cache[self::SOURCE][$type] : $this->_loadResource(self::SOURCE, $type);
+                    if (isset($res_obj->_allow_relative_path) && $_cacheKey = $res_obj->getRelativeKey($resource, $parent)) {
+                        if (isset($_cacheKey[150])) {
+                            $_cacheKey = sha1($_cacheKey);
+                        }
+                        // source with this $_cacheKey in cache?
+                        $context_obj = isset(Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey]) ? Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey] : null;
+                    }
+                }
+                if ($context_obj == null && $this->allow_ambiguous_resources) {
+                    // get cacheKey
+                    $_cacheKey = self::$_resource_cache[self::SOURCE][$type]->buildUniqueResourceName($this, $resource);
+                    if (isset($_cacheKey[150])) {
+                        $_cacheKey = sha1($_cacheKey);
+                    }
+                    // source with this $_cacheKey in cache?
+                    $context_obj = isset(Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey]) ? Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey] : null;
+                }
+            }
+            if ($context_obj == null) {
+                if (!isset($name)) {
+                    // parse template_resource into name and type
+                    $parts = explode(':', $resource, 2);
+                    if (!isset($parts[1]) || !isset($parts[0][1])) {
+                        // no resource given, use default
+                        // or single character before the colon is not a resource type, but part of the filepath
+                        $type = $this->default_resource_type;
+                        $name = $resource;
+                    } else {
+                        $type = $parts[0];
+                        $name = $parts[1];
+                    }
+                }
+                $context_obj = new Smarty_Context($this, $name, $type, $parent);
+                if (($this->object_caching || $cache_context) && isset($_cacheKey)) {
+                    Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey] = $context_obj;
+                }
+            }
+        }
+        // set up parameter for this call
+        if ($cache_context) {
+            $context_obj->force_caching = true;
+        }
+        $context_obj->caching = $caching ? $caching : $context_obj->smarty->caching;
+        $context_obj->compile_id = isset($compile_id) ? $compile_id : $context_obj->smarty->compile_id;
+        $context_obj->cache_id = isset($cache_id) ? $cache_id : $context_obj->smarty->cache_id;
+        $context_obj->cache_lifetime = isset($cache_lifetime) ? $cache_lifetime : $context_obj->smarty->cache_lifetime;
+        $context_obj->parent = isset($parent) ? $parent : $context_obj->smarty->parent;
+        $context_obj->no_output_filter = $no_output_filter;
+        $context_obj->data = $data;
+        $context_obj->scope_type = $scope_type;
+        $context_obj->tpl_class_name = $tpl_class_name;
+        return $context_obj;
     }
 
     /**
@@ -1343,7 +1441,8 @@ class Smarty extends Smarty_Variable_Methods
         }
 
         if ($res_obj) {
-            return self::$_resource_cache[$resource_group][$type] = $res_obj;
+            self::$_resource_cache[$resource_group][$type] = $res_obj;
+            return $res_obj;
         }
 
         // TODO: try default_(template|config)_handler
@@ -1360,8 +1459,8 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function _triggerTraceCallback($event, $data = array())
     {
-        if ($this->enable_trace && isset(Smarty::$_trace_callbacks[$event])) {
-            foreach (Smarty::$_trace_callbacks[$event] as $callback) {
+        if ($this->enable_trace && isset(self::$_trace_callbacks[$event])) {
+            foreach (self::$_trace_callbacks[$event] as $callback) {
                 call_user_func_array($callback, (array)$data);
             }
         }
@@ -1394,7 +1493,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * <<magic>> Generic getter.
-     * Get Smarty or Template property
+     * Get Smarty property
      *
      * @param  string $property_name property name
      * @throws Smarty_Exception
@@ -1432,7 +1531,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * <<magic>> Generic setter.
-     * Set Smarty or Template property
+     * Set Smarty property
      *
      * @param  string $property_name property name
      * @param  mixed $value         value
@@ -1516,9 +1615,15 @@ class Smarty extends Smarty_Variable_Methods
             $this->_autoloaded[$name] = $obj;
             return call_user_func_array(array($obj, $name), $args);
         }
-
-        // try in parent (variable methods)
-        return parent::__call($name, $args);
+        // try new autoloaded variable methods
+        $class = ($name[0] != '_') ? 'Smarty_Variable_Method_' . ucfirst($name) : ('Smarty_Variable_Internal_' . ucfirst(substr($name, 1)));
+        if (class_exists($class, true)) {
+            $obj = new $class($this);
+            if (method_exists($obj, $name)) {
+                $this->_autoloaded[$name] = $obj;
+                return call_user_func_array(array($obj, $name), $args);
+            }
+        }
 
         // throw error through parent
         Smarty_Exception_Magic::__call($name, $args);

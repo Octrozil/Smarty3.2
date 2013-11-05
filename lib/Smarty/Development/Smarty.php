@@ -29,7 +29,7 @@ class Smarty_Development_Smarty extends Smarty_Development_Logger
     /**
      * create Smarty Logger object
      *
-     * @param  Smarty $smarty     object of Smarty instance
+     *
      */
     public function __construct()
     {

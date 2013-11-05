@@ -53,7 +53,11 @@ class Smarty_Variable_Method_AssignCallback
                 if (is_object($callback)) {
                     $callback = array($callback, '__invoke');
                 }
-                $this->object->_assignInScope($varname, new Smarty_Variable_Callback($varname, $callback, $nocache), $scope_type);
+                if ($this->object->_usage == Smarty::IS_TEMPLATE || $scope_type != Smarty::SCOPE_LOCAL) {
+                    $this->object->_assignInScope($varname, new Smarty_Variable_Callback($varname, $callback, $nocache), $scope_type);
+                } else {
+                    $this->object->_tpl_vars->$varname = new Smarty_Variable_Callback($varname, $callback, $nocache);
+                }
             }
         }
         return $this->object;

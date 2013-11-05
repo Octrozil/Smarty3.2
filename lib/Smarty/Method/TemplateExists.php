@@ -42,7 +42,7 @@ class Smarty_Method_TemplateExists
      */
     public function templateExists($template_resource)
     {
-        $context = Smarty_Context::getContext($this->smarty, $template_resource);
+        $context = $this->smarty->_getContext($template_resource);
         return $context->exists;
     }
 }

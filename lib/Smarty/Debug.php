@@ -213,24 +213,24 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * Return key into $_template_data for template
      *
-     * @param  Smarty_Resource_Source_File $source
+     * @param  Smarty_Context $context
      * @return string          key into $_template_data
      */
-    private static function get_key($source)
+    private static function get_key(Smarty_Context $context)
     {
         static $_is_stringy = array('string' => true, 'eval' => true);
         // calculate Uid if not already done
-        if ($source->uid == '') {
-            $source->filepath;
+        if ($context->uid == '') {
+            $context->filepath;
         }
-        $key = $source->uid;
+        $key = $context->uid;
         if (isset(self::$_template_data[$key])) {
             return $key;
         } else {
-            if (isset($_is_stringy[$source->type])) {
-                self::$_template_data[$key]['name'] = '\'' . substr($source->name, 0, 25) . '...\'';
+            if (isset($_is_stringy[$context->type])) {
+                self::$_template_data[$key]['name'] = '\'' . substr($context->name, 0, 25) . '...\'';
             } else {
-                self::$_template_data[$key]['name'] = $source->filepath;
+                self::$_template_data[$key]['name'] = $context->filepath;
             }
             self::$_template_data[$key]['compile_time'] = 0;
             self::$_template_data[$key]['render_time'] = 0;
@@ -293,7 +293,6 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40, $root =
 
         case 'boolean' :
         case 'NULL' :
-        case 'resource' :
             if (true === $var) {
                 $results = 'true';
             } elseif (false === $var) {
@@ -308,6 +307,7 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40, $root =
 
         case 'integer' :
         case 'float' :
+        case 'double' :
             $results = htmlspecialchars((string)$var);
             break;
 
@@ -325,20 +325,12 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40, $root =
 
             $results = htmlspecialchars('"' . $results . '"');
             break;
-
+        case 'resource' :
+            $results = 'Resource ' . get_resource_type ($var);
+            break;
         case 'unknown type' :
         default :
-            if (Smarty::$_MBSTRING) {
-                if (mb_strlen($results, Smarty::$_CHARSET) > $length) {
-                    $results = mb_substr($results, 0, $length - 3, Smarty::$_CHARSET) . '...';
-                }
-            } else {
-                if (strlen($results) > $length) {
-                    $results = substr($results, 0, $length - 3) . '...';
-                }
-            }
-
-            $results = htmlspecialchars($results);
+            $results = 'unknown';
     }
 
     return $results;

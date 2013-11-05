@@ -39,7 +39,7 @@ class Smarty_Method_RegisterResource
      *
      * @api
      * @param  string $type     name of resource type
-     * @param  Smarty_Resource_Source|array $callback or instance of Smarty_Resource_Source, or array of callbacks to handle resource (deprecated)
+     * @param  Smarty_Resource_Source_File|array $callback or instance of Smarty_Resource_Source, or array of callbacks to handle resource (deprecated)
      * @return Smarty
      */
     public function registerResource($type, $callback)

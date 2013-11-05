@@ -41,7 +41,7 @@ class Smarty_Resource_Compiled_Recompiled extends Smarty_Exception_Magic
                 Smarty_Debug::end_compile($context);
             }
             if (class_exists($template_class_name, false)) {
-                $template_obj = new $template_class_name($context, false, false);
+                $template_obj = new $template_class_name($context);
                 $template_obj->isUpdated = true;
                 $isValid = $template_obj->isValid;
             }

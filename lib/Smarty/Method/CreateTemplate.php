@@ -66,7 +66,7 @@ class Smarty_Method_CreateTemplate
             $tpl_obj->compile_id = $compile_id;
         }
         //get context object from cache  or create new one
-        $context = Smarty_Context::getContext($tpl_obj, $template_resource);
+        $context = $tpl_obj->_getContext($template_resource);
         // checks if source exists
         if (!$context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);

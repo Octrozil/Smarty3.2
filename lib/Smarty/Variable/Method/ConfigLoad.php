@@ -39,8 +39,9 @@ class Smarty_Variable_Method_ConfigLoad
      *
      * @api
      * @param  string $config_file filename
-     * @param  mixed $sections    array of section names, single section or null
-     * @param  string $scope_type  template scope into which config file shall be loaded
+     * @param  mixed $sections array of section names, single section or null
+     * @param int $scope_type template scope into which config file shall be loaded
+     * @throws Smarty_Exception_SourceNotFound
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function configLoad($config_file, $sections = null, $scope_type = Smarty::SCOPE_LOCAL)
@@ -72,7 +73,11 @@ class Smarty_Variable_Method_ConfigLoad
                 if (!$smarty->config_overwrite && isset($scope->$var)) {
                     $value = array_merge((array)$scope->{$var}, (array)$value);
                 }
-                $target->_assignInScope($var, $value, $scope_type);
+                if ($target->_usage == Smarty::IS_TEMPLATE || $scope_type != Smarty::SCOPE_LOCAL) {
+                    $target->_assignInScope($var, $value, $scope_type);
+                } else {
+                    $target->_tpl_vars->$var = $value;
+                }
             }
         }
         // load variables from section
@@ -83,7 +88,11 @@ class Smarty_Variable_Method_ConfigLoad
                         if (!$smarty->config_overwrite && isset($scope->$var)) {
                             $value = array_merge((array)$scope->{$var}, (array)$value);
                         }
-                        $target->_assignInScope($var, $value, $scope_type);
+                        if ($target->_usage == Smarty::IS_TEMPLATE || $scope_type != Smarty::SCOPE_LOCAL) {
+                            $target->_assignInScope($var, $value, $scope_type);
+                        } else {
+                            $target->_tpl_vars->$var = $value;
+                        }
                     }
                 }
             }

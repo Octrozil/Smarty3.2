@@ -16,6 +16,9 @@ class Smarty_Exception_Compiler extends Smarty_Exception
 
     public $no_escape = true;
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         // TODO

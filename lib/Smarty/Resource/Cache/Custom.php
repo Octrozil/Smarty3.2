@@ -219,6 +219,7 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
      * Write the rendered template output to cache
      *
      * @param  Smarty $tpl_obj template object
+     * @param  string $filepath filepath
      * @param  string $content content to cache
      * @return boolean success
      */

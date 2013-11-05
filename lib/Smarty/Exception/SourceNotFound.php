@@ -13,6 +13,10 @@
  */
 class Smarty_Exception_SourceNotFound extends Smarty_Exception_Runtime
 {
+    /**
+     * @param string $type
+     * @param int|null $name
+     */
     public function __construct($type, $name)
     {
         $message = sprintf("Can not find source '%s:%s'", $type, $name);

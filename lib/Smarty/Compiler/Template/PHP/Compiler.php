@@ -324,11 +324,10 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
     /**
      * Initialize compiler
      *
-     * @param string $lexer_class  class name
+     * @param string $lexer_class class name
      * @param string $parser_class class name
      * @param Smarty_Context $context
-     * @param Smarty_Resource_Source_File $source
-     * @param $compiled_filepath
+     * @param string $compiled_filepath
      */
     public function __construct($lexer_class, $parser_class, $context, $compiled_filepath)
     {
@@ -961,11 +960,16 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
     public function _createSmartyContentClass(Smarty $tpl_obj, $noinstance = false)
     {
         $template_code = new Smarty_Compiler_Code();
-        $template_code->php("<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . " compiled from \"{$this->context->filepath}\" */")->newline();
+        if (!$noinstance) {
+            $template_code->php("<?php ");
+        }
+        $template_code->php("/* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . " compiled from \"{$this->context->filepath}\" */")->newline();
         $template_code->php("if (!class_exists('{$this->content_class}',false)) {")->newline()->indent();
         $template_code->php("class {$this->content_class} extends Smarty_Template" . ($this->isInheritance ? '_Inheritance' : '') . " {")->newline()->indent();
         $template_code->php("public \$version = '" . Smarty::SMARTY_VERSION . "';")->newline();
         $template_code->php("public \$has_nocache_code = " . ($this->has_nocache_code ? 'true' : 'false') . ";")->newline();
+        $template_code->php("public \$filepath = '{$this->compiled_filepath}';")->newline();
+        $template_code->php("public \$timestamp = {$this->timestamp};")->newline();
         if ($this->isInheritanceChild) {
             $template_code->php("public \$is_inheritance_child = true;")->newline();
         }
@@ -1022,10 +1026,11 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         $template_code->php("return ")->repr($template_code->traceback)->raw(";")->newline();
         $template_code->outdent()->php('}')->newline();
 
-        $template_code->outdent()->php('}')->newline()->outdent()->php('}')->newline();
+        $template_code->outdent()->php('}')->newline();
+        $template_code->outdent()->php('}')->newline();
         if (!$noinstance) {
             foreach (self::$merged_inline_content_classes as $key => $inlinetpl_obj) {
-                $template_code->newline()->raw($inlinetpl_obj['code']);
+                $template_code->mergeCode($inlinetpl_obj['code']);
                 unset(self::$merged_inline_content_classes[$key], $inlinetpl_obj);
             }
             $template_code->php("\$template_class_name = '{$this->content_class}';")->newline();

@@ -34,7 +34,7 @@ class Smarty_Resource_Compiled_Extension_File
         $compiletime_options = 0;
         $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
         if (isset($template_resource)) {
-            $context = Smarty_Context::getContext($smarty, $template_resource);
+            $context = $smarty->_getContext($template_resource);
             if ($context->exists) {
                 // set basename if not specified
                 $_basename = $context->getBasename();

@@ -70,8 +70,8 @@ class Smarty_Compiler_Template_Php_Tag_Import extends Smarty_Compiler_Template_P
         }
         $_scope = $compiler->context->scope;
         eval("\$tpl_name = $include_file;");
-        $source = Smarty_Context::getContext($compiler->context->smarty, $tpl_name);
-        $comp = Smarty_Compiler::load($compiler->context->smarty, $source, $compiler->context->caching);
+        $context = $compiler->context->smarty->_getContext($tpl_name);
+        $comp = Smarty_Compiler::load($context, null);
         $comp->nocache = $compiler->nocache;
         // set up parameter
         $comp->suppressTemplatePropertyHeader = true;
@@ -97,12 +97,9 @@ class Smarty_Compiler_Template_Php_Tag_Import extends Smarty_Compiler_Template_P
         $compiler->required_plugins['compiled'] = array_merge($compiler->required_plugins['compiled'], $comp->required_plugins['compiled']);
         $compiler->required_plugins['nocache'] = array_merge($compiler->required_plugins['nocache'], $comp->required_plugins['nocache']);
         // merge filedependency
-        $compiler->file_dependency[$tpl->context->uid] = array($tpl->context->filepath, $tpl->context->timestamp, $tpl->context->type);
         $compiler->file_dependency = array_merge($compiler->file_dependency, $comp->file_dependency);
         $compiler->has_nocache_code = $compiler->has_nocache_code | $comp->has_nocache_code;
 
-        $save = $compiler->nocache_nolog;
-        $compiler->nocache_nolog = $save;
         // output compiled code
 
         $compiler->suppressNocacheProcessing = true;

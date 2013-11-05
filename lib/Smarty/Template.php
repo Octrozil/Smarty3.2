@@ -55,10 +55,10 @@ class  Smarty_Template extends Smarty_Internal_Template
     public $parent = null;
 
     /**
-     * Source object
-     * @var Smarty_Resource_Source_File
+     * Context object
+     * @var Smarty_Context
      */
-    public $source = null;
+    public $context = null;
 
     /**
      * Local variable scope
@@ -210,15 +210,11 @@ class  Smarty_Template extends Smarty_Internal_Template
      * constructor
      *
      * @param Smarty_Context $context
-     * @param $filepath
-     * @param $timestamp
      */
-    public function __construct(Smarty_Context $context, $filepath, $timestamp)
+    public function __construct(Smarty_Context $context)
     {
         $this->smarty = $context->smarty;
-        $this->source = $context;
-        $this->filepath = $filepath;
-        $this->timestamp = $timestamp;
+        $this->context = $context;
         if (!$this->isValid) {
             // check if class is still valid
             if ($this->version != Smarty::SMARTY_VERSION) {
@@ -233,7 +229,7 @@ class  Smarty_Template extends Smarty_Internal_Template
             if ((!$this->is_cache && $this->smarty->compile_check) || ($this->is_cache && ($this->smarty->compile_check === true || $this->smarty->compile_check === Smarty::COMPILECHECK_ON)) && !empty($this->file_dependency)) {
                 foreach ($this->file_dependency as $_file_to_check) {
                     if ($_file_to_check[2] == 'file' || $_file_to_check[2] == 'php') {
-                        if ($this->source->filepath == $_file_to_check[0]) {
+                        if ($this->context->filepath == $_file_to_check[0]) {
                             // do not recheck current template
                             continue;
                         } else {
@@ -270,10 +266,6 @@ class  Smarty_Template extends Smarty_Internal_Template
      * get rendered template output from compiled template
      *
      * @param Smarty_Context $context
-     * @param Smarty_Variable_Scope $scope variable scope
-     * @param int $scope_type
-     * @param  boolean $no_output_filter true if output filter shall nit run
-     * @param bool $display
      * @throws Exception
      * @return string
      */
@@ -283,7 +275,7 @@ class  Smarty_Template extends Smarty_Internal_Template
         $level = ob_get_level();
         try {
             if ($this->smarty->debugging) {
-                Smarty_Debug::start_render($this->source);
+                Smarty_Debug::start_render($this->context);
             }
             array_unshift($this->_capture_stack, array());
             self::$call_stack[] = array($this, $this->_tpl_vars, $this->parent, $this->scope_type);
@@ -316,15 +308,15 @@ class  Smarty_Template extends Smarty_Internal_Template
             }
             throw $e;
         }
-//        if ($this->source->recompiled && empty($this->file_dependency[$this->source->uid])) {
-//            $this->file_dependency[$this->source->uid] = array($this->source->filepath, $this->source->timestamp, $this->source->type);
+//        if ($this->context->recompiled && empty($this->file_dependency[$this->context->uid])) {
+//            $this->file_dependency[$this->context->uid] = array($this->context->filepath, $this->context->timestamp, $this->context->type);
 //        }
         // TODO
 //        if ($this->caching && isset(Smarty_Resource_Cache_Extension_Create::$creator[0])) {
 //            Smarty_Resource_Cache_Extension_Create::$creator[0]->_mergeFromCompiled($this);
 //        }
         if ($this->smarty->debugging) {
-            Smarty_Debug::end_render($this->source);
+            Smarty_Debug::end_render($this->context);
         }
 
         return $output;
@@ -334,10 +326,10 @@ class  Smarty_Template extends Smarty_Internal_Template
     /**
      * Template runtime function to call a template function
      *
-     * @param  string $name    name of template function
+     * @param  string $name name of template function
      * @param  Smarty_Variable_Scope $_scope
-     * @param  array $params  array with calling parameter
-     * @param  string $assign  optional template variable for result
+     * @param  array $params array with calling parameter
+     * @param  string $assign optional template variable for result
      * @throws Smarty_Exception_Runtime
      * @return bool
      */
@@ -369,7 +361,7 @@ class  Smarty_Template extends Smarty_Internal_Template
             }
             return;
         }
-        throw new Smarty_Exception_Runtime("Call to undefined template function '{$name}'", $smarty);
+        throw new Smarty_Exception_Runtime("Call to undefined template function '{$name}'");
     }
 
     /**
@@ -431,50 +423,32 @@ class  Smarty_Template extends Smarty_Internal_Template
      * Template code runtime function to get subtemplate content
      *
      * @param  string $template_resource the resource handle of the template file
-     * @param  mixed $cache_id         cache id to be used with this template
-     * @param  mixed $compile_id       compile id to be used with this template
-     * @param  integer $caching          cache mode
-     * @param  integer $cache_lifetime   life time of cache data
-     * @param  array $data             array with parameter template variables
-     * @param  int $scope_type       scope in which {include} should execute
+     * @param  mixed $cache_id cache id to be used with this template
+     * @param  mixed $compile_id compile id to be used with this template
+     * @param  integer $caching cache mode
+     * @param  integer $cache_lifetime life time of cache data
+     * @param  array $data array with parameter template variables
+     * @param  int $scope_type scope in which {include} should execute
      * @param  Smarty_Variable_Scope $_scope
-     * @param  string $content_class    optional name of inline content class
+     * @param  string $content_class optional name of inline content class
+     * @throws Smarty_Exception_SourceNotFound
      * @return string                template content
      */
     public function _getSubTemplate($template_resource, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $scope_type, $_scope, $content_class = null)
     {
-        if (isset($content_class)) {
-            // clone new template object
-            $tpl_obj = clone $parent_tpl_obj;
-            $tpl_obj->template_resource = $template_resource;
-            $tpl_obj->cache_id = $cache_id;
-            $tpl_obj->compile_id = $compile_id;
-            $tpl_obj->parent = $parent_tpl_obj;
-
-            // instance content class
-            $tpl_obj->compiled = new stdclass;
-            $tpl_obj->compiled->template_obj = new $content_class($tpl);
-            $result = $tpl_obj->compiled->getRenderedTemplate($tpl_obj, $_scope, $scope_type, $data, $no_output_filter);
-//            $result = $tpl->compiled->template_obj->_renderTemplate($tpl);
-            unset($tpl_obj->_tpl_vars, $tpl_obj);
-
-            return $result;
-        } else {
-            if ($this->smarty->caching && $caching && $caching != Smarty::CACHING_NOCACHE_CODE) {
-                $this->smarty->cached_subtemplates[$template_resource] = array($template_resource, $cache_id, $compile_id, $caching, $cache_lifetime);
-            }
-            //get source object from cache  or create new one
-            $context = Smarty_Context::getContext($this->smarty, $template_resource, $cache_id, $compile_id, $this, false, false, $data, $scope_type, $caching, $cache_lifetime);
-            // checks if source exists
-            if (!$context->exists) {
-                throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
-            }
-            if ($caching == Smarty::CACHING_NOCACHE_CODE) {
-                return Smarty_Resource_Cache_Extension_Create::$stack[0]->_renderCacheSubTemplate($context, true);
-            }
-            return $context->_getRenderedTemplate(($caching) ? Smarty::CACHE : Smarty::COMPILED);
+        if ($this->smarty->caching && $caching && $caching != Smarty::CACHING_NOCACHE_CODE) {
+            $this->smarty->cached_subtemplates[$template_resource] = array($template_resource, $cache_id, $compile_id, $caching, $cache_lifetime);
         }
-
+        //get source object from cache  or create new one
+        $context = $this->smarty->_getContext($template_resource, $cache_id, $compile_id, $this, false, false, $data, $scope_type, $caching, $cache_lifetime, $content_class);
+        // checks if source exists
+        if (!$context->exists) {
+            throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
+        }
+        if ($caching == Smarty::CACHING_NOCACHE_CODE) {
+            return Smarty_Resource_Cache_Extension_Create::$stack[0]->_renderCacheSubTemplate($context, true);
+        }
+        return $context->_getRenderedTemplate(($caching) ? Smarty::CACHE : Smarty::COMPILED);
     }
 
     /**
@@ -500,7 +474,7 @@ class  Smarty_Template extends Smarty_Internal_Template
     /**
      * callback used by _export_cache_value to check arrays recursively
      *
-     * @param  bool $flag    status of previous elements
+     * @param  bool $flag status of previous elements
      * @param  mixed $element array element to check
      * @throws Smarty_Exception
      * @return bool             status
@@ -513,6 +487,44 @@ class  Smarty_Template extends Smarty_Internal_Template
         $flag = $flag || is_object($element) || (!is_int($element) && !is_float($element) && !is_bool($element) && !is_string($element) && (is_array($element) && array_reduce($element, array($this, '_checkAarrayCallback'))));
 
         return $flag;
+    }
+
+    /**
+     * Handle unknown class methods
+     *  - try to Smarty methods
+     *
+     * @param  string $name unknown method-name
+     * @param  array $args argument array
+     * @return mixed    function results
+     */
+    public function __call($name, $args)
+    {
+        // method of Smarty object?
+        if (method_exists($this->smarty, $name)) {
+            return call_user_func_array(array($this->smarty, $name), $args);
+        }
+        // try autoloaded methods
+        if (isset($this->_autoloaded[$name])) {
+            return call_user_func_array(array($this->_autoloaded[$name], $name), $args);
+        }
+        // try new autoloaded Smarty methods
+        $class = ($name[0] != '_') ? 'Smarty_Method_' . ucfirst($name) : ('Smarty_Internal_' . ucfirst(substr($name, 1)));
+        if (class_exists($class, true)) {
+            $obj = new $class($this->smarty);
+            $this->_autoloaded[$name] = $obj;
+            return call_user_func_array(array($obj, $name), $args);
+        }
+        // try new autoloaded variable methods
+        $class = ($name[0] != '_') ? 'Smarty_Variable_Method_' . ucfirst($name) : ('Smarty_Variable_Internal_' . ucfirst(substr($name, 1)));
+        if (class_exists($class, true)) {
+            $obj = new $class($this);
+            if (method_exists($obj, $name)) {
+                $this->_autoloaded[$name] = $obj;
+                return call_user_func_array(array($obj, $name), $args);
+            }
+        }
+        // throw error through magic parent
+        Smarty_Exception_Magic::__call($name, $args);
     }
 
 }

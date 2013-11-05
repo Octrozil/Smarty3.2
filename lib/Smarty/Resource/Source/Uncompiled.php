@@ -38,7 +38,7 @@ abstract class Smarty_Resource_Source_Uncompiled extends Smarty_Resource_Source_
     /**
      * get rendered template output from compiled template
      *
-     * @param \Smarty_Source $source source object
+     * @param \Smarty_Resource_Source_File $source source object
      * @param \Smarty $tpl_obj template object
      * @throws Exception
      * @return string

@@ -111,7 +111,7 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
                 // load existing compiled template class
                 $template_class_name = $this->loadTemplateClass($filepath);
                 if (class_exists($template_class_name, false)) {
-                    $template_obj = new $template_class_name($context, $filepath, $timestamp);
+                    $template_obj = new $template_class_name($context);
                     $isValid = $template_obj->isValid;
                 }
             }
@@ -130,7 +130,7 @@ class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
                 $this->populateTimestamp($context->smarty, $filepath, $timestamp, $exists);
                 $template_class_name = $this->loadTemplateClass($filepath);
                 if (class_exists($template_class_name, false)) {
-                    $template_obj = new $template_class_name($context, $filepath, $timestamp);
+                    $template_obj = new $template_class_name($context);
                     $template_obj->isUpdated = true;
                     $isValid = $template_obj->isValid;
                 }

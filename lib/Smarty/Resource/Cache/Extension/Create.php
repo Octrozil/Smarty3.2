@@ -232,9 +232,12 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         $template_code->php("<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . " */")->newline();
         // content class name
         $class = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
-        $template_code->php("if (!class_exists('{$class}',false)) {")->newline()->indent()->php("class {$class} extends Smarty_Template" . (!empty($this->inheritance_blocks_code) ? "_Inheritance" : '') . " {")->newline()->indent();
+        $template_code->php("if (!class_exists('{$class}',false)) {")->newline()->indent();
+        $template_code->php("class {$class} extends Smarty_Template" . (!empty($this->inheritance_blocks_code) ? "_Inheritance" : '') . " {")->newline()->indent();
         $template_code->php("public \$version = '" . Smarty::SMARTY_VERSION . "';")->newline();
         $template_code->php("public \$has_nocache_code = " . ($this->has_nocache_code ? 'true' : 'false') . ";")->newline();
+        $template_code->php("public \$filepath = '{$this->filepath}';")->newline();
+        $template_code->php("public \$timestamp = " . time() . ";")->newline();
         if (!empty($tpl_obj->cached_subtemplates)) {
             $template_code->php("public \$cached_subtemplates = ")->repr($tpl_obj->cached_subtemplates, false)->raw(";")->newline();
         }
@@ -268,7 +271,8 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         $template_code->php("return ")->repr($template_code->traceback)->raw(";")->newline();
         $template_code->outdent()->php('}')->newline();
 
-        $template_code->outdent()->php('}')->newline()->outdent()->php('}')->newline();
+        $template_code->outdent()->php('}')->newline();
+        $template_code->outdent()->php('}')->newline();
         $template_code->php("\$template_class_name = '{$class}';")->newline();
 
         return $template_code;

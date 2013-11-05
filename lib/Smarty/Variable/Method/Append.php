@@ -38,8 +38,8 @@ class Smarty_Variable_Method_Append
      *
      * @api
      * @param  array|string $tpl_var the template variable name(s)
-     * @param  mixed $value   the value to append
-     * @param  boolean $merge   flag if array elements shall be merged
+     * @param  mixed $value the value to append
+     * @param  boolean $merge flag if array elements shall be merged
      * @param  boolean $nocache if true any output of this variable will be not cached
      * @param int $scope_type
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
@@ -76,7 +76,11 @@ class Smarty_Variable_Method_Append
                     $_var->value[] = $_val;
                 }
             }
-            $this->object->_assignInScope($varname, $_var, $scope_type);
+            if ($this->object->_usage == Smarty::IS_TEMPLATE || $scope_type != Smarty::SCOPE_LOCAL) {
+                $this->object->_assignInScope($varname, $_var, $scope_type);
+            } else {
+                $this->object->_tpl_vars->$varname = $_var;
+            }
         }
         return $this->object;
     }
