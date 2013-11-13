@@ -737,7 +737,7 @@ value(res)       ::= doublequoted_with_quotes(s). {
 
 value(res)    ::= IDINCDEC(v). {
     $len = strlen(v);
-    res = '$_scope->' . substr(v,1,$len-3) . '->value' . substr(v,$len-2);
+    res = '$_scope->_tpl_vars->' . substr(v,1,$len-3) . '->value' . substr(v,$len-2);
 }
 
                   // static class access
@@ -755,7 +755,7 @@ value(res)       ::= ID(c)static(s). {
 
                   // namespace class access
 value(res)       ::= NAMESPACE(c) static(s). {
-    res = c.r;
+    res = c.s;
 }
 
                   // name space constant
@@ -799,7 +799,7 @@ variable(res)    ::= varindexed(vi). {
 
                   // variable with property
 variable(res)    ::=  varvar(v) AT ID(p). {
-    res = '$_scope->' . trim(v,"'") . '->' . p;
+    res = '$_scope->_tpl_vars->' . trim(v,"'") . '->' . p;
 }
 
                   // object
@@ -810,20 +810,20 @@ variable(res)    ::= object(o). {
                   // config variable
 //variable(res)    ::= HATCH ID(i) HATCH. {
 //    $var = trim(i,'\'');
-//    res = "\$_scope->___config_var_{$var}";
+//    res = "\$_scope->_tpl_vars->___config_var_{$var}";
 //}
 
 variable(res)    ::= HATCH ID(i) HATCH arrayindex(a). {
     $var = trim(i,'\'');
-    res = "\$_scope->___config_var_{$var}".a;
+    res = "\$_scope->_tpl_vars->___config_var_{$var}".a;
 }
 
 //variable(res)    ::= HATCH variable(v) HATCH. {
-//    res = "\$_scope->___config_var_{{v}}";
+//    res = "\$_scope->_tpl_vars->___config_var_{{v}}";
 //}
 
 variable(res)    ::= HATCH varindexed(v) HATCH arrayindex(a). {
-    res = "\$_scope->___config_var_{{v}}".a;
+    res = "\$_scope->_tpl_vars->___config_var_{{v}}".a;
 }
 
 varindexed(res)  ::=  varvar(v) arrayindex(a). {
@@ -989,9 +989,9 @@ function(res)     ::= ID(f) OPENP params(p) CLOSEP. {
                     $this->compiler->error ('Illegal number of paramer in "isset()"');
                 }
                 $par = implode(',',p);
-                preg_match('/\$_scope->([0-9]*[a-zA-Z_]\w*)(.*)/',$par,$match);
+                preg_match('/\$_scope->_tpl_vars->([0-9]*[a-zA-Z_]\w*)(.*)/',$par,$match);
                 if (isset($match[1])) {
-                    $search = array('/\$_scope->([0-9]*[a-zA-Z_]\w*)/','/->value.*/');
+                    $search = array('/\$_scope->_tpl_vars->([0-9]*[a-zA-Z_]\w*)/','/->value.*/');
                     $replace = array('$this->_getVariable(\'\1\', null, false, false)','');
                     $this->prefix_number++;
                     $code = new Smarty_Compiler_Code();
@@ -1220,9 +1220,9 @@ doublequotedcontent(res)           ::=  BACKTICK expr(e) BACKTICK. {
 
 doublequotedcontent(res)           ::=  DOLLARID(i). {
     if (empty($this->db_quote_code_buffer)) {
-        res = '(string)$_scope->'. substr(i,1) . '->value';
+        res = '(string)$_scope->_tpl_vars->'. substr(i,1) . '->value';
     } else {
-        $this->db_quote_code_buffer .= 'echo (string)$_scope->'. substr(i,1) . '->value;';
+        $this->db_quote_code_buffer .= 'echo (string)$_scope->_tpl_vars->'. substr(i,1) . '->value;';
         res = false;
     }
 }
