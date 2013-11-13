@@ -40,7 +40,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
                     $name .= '_' . trim($_index[$i], "'");
                 }
                 $last = end($_index);
-                return "\$_scope->{$name}->value[$last]";
+                return "\$_scope->_tpl_vars->{$name}->value[$last]";
             case 'capture':
                 return "Smarty::\$_smarty_vars$parameter";
             case 'now':
@@ -94,9 +94,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
             case 'config':
                 $name = trim($_index[1], "'");
                 if (isset($_index[2])) {
-                    return "\$_scope->___config_var_{$name}[{$_index[2]}]";
+                    return "\$_scope->_tpl_vars->___config_var_{$name}[{$_index[2]}]";
                 } else {
-                    return "\$_scope->___config_var_{$name}";
+                    return "\$_scope->_tpl_vars->___config_var_{$name}";
                 }
             case 'ldelim':
                 $_ldelim = $compiler->context->smarty->left_delimiter;

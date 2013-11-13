@@ -137,7 +137,7 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
             if ((substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2)
                 and substr_count($include_file, '(') == 0 and substr_count($include_file, '$this->smarty->') == 0
             ) {
-                $_scope = $compiler->context->scope;
+                $_scope = new Smarty_Template_Scope($compiler->context);
                 eval("\$tpl_name = $include_file;");
                 // clone object
                 $tpl = clone $compiler->context->smarty;

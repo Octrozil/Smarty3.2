@@ -256,8 +256,12 @@ class  Smarty_Template extends Smarty_Internal_Template
             $this->isValid = true;
         }
         if (!$this->is_cache) {
-            if (!empty($this->template_functions) && isset($this->parent) && $this->parent->_usage == Smarty::IS_TEMPLATE) {
-                $this->parent->template_function_chain = $this;
+//            if (!empty($this->template_functions) && isset($this->parent) && $this->parent->_usage == Smarty::IS_TEMPLATE) {
+//                $this->parent->template_function_chain = $this;
+//            }
+            // TODO template function chain
+            if (!empty($this->template_functions)) {
+                $this->smarty->template_functions = array_merge($this->smarty->template_functions, $this->template_functions);
             }
         }
     }
@@ -266,26 +270,54 @@ class  Smarty_Template extends Smarty_Internal_Template
      * get rendered template output from compiled template
      *
      * @param Smarty_Context $context
+     * @param  Smarty_Template_Scope $_scope
      * @throws Exception
      * @return string
      */
-    public function getRenderedTemplate(Smarty_Context $context)
+    public function _getRenderedTemplate(Smarty_Context $context, $_scope = null)
     {
         $this->smarty->cached_subtemplates = array();
         $level = ob_get_level();
         try {
+            // TODO must be removed --- load template object pointer for temmplate functions
+            foreach ($this->template_functions as $name => $foo) {
+                $context->smarty->template_functions[$name] = $this;
+            }
+            if ($_scope  !== null) {
+                // is subtemplate, so we can clone template scope
+                $template_scope = clone $_scope;
+                $template_scope->_tpl_vars = clone $template_scope->_tpl_vars;
+            } else {
+                $template_scope = new Smarty_Template_Scope($context);
+            }
+            $template_scope->parent = $context->parent;
+            // fill data if present
+            if ($context->data != null) {
+                // set up variable values
+                foreach ($context->data as $var => $value) {
+                    if ($value instanceof Smarty_Variable) {
+                        $template_scope->_tpl_vars->$var = $value;
+                    } else {
+                        $template_scope->_tpl_vars->$var = new Smarty_Variable($value);
+                    }
+                }
+            }
+            // load template object pointer for temmplate functions
+            foreach ($this->template_functions as $name => $foo) {
+                $template_scope->template_functions[$name] = $this;
+            }
             if ($this->smarty->debugging) {
                 Smarty_Debug::start_render($this->context);
             }
             array_unshift($this->_capture_stack, array());
             self::$call_stack[] = array($this, $this->_tpl_vars, $this->parent, $this->scope_type);
-            $this->_tpl_vars = $context->scope;
+            $this->_tpl_vars = $template_scope->_tpl_vars;
             $this->parent = $context->parent;
             $this->scope_type = $context->scope_type;
             if ($this->smarty->enable_trace && isset(Smarty::$_trace_callbacks['render:time:end'])) {
                 $this->smarty->_triggerTraceCallback('render:time:start', array($this));
             }
-            $output = $this->_renderTemplate($context->scope);
+            $output = $this->_renderTemplate($template_scope);
             if (!$context->no_output_filter && (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->_registered['filter']['output']))) {
                 $output = $this->smarty->runFilter('output', $output, $this);
             }
@@ -296,7 +328,10 @@ class  Smarty_Template extends Smarty_Internal_Template
             $this->_tpl_vars = $restore[1];
             $this->parent = $restore[2];
             $this->scope_type = $restore[3];
-
+            // TODO MUST BE CHANGED
+            if ($_scope !== null) {
+                $_scope->template_functions = $template_scope->template_functions;
+            }
             // any unclosed {capture} tags ?
             if (isset($this->_capture_stack[0][0])) {
                 throw new Smarty_Exception_CaptureError();
@@ -335,27 +370,22 @@ class  Smarty_Template extends Smarty_Internal_Template
      */
     public function _callTemplateFunction($name, $_scope, $params, $assign)
     {
-        $ptr = $this;
-        while ($ptr != null && ($ptr instanceof Smarty_Template) && !isset($ptr->template_functions[$name])) {
-            $ptr = $ptr->parent;
-        }
-        if (isset($ptr) && ($ptr instanceof Smarty_Template)) {
-            self::$call_stack[] = array($ptr, $ptr->_tpl_vars, $ptr->parent, $ptr->scope_type);
-            $ptr->_tpl_vars = clone $_scope;
-            $ptr->parent = $this;
-            $ptr->scope_type = Smarty::SCOPE_LOCAL;
-            foreach ($ptr->template_functions[$name]['parameter'] as $key => $value) {
-                $ptr->_tpl_vars->$key = new Smarty_Variable($value);
+        if (isset($_scope->template_functions[$name])) {
+            $template_object = $_scope->template_functions[$name];
+            self::$call_stack[] = array($this, $this->_tpl_vars, $this->parent, $this->scope_type);
+            $this->_tpl_vars = $_scope->_tpl_vars = clone $_scope->_tpl_vars;
+            $this->scope_type = Smarty::SCOPE_LOCAL;
+            foreach ($template_object->template_functions[$name]['parameter'] as $key => $value) {
+                $this->_tpl_vars->$key = new Smarty_Variable($value);
             }
             if (!empty($assign)) {
                 ob_start();
             }
             $func_name = "_renderTemplateFunction_{$name}";
-            $ptr->$func_name($ptr->_tpl_vars, $params);
+            $template_object->$func_name($_scope, $params);
             $restore = array_pop(self::$call_stack);
-            $ptr->_tpl_vars = $restore[1];
-            $ptr->parent = $restore[2];
-            $ptr->scope_type = $restore[3];
+            $this->_tpl_vars = $_scope->_tpl_vars = $restore[1];
+            $this->scope_type = $restore[3];
             if (!empty($assign)) {
                 $this->_tpl_vars->$assign = ob_get_clean();
             }
@@ -429,7 +459,7 @@ class  Smarty_Template extends Smarty_Internal_Template
      * @param  integer $cache_lifetime life time of cache data
      * @param  array $data array with parameter template variables
      * @param  int $scope_type scope in which {include} should execute
-     * @param  Smarty_Variable_Scope $_scope
+     * @param  Smarty_Template_Scope $_scope
      * @param  string $content_class optional name of inline content class
      * @throws Smarty_Exception_SourceNotFound
      * @return string                template content
@@ -440,7 +470,7 @@ class  Smarty_Template extends Smarty_Internal_Template
             $this->smarty->cached_subtemplates[$template_resource] = array($template_resource, $cache_id, $compile_id, $caching, $cache_lifetime);
         }
         //get source object from cache  or create new one
-        $context = $this->smarty->_getContext($template_resource, $cache_id, $compile_id, $this, false, false, $data, $scope_type, $caching, $cache_lifetime, $content_class);
+        $context = $this->smarty->_getContext($template_resource, $cache_id, $compile_id, $this, false, false, $data, $scope_type, $caching, $cache_lifetime);
         // checks if source exists
         if (!$context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
@@ -448,7 +478,10 @@ class  Smarty_Template extends Smarty_Internal_Template
         if ($caching == Smarty::CACHING_NOCACHE_CODE) {
             return Smarty_Resource_Cache_Extension_Create::$stack[0]->_renderCacheSubTemplate($context, true);
         }
-        return $context->_getRenderedTemplate(($caching) ? Smarty::CACHE : Smarty::COMPILED);
+        // get template object
+        $template_obj = $context->_getTemplateObject(($caching) ? Smarty::CACHE : Smarty::COMPILED, false, $content_class);
+        //render template
+        return $template_obj->_getRenderedTemplate($context, $_scope);
     }
 
     /**

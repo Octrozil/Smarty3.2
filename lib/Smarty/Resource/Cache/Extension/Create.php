@@ -120,12 +120,10 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      */
     public function _renderCacheSubTemplate(Smarty_Context $context, $isSubtemplate = false)
     {
-        // build variable scope
-        $context->scope = $context->_buildScope($context->smarty, $context->parent, $context->data);
         // get template object
         $template_obj = $context->_getTemplateObject(Smarty::COMPILED);
         //render template
-        $_output = $template_obj->getRenderedTemplate($context);
+        $_output = $template_obj->_getRenderedTemplate($context);
         // merge cache file properties
         $this->file_dependency = array_merge($this->file_dependency, $template_obj->file_dependency);
         $this->required_plugins = array_merge($this->required_plugins, $template_obj->required_plugins_nocache);

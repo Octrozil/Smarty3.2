@@ -19,9 +19,9 @@
 class Smarty_Variable_Methods extends Smarty_Exception_Magic
 {
     /**
-     * parent template (if any)
+     * parent
      *
-     * @var Smarty
+     * @var Smarty  | Smarty_Data | Smarty_Template
      */
     public $parent = null;
 

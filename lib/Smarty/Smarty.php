@@ -745,13 +745,6 @@ class Smarty extends Smarty_Variable_Methods
     public $is_inheritance_child = false;
 
     /**
-     * Pointer to subtemplate with template functions
-     * @var object Smarty_Template
-     * @internal
-     */
-    public $template_function_chain = null;
-
-    /**
      * $compiletime_options
      * value is computed of the compiletime options relevant for config files
      *      $config_read_hidden
@@ -874,12 +867,17 @@ class Smarty extends Smarty_Variable_Methods
 
         if ($context->caching == self::CACHING_LIFETIME_CURRENT || $context->caching == self::CACHING_LIFETIME_SAVED) {
             $browser_cache_valid = false;
-            $_output = $context->_getRenderedTemplate(self::CACHE);
+            // get template object
+            $template_obj = $context->_getTemplateObject(self::CACHE);
+            //render template
+            $_output = $template_obj->_getRenderedTemplate($context);
             if ($_output === true) {
                 $browser_cache_valid = true;
             }
         } else {
-            $_output = $context->_getRenderedTemplate(self::COMPILED);
+            $template_obj = $context->_getTemplateObject(self::COMPILED);
+            //render template
+            $_output = $template_obj->_getRenderedTemplate($context);
         }
         $tpl_obj->_fetch_nesting_level--;
         if (isset($tpl_obj->error_reporting) && $tpl_obj->_fetch_nesting_level == 0) {
@@ -1286,10 +1284,9 @@ class Smarty extends Smarty_Variable_Methods
      * @param  int $scope_type
      * @param  null $caching
      * @param  null|int $cache_lifetime
-     * @param  null|string $tpl_class_name template class name of inline template
      * @return bool|Smarty_Source
      */
-    public function _getContext($resource, $cache_id = null, $compile_id = null, $parent = null, $cache_context = false, $no_output_filter = false, $data = null, $scope_type = self::SCOPE_LOCAL, $caching = null, $cache_lifetime = null, $tpl_class_name = null)
+    public function _getContext($resource, $cache_id = null, $compile_id = null, $parent = null, $cache_context = false, $no_output_filter = false, $data = null, $scope_type = self::SCOPE_LOCAL, $caching = null, $cache_lifetime = null)
     {
         if (is_object($resource)) {
             // get source from template clone
@@ -1362,6 +1359,7 @@ class Smarty extends Smarty_Variable_Methods
                 }
             }
         }
+//        $context_obj = clone $context_obj;
         // set up parameter for this call
         if ($cache_context) {
             $context_obj->force_caching = true;
@@ -1374,7 +1372,6 @@ class Smarty extends Smarty_Variable_Methods
         $context_obj->no_output_filter = $no_output_filter;
         $context_obj->data = $data;
         $context_obj->scope_type = $scope_type;
-        $context_obj->tpl_class_name = $tpl_class_name;
         return $context_obj;
     }
 
@@ -1474,7 +1471,7 @@ class Smarty extends Smarty_Variable_Methods
         if ($this->_usage == self::IS_SMARTY_TPL_CLONE && $this->cache_locking && isset($this->cached) && $this->cached->is_locked) {
             $this->cached->releaseLock($this, $this->cached);
         }
-        parent::__destruct();
+        //parent::__destruct();
     }
 
     /**

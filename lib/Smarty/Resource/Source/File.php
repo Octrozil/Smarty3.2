@@ -15,7 +15,7 @@
  *
  * @package Resource\Source
  */
-class Smarty_Resource_Source_File extends Smarty_Exception_Magic
+class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
 {
 
     /**

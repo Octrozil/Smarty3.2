@@ -55,15 +55,15 @@ class Smarty_Compiler_Template_Php_Tag_If extends Smarty_Compiler_Template_Php_T
                 $_nocache = 'false';
             }
             if (is_array($parameter['if condition']['var'])) {
-                $this->php("if (!isset(\$_scope->{$var}) || !is_array(\$_scope->{$var}->value)) {")->newline()->indent();
+                $this->php("if (!isset(\$_scope->_tpl_vars->{$var}) || !is_array(\$_scope->_tpl_vars->{$var}->value)) {")->newline()->indent();
                 $this->php("\$this->_createLocalArrayVariable('" . $parameter['if condition']['var']['var'] . "', {$_nocache});")->newline();
                 $this->outdent()->php("}")->newline();
-                $this->php("if (\$_scope->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
+                $this->php("if (\$_scope->_tpl_vars->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
             } else {
-                $this->php("if (!isset(\$_scope->{$var})) {")->newline()->indent();
+                $this->php("if (!isset(\$_scope->_tpl_vars->{$var})) {")->newline()->indent();
                 $this->php("\$this->_assignInScope('{$var}',  new Smarty_Variable (null, {$_nocache}));")->newline();
                 $this->outdent()->php("}")->newline();
-                $this->php("if (\$_scope->{$var}->value = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
+                $this->php("if (\$_scope->_tpl_vars->{$var}->value = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
             }
         } else {
             $this->php("if ({$parameter['if condition']}) {")->newline()->indent();
@@ -158,16 +158,16 @@ class Smarty_Compiler_Template_Php_Tag_Elseif extends Smarty_Compiler_Template_P
                 $this->openTag($compiler, 'elseif', array($nesting + 1, $compiler->tag_nocache));
                 if (is_array($parameter['if condition']['var'])) {
                     $this->outdent()->php("} else {")->newline()->indent();
-                    $this->php("if (!isset(\$_scope->{$var}) || !is_array(\$_scope->{$var}->value)) {")->newline()->indent();
+                    $this->php("if (!isset(\$_scope->_tpl_vars->{$var}) || !is_array(\$_scope->_tpl_vars->{$var}->value)) {")->newline()->indent();
                     $this->php("\$this->_createLocalArrayVariable('" . $parameter['if condition']['var']['var'] . "', {$_nocache});")->newline();
                     $this->outdent()->php("}")->newline();
-                    $this->php("if (\$_scope->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
+                    $this->php("if (\$_scope->_tpl_vars->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
                 } else {
                     $this->outdent()->php("} else {")->newline()->indent();
-                    $this->php("if (!isset(\$_scope->{$var})) {")->newline()->indent();
+                    $this->php("if (!isset(\$_scope->_tpl_vars->{$var})) {")->newline()->indent();
                     $this->php("\$this->_assignInScope('{$var}',  new Smarty_Variable (null, {$_nocache}));")->newline();
                     $this->outdent()->php("}")->newline();
-                    $this->php("if (\$_scope->{$var}->value = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
+                    $this->php("if (\$_scope->_tpl_vars->{$var}->value = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
                 }
             } else {
                 $this->openTag($compiler, 'elseif', array($nesting, $compiler->tag_nocache));
@@ -182,20 +182,20 @@ class Smarty_Compiler_Template_Php_Tag_Elseif extends Smarty_Compiler_Template_P
                         $this->mergeCode($prefix_code);
                     }
                     $compiler->prefix_code = array();
-                    $this->php("if (!isset(\$_scope->{$var}) || !is_array(\$_scope->{$var}->value)) {")->newline()->indent();
+                    $this->php("if (!isset(\$_scope->_tpl_vars->{$var}) || !is_array(\$_scope->_tpl_vars->{$var}->value)) {")->newline()->indent();
                     $this->php("\$this->_createLocalArrayVariable('" . $parameter['if condition']['var']['var'] . "', {$_nocache});")->newline();
                     $this->outdent()->php("}")->newline();
-                    $this->php("if (\$_scope->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
+                    $this->php("if (\$_scope->_tpl_vars->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
                 } else {
                     $this->outdent()->php("} else {")->newline()->indent();
                     foreach ($compiler->prefix_code as $prefix_code) {
                         $this->mergeCode($prefix_code);
                     }
                     $compiler->prefix_code = array();
-                    $this->php("if (!isset(\$_scope->{$var})) {")->newline()->indent();
+                    $this->php("if (!isset(\$_scope->_tpl_vars->{$var})) {")->newline()->indent();
                     $this->php("\$this->_assignInScope('{$var}',  new Smarty_Variable (null, {$_nocache}));")->newline();
                     $this->outdent()->php("}")->newline();
-                    $this->php("if (\$_scope->{$var}->value = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
+                    $this->php("if (\$_scope->_tpl_vars->{$var}->value = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
                 }
             } else {
                 $this->outdent()->php("} else {")->newline()->indent();

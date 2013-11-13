@@ -68,7 +68,7 @@ class Smarty_Compiler_Template_Php_Tag_Import extends Smarty_Compiler_Template_P
         if (!(substr_count($include_file, "'") == 2 || substr_count($include_file, '"') == 2)) {
             $compiler->error('illegal variable template name', $compiler->lex->taglineno);
         }
-        $_scope = $compiler->context->scope;
+        $_scope = new Smarty_Template_Scope($compiler->context);
         eval("\$tpl_name = $include_file;");
         $context = $compiler->context->smarty->_getContext($tpl_name);
         $comp = Smarty_Compiler::load($context, null);

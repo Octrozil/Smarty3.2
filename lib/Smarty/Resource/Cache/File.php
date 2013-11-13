@@ -15,33 +15,8 @@
  *
  * @package Resource\Cache
  */
-class Smarty_Resource_Cache_File extends Smarty_Exception_Magic
+class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
 {
-
-    /**
-     * resource filepath
-     *
-     * @var string| boolean false
-     */
-    public $filepath = false;
-
-    /**
-     * Resource Timestamp
-     * @var integer
-     */
-    public $timestamp = null;
-
-    /**
-     * Resource Existence
-     * @var boolean
-     */
-    public $exists = false;
-
-    /**
-     * Cache Is Valid
-     * @var boolean
-     */
-    public $isValid = false;
 
     /**
      * Id for cache locking

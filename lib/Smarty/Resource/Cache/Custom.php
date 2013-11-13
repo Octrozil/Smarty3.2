@@ -157,35 +157,6 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
     }
 
     /**
-     * Read the cached template and process the header
-     *
-     * @param  Smarty $tpl_obj template object
-     * @return bool   true or false if the cached content does not exist
-     */
-    public function process(Smarty $tpl_obj)
-    {
-        if (isset($this->content)) {
-            $content = $this->content;
-            $this->content = null;
-        } else {
-            $content = null;
-        }
-        $timestamp = $this->timestamp ? $this->timestamp : null;
-        if ($content === null || !$timestamp) {
-            $this->fetch(
-                $this->filepath, $this->source->name, $this->cache_id, $this->compile_id, $content, $timestamp
-            );
-        }
-        if (isset($content)) {
-            eval("?>" . $content);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * load cache template class
      *
      * @param $filepath

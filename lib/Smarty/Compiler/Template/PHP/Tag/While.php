@@ -56,15 +56,15 @@ class Smarty_Compiler_Template_Php_Tag_While extends Smarty_Compiler_Template_Ph
                 $_nocache = 'false';
             }
             if (is_array($parameter['if condition']['var'])) {
-                $this->php("if (!isset(\$_scope->{$var}) || !is_array(\$_scope->{$var}->value)) {")->newline()->indent();
+                $this->php("if (!isset(\$_scope->_tpl_vars->{$var}) || !is_array(\$_scope->_tpl_vars->{$var}->value)) {")->newline()->indent();
                 $this->php("\$this->_createLocalArrayVariable('" . $parameter['if condition']['var']['var'] . "', {$_nocache});")->newline();
                 $this->outdent()->php("}")->newline();
-                $this->php("while (\$_scope->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
+                $this->php("while (\$_scope->_tpl_vars->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
             } else {
-                $this->php("if (!isset(\$_scope->{$var})) {")->newline()->indent();
+                $this->php("if (!isset(\$_scope->_tpl_vars->{$var})) {")->newline()->indent();
                 $this->php("\$this->_assignInScope('{$var}',  new Smarty_Variable (null, {$_nocache}));")->newline();
                 $this->outdent()->php("}")->newline();
-                $this->php("while (\$_scope->{$var}->value = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
+                $this->php("while (\$_scope->_tpl_vars->{$var}->value = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
             }
         } else {
             $this->php("while ({$parameter['if condition']}) {")->newline()->indent();

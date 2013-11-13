@@ -13,7 +13,7 @@
  * Meta Data Container for Compiled Template Files
  *
  */
-class Smarty_Resource_Compiled_Recompiled extends Smarty_Exception_Magic
+class Smarty_Resource_Compiled_Recompiled //extends Smarty_Exception_Magic
 {
 
     /**
@@ -46,7 +46,7 @@ class Smarty_Resource_Compiled_Recompiled extends Smarty_Exception_Magic
                 $isValid = $template_obj->isValid;
             }
             if (!$isValid) {
-                throw new Smarty_Exception_FileLoadError('compiled template', $source->filepath);
+                throw new Smarty_Exception_FileLoadError('compiled template', $context->filepath);
             }
 
         } catch (Exception $e) {

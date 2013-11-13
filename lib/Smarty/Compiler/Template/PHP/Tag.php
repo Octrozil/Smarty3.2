@@ -255,7 +255,7 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
     public function getPluginParameterString($callback, $params, $compiler, $block, $cache_attr = null)
     {
         $object = '$this';
-        if ($result = $this->injectObject($callback, array('Smarty', 'Smarty_Internal_Template_'))) {
+        if ($result = $this->injectObject($callback, array('Smarty', 'Smarty_Template'))) {
             if ($result[1] == 0) {
                 $par_array = array();
                 $par_names = array();

@@ -305,11 +305,6 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
     public $compiled_filepath = '';
 
     /**
-     * Variable scope
-     */
-    public $scope = null;
-
-    /**
      * Timestamp when we started compilation
      * @var int
      */
@@ -334,8 +329,6 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         $this->compiled_filepath = $compiled_filepath;
         $this->timestamp = time();
         $this->context = $context;
-        // the variable scope must be cloned as the compiler may add variables during compilation
-        $this->scope = $context->_buildScope($context->smarty, $context->parent, $context->data);
         // get required plugins
         $this->lexer_class = $lexer_class;
         $this->parser_class = $parser_class;
@@ -735,7 +728,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
             $var = '{' . $variable . '}';
         }
 
-        return '$_scope->' . $var . '->value';
+        return '$_scope->_tpl_vars->' . $var . '->value';
     }
 
     /**

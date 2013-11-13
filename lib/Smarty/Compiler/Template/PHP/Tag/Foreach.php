@@ -107,78 +107,78 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
         $usesPropTotal = $usesSmartyTotal || $usesSmartyShow || $usesPropShow || $usesPropLast || strpos($compiler->lex->data, $ItemVarName . 'total') !== false;
         // generate output code
         $this->php("\$this->_assignInScope('$item', new Smarty_Variable);")->newline();
-//        $this->php("\$_scope->$item = new Smarty_Variable;")->newline();
-        $this->php("\$_scope->{$item}->_loop = false;")->newline();
+//        $this->php("\$_scope->_tpl_vars->$item = new Smarty_Variable;")->newline();
+        $this->php("\$_scope->_tpl_vars->{$item}->_loop = false;")->newline();
         if ($key != null) {
             $this->php("\$this->_assignInScope('$key', new Smarty_Variable);")->newline();
-//            $this->php("\$_scope->$key = new Smarty_Variable;")->newline();
+//            $this->php("\$_scope->_tpl_vars->$key = new Smarty_Variable;")->newline();
         }
         $this->php("\$_from = $from;")->newline();
         $this->php("if (!is_array(\$_from) && !is_object(\$_from)) {")->newline()->indent()->php("settype(\$_from, 'array');")->newline()->outdent()->php("}")->newline();
         if ($usesPropTotal) {
-            $this->php("\$_scope->{$item}->total = \$this->_count(\$_from);")->newline();
+            $this->php("\$_scope->_tpl_vars->{$item}->total = \$this->_count(\$_from);")->newline();
         }
         if ($usesPropIteration) {
-            $this->php("\$_scope->{$item}->iteration = 0;")->newline();
+            $this->php("\$_scope->_tpl_vars->{$item}->iteration = 0;")->newline();
         }
         if ($usesPropIndex) {
-            $this->php("\$_scope->{$item}->index = -1;")->newline();
+            $this->php("\$_scope->_tpl_vars->{$item}->index = -1;")->newline();
         }
         if ($usesPropShow) {
-            $this->php("\$_scope->{$item}->show = (\$_scope->{$item}->total > 0);")->newline();
+            $this->php("\$_scope->_tpl_vars->{$item}->show = (\$_scope->_tpl_vars->{$item}->total > 0);")->newline();
         }
         if ($has_name) {
             $varname = 'smarty_foreach_' . trim($name, '\'"');
             $this->php("\$this->_assignInScope('$varname', new Smarty_Variable);")->newline();
-//            $this->php("\$_scope->{$varname} = new Smarty_Variable;")->newline();
+//            $this->php("\$_scope->_tpl_vars->{$varname} = new Smarty_Variable;")->newline();
             if ($usesSmartyTotal) {
-                $this->php("\$_scope->{$varname}->value['total'] = \$_scope->{$item}->total;")->newline();
+                $this->php("\$_scope->_tpl_vars->{$varname}->value['total'] = \$_scope->_tpl_vars->{$item}->total;")->newline();
             }
             if ($usesSmartyIteration) {
-                $this->php("\$_scope->{$varname}->value['iteration'] = 0;")->newline();
+                $this->php("\$_scope->_tpl_vars->{$varname}->value['iteration'] = 0;")->newline();
             }
             if ($usesSmartyIndex) {
-                $this->php("\$_scope->{$varname}->value['index'] = -1;")->newline();
+                $this->php("\$_scope->_tpl_vars->{$varname}->value['index'] = -1;")->newline();
             }
             if ($usesSmartyShow) {
-                $this->php("\$_scope->{$varname}->value['show']=(\$_scope->{$item}->total > 0);")->newline();
+                $this->php("\$_scope->_tpl_vars->{$varname}->value['show']=(\$_scope->_tpl_vars->{$item}->total > 0);")->newline();
             }
         }
         $keyterm = '';
         if ($key != null) {
-            $keyterm = "\$_scope->{$key}->value =>";;
+            $keyterm = "\$_scope->_tpl_vars->{$key}->value =>";;
         } else if ($usesPropKey) {
-            $keyterm = "\$_scope->{$item}->key =>";
+            $keyterm = "\$_scope->_tpl_vars->{$item}->key =>";
         }
-        $this->php("foreach (\$_from as " . $keyterm . " \$_scope->{$item}->value) {")->indent()->newline();
-        $this->php("\$_scope->{$item}->_loop = true;")->newline();
+        $this->php("foreach (\$_from as " . $keyterm . " \$_scope->_tpl_vars->{$item}->value) {")->indent()->newline();
+        $this->php("\$_scope->_tpl_vars->{$item}->_loop = true;")->newline();
         if ($key != null && $usesPropKey) {
-            $this->php("\$_scope->{$item}->key = \$_scope->{$key}->value;")->newline();
+            $this->php("\$_scope->_tpl_vars->{$item}->key = \$_scope->_tpl_vars->{$key}->value;")->newline();
         }
         if ($usesPropIteration) {
-            $this->php("\$_scope->{$item}->iteration++;")->newline();
+            $this->php("\$_scope->_tpl_vars->{$item}->iteration++;")->newline();
         }
         if ($usesPropIndex) {
-            $this->php("\$_scope->{$item}->index++;")->newline();
+            $this->php("\$_scope->_tpl_vars->{$item}->index++;")->newline();
         }
         if ($usesPropFirst) {
-            $this->php("\$_scope->{$item}->first = \$_scope->{$item}->index === 0;")->newline();
+            $this->php("\$_scope->_tpl_vars->{$item}->first = \$_scope->_tpl_vars->{$item}->index === 0;")->newline();
         }
         if ($usesPropLast) {
-            $this->php("\$_scope->{$item}->last = \$_scope->{$item}->iteration === \$_scope->{$item}->total;")->newline();
+            $this->php("\$_scope->_tpl_vars->{$item}->last = \$_scope->_tpl_vars->{$item}->iteration === \$_scope->_tpl_vars->{$item}->total;")->newline();
         }
         if ($has_name) {
             if ($usesSmartyFirst) {
-                $this->php("\$_scope->{$varname}->value['first'] = \$_scope->{$item}->first;")->newline();
+                $this->php("\$_scope->_tpl_vars->{$varname}->value['first'] = \$_scope->_tpl_vars->{$item}->first;")->newline();
             }
             if ($usesSmartyIteration) {
-                $this->php("\$_scope->{$varname}->value['iteration']++;")->newline();
+                $this->php("\$_scope->_tpl_vars->{$varname}->value['iteration']++;")->newline();
             }
             if ($usesSmartyIndex) {
-                $this->php("\$_scope->{$varname}->value['index']++;")->newline();
+                $this->php("\$_scope->_tpl_vars->{$varname}->value['index']++;")->newline();
             }
             if ($usesSmartyLast) {
-                $this->php("\$_scope->{$varname}->value['last'] = \$_scope->{$item}->last;")->newline();
+                $this->php("\$_scope->_tpl_vars->{$varname}->value['last'] = \$_scope->_tpl_vars->{$item}->last;")->newline();
             }
         }
 
@@ -215,7 +215,7 @@ class Smarty_Compiler_Template_Php_Tag_Foreachelse extends Smarty_Compiler_Templ
         $this->iniTagCode($compiler);
 
         $this->outdent()->php("}")->newline();
-        $this->php("if (!\$_scope->{$item}->_loop) {")->newline()->indent();
+        $this->php("if (!\$_scope->_tpl_vars->{$item}->_loop) {")->newline()->indent();
 
         return $this->returnTagCode($compiler);
     }

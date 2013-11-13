@@ -64,7 +64,6 @@ class Smarty_Method_CompileTemplate
         try {
             $res_obj = $context->smarty->_loadResource(Smarty::COMPILED, $context->smarty->compiled_type);
             $filepath = $res_obj->buildFilepath($context);
-            $context->scope = $context->_buildScope($context->smarty, $context->parent);
             $compiler = Smarty_Compiler::load($context, $filepath);
             $compiler->compileTemplateSource();
             $compile_key = isset($context->compile_id) ? $context->compile_id : '';

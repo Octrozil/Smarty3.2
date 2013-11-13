@@ -13,7 +13,7 @@
  * Meta Data Container for Compiled Template Files
  *
  */
-class Smarty_Resource_Compiled_File extends Smarty_Exception_Magic
+class Smarty_Resource_Compiled_File //extends Smarty_Exception_Magic
 {
     /**
      * populate Compiled Object with compiled filepath
