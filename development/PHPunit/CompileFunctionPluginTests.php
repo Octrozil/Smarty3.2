@@ -76,7 +76,7 @@ function myplugintest($params, &$smarty)
     return "plugin test called $params[foo]";
 }
 
-function mypluginparametertest(Smarty $obj, $bar, $foo = 'foo')
+function mypluginparametertest(Smarty_Template $obj, $bar, $foo = 'foo')
 {
     return "plugin test called $bar $foo";
 }

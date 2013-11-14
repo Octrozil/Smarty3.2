@@ -125,15 +125,6 @@ class StreamResourceTests extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->smarty->templateExists('global:mytest'));
     }
 
-    /**
-     * test template is not existing
-     */
-    public function testTemplateStreamNotExists1()
-    {
-        $tpl = $this->smarty->createTemplate('global:notthere');
-        $this->assertFalse($tpl->source->exists);
-    }
-
     public function testTemplateStramNotExists2()
     {
         $this->assertFalse($this->smarty->templateExists('global:notthere'));
@@ -144,20 +135,11 @@ class StreamResourceTests extends PHPUnit_Framework_TestCase
         try {
             $result = $this->smarty->fetch('global:notthere');
         } catch (Exception $e) {
-            $this->assertContains('Unable to load template global \'notthere\'', $e->getMessage());
+            $this->assertContains("Can not find source 'global:notthere'", $e->getMessage());
 
             return;
         }
         $this->fail('Exception for not existing template is missing');
-    }
-
-    /**
-     * test writeCachedContent
-     */
-    public function testWriteCachedContent()
-    {
-        $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->cached->writeCache($tpl, 'dummy'));
     }
 
     /**

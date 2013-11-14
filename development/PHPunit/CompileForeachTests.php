@@ -15,7 +15,7 @@ class CompileForeachTests extends PHPUnit_Framework_TestCase
     {
         $this->smarty = SmartyTests::$smarty;
         SmartyTests::init();
-    }
+        $this->smarty->error_unassigned = Smarty::UNASSIGNED_IGNORE;    }
 
     public static function isRunnable()
     {
@@ -52,7 +52,6 @@ class CompileForeachTests extends PHPUnit_Framework_TestCase
     public function testForeachElse()
     {
         $tpl = $this->smarty->createTemplate('eval:{$foo =[]}{foreach item=x from=$foo}{$x}{foreachelse}else{/foreach}');
-        $tpl->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->assertEquals("else", $this->smarty->fetch($tpl));
     }
 
@@ -152,7 +151,6 @@ class CompileForeachTests extends PHPUnit_Framework_TestCase
     public function testNewForeachElse()
     {
         $tpl = $this->smarty->createTemplate('string:{foreach $foo as $x}{$x}{foreachelse}else{/foreach}');
-        $tpl->error_unassigned = Smarty::UNASSIGNED_IGNORE;
         $this->assertEquals("else", $this->smarty->fetch($tpl));
     }
 

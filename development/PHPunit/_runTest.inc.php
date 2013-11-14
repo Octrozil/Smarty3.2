@@ -55,6 +55,7 @@ class SmartyTests
         $smarty->default_resource_type = 'file';
         $smarty->_autoloaded = array();
         $smarty->enable_trace = false;
+        $smarty->merge_compiled_includes = false;
         Smarty::$_trace_callbacks = array();
     }
 
@@ -66,8 +67,10 @@ class SmartyTests
         self::_init(SmartyTests::$smartyBC);
         self::_init(SmartyTests::$smartyBC31);
         Smarty_Context::$_key_counter = 0;
-        Smarty_Context::$_key_cache = array();
-        Smarty_Context::$_object_cache = array();
+        Smarty_Context::$_compiled_object_cache = array();
+        Smarty_Context::$_cached_object_cache = array();
+        Smarty::$_resource_cache = array();
+        Smarty::$_context_cache = array();
         Smarty::$_resource_cache = array();
         Smarty::$_global_tpl_vars = new stdClass;
         Smarty::$_smarty_vars = array();

@@ -1,8 +1,7 @@
 <phpunit stopOnFailure="false">
-    processIsolation="true"
 
     <filter>
-        <whitelist>
+        <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="true">
             <directoryx suffix=".php">../../lib</directoryx>
             <directoryx suffix=".php">../../demo</directoryx>
             <exclude>
