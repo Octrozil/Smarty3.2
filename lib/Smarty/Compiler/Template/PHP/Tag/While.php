@@ -51,7 +51,7 @@ class Smarty_Compiler_Template_Php_Tag_While extends Smarty_Compiler_Template_Ph
             if ($compiler->nocache) {
                 $_nocache = 'true';
                 // create nocache var to make it know for further compiling
-                $compiler->context->smarty->_tpl_vars->$var = new Smarty_Variable(null, true);
+                $compiler->template_scope->_tpl_vars->$var = new Smarty_Variable(null, true);
             } else {
                 $_nocache = 'false';
             }

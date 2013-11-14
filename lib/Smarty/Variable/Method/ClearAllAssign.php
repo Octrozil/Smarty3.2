@@ -5,14 +5,14 @@
  *
  * Smarty class methods
  *
- * @package Smarty\Extension
+ * @package Smarty\Variable
  * @author Uwe Tews
  */
 
 /**
  * Class for static clearAssign method
  *
- * @package Smarty\Extension
+ * @package Smarty\Variable
  */
 class Smarty_Variable_Method_ClearAllAssign
 {

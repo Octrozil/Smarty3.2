@@ -3,7 +3,7 @@
 /**
  * Smarty Resource Source File Plugin
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -13,7 +13,7 @@
  *
  * Implements the file system as resource for Smarty templates
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  */
 class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
 {
@@ -141,11 +141,14 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
             }
         }
 
-        $_stream_resolve_include_path = function_exists('stream_resolve_include_path');
         foreach ($_directories as $_directory) {
             $_filepath = $_directory . $file;
             if ($this->fileExists($_filepath, $context)) {
-                return $this->normalizePath($_filepath);
+                if ($file[0] != '.') {
+                    return $_filepath;
+                } else {
+                    return $this->normalizePath($_filepath);
+                }
             }
         }
 

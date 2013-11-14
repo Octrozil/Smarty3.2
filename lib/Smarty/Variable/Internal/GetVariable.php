@@ -5,14 +5,14 @@
  *
  * Smarty class methods
  *
- * @package Smarty\Extension
+ * @package Smarty\Variable
  * @author Uwe Tews
  */
 
 /**
  * Class for static getVariable method
  *
- * @package Smarty\Extension
+ * @package Smarty\Variable
  */
 class Smarty_Variable_Internal_GetVariable
 {
@@ -56,7 +56,7 @@ class Smarty_Variable_Internal_GetVariable
                 return $_ptr->_tpl_vars->$varname;
             }
             // not found, try at parent
-            if ($search_parents) {
+            if ($search_parents && isset($_ptr->parent)) {
                 $_ptr = $_ptr->parent;
             } else {
                 $_ptr = null;

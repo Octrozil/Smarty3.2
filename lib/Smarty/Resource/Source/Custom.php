@@ -4,7 +4,7 @@
  * Smarty Resource Source Custom Class
  *
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  * @author Rodney Rehm
  */
 
@@ -13,7 +13,7 @@
  *
  * Wrapper Implementation for custom source resource plugins
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  */
 abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source_File
 {

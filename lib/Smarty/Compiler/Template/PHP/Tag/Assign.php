@@ -44,10 +44,10 @@ class Smarty_Compiler_Template_Php_Tag_Assign extends Smarty_Compiler_Template_P
         if ($compiler->tag_nocache || $compiler->nocache) {
             $_nocache = 'true';
             // create nocache var to make it know for further compiling
-            if (isset($compiler->context->smarty->_tpl_vars->$var)) {
-                $compiler->context->smarty->_tpl_vars->$var->nocache = true;
+            if (isset($compiler->template_scope->_tpl_vars->$var)) {
+                $compiler->template_scope->_tpl_vars->$var->nocache = true;
             } else {
-                $compiler->context->smarty->_tpl_vars->$var = new Smarty_Variable(null, true);
+                $compiler->template_scope->_tpl_vars->$var = new Smarty_Variable(null, true);
             }
         }
         // scope setup

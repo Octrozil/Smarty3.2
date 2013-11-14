@@ -3,7 +3,7 @@
 /**
  * Smarty Resource Source PHP File Plugin
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -13,7 +13,7 @@
  *
  * Implements the file system as resource for PHP templates
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  */
 class Smarty_Resource_Source_Php extends Smarty_Resource_Source_File
 {

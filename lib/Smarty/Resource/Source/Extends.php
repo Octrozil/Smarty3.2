@@ -3,7 +3,7 @@
 /**
  * Smarty Resource Source Extends Plugin
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -13,7 +13,7 @@
  *
  * Implements the file system as resource for Smarty which {extend}s a chain of template files templates
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  */
 class Smarty_Resource_Source_Extends extends Smarty_Resource_Source_File
 {

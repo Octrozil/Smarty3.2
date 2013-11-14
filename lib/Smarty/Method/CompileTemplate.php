@@ -68,7 +68,7 @@ class Smarty_Method_CompileTemplate
             $compiler->compileTemplateSource();
             $compile_key = isset($context->compile_id) ? $context->compile_id : '';
             $caching_key = (($context->caching) ? 1 : 0);
-            unset(Smarty_Context::$_object_cache[Smarty::COMPILED][$context->_key][$compile_key][$caching_key]);
+            unset(Smarty_Context::$_compiled_object_cache[$context->_key][$compile_key][$caching_key]);
             return true;
         } catch (Exception $e) {
             throw $e;

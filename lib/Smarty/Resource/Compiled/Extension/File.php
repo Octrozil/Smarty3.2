@@ -4,8 +4,7 @@
  * Smarty Resource Compiled File Plugin
  *
  *
- * @package Resource\Compiled
- * @author Uwe Tews
+ * @package Smarty\Resource\Compiled * @author Uwe Tews
  */
 
 /**
@@ -39,7 +38,7 @@ class Smarty_Resource_Compiled_Extension_File
                 // set basename if not specified
                 $_basename = $context->getBasename();
                 if ($_basename === null) {
-                    $_basename = basename(preg_replace('![^\w\/]+!', '_', $source->name));
+                    $_basename = basename(preg_replace('![^\w\/]+!', '_', $context->name));
                 }
                 // separate (optional) basename by dot
                 if ($_basename) {
@@ -102,7 +101,7 @@ class Smarty_Resource_Compiled_Extension_File
                     $_count++;
                     if ($smarty->enable_trace) {
                         // notify listeners of deleted file
-                        $smarty->_triggerTraceCallback('filesystem:delete', array($smarty, $path));
+                        $smarty->_triggerTraceCallback('filesystem:delete', array($smarty, $_filepath));
                     }
                 }
             }

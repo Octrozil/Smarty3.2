@@ -3,7 +3,7 @@
 /**
  * Smarty Resource Source Registered Plugin
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -14,7 +14,7 @@
  * Implements the registered resource for Smarty template
  *
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  * @deprecated
  */
 class Smarty_Resource_Source_Registered extends Smarty_Resource_Source_File

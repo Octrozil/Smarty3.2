@@ -4,8 +4,7 @@
  * Smarty Resource Compiled Recompiled Plugin
  *
  *
- * @package Resource\Compiled
- * @author Uwe Tews
+ * @package Smarty\Resource\Compiled * @author Uwe Tews
  */
 
 /**

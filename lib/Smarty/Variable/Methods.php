@@ -6,7 +6,7 @@
  * This file contains the basic methods for variable handling
  *
  *
- * @package Smarty
+ * @package Smarty\Variable
  * @author Uwe Tews
  */
 
@@ -14,7 +14,7 @@
  * Base class with variable methods
  *
  *
- * @package Smarty
+ * @package Smarty\Variable
  */
 class Smarty_Variable_Methods extends Smarty_Exception_Magic
 {

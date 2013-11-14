@@ -1,19 +1,18 @@
 <?php
 
 /**
- * Smarty Source Object
+ * Smarty Context Object
  *
- * @package Smarty\Resource
+ * @package Smarty\Core
  * @author Uwe Tews
- * @author Rodney Rehm
  */
 
 /**
- * Smarty Source Object
+ * Smarty Context Object
  *
- * Storage for Source properties
+ * Storage for Source and Context properties
  *
- * @package Smarty\Resource
+ * @package Smarty\Core
  */
 class Smarty_Context //extends Smarty_Exception_Magic
 {
@@ -177,11 +176,18 @@ class Smarty_Context //extends Smarty_Exception_Magic
     public $_key = null;
 
     /**
-     * object cache
+     * compiled object cache
      *
-     * @var int
+     * @var array
      */
-    public static $_object_cache = array();
+    public static $_compiled_object_cache = array();
+
+    /**
+     * cached object cache
+     *
+     * @var array
+     */
+    public static $_cached_object_cache = array();
 
     /**
      * Create source object and populate is it source info
@@ -260,8 +266,8 @@ class Smarty_Context //extends Smarty_Exception_Magic
                 } else {
                     $compiled_type = $this->smarty->compiled_type;
                 }
-                if ($this->smarty->object_caching && !$nocache && isset(self::$_object_cache[Smarty::COMPILED][$this->_key][$compile_key][$caching_key])) {
-                    return self::$_object_cache[Smarty::COMPILED][$this->_key][$compile_key][$caching_key];
+                if ($this->smarty->object_caching && !$nocache && isset(self::$_compiled_object_cache[$this->_key][$compile_key][$caching_key])) {
+                    return self::$_compiled_object_cache[$this->_key][$compile_key][$caching_key];
                 }
                 if ($tpl_class_name != null) {
                     $template_obj = new $tpl_class_name($this);
@@ -271,7 +277,7 @@ class Smarty_Context //extends Smarty_Exception_Magic
                     $template_obj = $res_obj->instanceTemplate($this);
                 }
                 if ($this->smarty->object_caching && !$nocache) {
-                    self::$_object_cache[Smarty::COMPILED][$this->_key][$compile_key][$caching_key] = $template_obj;
+                    self::$_compiled_object_cache[$this->_key][$compile_key][$caching_key] = $template_obj;
                 }
                 return $template_obj;
             }
@@ -279,15 +285,15 @@ class Smarty_Context //extends Smarty_Exception_Magic
                 $caching_type = $this->smarty->caching_type;
                 if ($do_cache) {
                     $cache_key = isset($this->cache_id) ? $this->cache_id : '';
-                    if (isset(self::$_object_cache[Smarty::CACHE][$this->_key][$caching_type][$compile_key][$cache_key])) {
-                        return self::$_object_cache[Smarty::CACHE][$this->_key][$caching_type][$compile_key][$cache_key];
+                    if (isset(self::$_cached_object_cache[$this->_key][$caching_type][$compile_key][$cache_key])) {
+                        return self::$_cached_object_cache[$this->_key][$caching_type][$compile_key][$cache_key];
                     }
                 }
                 // get cached resource object
                 $res_obj = isset(Smarty::$_resource_cache[Smarty::CACHE][$caching_type]) ? Smarty::$_resource_cache[Smarty::CACHE][$caching_type] : $this->smarty->_loadResource(Smarty::CACHE, $caching_type);
                 $template_obj = $res_obj->instanceTemplate($this);
                 if ($do_cache) {
-                    self::$_object_cache[Smarty::CACHE][$this->_key][$caching_type][$compile_key][$cache_key] = $template_obj;
+                    self::$_cached_object_cache[$this->_key][$caching_type][$compile_key][$cache_key] = $template_obj;
                 }
                 return $template_obj;
             }

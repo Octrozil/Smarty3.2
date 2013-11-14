@@ -4,7 +4,7 @@
  * Smarty Resource Source Eval Plugin
  *
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -17,7 +17,7 @@
  * {@internal unlike string-resources the compiled state of eval-resources is NOT saved for subsequent access}}
  *
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  */
 class Smarty_Resource_Source_Eval extends Smarty_Resource_Source_String
 {

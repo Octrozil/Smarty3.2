@@ -5,7 +5,7 @@
  *
  * Implements the streams as resource for Smarty template
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -17,7 +17,7 @@
  *
  * @link http://php.net/streams
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  */
 class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
 {

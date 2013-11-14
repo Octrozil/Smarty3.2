@@ -6,7 +6,7 @@
  * This file contains the class of a callback handler for an undefined template variable.
  *
  *
- * @package Template
+ * @package Smarty\Variable
  * @author Uwe Tews
  */
 
@@ -16,7 +16,7 @@
  * This class defines the Smarty variable callback object
  *
  *
- * @package Template
+ * @package Smarty\Variable
  */
 class Smarty_Variable_Callback
 {

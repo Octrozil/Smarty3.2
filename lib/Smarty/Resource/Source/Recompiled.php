@@ -3,7 +3,7 @@
 /**
  * Smarty Resource Source Recompiled Class
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  * @author Rodney Rehm
  */
 
@@ -12,7 +12,7 @@
  *
  * Base implementation for resource plugins that don't compile cache
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  */
 abstract class Smarty_Resource_Source_Recompiled extends Smarty_Resource_Source_File
 {

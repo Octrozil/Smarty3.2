@@ -3,7 +3,7 @@
 /**
  * Smarty Resource Source String Plugin
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  * @author Uwe Tews
  * @author Rodney Rehm
  */
@@ -16,7 +16,7 @@
  * {@internal unlike eval-resources the compiled state of string-resources is saved for subsequent access}}
  *
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  */
 class Smarty_Resource_Source_String extends Smarty_Resource_Source_File
 {

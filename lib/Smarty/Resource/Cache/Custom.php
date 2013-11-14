@@ -3,7 +3,7 @@
 /**
  * Smarty Internal Plugin
  *
- * @package Resource\Cache
+ * @package Smarty\Resource\Cache
  * @author Rodney Rehm
  * @author Uwe Tews
  * */
@@ -11,7 +11,7 @@
 /**
  * Cache Handler API
  *
- * @package Resource\Cache
+ * @package Smarty\Resource\Cache
  */
 abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
 {

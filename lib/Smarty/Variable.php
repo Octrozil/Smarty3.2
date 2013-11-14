@@ -6,7 +6,7 @@
  * This file contains the class of a template variable.
  *
  *
- * @package Template
+ * @package Smarty\Variable
  * @author Uwe Tews
  */
 
@@ -15,8 +15,7 @@
  *
  * This class defines the Smarty variable object
  *
- *
- * @package Template
+ * @package Smarty\Variable
  */
 class Smarty_Variable
 {

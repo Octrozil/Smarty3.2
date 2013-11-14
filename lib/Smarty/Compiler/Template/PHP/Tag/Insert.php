@@ -68,7 +68,7 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
             // output will be stored in a smarty variable instead of being displayed
             $_assign = $_attr['assign'];
             // create variable to make sure that the compiler knows about its nocache status
-            $compiler->context->smarty->_tpl_vars->{trim($_attr['assign'], "'")} = new Smarty_Variable(null, true);
+            $compiler->template_scope->_tpl_vars->{trim($_attr['assign'], "'")} = new Smarty_Variable(null, true);
         }
         if (isset($_attr['script'])) {
             // script which must be included

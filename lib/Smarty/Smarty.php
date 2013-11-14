@@ -771,6 +771,14 @@ class Smarty extends Smarty_Variable_Methods
     public static $_resource_cache = array();
 
     /**
+     * context cache
+     *
+     * @var array
+     * @internal
+     */
+    public static $_context_cache = array();
+
+    /**
      * registered items of the following types:
      *  - 'resource'
      *  - 'plugin'
@@ -1277,14 +1285,14 @@ class Smarty extends Smarty_Variable_Methods
      * @param  null | string $resource template resource name
      * @param  mixed $cache_id cache id to be used with this template
      * @param  mixed $compile_id compile id to be used with this template
-     * @param  Smarty $parent next higher level of Smarty variables
+     * @param  Smarty|Smarty_Data|Smarty_Template $parent next higher level of Smarty variables
      * @param  bool $cache_context if true force caching of context block (need for isCached() calls
      * @param  bool $no_output_filter if true do not run output filter
      * @param  null $data
      * @param  int $scope_type
      * @param  null $caching
      * @param  null|int $cache_lifetime
-     * @return bool|Smarty_Source
+     * @return Smarty_Context
      */
     public function _getContext($resource, $cache_id = null, $compile_id = null, $parent = null, $cache_context = false, $no_output_filter = false, $data = null, $scope_type = self::SCOPE_LOCAL, $caching = null, $cache_lifetime = null)
     {
@@ -1299,14 +1307,14 @@ class Smarty extends Smarty_Variable_Methods
             if ($resource == null) {
                 $resource = $this->template_resource;
             }
-            if ($this->object_caching || $cache_context || isset(Smarty_Context::$_object_cache[self::SOURCE])) {
+            if ($this->object_caching || $cache_context) {
                 if (!($this->allow_ambiguous_resources || isset($this->handler_allow_relative_path))) {
                     $_cacheKey = $this->_joined_template_dir . '#' . $resource;
                     if (isset($_cacheKey[150])) {
                         $_cacheKey = sha1($_cacheKey);
                     }
                     // source with this $_cacheKey in cache?
-                    $context_obj = isset(Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey]) ? Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey] : null;
+                    $context_obj = isset(self::$_context_cache[$_cacheKey]) ? self::$_context_cache[$_cacheKey] : null;
                 }
                 if ($context_obj == null && isset($this->handler_allow_relative_path)) {
                     // parse template_resource into name and type
@@ -1326,7 +1334,7 @@ class Smarty extends Smarty_Variable_Methods
                             $_cacheKey = sha1($_cacheKey);
                         }
                         // source with this $_cacheKey in cache?
-                        $context_obj = isset(Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey]) ? Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey] : null;
+                        $context_obj = isset(self::$_context_cache[$_cacheKey]) ? self::$_context_cache[$_cacheKey] : null;
                     }
                 }
                 if ($context_obj == null && $this->allow_ambiguous_resources) {
@@ -1336,7 +1344,7 @@ class Smarty extends Smarty_Variable_Methods
                         $_cacheKey = sha1($_cacheKey);
                     }
                     // source with this $_cacheKey in cache?
-                    $context_obj = isset(Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey]) ? Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey] : null;
+                    $context_obj = isset(self::$_context_cache[$_cacheKey]) ? self::$_context_cache[$_cacheKey] : null;
                 }
             }
             if ($context_obj == null) {
@@ -1355,7 +1363,7 @@ class Smarty extends Smarty_Variable_Methods
                 }
                 $context_obj = new Smarty_Context($this, $name, $type, $parent);
                 if (($this->object_caching || $cache_context) && isset($_cacheKey)) {
-                    Smarty_Context::$_object_cache[self::SOURCE][$_cacheKey] = $context_obj;
+                    self::$_context_cache[$_cacheKey] = $context_obj;
                 }
             }
         }

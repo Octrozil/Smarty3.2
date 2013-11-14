@@ -5,7 +5,7 @@
  * This file contains the Class for a variable scope
  *
  *
- * @package Template
+ * @package Smarty\Variable
  * @author Uwe Tews
  */
 
@@ -14,6 +14,7 @@
  *
  * This class holds all assigned variables
  *
+ * @package Smarty\Variable
  */
 class Smarty_Variable_Scope
 {

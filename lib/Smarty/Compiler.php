@@ -36,6 +36,11 @@ class Smarty_Compiler extends Smarty_Compiler_Code
      */
     public static $plugin_search_order = array('function', 'block', 'compiler', 'class');
 
+    /**
+     * @param Smarty_Context $context
+     * @param string $filepath
+     * @return mixed
+     */
     public static function  load($context, $filepath)
     {
         if ($context->_usage === Smarty::IS_CONFIG) {

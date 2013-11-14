@@ -4,7 +4,7 @@
  * Smarty Resource Source Uncompiled Class
  *
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  * @author Rodney Rehm
  */
 
@@ -14,7 +14,7 @@
  * Base implementation for resource plugins that don't use the compiler
  *
  *
- * @package Resource\Source
+ * @package Smarty\Resource\Source
  */
 abstract class Smarty_Resource_Source_Uncompiled extends Smarty_Resource_Source_File
 {

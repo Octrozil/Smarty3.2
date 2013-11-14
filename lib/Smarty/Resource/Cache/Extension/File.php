@@ -4,7 +4,7 @@
  * Smarty Resource Cache File Plugin
  *
  *
- * @package Resource\Cache
+ * @package Smarty\Resource\Cache
  * @author Uwe Tews
  */
 

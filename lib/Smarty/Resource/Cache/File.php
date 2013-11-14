@@ -3,7 +3,7 @@
 /**
  * Smarty Resource Cache File
  *
- * @package Resource\Cache
+ * @package Smarty\Resource\Cache
  * @author Rodney Rehm
  * @author Uwe Tews
  */
@@ -13,7 +13,7 @@
  *
  * Implements the file system as resource for the HTML cache Version using nocache inserts.
  *
- * @package Resource\Cache
+ * @package Smarty\Resource\Cache
  */
 class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
 {

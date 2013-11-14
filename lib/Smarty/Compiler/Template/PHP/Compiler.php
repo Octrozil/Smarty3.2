@@ -27,6 +27,13 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
     public $context = null;
 
     /**
+     * Template Scope object
+     *
+     * @var Smarty_Template_scope
+     */
+    public $template_scope = null;
+
+    /**
      * Lexer class name
      *
      * @var string
@@ -324,11 +331,12 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
      * @param Smarty_Context $context
      * @param string $compiled_filepath
      */
-    public function __construct($lexer_class, $parser_class, $context, $compiled_filepath)
+    public function __construct($lexer_class, $parser_class, Smarty_Context  $context, $compiled_filepath)
     {
         $this->compiled_filepath = $compiled_filepath;
         $this->timestamp = time();
         $this->context = $context;
+        $this->template_scope = new Smarty_Template_Scope($context);
         // get required plugins
         $this->lexer_class = $lexer_class;
         $this->parser_class = $parser_class;
@@ -382,7 +390,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
             }
             throw $e;
         } catch (Exception $e) {
-            throw new Smarty_Exception_Runtime(sprintf('An exception has been thrown during the compilation of a template ("%s").', $e->getMessage()), -1, $name, $e);
+            throw new Smarty_Exception_Runtime(sprintf('An exception has been thrown during the compilation of a template ("%s").', $e->getMessage()), -1, $this->context->name, $e);
         }
         // compiling succeded
         if (!$this->context->handler->recompiled && $this->write_compiled_code) {
@@ -721,7 +729,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
         if (strpos($variable, '(') === false) {
             // not a variable variable
             $var = trim($variable, '\'"');
-            if (null != $_var = $this->context->smarty->_getVariable($var, null, true, false)) {
+            if (null != $_var = $this->context->smarty->_getVariable($var, $this->template_scope, true, false)) {
                 $this->tag_nocache = $this->tag_nocache | $_var->nocache;
             }
         } else {

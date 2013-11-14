@@ -5,7 +5,7 @@
  * This file contains the Class for a template scope
  *
  *
- * @package Template
+ * @package Smarty\Template
  * @author Uwe Tews
  */
 
@@ -50,7 +50,7 @@ class Smarty_Template_Scope //extends Smarty_Exception_Magic
             if ($context->parent instanceof Smarty_Template) {
                 $this->_tpl_vars = clone $context->parent->_tpl_vars;
             } else {
-                if ($context->parent == null || $context->parent == $context->smarty) {
+                if ($context->parent == null || $context->parent instanceof Smarty) {
                     $this->_tpl_vars = clone $context->smarty->_tpl_vars;
                 } else {
                     $this->_tpl_vars = $this->_mergeScopes($context->parent);

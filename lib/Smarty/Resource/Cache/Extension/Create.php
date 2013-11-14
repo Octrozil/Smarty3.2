@@ -3,14 +3,14 @@
 /**
  * Smarty Internal Plugin
  *
- * @package Resource\Cache
+ * @package Smarty\Resource\Cache
  * @author Uwe Tews
  */
 
 /**
  * Cache Support Routines To Create Cache
  *
- * @package Resource\Cache
+ * @package Smarty\Resource\Cache
  */
 class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
 {

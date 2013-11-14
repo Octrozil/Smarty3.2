@@ -3,7 +3,7 @@
 /**
  * Smarty Internal Plugin
  *
- * @package Resource\Cache
+ * @package Smarty\Resource\Cache
  * @author Rodney Rehm
  * @author Uwe Tews
  */
@@ -29,7 +29,7 @@
  * cache groups: if your cache groups look somewhat like »a|b|$page|$items|$whatever«
  * consider using »a|b|c|$page-$items-$whatever« instead.
  *
- * @package Resource\Cache
+ * @package Smarty\Resource\Cache
  */
 abstract class Smarty_Resource_Cache_Keyvaluestore extends Smarty_Resource_Cache_File
 {

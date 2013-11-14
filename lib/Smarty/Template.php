@@ -362,13 +362,13 @@ class  Smarty_Template extends Smarty_Internal_Template
      * Template runtime function to call a template function
      *
      * @param  string $name name of template function
-     * @param  Smarty_Variable_Scope $_scope
+     * @param  Smarty_Template_Scope $_scope
      * @param  array $params array with calling parameter
      * @param  string $assign optional template variable for result
      * @throws Smarty_Exception_Runtime
      * @return bool
      */
-    public function _callTemplateFunction($name, $_scope, $params, $assign)
+    public function _callTemplateFunction($name, Smarty_Template_Scope $_scope, $params, $assign)
     {
         if (isset($_scope->template_functions[$name])) {
             $template_object = $_scope->template_functions[$name];
