@@ -62,7 +62,7 @@ class Smarty_Compiler_Template_Php_Tag_While extends Smarty_Compiler_Template_Ph
                 $this->php("while (\$_scope->_tpl_vars->{$var}->value" . $parameter['if condition']['var']['smarty_internal_index'] . " = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
             } else {
                 $this->php("if (!isset(\$_scope->_tpl_vars->{$var})) {")->newline()->indent();
-                $this->php("\$this->_assignInScope('{$var}',  new Smarty_Variable (null, {$_nocache}));")->newline();
+                $this->php("\$_scope->_tpl_vars->{$var} = new Smarty_Variable (null, {$_nocache});")->newline();
                 $this->outdent()->php("}")->newline();
                 $this->php("while (\$_scope->_tpl_vars->{$var}->value = " . $parameter['if condition']['value'] . ") {")->newline()->indent();
             }

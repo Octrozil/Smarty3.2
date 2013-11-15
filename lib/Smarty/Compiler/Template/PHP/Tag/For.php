@@ -52,18 +52,21 @@ class Smarty_Compiler_Template_Php_Tag_For extends Smarty_Compiler_Template_Php_
 
         $this->iniTagCode($compiler);
 
+        $vars = array();
         if ($parameter == 1) {
             $var2 = trim($_attr['var'], '\'"');
             foreach ($_attr['start'] as $_statement) {
                 $var = trim($_statement['var'], '\'"');
-                $this->php("\$this->_assignInScope('{$var}',  new Smarty_Variable ({$_statement['value']}));")->newline();
+                $vars[] = $var;
+                $this->php("\$_scope->_tpl_vars->{$var} = new Smarty_Variable ({$_statement['value']});")->newline();
             }
             $this->php("if ({$_attr['ifexp']}) {")->newline()->indent();
             $this->php("for (\$_foo=true;{$_attr['ifexp']}; \$_scope->_tpl_vars->{$var2}->value{$_attr['step']}) {")->newline()->indent();
         } else {
             $_statement = $_attr['start'];
             $var = trim($_statement['var'], '\'"');
-            $this->php("\$this->_assignInScope('{$var}',  new Smarty_Variable (array()));")->newline();
+            $vars[] = $var;
+            $this->php("\$_scope->_tpl_vars->{$var} = new Smarty_Variable (array());")->newline();
             if (isset($_attr['step'])) {
                 $this->php("\$_scope->_tpl_vars->{$var}->step = {$_attr['step']};")->newline();
             } else {
@@ -79,7 +82,7 @@ class Smarty_Compiler_Template_Php_Tag_For extends Smarty_Compiler_Template_Php_
             $this->php("\$_scope->_tpl_vars->{$var}->first = \$_scope->_tpl_vars->{$var}->iteration == 1;")->newline();
             $this->php("\$_scope->_tpl_vars->{$var}->last = \$_scope->_tpl_vars->{$var}->iteration == \$_scope->_tpl_vars->{$var}->total;")->newline();
         }
-        $this->openTag($compiler, 'for', array('for', $compiler->nocache));
+        $this->openTag($compiler, 'for', array('for', $compiler->nocache, $vars));
         // maybe nocache because of nocache variables
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
 
@@ -110,8 +113,8 @@ class Smarty_Compiler_Template_Php_Tag_Forelse extends Smarty_Compiler_Template_
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
-        list($openTag, $nocache) = $this->closeTag($compiler, array('for'));
-        $this->openTag($compiler, 'forelse', array('forelse', $nocache));
+        list($openTag, $nocache, $vars) = $this->closeTag($compiler, array('for'));
+        $this->openTag($compiler, 'forelse', array('forelse', $nocache, $vars));
 
         $this->iniTagCode($compiler);
 
@@ -149,7 +152,7 @@ class Smarty_Compiler_Template_Php_Tag_Forclose extends Smarty_Compiler_Template
             $compiler->tag_nocache = true;
         }
 
-        list($openTag, $compiler->nocache) = $this->closeTag($compiler, array('for', 'forelse'));
+        list($openTag, $compiler->nocache, $vars) = $this->closeTag($compiler, array('for', 'forelse'));
 
         $this->iniTagCode($compiler);
 
@@ -157,7 +160,17 @@ class Smarty_Compiler_Template_Php_Tag_Forclose extends Smarty_Compiler_Template
         if ($openTag != 'forelse') {
             $this->outdent()->php("}")->newline();
         }
-
+        // TODO delete local vars?
+        if (false) {
+            $this->php("unset(");
+            foreach ($vars as $key => $var) {
+                if ($key != 0) {
+                    $this->raw(', ');
+                }
+                $this->raw("\$_scope->_tpl_vars->{$var}");
+            }
+            $this->raw(');')->newline();
+        }
         return $this->returnTagCode($compiler);
     }
 

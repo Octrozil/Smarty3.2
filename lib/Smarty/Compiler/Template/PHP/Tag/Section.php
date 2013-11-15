@@ -54,18 +54,16 @@ class Smarty_Compiler_Template_Php_Tag_Section extends Smarty_Compiler_Template_
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
+        $section_name = trim($_attr['name'], '"\'');
 
-        $this->openTag($compiler, 'section', array('section', $compiler->nocache));
+        $this->openTag($compiler, 'section', array('section', $compiler->nocache, $section_name));
         // maybe nocache because of nocache variables
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
         $this->iniTagCode($compiler);
 
-        $section_name = trim($_attr['name'], '"\'');
-
-
         $section_props = "\$_scope->_tpl_vars->smarty_section_{$section_name}->value";
 
-        $this->php("\$this->_assignInScope('smarty_section_{$section_name}',  new Smarty_Variable ());")->newline();
+        $this->php("\$_scope->_tpl_vars->smarty_section_{$section_name} = new Smarty_Variable;")->newline();
 
         foreach ($_attr as $attr_name => $attr_value) {
             switch ($attr_name) {
@@ -173,8 +171,8 @@ class Smarty_Compiler_Template_Php_Tag_Sectionelse extends Smarty_Compiler_Templ
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
-        list($openTag, $nocache) = $this->closeTag($compiler, array('section'));
-        $this->openTag($compiler, 'sectionelse', array('sectionelse', $nocache));
+        list($openTag, $nocache, $name) = $this->closeTag($compiler, array('section'));
+        $this->openTag($compiler, 'sectionelse', array('sectionelse', $nocache, $name));
 
         $this->iniTagCode($compiler);
 
@@ -212,13 +210,17 @@ class Smarty_Compiler_Template_Php_Tag_Sectionclose extends Smarty_Compiler_Temp
             $compiler->tag_nocache = true;
         }
 
-        list($openTag, $compiler->nocache) = $this->closeTag($compiler, array('section', 'sectionelse'));
+        list($openTag, $compiler->nocache, $name) = $this->closeTag($compiler, array('section', 'sectionelse'));
 
         $this->iniTagCode($compiler);
 
         $this->outdent()->php("}")->newline();
         if ($openTag != 'sectionelse') {
             $this->outdent()->php("}")->newline();
+        }
+        // TODO delete local vars?
+        if (false) {
+            $this->php("unset(\$_scope->_tpl_vars->smarty_section_{$name});")->newline();
         }
 
         return $this->returnTagCode($compiler);

@@ -67,21 +67,21 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
         } else {
             $key = null;
         }
+        if (isset($_attr['name'])) {
+            $name = trim($_attr['name'], '\'"');
+            $has_name = true;
+            $SmartyVarName = '$smarty.foreach.' . $name . '.';
+        } else {
+            $name = null;
+            $has_name = false;
+        }
 
-        $this->openTag($compiler, 'foreach', array('foreach', $compiler->nocache, $item, $key));
+        $this->openTag($compiler, 'foreach', array('foreach', $compiler->nocache, $item, $key, $name));
         // maybe nocache because of nocache variables
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
 
         $this->iniTagCode($compiler);
 
-        if (isset($_attr['name'])) {
-            $name = $_attr['name'];
-            $has_name = true;
-            $SmartyVarName = '$smarty.foreach.' . trim($name, '\'"') . '.';
-        } else {
-            $name = null;
-            $has_name = false;
-        }
         $ItemVarName = '$' . $item . '@';
         // evaluates which Smarty variables and properties have to be computed
         if ($has_name) {
@@ -106,12 +106,10 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
         $usesPropShow = strpos($compiler->lex->data, $ItemVarName . 'show') !== false;
         $usesPropTotal = $usesSmartyTotal || $usesSmartyShow || $usesPropShow || $usesPropLast || strpos($compiler->lex->data, $ItemVarName . 'total') !== false;
         // generate output code
-        $this->php("\$this->_assignInScope('$item', new Smarty_Variable);")->newline();
-//        $this->php("\$_scope->_tpl_vars->$item = new Smarty_Variable;")->newline();
+        $this->php("\$_scope->_tpl_vars->$item = new Smarty_Variable;")->newline();
         $this->php("\$_scope->_tpl_vars->{$item}->_loop = false;")->newline();
         if ($key != null) {
-            $this->php("\$this->_assignInScope('$key', new Smarty_Variable);")->newline();
-//            $this->php("\$_scope->_tpl_vars->$key = new Smarty_Variable;")->newline();
+            $this->php("\$_scope->_tpl_vars->$key = new Smarty_Variable;")->newline();
         }
         $this->php("\$_from = $from;")->newline();
         $this->php("if (!is_array(\$_from) && !is_object(\$_from)) {")->newline()->indent()->php("settype(\$_from, 'array');")->newline()->outdent()->php("}")->newline();
@@ -128,9 +126,8 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
             $this->php("\$_scope->_tpl_vars->{$item}->show = (\$_scope->_tpl_vars->{$item}->total > 0);")->newline();
         }
         if ($has_name) {
-            $varname = 'smarty_foreach_' . trim($name, '\'"');
-            $this->php("\$this->_assignInScope('$varname', new Smarty_Variable);")->newline();
-//            $this->php("\$_scope->_tpl_vars->{$varname} = new Smarty_Variable;")->newline();
+            $varname = 'smarty_foreach_' . $name;
+            $this->php("\$_scope->_tpl_vars->{$varname} = new Smarty_Variable;")->newline();
             if ($usesSmartyTotal) {
                 $this->php("\$_scope->_tpl_vars->{$varname}->value['total'] = \$_scope->_tpl_vars->{$item}->total;")->newline();
             }
@@ -209,8 +206,8 @@ class Smarty_Compiler_Template_Php_Tag_Foreachelse extends Smarty_Compiler_Templ
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
-        list($openTag, $nocache, $item, $key) = $this->closeTag($compiler, array('foreach'));
-        $this->openTag($compiler, 'foreachelse', array('foreachelse', $nocache, $item, $key));
+        list($openTag, $nocache, $item, $key, $name) = $this->closeTag($compiler, array('foreach'));
+        $this->openTag($compiler, 'foreachelse', array('foreachelse', $nocache, $item, $key, $name));
 
         $this->iniTagCode($compiler);
 
@@ -248,13 +245,22 @@ class Smarty_Compiler_Template_Php_Tag_Foreachclose extends Smarty_Compiler_Temp
             $compiler->tag_nocache = true;
         }
 
-        list($openTag, $compiler->nocache, $item, $key) = $this->closeTag($compiler, array('foreach', 'foreachelse'));
+        list($openTag, $compiler->nocache, $item, $key, $name) = $this->closeTag($compiler, array('foreach', 'foreachelse'));
 
         $this->iniTagCode($compiler);
 
         $this->outdent()->php("}")->newline();
-
+        // TODO delete local vars?
+        if (false) {
+            $this->php("unset(\$_scope->_tpl_vars->{$item}");
+            if (isset($key)) {
+                $this->raw(", \$_scope->_tpl_vars->{$key}");
+            }
+            if (isset($name)) {
+                $this->raw(", \$_scope->_tpl_vars->smarty_foreach_{$name}");
+            }
+            $this->raw(");")->newline();
+        }
         return $this->returnTagCode($compiler);
     }
-
 }
