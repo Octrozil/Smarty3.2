@@ -22,8 +22,8 @@ class Smarty_Compiler_Template_Php_Tag_Assign extends Smarty_Compiler_Template_P
     /**
      * Compiles code for the {assign} tag
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */

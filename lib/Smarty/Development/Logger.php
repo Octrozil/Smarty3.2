@@ -29,7 +29,7 @@ class Smarty_Development_Logger
     /**
      * create Smarty Logger object
      *
-     * @param  Smarty $smarty     object of Smarty instance
+     * @param  Smarty $smarty object of Smarty instance
      */
     public function __construct(Smarty $smarty)
     {
@@ -222,10 +222,10 @@ if (!function_exists('smarty_modifier_logger_print_var')) {
      * Name:     debug_print_var<br>
      * Purpose:  formats variable contents for display in the console
      *
-     * @param array|object $var     variable to be formatted
-     * @param integer $depth   maximum recursion depth if $var is an array
-     * @param integer $length  maximum string length if $var is a string
-     * @param bool $root    flag true if called in debug.tpl
+     * @param array|object $var variable to be formatted
+     * @param integer $depth maximum recursion depth if $var is an array
+     * @param integer $length maximum string length if $var is a string
+     * @param bool $root flag true if called in debug.tpl
      * @return string
      */
     function smarty_modifier_logger_print_var($var, $depth = 0, $length = 40, $root = true)

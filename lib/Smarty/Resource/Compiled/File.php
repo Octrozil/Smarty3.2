@@ -61,7 +61,7 @@ class Smarty_Resource_Compiled_File //extends Smarty_Exception_Magic
     /**
      * get timestamp and exists from Resource
      *
-     * @param  Smarty $smarty     Smarty object
+     * @param  Smarty $smarty Smarty object
      * @param  string $filepath
      * @param  reference integer $timestamp
      * @param  reference boolean $exists
@@ -151,10 +151,10 @@ class Smarty_Resource_Compiled_File //extends Smarty_Exception_Magic
      * Delete compiled template file
      *
      * @internal
-     * @param  Smarty $smarty            Smarty instance
+     * @param  Smarty $smarty Smarty instance
      * @param  string $template_resource template name
-     * @param  string $compile_id        compile id
-     * @param  integer $exp_time          expiration time
+     * @param  string $compile_id compile id
+     * @param  integer $exp_time expiration time
      * @param  boolean $isConfig
      * @return integer number of template files deleted
      */

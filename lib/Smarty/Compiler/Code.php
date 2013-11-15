@@ -263,7 +263,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
     /**
      * Adds the PHP representation of a given value to the current buffer
      *
-     * @param  mixed $value        The value to convert
+     * @param  mixed $value The value to convert
      * @param  bool $double_qoute flag to use double quotes on strings
      * @return object the current instance
      */

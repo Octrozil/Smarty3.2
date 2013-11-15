@@ -17,36 +17,19 @@
 class Smarty_Variable_Method_ConfigLoad
 {
     /**
-     *  Master object
-     *
-     * @var Smarty | Smarty_Data | Smarty_Template
-     */
-    public $object;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty | Smarty_Data | Smarty_Template $object master object
-     */
-    public function __construct($object)
-    {
-        $this->object = $object;
-    }
-
-
-    /**
      * load a config file, optionally load just selected sections
      *
      * @api
+     * @param Smarty | Smarty_Template | Smarty_Data $object master object
      * @param  string $config_file filename
      * @param  mixed $sections array of section names, single section or null
      * @param int $scope_type template scope into which config file shall be loaded
      * @throws Smarty_Exception_SourceNotFound
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
-    public function configLoad($config_file, $sections = null, $scope_type = Smarty::SCOPE_LOCAL)
+    public function configLoad($object, $config_file, $sections = null, $scope_type = Smarty::SCOPE_LOCAL)
     {
-        $smarty = isset($this->object->smarty) ? $this->object->smarty : $this->object;
+        $smarty = isset($object->smarty) ? $object->smarty : $object;
         // parse template_resource into name and type
         $parts = explode(':', $config_file, 2);
         if (!isset($parts[1]) || !isset($parts[0][1])) {
@@ -58,14 +41,14 @@ class Smarty_Variable_Method_ConfigLoad
             $type = $parts[0];
             $name = $parts[1];
         }
-        $context = new Smarty_Context($smarty, $name, $type, $this->object, true);
+        $context = new Smarty_Context($smarty, $name, $type, $object, true);
         // checks if source exists
         if (!$context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
         }
         // create template object without caching it
-        $template_obj = $context->_getTemplateObject(Smarty::COMPILED, true);
-        $target = $this->object;
+        $template_obj = $context->smarty->_getTemplateObject(Smarty::COMPILED, $context, true);
+        $target = $object;
         $scope = $target->_tpl_vars;
         // load global variables
         if (isset($template_obj->config_data['vars'])) {
@@ -97,6 +80,6 @@ class Smarty_Variable_Method_ConfigLoad
                 }
             }
         }
-        return $this->object;
+        return $object;
     }
 }

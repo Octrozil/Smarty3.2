@@ -54,7 +54,7 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
      * the corresponding list. The keyword '_any' specifies that any attribute will be accepted
      * as valid
      *
-     * @param  object $compiler   compiler object
+     * @param  object $compiler compiler object
      * @param  array $attributes attributes applied to the tag
      * @return array  of mapped attributes for further processing
      */
@@ -135,8 +135,8 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
      * Optionally additional data can be saved on stack
      *
      * @param object $compiler compiler object
-     * @param string $openTag  the opening tag's name
-     * @param mixed $data     optional data saved
+     * @param string $openTag the opening tag's name
+     * @param mixed $data optional data saved
      */
     public function openTag($compiler, $openTag, $data = null)
     {
@@ -148,7 +148,7 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
      *
      * Raise an error if this stack-top doesn't match with expected opening tags
      *
-     * @param  object $compiler    compiler object
+     * @param  object $compiler compiler object
      * @param  array|string $expectedTag the expected opening tag names
      * @return mixed        any type the opening tag's name or saved data
      */
@@ -206,7 +206,7 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
      * Find object position by type-hint
      *
      * @param mixed callback function or class method to be parsed
-     * @param  array $objects  array of class name to look for
+     * @param  array $objects array of class name to look for
      * @param  mixed $position int => check specified position; null => scan all parameter
      * @return mixed false if failed, array of call found and position
      */
@@ -245,10 +245,10 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
     /**
      * Get create plugin parameter string
      *
-     * @param  callback $callback   of plugin
-     * @param  array $params     parameter from template
-     * @param  object $compiler   compiler object
-     * @param  boolean $block      true if block plugin
+     * @param  callback $callback of plugin
+     * @param  array $params parameter from template
+     * @param  object $compiler compiler object
+     * @param  boolean $block true if block plugin
      * @param  null $cache_attr
      * @return mixed    data
      */

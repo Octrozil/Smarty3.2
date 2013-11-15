@@ -30,11 +30,11 @@ class Smarty_Compiler_Template_Php_Tag_Internal_ObjectBlockFunction extends Smar
     /**
      * Compiles code for the execution of block plugin
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
-     * @param  string $tag       name of block object
-     * @param  string $method    name of method to call
+     * @param  string $tag name of block object
+     * @param  string $method name of method to call
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter, $tag, $method)

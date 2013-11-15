@@ -108,20 +108,20 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         array_unshift(self::$stack, $this);
     }
 
-    public function __destruct()
+    public function destroy()
     {
         array_shift(self::$stack);
     }
 
     /**
      * @param  Smarty_Context $context
-     * @param  bool $isSubtemplate      call from subtemplate
+     * @param  bool $isSubtemplate call from subtemplate
      * @return string   rendered template HTML output
      */
     public function _renderCacheSubTemplate(Smarty_Context $context, $isSubtemplate = false)
     {
         // get template object
-        $template_obj = $context->_getTemplateObject(Smarty::COMPILED);
+        $template_obj = $context->smarty->_getTemplateObject(Smarty::COMPILED, $context);
         //render template
         $_output = $template_obj->_getRenderedTemplate($context);
         // merge cache file properties
@@ -161,7 +161,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * Create new cache file
      *
      * @param  Smarty_Context $context
-     * @param  string $output  cache file content
+     * @param  string $output cache file content
      * @throws Exception
      * @return string
      */
@@ -299,7 +299,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * Merge plugin info, dependencies and nocache template functions into cache
      *
      * @param Smarty $template current template
-     * @param string $name     name of template function
+     * @param string $name name of template function
      */
     public function _mergeNocacheTemplateFunction($template, $name)
     {
@@ -348,8 +348,8 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * Creates an inheritance block in cache file
      *
      * @param  object $current_tpl calling template
-     * @param  string $name        name of block
-     * @param  object $scope_tpl   blocks must be processed in this variable scope
+     * @param  string $name name of block
+     * @param  object $scope_tpl blocks must be processed in this variable scope
      * @return string
      */
     // TODO has to be finished
@@ -384,8 +384,8 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * Creates an inheritance block in cache file
      *
      * @param  object $current_tpl calling template
-     * @param  string $name        name of block
-     * @param  object $scope_tpl   blocks must be processed in this variable scope
+     * @param  string $name name of block
+     * @param  object $scope_tpl blocks must be processed in this variable scope
      * @return string
      */
     public function _createNocacheInheritanceBlock($current_tpl, $name, $scope_tpl)
@@ -452,7 +452,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * Get block method source
      *
      * @param  object $template_obj Smarty content object
-     * @param  string $function     method name of block
+     * @param  string $function method name of block
      * @return string source code
      */
     public function _getInheritanceBlockMethodSource($template_obj, $function)

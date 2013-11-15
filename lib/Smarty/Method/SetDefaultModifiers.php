@@ -30,7 +30,7 @@ class Smarty_Method_SetDefaultModifiers
      */
     public function __construct(Smarty $smarty)
     {
-        $this->smarty = $smarty;
+        $smarty = $smarty;
     }
 
 
@@ -43,8 +43,8 @@ class Smarty_Method_SetDefaultModifiers
      */
     public function setDefaultModifiers($modifiers)
     {
-        $this->smarty->default_modifiers = (array)$modifiers;
+        $smarty->default_modifiers = (array)$modifiers;
 
-        return $this->smarty;
+        return $smarty;
     }
 }

@@ -18,8 +18,8 @@
  * @link http://www.smarty.net/docs/en/language.modifier.count.characters.tpl count_characters (Smarty online manual)
  * @author Uwe Tews
  *
- * @param string $input  input string
- * @param bool $whitespace   flag count whitespaces
+ * @param string $input input string
+ * @param bool $whitespace flag count whitespaces
  * @return string with compiled code
  */
 function smarty_modifier_count_characters($input, $whitespace = false)

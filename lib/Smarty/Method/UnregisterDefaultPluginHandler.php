@@ -16,33 +16,16 @@
 class Smarty_Method_UnregisterDefaultPluginHandler
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-
-    /**
      * Unregisters a default plugin handler
      *
      * @api
+     * @param Smarty $smarty smarty object
      * @return Smarty
      */
-    public function unregisterDefaultPluginHandler()
+    public function unregisterDefaultPluginHandler(Smarty $smarty)
     {
-        $this->smarty->default_plugin_handler_func = null;
+        $smarty->default_plugin_handler_func = null;
 
-        return $this->smarty;
+        return $smarty;
     }
 }

@@ -17,34 +17,18 @@
 class Smarty_Method_CreateTemplate
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-    /**
      * creates a template object
      *
      * @api
+     * @param Smarty | Smarty_Template $object master object
      * @param  string $template_resource the resource handle of the template file
-     * @param  mixed $cache_id          cache id to be used with this template
-     * @param  mixed $compile_id        compile id to be used with this template
-     * @param  object $parent            next higher level of Smarty variables
+     * @param  mixed $cache_id cache id to be used with this template
+     * @param  mixed $compile_id compile id to be used with this template
+     * @param  object $parent next higher level of Smarty variables
      * @throws Smarty_Exception
      * @return Smarty           template object
      */
-    public function createTemplate($template_resource, $cache_id = null, $compile_id = null, $parent = null)
+    public function createTemplate(Smarty $smarty, $template_resource, $cache_id = null, $compile_id = null, $parent = null)
     {
         if (!empty($cache_id) && (is_object($cache_id) || is_array($cache_id))) {
             $parent = $cache_id;
@@ -56,7 +40,7 @@ class Smarty_Method_CreateTemplate
         } else {
             $data = null;
         }
-        $tpl_obj = clone $this->smarty;
+        $tpl_obj = clone $smarty;
         $tpl_obj->_usage = Smarty::IS_SMARTY_TPL_CLONE;
         $tpl_obj->parent = $parent;
         if (isset($cache_id)) {

@@ -182,8 +182,8 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                    ' an empty string.  Input "' . substr($this->data,
-                        $this->counter, 5) . '... state BOM');
+                        ' an empty string.  Input "' . substr($this->data,
+                            $this->counter, 5) . '... state BOM');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -216,7 +216,7 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
-                ': ' . $this->data[$this->counter]);
+                    ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -275,8 +275,8 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                    ' an empty string.  Input "' . substr($this->data,
-                        $this->counter, 5) . '... state TEXT');
+                        ' an empty string.  Input "' . substr($this->data,
+                            $this->counter, 5) . '... state TEXT');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -309,7 +309,7 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
-                ': ' . $this->data[$this->counter]);
+                    ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -573,8 +573,8 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                    ' an empty string.  Input "' . substr($this->data,
-                        $this->counter, 5) . '... state SMARTY');
+                        ' an empty string.  Input "' . substr($this->data,
+                            $this->counter, 5) . '... state SMARTY');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -607,7 +607,7 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
-                ': ' . $this->data[$this->counter]);
+                    ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -1081,8 +1081,8 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                    ' an empty string.  Input "' . substr($this->data,
-                        $this->counter, 5) . '... state LITERAL');
+                        ' an empty string.  Input "' . substr($this->data,
+                            $this->counter, 5) . '... state LITERAL');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -1115,7 +1115,7 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
-                ': ' . $this->data[$this->counter]);
+                    ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -1224,8 +1224,8 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                    ' an empty string.  Input "' . substr($this->data,
-                        $this->counter, 5) . '... state DOUBLEQUOTEDSTRING');
+                        ' an empty string.  Input "' . substr($this->data,
+                            $this->counter, 5) . '... state DOUBLEQUOTEDSTRING');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -1258,7 +1258,7 @@ class Smarty_Compiler_Template_Lexer extends Smarty_Exception_Magic
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
-                ': ' . $this->data[$this->counter]);
+                    ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);

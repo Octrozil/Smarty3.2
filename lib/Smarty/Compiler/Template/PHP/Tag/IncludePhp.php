@@ -46,19 +46,19 @@ class Smarty_Compiler_Template_Php_Tag_IncludePhp extends Smarty_Compiler_Templa
     /**
      * Compiles code for the {include_php} tag
      *
-     * @param  array $args     array with attributes from parser
+     * @param  array $args array with attributes from parser
      * @param  object $compiler compiler object
      * @throws Smarty_Exception
      * @return string           compiled code
      */
     public function compile($args, $compiler)
     {
-        if (!($compiler->context->smarty instanceof SmartyBC)) {
-            throw new Smarty_Exception("{include_php} is deprecated, use SmartyBC class to enable");
+        if (!($compiler->context->smarty instanceof Smarty_Smarty2BC)) {
+            throw new Smarty_Exception("{include_php} is deprecated, use Smarty_Smarty2BC class to enable");
         }
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        $this->smarty = $compiler->context->smarty;
+        $_scope = new Smarty_Template_Scope($compiler->context);
         $_filepath = false;
         eval('$_file = ' . $_attr['file'] . ';');
         if (!isset($compiler->context->smarty->security_policy) && is_file($_file)) {

@@ -31,11 +31,11 @@ class Smarty_Compiler_Template_Php_Tag_Internal_InheritanceTemplate extends Smar
     /**
      * Compiles code for calling inheritance templates
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
-     * @param  string $tag       name of block plugin
-     * @param  string $function  PHP function name
+     * @param  string $tag name of block plugin
+     * @param  string $function PHP function name
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter, $tag, $function)

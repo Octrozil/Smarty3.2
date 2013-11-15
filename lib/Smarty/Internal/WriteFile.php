@@ -15,7 +15,7 @@
  * @internal
  * @package Smarty\Extension
  */
-class Smarty_Method_WriteFile
+class Smarty_Internal_WriteFile
 {
     /**
      * Flag if we are running on Windows
@@ -24,46 +24,30 @@ class Smarty_Method_WriteFile
     static $_IS_WINDOWS = null;
 
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-    /**
      * Writes compiled or cache file in a safe way to disk
      *
      * @internal
+     * @param  Smarty $smarty smarty object
      * @param  string $_filepath complete filepath
      * @param  string $_contents file content
      * @throws Smarty_Exception
      * @return boolean          true
      */
-    public function writeFile($_filepath, $_contents)
+    public function _writeFile(Smarty $smarty, $_filepath, $_contents)
     {
         if (!isset(self::$_IS_WINDOWS)) {
             self::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
         }
         $_error_reporting = error_reporting();
         error_reporting($_error_reporting & ~E_NOTICE & ~E_WARNING);
-        if ($this->smarty->_file_perms !== null) {
+        if ($smarty->_file_perms !== null) {
             $old_umask = umask(0);
         }
 
         $_dirpath = dirname($_filepath);
         // if subdirs, create dir structure
         if ($_dirpath !== '.' && !file_exists($_dirpath)) {
-            mkdir($_dirpath, $this->smarty->_dir_perms === null ? 0777 : $this->smarty->_dir_perms, true);
+            mkdir($_dirpath, $smarty->_dir_perms === null ? 0777 : $smarty->_dir_perms, true);
         }
 
         // write to tmp file, then move to overt file lock race condition
@@ -103,14 +87,14 @@ class Smarty_Method_WriteFile
             throw new Smarty_Exception("unable to write file {$_filepath}");
         }
 
-        if ($this->smarty->enable_trace) {
+        if ($smarty->enable_trace) {
             // notify listeners of written file
-            $this->smarty->_triggerTraceCallback('filesystem:write', array($this->smarty, $_filepath));
+            $smarty->_triggerTraceCallback('filesystem:write', array($smarty, $_filepath));
         }
 
-        if ($this->smarty->_file_perms !== null) {
+        if ($smarty->_file_perms !== null) {
             // set file permissions
-            chmod($_filepath, $this->smarty->_file_perms);
+            chmod($_filepath, $smarty->_file_perms);
             umask($old_umask);
         }
         error_reporting($_error_reporting);

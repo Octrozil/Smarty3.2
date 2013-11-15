@@ -33,8 +33,8 @@ class Smarty_Compiler_Template_Php_Tag_For extends Smarty_Compiler_Template_Php_
      * The parser is generating different sets of attribute by which this compiler can
      * determine which syntax is used.
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
@@ -100,8 +100,8 @@ class Smarty_Compiler_Template_Php_Tag_Forelse extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {forelse} tag
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
@@ -135,8 +135,8 @@ class Smarty_Compiler_Template_Php_Tag_Forclose extends Smarty_Compiler_Template
     /**
      * Compiles code for the {/for} tag
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */

@@ -46,7 +46,7 @@ class Smarty_Compiler_Template_Php_Tag_Block extends Smarty_Compiler_Template_Ph
     /**
      * Compiles code for the {block} tag
      *
-     * @param  array $args     array with attributes from parser
+     * @param  array $args array with attributes from parser
      * @param  object $compiler compiler object
      * @return boolean true
      */
@@ -95,7 +95,7 @@ class Smarty_Compiler_Template_Php_Tag_Blockclose extends Smarty_Compiler_Templa
     /**
      * Compiles code for the {/block} tag
      *
-     * @param  array $args     array with attributes from parser
+     * @param  array $args array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */
@@ -198,7 +198,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Block_Parent extends Smarty_Comp
     /**
      * Compiles code for the {$smart.block.parent} tag
      *
-     * @param  array $args     array with attributes from parser
+     * @param  array $args array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */
@@ -231,7 +231,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Block_Child extends Smarty_Compi
     /**
      * Compiles code for the {$smart.block.child} tag
      *
-     * @param  array $args     array with attributes from parser
+     * @param  array $args array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

@@ -27,7 +27,7 @@
  *      (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Ralf Strehle (minor optimization) <ralf dot strehle at yahoo dot de>
- * @param array $params   parameters
+ * @param array $params parameters
  * @param Smarty $tpl_obj template object
  * @return string
  * @uses smarty_function_escape_special_chars()

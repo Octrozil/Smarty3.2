@@ -16,40 +16,23 @@
 class Smarty_Method_FindRootTemplate
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-
-    /**
      * Identify and get top-level template instance
      *
      * @api
+     * @param Smarty $smarty smarty object
      * @return Smarty root template object
      */
-    public function findRootTemplate()
+    public function findRootTemplate(Smarty $smarty)
     {
-        $tpl_obj = $this->smarty;
+        $tpl_obj = $smarty;
         while ($tpl_obj->parent && ($tpl_obj->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE || $tpl_obj->parent->_usage == Smarty::IS_CONFIG)) {
             if ($tpl_obj->rootTemplate) {
-                return $this->smarty->rootTemplate = $tpl_obj->rootTemplate;
+                return $smarty->rootTemplate = $tpl_obj->rootTemplate;
             }
 
             $tpl_obj = $tpl_obj->parent;
         }
 
-        return $this->smarty->rootTemplate = $tpl_obj;
+        return $smarty->rootTemplate = $tpl_obj;
     }
 }

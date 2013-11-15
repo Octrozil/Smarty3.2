@@ -16,35 +16,19 @@
 class Smarty_Method_UnregisterResource
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-    /**
      * Unregisters a resource
      *
      * @api
+     * @param Smarty $smarty smarty object
      * @param  string $type name of resource type
      * @return Smarty
      */
-    public function unregisterResource($type)
+    public function unregisterResource(Smarty $smarty, $type)
     {
-        if (isset($this->smarty->registered_resources[Smarty::SOURCE][$type])) {
-            unset($this->smarty->registered_resources[Smarty::SOURCE][$type]);
+        if (isset($smarty->registered_resources[Smarty::SOURCE][$type])) {
+            unset($smarty->registered_resources[Smarty::SOURCE][$type]);
         }
 
-        return $this->smarty;
+        return $smarty;
     }
 }

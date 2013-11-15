@@ -16,34 +16,17 @@
 class Smarty_Method_UnregisterDefaultVariableHandler
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-
-    /**
      * Unregisters a default variable handler
      *
      * @api
+     * @param Smarty $smarty smarty object
      * @return Smarty
      */
-    public function unregisterDefaultVariableHandler()
+    public function unregisterDefaultVariableHandler(Smarty $smarty)
     {
-        $this->smarty->default_variable_handler_func = null;
+        $smarty->default_variable_handler_func = null;
 
-        return $this->smarty;
+        return $smarty;
     }
 
 }

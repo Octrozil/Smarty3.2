@@ -67,7 +67,7 @@ class Smarty_Smarty2BC extends Smarty_Smarty31BC
      * @deprecated
      * @api
      * @param string $tpl_var the template variable name
-     * @param mixed &$value  the referenced value to assign
+     * @param mixed &$value the referenced value to assign
      */
     public function assign_by_ref($tpl_var, &$value)
     {
@@ -80,8 +80,8 @@ class Smarty_Smarty2BC extends Smarty_Smarty31BC
      * @deprecated
      * @api
      * @param string $tpl_var the template variable name
-     * @param mixed &$value  the referenced value to append
-     * @param boolean $merge   flag if array elements shall be merged
+     * @param mixed &$value the referenced value to append
+     * @param boolean $merge flag if array elements shall be merged
      */
     public function append_by_ref($tpl_var, &$value, $merge = false)
     {
@@ -105,7 +105,7 @@ class Smarty_Smarty2BC extends Smarty_Smarty31BC
      *
      * @deprecated
      * @api
-     * @param string $function      the name of the template function
+     * @param string $function the name of the template function
      * @param string $function_impl the name of the PHP function to register
      * @param bool $cacheable
      * @param mixed $cache_attrs
@@ -132,10 +132,10 @@ class Smarty_Smarty2BC extends Smarty_Smarty31BC
      *
      * @deprecated
      * @api
-     * @param string $object        name of template object
-     * @param object $object_impl   the referenced PHP object to register
-     * @param array $allowed       list of allowed methods (empty = all)
-     * @param boolean $smarty_args   smarty argument format, else traditional
+     * @param string $object name of template object
+     * @param object $object_impl the referenced PHP object to register
+     * @param array $allowed list of allowed methods (empty = all)
+     * @param boolean $smarty_args smarty argument format, else traditional
      * @param array $block_methods
      * @internal param array $block_functs list of methods that are block format
      */
@@ -163,8 +163,8 @@ class Smarty_Smarty2BC extends Smarty_Smarty31BC
      *
      * @deprecated
      * @api
-     * @param string $block       name of template block
-     * @param string $block_impl  PHP function to register
+     * @param string $block name of template block
+     * @param string $block_impl PHP function to register
      * @param bool $cacheable
      * @param mixed $cache_attrs
      */
@@ -190,7 +190,7 @@ class Smarty_Smarty2BC extends Smarty_Smarty31BC
      *
      * @deprecated
      * @api
-     * @param string $function      name of template function
+     * @param string $function name of template function
      * @param string $function_impl name of PHP function to register
      * @param bool $cacheable
      */
@@ -216,7 +216,7 @@ class Smarty_Smarty2BC extends Smarty_Smarty31BC
      *
      * @deprecated
      * @api
-     * @param string $modifier      name of template modifier
+     * @param string $modifier name of template modifier
      * @param string $modifier_impl name of PHP function to register
      */
     public function register_modifier($modifier, $modifier_impl)
@@ -241,7 +241,7 @@ class Smarty_Smarty2BC extends Smarty_Smarty31BC
      *
      * @deprecated
      * @api
-     * @param string $type      name of resource
+     * @param string $type name of resource
      * @param array $functions array of functions to handle resource
      */
     public function register_resource($type, $functions)
@@ -353,10 +353,10 @@ class Smarty_Smarty2BC extends Smarty_Smarty31BC
      *
      * @deprecated
      * @api
-     * @param  string $tpl_file   name of template file
-     * @param  string $cache_id   name of cache_id
+     * @param  string $tpl_file name of template file
+     * @param  string $cache_id name of cache_id
      * @param  string $compile_id name of compile_id
-     * @param  string $exp_time   expiration time
+     * @param  string $exp_time expiration time
      * @return boolean
      */
     public function clear_cache($tpl_file = null, $cache_id = null, $compile_id = null, $exp_time = null)
@@ -382,7 +382,7 @@ class Smarty_Smarty2BC extends Smarty_Smarty31BC
      *
      * @deprecated
      * @api
-     * @param  string $tpl_file   name of template file
+     * @param  string $tpl_file name of template file
      * @param  string $cache_id
      * @param  string $compile_id
      * @return boolean
@@ -517,10 +517,10 @@ class Smarty_Smarty2BC extends Smarty_Smarty31BC
  * Smarty {php}{/php} block function
  *
  * @deprecated
- * @param array $params   parameter list
- * @param string $content  contents of the block
+ * @param array $params parameter list
+ * @param string $content contents of the block
  * @param object $template template object
- * @param boolean &$repeat  repeat flag
+ * @param boolean &$repeat repeat flag
  * @return string content re-formatted
  */
 function smarty_php_tag($params, $content, $template, &$repeat)

@@ -22,8 +22,8 @@ class Smarty_Compiler_Template_Php_Tag_If extends Smarty_Compiler_Template_Php_T
     /**
      * Compiles code for the {if} tag
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
@@ -86,8 +86,8 @@ class Smarty_Compiler_Template_Php_Tag_Else extends Smarty_Compiler_Template_Php
     /**
      * Compiles code for the {else} tag
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
@@ -117,8 +117,8 @@ class Smarty_Compiler_Template_Php_Tag_Elseif extends Smarty_Compiler_Template_P
     /**
      * Compiles code for the {elseif} tag
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
@@ -224,8 +224,8 @@ class Smarty_Compiler_Template_Php_Tag_Ifclose extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {/if} tag
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */

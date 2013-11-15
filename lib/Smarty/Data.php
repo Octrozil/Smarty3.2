@@ -50,8 +50,8 @@ class Smarty_Data extends Smarty_Variable_Methods
     /**
      * create Smarty data object
      *
-     * @param  Smarty $smarty     object of Smarty instance
-     * @param  Smarty_Variable_Methods|array $parent     parent object or variable array
+     * @param  Smarty $smarty object of Smarty instance
+     * @param  Smarty_Variable_Methods|array $parent parent object or variable array
      * @param  string $scope_name name of variable scope
      * @throws Smarty_Exception
      */
@@ -91,21 +91,7 @@ class Smarty_Data extends Smarty_Variable_Methods
      */
     public function __call($name, $args)
     {
-
-        // try extensions
-        if (isset($this->_autoloaded[$name])) {
-            return call_user_func_array(array($this->_autoloaded[$name], $name), $args);
-        }
-
-        $class = ($name[0] != '_') ? 'Smarty_Variable_Method_' . ucfirst($name) : ('Smarty_Variable_Internal_' . ucfirst(substr($name, 1)));
-        if (class_exists($class, true)) {
-            $obj = new $class($this);
-            if (method_exists($obj, $name)) {
-                $this->_autoloaded[$name] = $obj;
-                return call_user_func_array(array($obj, $name), $args);
-            }
-        }
-        // throw error through magic parent
-        Smarty_Exception_Magic::__call($name, $args);
+        // try new autoloaded Smarty methods
+        return $this->smarty->_callExtention($this, $name, $args, 1);
     }
 }

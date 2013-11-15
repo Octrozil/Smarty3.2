@@ -16,45 +16,28 @@
  */
 class Smarty_Method_IsCompiled
 {
-
-    /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
     /**
      * test if compiled template is valid
      *
      * @api
-     * @param  string|object $template   the resource handle of the template file or template object
+     * @param Smarty $smarty smarty object
+     * @param  string|object $template the resource handle of the template file or template object
      * @param  mixed $compile_id compile id to be used with this template
      * @param  null $caching
      * @throws Smarty_Exception_SourceNotFound
      * @throws Exception
      * @return boolean       compilation status
      */
-    public function isCompiled($template = null, $compile_id = null, $caching = null)
+    public function isCompiled(Smarty $smarty, $template = null, $compile_id = null, $caching = null)
     {
-        if ($this->smarty->force_compile) {
+        if ($smarty->force_compile) {
             return false;
         }
-        if ($template === null && ($this->smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE || $this->smarty->_usage == Smarty::IS_CONFIG)) {
-            $template = $this->smarty;
+        if ($template === null && ($smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE || $smarty->_usage == Smarty::IS_CONFIG)) {
+            $template = $smarty;
         }
         //get source object from cache  or create new one
-        $context = $this->smarty->_getContext($template, null, $compile_id, null, false, null, null, null, $caching);
+        $context = $smarty->_getContext($template, null, $compile_id, null, false, null, null, null, $caching);
         // checks if source exists
         if (!$context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
@@ -67,15 +50,15 @@ class Smarty_Method_IsCompiled
             // uncompiled source returns always true
             return true;
         }
-        $res_obj = $this->smarty->_loadResource(Smarty::COMPILED, $this->smarty->compiled_type);
+        $res_obj = $smarty->_loadResource(Smarty::COMPILED, $smarty->compiled_type);
         $timestamp = $exists = false;
         $filepath = $res_obj->buildFilepath($context);
-        $res_obj->populateTimestamp($this->smarty, $filepath, $timestamp, $exists);
+        $res_obj->populateTimestamp($smarty, $filepath, $timestamp, $exists);
         if (!$exists || $timestamp < $context->timestamp) {
             return false;
         }
         try {
-            $template_obj = $context->_getTemplateObject(Smarty::COMPILED, false);
+            $template_obj = $smarty->_getTemplateObject(Smarty::COMPILED, $context, false);
             if ($template_obj === false) {
                 return false;
             }

@@ -22,8 +22,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
     /**
      * Compiles code for modifier execution
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
@@ -163,7 +163,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
      *
      * @param  string $modifier modifier name
      * @param  callback $callback modifier callback
-     * @param  array $params   parameter array
+     * @param  array $params parameter array
      * @param  object $compiler compiler object
      * @return string   variable with context object or empty
      */

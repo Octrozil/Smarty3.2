@@ -16,7 +16,7 @@
  * @link http://www.smarty.net/docs/en/language.function.fetch.tpl {fetch}
  *       (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
- * @param array $params   parameters
+ * @param array $params parameters
  * @param Smarty $tpl_obj template object
  * @throws Smarty_Exception
  * @return string|null if the assign parameter is passed, Smarty assigns the result to a template variable

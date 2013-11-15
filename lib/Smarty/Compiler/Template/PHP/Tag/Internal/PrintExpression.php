@@ -38,8 +38,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
     /**
      * Compiles code for gererting output from any expression
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
      * @throws Smarty_Exception
      * @return string           compiled code
@@ -137,8 +137,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
 
     /**
      * @param  object $compiler compiler object
-     * @param  string $name     name of variable filter
-     * @param  string $output   embedded output
+     * @param  string $name name of variable filter
+     * @param  string $output embedded output
      * @return string
      */
     private function compile_output_filter($compiler, $name, $output)

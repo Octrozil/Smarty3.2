@@ -81,7 +81,7 @@ class Smarty_Security
     /**
      *   Enables security
      *
-     * @param  Smarty $smarty         Smarty object
+     * @param  Smarty $smarty Smarty object
      * @param  string|Smarty_Security $security_class if a string is used, it must be class-name
      * @throws Smarty_Exception       when an invalid class name is provided
      */
@@ -254,7 +254,7 @@ class Smarty_Security
      * Check if PHP function is trusted.
      *
      * @param  string $function_name
-     * @param  object $compiler      compiler object
+     * @param  object $compiler compiler object
      * @return boolean                   true if function is trusted
      * @throws Smarty_Exception_Compiler if php function is not trusted
      */
@@ -273,7 +273,7 @@ class Smarty_Security
      * Check if static class is trusted.
      *
      * @param  string $class_name
-     * @param  object $compiler   compiler object
+     * @param  object $compiler compiler object
      * @return boolean                   true if class is trusted
      * @throws Smarty_Exception_Compiler if static class is not trusted
      */
@@ -292,7 +292,7 @@ class Smarty_Security
      * Check if PHP modifier is trusted.
      *
      * @param  string $modifier_name
-     * @param  object $compiler      compiler object
+     * @param  object $compiler compiler object
      * @return boolean                   true if modifier is trusted
      * @throws Smarty_Exception_Compiler if modifier is not trusted
      */
@@ -344,7 +344,7 @@ class Smarty_Security
      * Check if modifier plugin is trusted.
      *
      * @param  string $modifier_name
-     * @param  object $compiler      compiler object
+     * @param  object $compiler compiler object
      * @return boolean                   true if tag is trusted
      * @throws Smarty_Exception_Compiler if modifier is not trusted
      */

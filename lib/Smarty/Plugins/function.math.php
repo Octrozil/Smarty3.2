@@ -17,7 +17,7 @@
  * @link http://www.smarty.net/docs/en/language.function.math.tpl {math}
  *          (Smarty online manual)
  * @author   Monte Ohrt <monte at ohrt dot com>
- * @param array $params   parameters
+ * @param array $params parameters
  * @param Smarty $tpl_obj template object
  * @return string|null
  */

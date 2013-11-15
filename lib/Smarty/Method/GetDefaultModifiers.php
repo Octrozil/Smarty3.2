@@ -17,30 +17,14 @@
 class Smarty_Method_GetDefaultModifiers
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-    /**
      * Get default modifiers
      *
      * @api
+     * @param Smarty $smarty smarty object
      * @return array list of default modifiers
      */
-    public function getDefaultModifiers()
+    public function getDefaultModifiers(Smarty $smarty)
     {
-        return $this->smarty->default_modifiers;
+        return $smarty->default_modifiers;
     }
 }

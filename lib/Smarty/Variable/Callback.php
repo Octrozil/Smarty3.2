@@ -38,8 +38,8 @@ class Smarty_Variable_Callback
     /**
      * create Smarty variable object
      *
-     * @param string $varname   name this variable
-     * @param callback $callback   callback
+     * @param string $varname name this variable
+     * @param callback $callback callback
      * @param boolean $nocache if true any output of this variable will be not cached
      * @throws Smarty_Exception
      */

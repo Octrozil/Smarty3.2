@@ -17,35 +17,19 @@
 class Smarty_Variable_Method_GetConfigVars
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct($smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-    /**
      * Returns a single or all config variables
      *
      * @api
-     * @param  string $varname        variable name or null
+     * @param Smarty | Smarty_Template | Smarty_Data $object master object
+     * @param  string $varname variable name or null
      * @param  boolean $search_parents include parent templates?
      * @return string  variable value or or array of variables
      */
-    public function getConfigVars($varname = null, $search_parents = true)
+    public function getConfigVars($object, $varname = null, $search_parents = true)
     {
-        $_ptr = $this->smarty;
+        $_ptr = $object;
         if (isset($varname)) {
-            $result = $this->smarty->_getVariable('___config_var_' . $varname, $_ptr, $search_parents, false);
+            $result = $object->_getVariable('___config_var_' . $varname, $_ptr, $search_parents, false);
 
             return $result;
         } else {

@@ -50,7 +50,7 @@ class Smarty_Template_Scope //extends Smarty_Exception_Magic
             if ($context->parent instanceof Smarty_Template) {
                 $this->_tpl_vars = clone $context->parent->_tpl_vars;
             } else {
-                if ($context->parent == null || $context->parent instanceof Smarty) {
+                if ($context->parent == null) {
                     $this->_tpl_vars = clone $context->smarty->_tpl_vars;
                 } else {
                     $this->_tpl_vars = $this->_mergeScopes($context->parent);

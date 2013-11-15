@@ -29,7 +29,7 @@
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author credits to Duda <duda@big.hu>
  * @version 1.0
- * @param array $params   parameters
+ * @param array $params parameters
  * @param Smarty $tpl_obj template object
  * @throws Smarty_Exception
  * @return string

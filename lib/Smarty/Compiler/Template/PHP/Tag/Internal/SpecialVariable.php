@@ -22,8 +22,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
     /**
      * Compiles code for the special $smarty variables
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  string $parameter string with optional array indexes
      * @return string compiled code
      */
@@ -73,9 +73,10 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
                 return 'dirname($this->context->filepath)';
 
             case 'is_cached':
-                return '$this->smarty->cached->valid';
+                return '$this->is_cache';
 
             case 'is_nocache':
+                // TODO This flag is currently not implemented
                 return '$this->smarty->is_nocache';
 
             case 'version':

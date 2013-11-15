@@ -30,7 +30,7 @@ class Smarty_Method_SetDebugTemplate
      */
     public function __construct(Smarty $smarty)
     {
-        $this->smarty = $smarty;
+        $smarty = $smarty;
     }
 
     /**

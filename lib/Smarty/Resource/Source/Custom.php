@@ -27,9 +27,9 @@ abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source_File
     /**
      * fetch template and its modification time from data source
      *
-     * @param string $name    template name
+     * @param string $name template name
      * @param string &$source template source
-     * @param integer &$mtime  template modification timestamp (epoch)
+     * @param integer &$mtime template modification timestamp (epoch)
      */
     abstract protected function fetch($name, &$source, &$mtime);
 

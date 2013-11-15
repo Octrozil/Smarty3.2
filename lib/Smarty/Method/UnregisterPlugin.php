@@ -16,36 +16,20 @@
 class Smarty_Method_UnregisterPlugin
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-    /**
      * Unregister Plugin
      *
      * @api
+     * @param Smarty $smarty smarty object
      * @param  string $type of plugin
-     * @param  string $tag  name of plugin
+     * @param  string $tag name of plugin
      * @return Smarty
      */
-    public function unregisterPlugin($type, $tag)
+    public function unregisterPlugin(Smarty $smarty, $type, $tag)
     {
-        if (isset($this->smarty->_registered['plugin'][$type][$tag])) {
-            unset($this->smarty->_registered['plugin'][$type][$tag]);
+        if (isset($smarty->_registered['plugin'][$type][$tag])) {
+            unset($smarty->_registered['plugin'][$type][$tag]);
         }
 
-        return $this->smarty;
+        return $smarty;
     }
 }

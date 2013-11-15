@@ -105,6 +105,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
                 // rebuild cache file
                 $obj = new Smarty_Resource_Cache_Extension_Create($this, $filepath);
                 $obj->_renderCacheSubTemplate($context);
+                $obj->destroy();
                 unset($obj);
                 // load existing compiled template class
                 $this->populateTimestamp($context->smarty, $filepath, $timestamp, $exists);
@@ -138,7 +139,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
     /**
      * Check timestamp of browser cache against timestamp of individually cached subtemplates
      *
-     * @param  Smarty $smarty                  template object
+     * @param  Smarty $smarty template object
      * @param  integer $_last_modified_timestamp browser cache timestamp
      * @return bool    true if browser cache is valid
      */
@@ -182,7 +183,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
     /**
      * get timestamp and exists from Resource
      *
-     * @param  Smarty $smarty     Smarty object
+     * @param  Smarty $smarty Smarty object
      * @param $filepath
      * @param $timestamp
      * @param $exists
@@ -208,13 +209,13 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
      */
     public function writeCache(Smarty $tpl_obj, $filepath, $content)
     {
-        return $tpl_obj->writeFile($filepath, $content);
+        return $tpl_obj->_writeFile($filepath, $content);
     }
 
     /**
      * Empty cache
      *
-     * @param  Smarty $smarty   Smarty object
+     * @param  Smarty $smarty Smarty object
      * @param  integer $exp_time expiration time (number of seconds, not timestamp)
      * @return integer number of cache files deleted
      */
@@ -232,11 +233,11 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
     /**
      * Empty cache for a specific template
      *
-     * @param  Smarty $smarty        Smarty object
+     * @param  Smarty $smarty Smarty object
      * @param  string $resource_name template name
-     * @param  string $cache_id      cache id
-     * @param  string $compile_id    compile id
-     * @param  integer $exp_time      expiration time (number of seconds, not timestamp)
+     * @param  string $cache_id cache id
+     * @param  string $compile_id compile id
+     * @param  integer $exp_time expiration time (number of seconds, not timestamp)
      * @return integer number of cache files deleted
      */
     public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)

@@ -16,35 +16,18 @@
 class Smarty_Internal_LoadPlugin
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-
-    /**
      * Takes unknown classes and loads plugin files for them
      * class name format: Smarty_PluginType_PluginName
      * plugin filename format: plugintype.pluginname.php
      *
      * @internal
-     * @param  string $plugin_name    plugin or class name
-     * @param  bool $check          check if already loaded
+     * @param   Smarty $smarty
+     * @param  string $plugin_name plugin or class name
+     * @param  bool $check check if already loaded
      * @throws Smarty_Exception
      * @return string|boolean   filepath of loaded plugin | true if it was a Smarty core class || false if not found
      */
-    public function _loadPlugin($plugin_name, $check = true)
+    public function _loadPlugin(Smarty $smarty, $plugin_name, $check = true)
     {
         if ($check) {
             // if function or class exists, exit silently (already loaded)
@@ -61,8 +44,8 @@ class Smarty_Internal_LoadPlugin
         // plugin filename is expected to be: [type].[name].php
         $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}.php";
         // add SMARTY_PLUGINS_DIR if not present
-        $_plugins_dir = $this->smarty->getPluginsDir();
-        if (!$this->smarty->disable_core_plugins) {
+        $_plugins_dir = $smarty->getPluginsDir();
+        if (!$smarty->disable_core_plugins) {
             $_plugins_dir[] = Smarty::$_SMARTY_PLUGINS_DIR;
         }
 

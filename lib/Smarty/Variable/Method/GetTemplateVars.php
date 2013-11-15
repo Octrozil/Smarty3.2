@@ -17,35 +17,20 @@
 class Smarty_Variable_Method_GetTemplateVars
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct($smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-    /**
      * Returns a single or all template variables
      *
      * @api
-     * @param  string $varname        variable name or null
-     * @param  string $_ptr           optional pointer to data object
+     * @param Smarty | Smarty_Template | Smarty_Data $object master object
+     * @param  string $varname variable name or null
+     * @param  string $_ptr optional pointer to data object
      * @param  boolean $search_parents include parent templates?
      * @return string  variable value or or array of variables
      */
-    public function getTemplateVars($varname = null, $_ptr = null, $search_parents = true)
+    public function getTemplateVars($object, $varname = null, $_ptr = null, $search_parents = true)
     {
+        $smarty = isset($object->smarty) ? $object->smarty : $object;
         if (isset($varname)) {
-            $result = $this->smarty->_getVariable($varname, $_ptr, $search_parents, false);
+            $result = $smarty->_getVariable($varname, $_ptr, $search_parents, false);
             if ($result === null) {
                 return false;
             } else {

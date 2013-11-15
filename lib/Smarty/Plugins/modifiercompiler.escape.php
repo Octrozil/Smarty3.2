@@ -21,9 +21,9 @@
  * @author Rodney Rehm
  *
  * @param  Smarty_Compiler_Template_Php_Compiler $compiler compiler object
- * @param string $input         input string
- * @param string $esc_type      escape type
- * @param string $char_set      character set, used for htmlspecialchars() or htmlentities()
+ * @param string $input input string
+ * @param string $esc_type escape type
+ * @param string $char_set character set, used for htmlspecialchars() or htmlentities()
  * @param bool|string $double_encode encode already encoded entitites again, used for htmlspecialchars() or htmlentities()
  * @return string with compiled code
  */

@@ -17,32 +17,16 @@
 class Smarty_Method_TemplateExists
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-    /**
      * Check if a template resource exists
      *
      * @api
+     * @param Smarty $smarty smarty object
      * @param  string $template_resource template name
      * @return boolean status
      */
-    public function templateExists($template_resource)
+    public function templateExists(Smarty $smarty, $template_resource)
     {
-        $context = $this->smarty->_getContext($template_resource);
+        $context = $smarty->_getContext($template_resource);
         return $context->exists;
     }
 }

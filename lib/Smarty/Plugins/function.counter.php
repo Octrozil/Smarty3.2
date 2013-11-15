@@ -15,7 +15,7 @@
  * @author Monte Ohrt <monte at ohrt dot com>
  * @link http://www.smarty.net/docs/en/language.custom.functions.tpl#language.function.counter {counter}
  *       (Smarty online manual)
- * @param array $params   parameters
+ * @param array $params parameters
  * @param Smarty $tpl_obj template object
  * @return string|null
  * @package Plugins\Function

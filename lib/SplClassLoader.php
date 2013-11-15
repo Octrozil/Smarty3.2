@@ -36,9 +36,9 @@ class SplClassLoader
     {
         $this->_namespace = $ns;
         if (isset($includePath)) {
-        $this->_includePath = $includePath . DIRECTORY_SEPARATOR;
+            $this->_includePath = $includePath . DIRECTORY_SEPARATOR;
         } else {
-            $this->_includePath  = dirname(__FILE__) . DIRECTORY_SEPARATOR;
+            $this->_includePath = dirname(__FILE__) . DIRECTORY_SEPARATOR;
         }
 
     }
@@ -128,7 +128,7 @@ class SplClassLoader
     public function loadClass($className)
     {
         $fileName = $this->_includePath;
-        if (null === $this->_namespace || $this->_namespace.$this->_namespaceSeparator === substr($className, 0, strlen($this->_namespace.$this->_namespaceSeparator))) {
+        if (null === $this->_namespace || $this->_namespace . $this->_namespaceSeparator === substr($className, 0, strlen($this->_namespace . $this->_namespaceSeparator))) {
             $namespace = '';
             if (false !== ($lastNsPos = strripos($className, $this->_namespaceSeparator))) {
                 $namespace = substr($className, 0, $lastNsPos);
@@ -150,7 +150,7 @@ class SplClassLoader
                 }
                 $className = substr($className, $lastNsPos + 1);
             } else {
-                if (false === $pos = strpos($className,'_')) {
+                if (false === $pos = strpos($className, '_')) {
                     $fileName .= $className;
                 } else {
                     $fileName .= substr($className, 0, $pos);

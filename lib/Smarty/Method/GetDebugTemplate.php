@@ -17,30 +17,14 @@
 class Smarty_Method_GetDebugTemplate
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-    /**
      * return name of debugging template
      *
      * @api
+     * @param Smarty $smarty smarty object
      * @return string
      */
-    public function getDebugTemplate()
+    public function getDebugTemplate(Smarty $smarty)
     {
-        return $this->debug_tpl;
+        return $smarty->debug_tpl;
     }
 }

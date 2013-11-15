@@ -17,51 +17,33 @@
 class Smarty_Method_RegisterFilter
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-
-    /**
      * Registers a filter function
      *
      * @api
-     * @param  string $type     filter type
+     * @param Smarty $smarty smarty object
      * @param  callback $callback
      * @throws Smarty_Exception
      * @return Smarty
      */
-    public function registerFilter($type, $callback)
+    public function registerFilter(Smarty $smarty, $type, $callback)
     {
         if (!in_array($type, array('pre', 'post', 'output', 'variable'))) {
             throw new Smarty_Exception("registerFilter(): Invalid filter type \"{$type}\"");
         }
         if (is_callable($callback)) {
             if ($callback instanceof Closure) {
-                $this->smarty->_registered['filter'][$type][] = $callback;
+                $smarty->_registered['filter'][$type][] = $callback;
             } else {
                 if (is_object($callback)) {
                     $callback = array($callback, '__invoke');
                 }
-                $this->smarty->_registered['filter'][$type][$this->_getFilterName($callback)] = $callback;
+                $smarty->_registered['filter'][$type][$this->_getFilterName($callback)] = $callback;
             }
         } else {
             throw new Smarty_Exception("registerFilter(): Invalid callback");
         }
 
-        return $this->smarty;
+        return $smarty;
     }
 
     /**

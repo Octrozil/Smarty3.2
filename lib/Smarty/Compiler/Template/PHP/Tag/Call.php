@@ -46,7 +46,7 @@ class Smarty_Compiler_Template_Php_Tag_Call extends Smarty_Compiler_Template_Php
     /**
      * Compiles the calls of user defined tags defined by {function}
      *
-     * @param  array $args     array with attributes from parser
+     * @param  array $args array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

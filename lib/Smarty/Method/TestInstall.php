@@ -17,32 +17,15 @@ class Smarty_Method_TestInstall
 {
 
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-
-    /**
      * diagnose Smarty setup
      *
      * If $errors is specified, the diagnostic report will be appended to the array, rather than being output.
      *
+     * @param Smarty $smarty smarty object
      * @param  array $errors array to push results into rather than outputting them
      * @return bool   status, true if everything is fine, false else
      */
-    public function testInstall(&$errors = null)
+    public function testInstall(Smarty $smarty, &$errors = null)
     {
         $status = true;
 
@@ -54,17 +37,17 @@ class Smarty_Method_TestInstall
 
         $_stream_resolve_include_path = function_exists('stream_resolve_include_path');
         // test if all registered template_dir are accessible
-        foreach ($this->smarty->getTemplateDir() as $template_dir) {
+        foreach ($smarty->getTemplateDir() as $template_dir) {
             $_template_dir = $template_dir;
             $template_dir = realpath($template_dir);
             // resolve include_path or fail existance
             if (!$template_dir) {
-                if ($this->smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_template_dir)) {
+                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_template_dir)) {
                     // try PHP include_path
                     if ($_stream_resolve_include_path) {
                         $template_dir = stream_resolve_include_path($_template_dir);
                     } else {
-                        $template_dir = $this->smarty->getIncludePath($_template_dir);
+                        $template_dir = $smarty->getIncludePath($_template_dir);
                     }
                     if ($template_dir !== false) {
                         if ($errors === null) {
@@ -124,7 +107,7 @@ class Smarty_Method_TestInstall
         }
 
         // test if registered compile_dir is accessible
-        $__compile_dir = $this->smarty->getCompileDir();
+        $__compile_dir = $smarty->getCompileDir();
         $_compile_dir = realpath($__compile_dir);
         if (!$_compile_dir) {
             $status = false;
@@ -172,17 +155,17 @@ class Smarty_Method_TestInstall
         // and if core plugins directory is still registered
         $_core_plugins_dir = realpath(dirname(__FILE__) . '/../plugins');
         $_core_plugins_available = false;
-        foreach ($this->smarty->getPluginsDir() as $plugin_dir) {
+        foreach ($smarty->getPluginsDir() as $plugin_dir) {
             $_plugin_dir = $plugin_dir;
             $plugin_dir = realpath($plugin_dir);
             // resolve include_path or fail existance
             if (!$plugin_dir) {
-                if ($this->smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
+                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
                     // try PHP include_path
                     if ($_stream_resolve_include_path) {
                         $plugin_dir = stream_resolve_include_path($_plugin_dir);
                     } else {
-                        $plugin_dir = $this->smarty->getIncludePath($_plugin_dir);
+                        $plugin_dir = $smarty->getIncludePath($_plugin_dir);
                     }
                     if ($plugin_dir !== false) {
                         if ($errors === null) {
@@ -256,7 +239,7 @@ class Smarty_Method_TestInstall
         }
 
         // test if all registered cache_dir is accessible
-        $__cache_dir = $this->smarty->getCacheDir();
+        $__cache_dir = $smarty->getCacheDir();
         $_cache_dir = realpath($__cache_dir);
         if (!$_cache_dir) {
             $status = false;
@@ -301,17 +284,17 @@ class Smarty_Method_TestInstall
         }
 
         // test if all registered config_dir are accessible
-        foreach ($this->smarty->getConfigDir() as $config_dir) {
+        foreach ($smarty->getConfigDir() as $config_dir) {
             $_config_dir = $config_dir;
             $config_dir = realpath($config_dir);
             // resolve include_path or fail existance
             if (!$config_dir) {
-                if ($this->smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_config_dir)) {
+                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_config_dir)) {
                     // try PHP include_path
                     if ($_stream_resolve_include_path) {
                         $config_dir = stream_resolve_include_path($_config_dir);
                     } else {
-                        $config_dir = $this->smarty->getIncludePath($_config_dir);
+                        $config_dir = $smarty->getIncludePath($_config_dir);
                     }
                     if ($config_dir !== false) {
                         if ($errors === null) {

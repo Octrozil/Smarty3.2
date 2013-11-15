@@ -115,31 +115,23 @@ class Smarty_Method_ResourceStatus extends Smarty_Exception_Magic
     public $template_obj = '';
 
     /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-    /**
      * returns resource status object
      *
      * @api
+     * @param Smarty $smarty smarty object
      * @param $resource_group
-     * @param  string|object $template   the resource handle of the template file or template object
-     * @param  mixed $cache_id   cache id to be used with this template
+     * @param  string|object $template the resource handle of the template file or template object
+     * @param  mixed $cache_id cache id to be used with this template
      * @param  mixed $compile_id compile id to be used with this template
      * @param null $parent
      * @param null $caching
      * @param bool $isConfig
      * @return string  cache filepath
      */
-    public function resourceStatus($resource_group, $template = null, $cache_id = null, $compile_id = null, $parent = null, $caching = null, $isConfig = false)
+    public function resourceStatus(Smarty $smarty, $resource_group, $template = null, $cache_id = null, $compile_id = null, $parent = null, $caching = null, $isConfig = false)
     {
         $status = clone $this;
+        $status->smarty = $smarty;
         if (!empty($cache_id) && is_object($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
@@ -194,7 +186,7 @@ class Smarty_Method_ResourceStatus extends Smarty_Exception_Magic
                 return $status;
             }
             try {
-                $template_obj = $context->_getTemplateObject($resource_group);
+                $template_obj = $context->smarty->_getTemplateObject($resource_group, $context);
             } catch (Exception $e) {
                 return $status;
             }

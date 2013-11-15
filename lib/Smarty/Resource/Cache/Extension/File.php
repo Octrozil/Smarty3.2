@@ -21,11 +21,11 @@ class Smarty_Resource_Cache_Extension_File
      * Delete cache file for a specific template
      *
      * @internal
-     * @param  Smarty $smarty        Smarty object
+     * @param  Smarty $smarty Smarty object
      * @param  string $resource_name template name
-     * @param  string $cache_id      cache id
-     * @param  string $compile_id    compile id
-     * @param  integer $exp_time      expiration time (number of seconds, not timestamp)
+     * @param  string $cache_id cache id
+     * @param  string $compile_id compile id
+     * @param  integer $exp_time expiration time (number of seconds, not timestamp)
      * @return integer number of cache files deleted
      */
     public static function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
@@ -43,7 +43,7 @@ class Smarty_Resource_Cache_Extension_File
             $context = $smarty->_getContext($resource_name);
             if ($context->exists) {
                 // set basename if not specified
-                $_basename = $context->getBasename($context);
+                $_basename = $context->handler->getBasename($context);
                 if ($_basename === null) {
                     $_basename = basename(preg_replace('![^\w\/]+!', '_', $context->name));
                 }

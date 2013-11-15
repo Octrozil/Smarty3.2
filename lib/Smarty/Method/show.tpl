@@ -16,21 +16,21 @@ border-bottom: 1px dotted #36f; }
 <
 
 /
-head>
-<body>
-   <div id
+head >
+< body >
+< div id
 
 =
 "wrap"
 >
-<h1>Show
+< h1 > Show
 
 /
 Hide Content<
 
 /
-h1>
-      <p><a href
+h1 >
+< p > < a href
 
 =
 "/showhide-content-css-javascript/"
@@ -38,13 +38,13 @@ h1>
 Go back to the main article.<
 
 /
-a> This example shows you how to create a show
+a > This example shows you how to create a show
 
 /
 hide container using a couple of links, a div, a few lines of CSS, and some JavaScript to manipulate our CSS. Just click on the
 
 "see more"
-link at the end of this paragraph to see the technique in action, and be sure to view the source to see how it all works together. <a href
+link at the end of this paragraph to see the technique in action, and be sure to view the source to see how it all works together. < a href
 
 =
 "#"
@@ -64,11 +64,11 @@ onclick
 See more.<
 
 /
-a><
+a > <
 
 /
-p>
-      <div id
+p >
+< div id
 
 =
 "example"
@@ -77,10 +77,10 @@ class
 =
 "more"
 >
-<p>Congratulations! You
+< p > Congratulations! You
 
 've found the magic hidden text! Clicking the link below will hide this content again.</p>
-<p><a href
+< p > < a href
 
 =
 "#"
@@ -100,24 +100,23 @@ onclick
 Hide this content.<
 
 /
-a><
+a > <
 
 /
-p>
-      <
-
-/
-div>
-   <
-
-/
-div>
-
+p >
 <
 
 /
-body>
+div >
 <
 
 /
-html>
+div >
+<
+
+/
+body >
+<
+
+/
+html >

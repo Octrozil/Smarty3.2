@@ -331,7 +331,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
      * @param Smarty_Context $context
      * @param string $compiled_filepath
      */
-    public function __construct($lexer_class, $parser_class, Smarty_Context  $context, $compiled_filepath)
+    public function __construct($lexer_class, $parser_class, Smarty_Context $context, $compiled_filepath)
     {
         $this->compiled_filepath = $compiled_filepath;
         $this->timestamp = time();
@@ -357,7 +357,8 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
      */
     public function compileTemplateSource()
     {
-        $this->isInheritance = $this->isInheritanceChild = $this->context->smarty->is_inheritance_child;
+        //TODO
+//        $this->isInheritance = $this->isInheritanceChild = $this->context->smarty->is_inheritance_child;
         if (!$this->context->handler->recompiled) {
             if ($this->context->components) {
                 // uses real resource for file dependency
@@ -398,7 +399,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
             $_filepath = $this->compiled_filepath;
             if ($_filepath === false)
                 throw new Smarty_Exception('Invalid filepath for compiled template');
-            $this->context->smarty->writeFile($_filepath, $code);
+            $this->context->smarty->_writeFile($_filepath, $code);
         }
         if ($this->context->smarty->debugging) {
             Smarty_Debug::end_compile($this->context);
@@ -514,8 +515,8 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
      * This is a call back from the lexer/parser
      * It executes the required compile plugin for the Smarty tag
      *
-     * @param  string $tag       tag name
-     * @param  array $args      array with tag attributes
+     * @param  string $tag tag name
+     * @param  array $args array with tag attributes
      * @param  array $parameter array with compilation parameter
      * @return string compiled code
      */
@@ -683,8 +684,8 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
      * compile objects cached for reuse.
      * class name format:  Smarty_Compiler_Template_Php_Tag_TagName
      *
-     * @param  string $tag    tag name
-     * @param  array $args   list of tag attributes
+     * @param  string $tag tag name
+     * @param  array $args list of tag attributes
      * @param  mixed $param1 optional parameter
      * @param  mixed $param2 optional parameter
      * @param  mixed $param3 optional parameter
@@ -820,7 +821,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
     /**
      * Check for plugins by default plugin handler
      *
-     * @param  string $tag         name of tag
+     * @param  string $tag name of tag
      * @param  string $plugin_type type of plugin
      * @return boolean true if found
      */
@@ -936,7 +937,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
      *
      * If parameter $msg contains a string this is used as error message
      *
-     * @param  string $msg  individual error message or null
+     * @param  string $msg individual error message or null
      * @param  string $line line-number
      * @throws Smarty_Exception_Compiler when an unexpected token is found
      */
@@ -954,7 +955,7 @@ class Smarty_Compiler_Template_Php_Compiler extends Smarty_Exception_Magic
     /**
      * Create Smarty content class for compiled template files
      *
-     * @param  Smarty $tpl_obj    template object
+     * @param  Smarty $tpl_obj template object
      * @param  bool $noinstance flag if code for creating instance shall be suppressed
      * @return string
      */

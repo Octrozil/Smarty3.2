@@ -283,7 +283,7 @@ class  Smarty_Template extends Smarty_Internal_Template
             foreach ($this->template_functions as $name => $foo) {
                 $context->smarty->template_functions[$name] = $this;
             }
-            if ($_scope  !== null) {
+            if ($_scope !== null) {
                 // is subtemplate, so we can clone template scope
                 $template_scope = clone $_scope;
                 $template_scope->_tpl_vars = clone $template_scope->_tpl_vars;
@@ -479,7 +479,7 @@ class  Smarty_Template extends Smarty_Internal_Template
             return Smarty_Resource_Cache_Extension_Create::$stack[0]->_renderCacheSubTemplate($context, true);
         }
         // get template object
-        $template_obj = $context->_getTemplateObject(($caching) ? Smarty::CACHE : Smarty::COMPILED, false, $content_class);
+        $template_obj = $this->smarty->_getTemplateObject(($caching) ? Smarty::CACHE : Smarty::COMPILED, $context, false, $content_class);
         //render template
         return $template_obj->_getRenderedTemplate($context, $_scope);
     }
@@ -536,28 +536,7 @@ class  Smarty_Template extends Smarty_Internal_Template
         if (method_exists($this->smarty, $name)) {
             return call_user_func_array(array($this->smarty, $name), $args);
         }
-        // try autoloaded methods
-        if (isset($this->_autoloaded[$name])) {
-            return call_user_func_array(array($this->_autoloaded[$name], $name), $args);
-        }
         // try new autoloaded Smarty methods
-        $class = ($name[0] != '_') ? 'Smarty_Method_' . ucfirst($name) : ('Smarty_Internal_' . ucfirst(substr($name, 1)));
-        if (class_exists($class, true)) {
-            $obj = new $class($this->smarty);
-            $this->_autoloaded[$name] = $obj;
-            return call_user_func_array(array($obj, $name), $args);
-        }
-        // try new autoloaded variable methods
-        $class = ($name[0] != '_') ? 'Smarty_Variable_Method_' . ucfirst($name) : ('Smarty_Variable_Internal_' . ucfirst(substr($name, 1)));
-        if (class_exists($class, true)) {
-            $obj = new $class($this);
-            if (method_exists($obj, $name)) {
-                $this->_autoloaded[$name] = $obj;
-                return call_user_func_array(array($obj, $name), $args);
-            }
-        }
-        // throw error through magic parent
-        Smarty_Exception_Magic::__call($name, $args);
+        return $this->_callExtention($this->smarty, $name, $args);
     }
-
 }

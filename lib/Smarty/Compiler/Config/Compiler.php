@@ -85,7 +85,7 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
     /**
      * Initialize compiler
      *
-     * @param string $lexer_class  config lexer class name
+     * @param string $lexer_class config lexer class name
      * @param string $parser_class config parser class name
      * @param Smarty_Context $context context object
      * @param $compiled_filepath
@@ -148,7 +148,7 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
         $this->outdent()->php("}")->newline()->outdent()->php("}")->newline();
         $this->php("\$template_class_name = '{$class}';")->newline();
 
-        $this->tpl_obj->writeFile($this->filepath, $this->buffer);
+        $this->tpl_obj->_writeFile($this->filepath, $this->buffer);
         $this->buffer = '';
         $this->config_data = array();
         $this->lex->compiler = null;

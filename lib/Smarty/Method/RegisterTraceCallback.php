@@ -16,23 +16,6 @@
  */
 class Smarty_Method_RegisterTraceCallback
 {
-    /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
     /*
     EVENTS:
     filesystem:write
@@ -40,13 +23,15 @@ class Smarty_Method_RegisterTraceCallback
     */
 
     /**
+     *
      * @api
+     * @param Smarty $smarty smarty object
      * @param  string|array $event
      * @param  callable $callback class/method name
      * @return Smarty
      * @throws Smarty_Exception
      */
-    public function registerTraceCallback($event, $callback = null)
+    public function registerTraceCallback(Smarty $smarty, $event, $callback = null)
     {
         if (is_array($event)) {
             foreach ($event as $_event => $_callback) {
@@ -61,6 +46,6 @@ class Smarty_Method_RegisterTraceCallback
             }
             Smarty::$_trace_callbacks[$event][] = $callback;
         }
-        return $this->smarty;
+        return $smarty;
     }
 }

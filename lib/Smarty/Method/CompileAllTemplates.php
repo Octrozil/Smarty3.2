@@ -16,45 +16,28 @@
  */
 class Smarty_Method_CompileAllTemplates
 {
-
-    /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
     /**
      * Compile all template files
      *
      * @api
-     * @param string $extension     extension of template file names
+     * @param Smarty $smarty smarty object
+     * @param string $extension extension of template file names
      * @param boolean $force_compile true to force recompilation of all templates
-     * @param int $time_limit    set maximum execution time
-     * @param int $max_errors    set maximum allowed errors
+     * @param int $time_limit set maximum execution time
+     * @param int $max_errors set maximum allowed errors
      * @return integer number of template files compiled
      */
-    public function compileAllTemplates($extension, $force_compile, $time_limit, $max_errors)
+    public function compileAllTemplates(Smarty $smarty, $extension, $force_compile, $time_limit, $max_errors)
     {
         // switch off time limit
         if (function_exists('set_time_limit')) {
             @set_time_limit($time_limit);
         }
-        $this->smarty->force_compile = $force_compile;
+        $smarty->force_compile = $force_compile;
         $_count = 0;
         $_error_count = 0;
         // loop over array of template directories
-        foreach ($this->smarty->getTemplateDir() as $_dir) {
+        foreach ($smarty->getTemplateDir() as $_dir) {
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             $_compile = new RecursiveIteratorIterator($_compileDirs);
             foreach ($_compile as $_fileinfo) {
@@ -72,7 +55,7 @@ class Smarty_Method_CompileAllTemplates
                 flush();
                 $_start_time = microtime(true);
                 try {
-                    $_tpl = $this->smarty->createTemplate($_template_file);
+                    $_tpl = $smarty->createTemplate($_template_file);
                     if ($_tpl->mustCompile) {
                         $_tpl->compiler->compileTemplateSource();
                         $_tpl->cleanPointer();

@@ -25,20 +25,13 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      */
     public $parent = null;
 
-    /**
-     * loaded Smarty extension objects
-     *
-     * @internal
-     * @var array
-     */
-    public $_autoloaded = array();
 
     /**
      * assigns a Smarty variable
      *
      * @api
      * @param  array|string $tpl_var the template variable name(s)
-     * @param  mixed $value   the value to assign
+     * @param  mixed $value the value to assign
      * @param  boolean $nocache if true any output of this variable will be not cached
      * @param int $scope_type
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
@@ -73,7 +66,7 @@ class Smarty_Variable_Methods extends Smarty_Exception_Magic
      *
      * @api
      * @param  string $varname the global variable name
-     * @param  mixed $value   the value to assign
+     * @param  mixed $value the value to assign
      * @param  boolean $nocache if true any output of this variable will be not cached
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */

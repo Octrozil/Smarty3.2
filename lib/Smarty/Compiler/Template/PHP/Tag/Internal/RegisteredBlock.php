@@ -30,10 +30,10 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
     /**
      * Compiles code for the execution of a block function
      *
-     * @param  array $args      array with attributes from parser
-     * @param  object $compiler  compiler object
+     * @param  array $args array with attributes from parser
+     * @param  object $compiler compiler object
      * @param  array $parameter array with compilation parameter
-     * @param  string $tag       name of block function
+     * @param  string $tag name of block function
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter, $tag)

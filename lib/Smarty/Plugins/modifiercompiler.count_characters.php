@@ -18,7 +18,7 @@
  * @author Uwe Tews
  *
  * @param  Smarty_Compiler_Template_Php_Compiler $compiler compiler object
- * @param string $input  input string
+ * @param string $input input string
  * @param bool|string $whitespace flag count whitespaces
  * @return string with compiled code
  */

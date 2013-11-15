@@ -20,9 +20,9 @@
  * @author Rodney Rehm
  *
  * @param Smarty $tpl_obj template object
- * @param string $input     output string
- * @param string $esc_type  escape type
- * @param string $char_set      character set
+ * @param string $input output string
+ * @param string $esc_type escape type
+ * @param string $char_set character set
  * @throws Smarty_Exception_Runtime
  * @return string with compiled code
  */

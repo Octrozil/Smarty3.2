@@ -38,9 +38,9 @@ class Smarty_Config_Scope
     }
 
     /**
-    public function __destruct()
-    {
-    }
+     * public function __destruct()
+     * {
+     * }
      */
 
 }

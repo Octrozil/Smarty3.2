@@ -45,7 +45,7 @@ class Smarty_Compiler_Template_Php_Tag_Capture extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {capture} tag
      *
-     * @param  array $args     array with attributes from parser
+     * @param  array $args array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */
@@ -84,7 +84,7 @@ class Smarty_Compiler_Template_Php_Tag_CaptureClose extends Smarty_Compiler_Temp
     /**
      * Compiles code for the {/capture} tag
      *
-     * @param  array $args     array with attributes from parser
+     * @param  array $args array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

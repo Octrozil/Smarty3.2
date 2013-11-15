@@ -18,7 +18,7 @@
  */
 class Smarty_Variable_Scope
 {
-   /**
+    /**
      * magic __get function called at access of unknown or global variable
      *
      * @param  string $varname name of variable

@@ -132,7 +132,7 @@ class Smarty_Exception extends Exception
     /**
      * For PHP < 5.3.0, provides access to the getPrevious() method.
      *
-     * @param string $method    The method name
+     * @param string $method The method name
      * @param array $arguments The parameters to be passed to the method
      *
      * @return Exception The previous exception or null

@@ -17,26 +17,10 @@
 class Smarty_Variable_Method_AssignCallback
 {
     /**
-     *  Master object
-     *
-     * @var Smarty | Smarty_Data | Smarty_Template
-     */
-    public $object;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty | Smarty_Data | Smarty_Template $object master object
-     */
-    public function __construct($object)
-    {
-        $this->object = $object;
-    }
-
-    /**
      * assigns a variable hook
      *
      * @api
+     * @param Smarty | Smarty_Template | Smarty_Data $object master object
      * @param  string $varname the variable name
      * @param  callback $callback PHP callback to get variable value
      * @param  boolean $nocache if true any output of this variable will be not cached
@@ -44,7 +28,7 @@ class Smarty_Variable_Method_AssignCallback
      * @throws Smarty_Exception
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
-    public function assignCallback($varname, $callback, $nocache = false, $scope_type = Smarty::SCOPE_LOCAL)
+    public function assignCallback($object, $varname, $callback, $nocache = false, $scope_type = Smarty::SCOPE_LOCAL)
     {
         if ($varname != '') {
             if (!is_callable($callback)) {
@@ -53,13 +37,13 @@ class Smarty_Variable_Method_AssignCallback
                 if (is_object($callback)) {
                     $callback = array($callback, '__invoke');
                 }
-                if ($this->object->_usage == Smarty::IS_TEMPLATE || $scope_type != Smarty::SCOPE_LOCAL) {
-                    $this->object->_assignInScope($varname, new Smarty_Variable_Callback($varname, $callback, $nocache), $scope_type);
+                if ($object->_usage == Smarty::IS_TEMPLATE || $scope_type != Smarty::SCOPE_LOCAL) {
+                    $object->_assignInScope($varname, new Smarty_Variable_Callback($varname, $callback, $nocache), $scope_type);
                 } else {
-                    $this->object->_tpl_vars->$varname = new Smarty_Variable_Callback($varname, $callback, $nocache);
+                    $object->_tpl_vars->$varname = new Smarty_Variable_Callback($varname, $callback, $nocache);
                 }
             }
         }
-        return $this->object;
+        return $object;
     }
 }

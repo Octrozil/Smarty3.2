@@ -144,10 +144,10 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
         foreach ($_directories as $_directory) {
             $_filepath = $_directory . $file;
             if ($this->fileExists($_filepath, $context)) {
-                if ($file[0] != '.') {
-                    return $_filepath;
-                } else {
+                if ($_file_is_dotted) {
                     return $this->normalizePath($_filepath);
+                } else {
+                    return $_filepath;
                 }
             }
         }
@@ -260,7 +260,7 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
     /**
      * return unique name for this resource
      *
-     * @param  Smarty $smarty            Smarty instance
+     * @param  Smarty $smarty Smarty instance
      * @param  string $template_resource resource_name to make unique
      * @param  Smarty | null $parent
      * @return string unique resource name

@@ -17,39 +17,23 @@
 class Smarty_Method_GetCachedVars
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-    /**
      * Get value from persistent cache storage
      *
      * @api
+     * @param Smarty $smarty smarty object
      * @param  string $key key of value to retrieve, null for all values (default)
      * @return mixed  value or array of values
      */
-    public function getCachedVars($key = null)
+    public function getCachedVars(Smarty $smarty, $key = null)
     {
-        if (!$this->smarty->rootTemplate) {
-            $this->smarty->findRootTemplate();
+        if (!$smarty->rootTemplate) {
+            $smarty->findRootTemplate();
         }
 
         if ($key === null) {
-            return isset($this->smarty->rootTemplate->properties['cachedValues']) ? $this->smarty->rootTemplate->properties['cachedValues'] : array();
+            return isset($smarty->rootTemplate->properties['cachedValues']) ? $smarty->rootTemplate->properties['cachedValues'] : array();
         }
 
-        return isset($this->smarty->rootTemplate->properties['cachedValues'][$key]) ? $this->smarty->rootTemplate->properties['cachedValues'][$key] : null;
+        return isset($smarty->rootTemplate->properties['cachedValues'][$key]) ? $smarty->rootTemplate->properties['cachedValues'][$key] : null;
     }
 }

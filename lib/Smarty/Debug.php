@@ -127,13 +127,20 @@ class Smarty_Debug extends Smarty_Variable_Methods
     /**
      * Opens a window for the Smarty Debugging Consol and display the data
      *
-     * @param Smarty_Context $context
+     * @param $obj
      */
-    public static function display_debug(Smarty_Context $context)
+    public static function display_debug($obj)
     {
+        if ($obj instanceof Smarty_Template) {
+            $context = $obj->context;
+        } else {
+            $context = $obj;
+            $obj = $context->smarty;
+        }
         // prepare information of assigned variables
-        $ptr = self::get_debug_vars($context->smarty);
+        $ptr = self::get_debug_vars($obj);
         $tpl_obj = clone $context->smarty;
+        $tpl_obj->_tpl_vars = new Smarty_Variable_Scope();
         $tpl_obj->_registered = array();
         $tpl_obj->autoload_filters = array();
         $tpl_obj->default_modifiers = array();
@@ -152,7 +159,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
         ksort($_assigned_vars);
         $_config_vars = $ptr->config_vars;
         ksort($_config_vars);
-        if ($context->smarty->_usage == Smarty::IS_SMARTY_TPL_CLONE) {
+        if ($obj instanceof Smarty_Template) {
             $tpl_obj->assign('template_name', $context->type . ':' . $context->name);
             $tpl_obj->assign('template_data', null);
         } else {
@@ -249,10 +256,10 @@ class Smarty_Debug extends Smarty_Variable_Methods
  * Name:     debug_print_var<br>
  * Purpose:  formats variable contents for display in the console
  *
- * @param array|object $var     variable to be formatted
- * @param integer $depth   maximum recursion depth if $var is an array
- * @param integer $length  maximum string length if $var is a string
- * @param bool $root    flag true if called in debug.tpl
+ * @param array|object $var variable to be formatted
+ * @param integer $depth maximum recursion depth if $var is an array
+ * @param integer $length maximum string length if $var is a string
+ * @param bool $root flag true if called in debug.tpl
  * @return string
  */
 function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40, $root = true)
@@ -326,7 +333,7 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40, $root =
             $results = htmlspecialchars('"' . $results . '"');
             break;
         case 'resource' :
-            $results = 'Resource ' . get_resource_type ($var);
+            $results = 'Resource ' . get_resource_type($var);
             break;
         case 'unknown type' :
         default :

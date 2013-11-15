@@ -115,7 +115,7 @@ class Smarty_Smarty31BC extends Smarty
      * @deprecated
      * @api
      * @param  string $tpl_var the template variable name
-     * @param  mixed &$value  the referenced value to assign
+     * @param  mixed &$value the referenced value to assign
      * @param  boolean $nocache if true any output of this variable will be not cached
      * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template_) instance for chaining
      */
@@ -135,8 +135,8 @@ class Smarty_Smarty31BC extends Smarty
      * @deprecated
      * @api
      * @param  string $tpl_var the template variable name
-     * @param  mixed &$value  the referenced value to append
-     * @param  boolean $merge   flag if array elements shall be merged
+     * @param  mixed &$value the referenced value to append
+     * @param  boolean $merge flag if array elements shall be merged
      * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template_) instance for chaining
      */
     public function appendByRef($tpl_var, &$value, $merge = false)
@@ -166,9 +166,9 @@ class Smarty_Smarty31BC extends Smarty
      * @deprecated
      * @api
      * @param $object_name
-     * @param  string $object        $object        the referenced PHP object to register
-     * @param  array $allowed       list of allowed methods (empty = all)
-     * @param  boolean $smarty_args   smarty argument format, else traditional
+     * @param  string $object $object        the referenced PHP object to register
+     * @param  array $allowed list of allowed methods (empty = all)
+     * @param  boolean $smarty_args smarty argument format, else traditional
      * @param  array $block_methods list of block-methods
      * @throws Smarty_Exception
      * @return Smarty

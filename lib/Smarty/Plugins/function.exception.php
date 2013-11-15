@@ -17,7 +17,7 @@
  *       (Smarty online manual)
  * @author Uwe Tews
  * @param Smarty $tpl_obj template object
- * @param string $message   exception messsage
+ * @param string $message exception messsage
  * @throws Smarty_Exception_Runtime
  */
 function smarty_function_exception(Smarty $tpl_obj, $message = 'User Exception')

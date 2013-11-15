@@ -135,7 +135,7 @@ class Smarty extends Smarty_Variable_Methods
      * Declare the type template variable storage
      *
      * @internal
-     * @var Smarty::IS_SMARTY | IS_SMARTY_TPL_CLONE
+     * @var self::IS_SMARTY | IS_SMARTY_TPL_CLONE
      */
     public $_usage = self::IS_SMARTY;
 
@@ -145,19 +145,6 @@ class Smarty extends Smarty_Variable_Methods
      * @var stdClass
      */
     public static $_global_tpl_vars = null;
-
-    /**
-     * error handler returned by set_error_hanlder() in Smarty::muteExpectedErrors()
-     * @internal
-     */
-    public static $_previous_error_handler = null;
-
-    /**
-     * contains directories outside of SMARTY_DIR that are to be muted by muteExpectedErrors()
-     * @internal
-     * @var array
-     */
-    public static $_muted_directories = array('./templates_c/' => null, './cache/' => null);
 
     /**
      * Flag denoting if Multibyte String functions are available
@@ -703,13 +690,6 @@ class Smarty extends Smarty_Variable_Methods
     public $template_resource = null;
 
     /**
-     * flag set when nocache code sections are executed
-     * @var boolean
-     * @internal
-     */
-    public $is_nocache = false;
-
-    /**
      * root template of hierarchy
      *
      * @var Smarty
@@ -738,13 +718,6 @@ class Smarty extends Smarty_Variable_Methods
     public $object_caching = true;
 
     /**
-     * flag this is inheritance child template
-     *
-     * @var bool
-     */
-    public $is_inheritance_child = false;
-
-    /**
      * $compiletime_options
      * value is computed of the compiletime options relevant for config files
      *      $config_read_hidden
@@ -754,6 +727,32 @@ class Smarty extends Smarty_Variable_Methods
      * @var int
      */
     public $compiletime_options = 0;
+
+    /**
+     * registered items of the following types:
+     *  - 'resource'
+     *  - 'plugin'
+     *  - 'object'
+     *  - 'class'
+     *  - 'modifier'
+     *
+     * @var array
+     * @internal
+     */
+    public $_registered = array();
+
+    /**
+     * error handler returned by set_error_hanlder() in self::muteExpectedErrors()
+     * @internal
+     */
+    public static $_previous_error_handler = null;
+
+    /**
+     * contains directories outside of SMARTY_DIR that are to be muted by muteExpectedErrors()
+     * @internal
+     * @var array
+     */
+    public static $_muted_directories = array('./templates_c/' => null, './cache/' => null);
 
     /**
      * contains trace callbacks to invoke on events
@@ -779,24 +778,39 @@ class Smarty extends Smarty_Variable_Methods
     public static $_context_cache = array();
 
     /**
-     * registered items of the following types:
-     *  - 'resource'
-     *  - 'plugin'
-     *  - 'object'
-     *  - 'class'
-     *  - 'modifier'
+     * compiled object cache
      *
      * @var array
-     * @internal
      */
-    public $_registered = array();
+    public static $_compiled_object_cache = array();
 
+    /**
+     * cached object cache
+     *
+     * @var array
+     */
+    public static $_cached_object_cache = array();
+
+    /**
+     * loaded API or internal methods
+     *
+     * @internal
+     * @var array
+     */
+    public static $_autoloaded = array();
 
     public static $_resource_class_prefix = array(
         self::SOURCE => 'Smarty_Resource_Source_',
         self::COMPILED => 'Smarty_Resource_Compiled_',
         self::CACHE => 'Smarty_Resource_Cache_'
     );
+    static $_set_get_prefixes = array('set' => true, 'get' => true);
+    static $_in_extension = array('setAutoloadFilters' => true, 'getAutoloadFilters' => true,
+        'setDefaultModifiers' => true, 'getDefaultModifiers' => true, 'getGlobal' => true,
+        'setDebugTemplate' => true, 'getDebugTemplate' => true, 'getCachedVars' => true,
+        'getConfigVars' => true, 'getTemplateVars' => true, 'getVariable' => true,);
+    static $_extension_prefix = array('Smarty_Internal_', 'Smarty_Variable_Internal_', 'Smarty_Method_', 'Smarty_Variable_Method_');
+    static $_resolved_property_name = array();
 
     /*     * #@- */
 
@@ -829,11 +843,11 @@ class Smarty extends Smarty_Variable_Methods
      * fetches a rendered Smarty template
      *
      * @api
-     * @param  string $template         the resource handle of the template file or template object
-     * @param  mixed $cache_id         cache id to be used with this template
-     * @param  mixed $compile_id       compile id to be used with this template
-     * @param  Smarty $parent           next higher level of Smarty variables
-     * @param  bool $display          true: display, false: fetch
+     * @param  string $template the resource handle of the template file or template object
+     * @param  mixed $cache_id cache id to be used with this template
+     * @param  mixed $compile_id compile id to be used with this template
+     * @param  Smarty $parent next higher level of Smarty variables
+     * @param  bool $display true: display, false: fetch
      * @param  bool $no_output_filter if true do not run output filter
      * @param  null $data
      * @param  int $scope_type
@@ -876,14 +890,14 @@ class Smarty extends Smarty_Variable_Methods
         if ($context->caching == self::CACHING_LIFETIME_CURRENT || $context->caching == self::CACHING_LIFETIME_SAVED) {
             $browser_cache_valid = false;
             // get template object
-            $template_obj = $context->_getTemplateObject(self::CACHE);
+            $template_obj = $this->_getTemplateObject(self::CACHE, $context);
             //render template
             $_output = $template_obj->_getRenderedTemplate($context);
             if ($_output === true) {
                 $browser_cache_valid = true;
             }
         } else {
-            $template_obj = $context->_getTemplateObject(self::COMPILED);
+            $template_obj = $this->_getTemplateObject(self::COMPILED, $context);
             //render template
             $_output = $template_obj->_getRenderedTemplate($context);
         }
@@ -930,10 +944,10 @@ class Smarty extends Smarty_Variable_Methods
      * displays a Smarty template
      *
      * @api
-     * @param string $template   the resource handle of the template file or template object
-     * @param mixed $cache_id   cache id to be used with this template
+     * @param string $template the resource handle of the template file or template object
+     * @param mixed $cache_id cache id to be used with this template
      * @param mixed $compile_id compile id to be used with this template
-     * @param object $parent     next higher level of Smarty variables
+     * @param object $parent next higher level of Smarty variables
      */
     public function display($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
@@ -987,7 +1001,7 @@ class Smarty extends Smarty_Variable_Methods
      *
      * @api
      * @param  string|array $template_dir directory(s) of template sources
-     * @param  string $key          of the array element to assign the template dir to
+     * @param  string $key of the array element to assign the template dir to
      * @return Smarty       current Smarty instance for chaining
      */
     public function addTemplateDir($template_dir, $key = null)
@@ -1030,7 +1044,7 @@ class Smarty extends Smarty_Variable_Methods
      *
      * @api
      * @param  string|array $config_dir directory(s) of config sources
-     * @param  string $key        of the array element to assign the config dir to
+     * @param  string $key of the array element to assign the config dir to
      * @return Smarty       current Smarty instance for chaining
      */
     public function addConfigDir($config_dir, $key = null)
@@ -1148,8 +1162,8 @@ class Smarty extends Smarty_Variable_Methods
      *
      * @internal
      * @param  string|array $dir directory(s) of  sources
-     * @param  string $dirprop  name of directory property
-     * @param bool $do_join  true if joined directory property must be updated
+     * @param  string $dirprop name of directory property
+     * @param bool $do_join true if joined directory property must be updated
      *
      */
     private function _setDir($dir, $dirprop, $do_join = true)
@@ -1169,9 +1183,9 @@ class Smarty extends Smarty_Variable_Methods
      *
      * @internal
      * @param  string|array $dir directory(s)
-     * @param  string $key      of the array element to assign the dir to
-     * @param  string $dirprop  name of directory property
-     * @param bool $do_join  true if joined directory property must be updated
+     * @param  string $key of the array element to assign the dir to
+     * @param  string $dirprop name of directory property
+     * @param bool $do_join true if joined directory property must be updated
      */
     private function _addDir($dir, $key = null, $dirprop, $do_join = true)
     {
@@ -1207,7 +1221,7 @@ class Smarty extends Smarty_Variable_Methods
      *
      * @internal
      * @param  string $dir directory
-     * @param  string $dirprop  name of directory property
+     * @param  string $dirprop name of directory property
      */
     private function _setMutedDir($dir, $dirprop)
     {
@@ -1223,7 +1237,7 @@ class Smarty extends Smarty_Variable_Methods
      *  function to check directory path
      *
      * @internal
-     * @param  string $path     directory
+     * @param  string $path directory
      * @return string           trimmed filepath
      */
     private function _checkDir($path)
@@ -1240,22 +1254,6 @@ class Smarty extends Smarty_Variable_Methods
      */
     public static function muteExpectedErrors()
     {
-        /*
-        error muting is done because some people implemented custom error_handlers using
-        http://php.net/set_error_handler and for some reason did not understand the following paragraph:
-
-        It is important to remember that the standard PHP error handler is completely bypassed for the
-        error types specified by error_types unless the callback function returns FALSE.
-        error_reporting() settings will have no effect and your error handler will be called regardless -
-        however you are still able to read the current value of error_reporting and act appropriately.
-        Of particular note is that this value will be 0 if the statement that caused the error was
-        prepended by the @ error-control operator.
-
-        Smarty deliberately uses @filemtime() over file_exists() and filemtime() in some places. Reasons include
-        - @filemtime() is almost twice as fast as using an additional file_exists()
-        - between file_exists() and filemtime() a possible race condition is opened,
-        which does not exist using the simple @filemtime() approach.
-        */
         $error_handler = array('Smarty_Method_MutingErrorHandler', 'mutingErrorHandler');
         $previous = set_error_handler($error_handler);
 
@@ -1384,6 +1382,67 @@ class Smarty extends Smarty_Variable_Methods
     }
 
     /**
+     *
+     * @internal
+     * @param  int $resource_group SOURCE|COMPILED|CACHE
+     * @param  Smarty_Context $context context object
+     * @param bool $nocache flag that template object shall not be cached
+     * @param string $tpl_class_name class name if inline template class
+     * @return Smarty_Template  template object
+     */
+    public function _getTemplateObject($resource_group, Smarty_Context $context, $nocache = false, $tpl_class_name = null)
+    {
+        $nocache = $nocache || $context->_usage == self::IS_CONFIG;
+        $do_cache = $context->force_caching && !$nocache;
+        if ($context->handler->recompiled && $resource_group == self::CACHE) {
+            // we can't render from cache
+            $resource_group = self::COMPILED;
+        }
+        if ($resource_group != self::SOURCE) {
+            if ($do_cache) {
+                $key = $context->_key . '#' . (isset($context->compile_id) ? $context->compile_id : '') . '#' . (($context->caching) ? 1 : 0);
+            }
+            if ($resource_group == self::COMPILED) {
+                if ($context->handler->recompiled) {
+                    $compiled_type = 'recompiled';
+                } else {
+                    $compiled_type = $context->smarty->compiled_type;
+                }
+                if ($this->object_caching && !$nocache && isset(self::$_compiled_object_cache[$key])) {
+                    return self::$_compiled_object_cache[$key];
+                }
+                if ($tpl_class_name != null) {
+                    $template_obj = new $tpl_class_name($context);
+                } else {
+                    // get compiled resource object
+                    $res_obj = isset(self::$_resource_cache[self::COMPILED][$compiled_type]) ? self::$_resource_cache[self::COMPILED][$compiled_type] : $this->_loadResource(self::COMPILED, $compiled_type);
+                    $template_obj = $res_obj->instanceTemplate($context);
+                }
+                if ($this->object_caching && !$nocache) {
+                    self::$_compiled_object_cache[$key] = $template_obj;
+                }
+                return $template_obj;
+            }
+            if ($resource_group == self::CACHE) {
+                $caching_type = $this->caching_type;
+                if ($do_cache) {
+                    $key .= '#' . isset($context->cache_id) ? $context->cache_id : '';
+                    if (isset(self::$_cached_object_cache[$key])) {
+                        return self::$_cached_object_cache[$key];
+                    }
+                }
+                // get cached resource object
+                $res_obj = isset(self::$_resource_cache[self::CACHE][$caching_type]) ? self::$_resource_cache[self::CACHE][$caching_type] : $this->_loadResource(self::CACHE, $caching_type);
+                $template_obj = $res_obj->instanceTemplate($context);
+                if ($do_cache) {
+                    self::$_cached_object_cache[$key] = $template_obj;
+                }
+                return $template_obj;
+            }
+        }
+    }
+
+    /**
      *  Get handler and create resource object
      *
      * @param  int $resource_group SOURCE|COMPILED|CACHE
@@ -1406,6 +1465,7 @@ class Smarty extends Smarty_Variable_Methods
         if (!$res_obj) {
             $resource_class = self::$_resource_class_prefix[$resource_group] . ucfirst($type);
             if (isset($this->_registered['resource'][$resource_group][$type])) {
+                // TODO  true?
                 if (true || $this->_registered['resource'][$resource_group][$type] instanceof $resource_class) {
                     $res_obj = $this->_registered['resource'][$resource_group][$type][0];
                 } else {
@@ -1455,11 +1515,47 @@ class Smarty extends Smarty_Variable_Methods
         throw new Smarty_Exception_UnknownResourceType(self::$_resource_class_prefix[$resource_group], $type);
     }
 
+    /**
+     *
+     * Load API or internal method dynamicly if not in memory.
+     * If loaded call it
+     * @param Smarty | Smarty_Template | Smarty_Data $caller calling object
+     * @param string $name method name
+     * @param array $args parameter array
+     * @param int $var_method set to 1 when only variable methods shall be loaded
+     * @return mixed
+     */
+    public function _callExtention($caller, $name, $args, $var_method = 0)
+    {
+        if (!isset(self::$_autoloaded[$name])) {
+            if ($name[0] == '_') {
+                $postfix = ucfirst(substr($name, 1));
+                $offset = 0 + $var_method;
+            } else {
+                $postfix = ucfirst($name);
+                $offset = 2 + $var_method;
+            }
+            for ($i = $offset; $i < 2 + $offset; $i++) {
+                $class = self::$_extension_prefix[$i] . $postfix;
+                if (class_exists($class, true)) {
+                    $obj = new $class();
+                    self::$_autoloaded[$name] = $obj;
+                    array_unshift($args, $caller);
+                    return call_user_func_array(array($obj, $name), $args);
+                }
+            }
+            // throw error through parent
+            Smarty_Exception_Magic::__call($name, $args);
+        } else {
+            array_unshift($args, $caller);
+            return call_user_func_array(array(self::$_autoloaded[$name], $name), $args);
+        }
+    }
 
     /**
      *
      * @internal
-     * @param string $event  string event
+     * @param string $event string event
      * @param mixed $data
      */
     public function _triggerTraceCallback($event, $data = array())
@@ -1492,8 +1588,6 @@ class Smarty extends Smarty_Variable_Methods
         unset($this->source);
         unset($this->compiled);
         unset($this->cached);
-        // clear loaded extension
-        $this->_autoloaded = array();
     }
 
     /**
@@ -1539,7 +1633,7 @@ class Smarty extends Smarty_Variable_Methods
      * Set Smarty property
      *
      * @param  string $property_name property name
-     * @param  mixed $value         value
+     * @param  mixed $value value
      * @throws Smarty_Exception
      */
     public function __set($property_name, $value)
@@ -1582,56 +1676,34 @@ class Smarty extends Smarty_Variable_Methods
      */
     public function __call($name, $args)
     {
-        static $_prefixes = array('set' => true, 'get' => true);
-        static $_in_extension = array('setAutoloadFilters' => true, 'getAutoloadFilters' => true,
-            'setDefaultModifiers' => true, 'getDefaultModifiers' => true, 'getGlobal' => true,
-            'setDebugTemplate' => true, 'getDebugTemplate' => true, 'getCachedVars' => true,
-            'getConfigVars' => true, 'getTemplateVars' => true, 'getVariable' => true,);
-        static $_resolved_property_name = array();
-
         // try autoloaded methods
-        if (isset($this->_autoloaded[$name])) {
-            return call_user_func_array(array($this->_autoloaded[$name], $name), $args);
+        if (isset(self::$_autoloaded[$name])) {
+            array_unshift($args, $this);
+            return call_user_func_array(array(self::$_autoloaded[$name], $name), $args);
         }
-        // see if this is a set/get for a property
-        $first3 = strtolower(substr($name, 0, 3));
-        if (isset($_prefixes[$first3]) && !isset($_in_extension[$name]) && isset($name[3]) && $name[3] !== '_') {
-            if (isset($_resolved_property_name[$name])) {
-                $property_name = $_resolved_property_name[$name];
-            } else {
-                // try to keep case correct for future PHP 6.0 case-sensitive class methods
-                // lcfirst() not available < PHP 5.3.0, so improvise
-                $property_name = strtolower(substr($name, 3, 1)) . substr($name, 4);
-                // convert camel case to underscored name
-                $property_name = preg_replace_callback('/([A-Z])/', array($this, 'replaceCamelcase'), $property_name);
-                $_resolved_property_name[$name] = $property_name;
-            }
-            if ($first3 == 'get') {
-                return $this->$property_name;
-            } else {
-                return $this->$property_name = $args[0];
-            }
-        }
-
-        // try autoloaded methods
-        $class = ($name[0] != '_') ? 'Smarty_Method_' . ucfirst($name) : ('Smarty_Internal_' . ucfirst(substr($name, 1)));
-        if (class_exists($class, true)) {
-            $obj = new $class($this);
-            $this->_autoloaded[$name] = $obj;
-            return call_user_func_array(array($obj, $name), $args);
-        }
-        // try new autoloaded variable methods
-        $class = ($name[0] != '_') ? 'Smarty_Variable_Method_' . ucfirst($name) : ('Smarty_Variable_Internal_' . ucfirst(substr($name, 1)));
-        if (class_exists($class, true)) {
-            $obj = new $class($this);
-            if (method_exists($obj, $name)) {
-                $this->_autoloaded[$name] = $obj;
-                return call_user_func_array(array($obj, $name), $args);
+        if ($name[0] != '_' && !isset(self::$_in_extension[$name])) {
+            // see if this is a set/get for a property
+            $first3 = strtolower(substr($name, 0, 3));
+            if (isset(self::$_set_get_prefixes[$first3]) && isset($name[3]) && $name[3] !== '_') {
+                if (isset(self::$_resolved_property_name[$name])) {
+                    $property_name = self::$_resolved_property_name[$name];
+                } else {
+                    // try to keep case correct for future PHP 6.0 case-sensitive class methods
+                    // lcfirst() not available < PHP 5.3.0, so improvise
+                    $property_name = strtolower(substr($name, 3, 1)) . substr($name, 4);
+                    // convert camel case to underscored name
+                    $property_name = preg_replace_callback('/([A-Z])/', array($this, 'replaceCamelcase'), $property_name);
+                    self::$_resolved_property_name[$name] = $property_name;
+                }
+                if ($first3 == 'get') {
+                    return $this->$property_name;
+                } else {
+                    return $this->$property_name = $args[0];
+                }
             }
         }
-
-        // throw error through parent
-        Smarty_Exception_Magic::__call($name, $args);
+        // try new autoloaded Smarty methods
+        return $this->_callExtention($this, $name, $args);
     }
 
     /**

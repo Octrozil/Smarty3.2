@@ -60,12 +60,12 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
     /**
      * fetch cached content and its modification time from data source
      *
-     * @param  string $id         unique cache content identifier
-     * @param  string $name       template name
-     * @param  string $cache_id   cache id
+     * @param  string $id unique cache content identifier
+     * @param  string $name template name
+     * @param  string $cache_id cache id
      * @param  string $compile_id compile id
-     * @param  string $content    cached content
-     * @param  integer $mtime      cache modification timestamp (epoch)
+     * @param  string $content cached content
+     * @param  integer $mtime cache modification timestamp (epoch)
      * @return void
      */
     abstract protected function fetch($id, $name, $cache_id, $compile_id, &$content, &$mtime);
@@ -76,9 +76,9 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
      * {@internal implementing this method is optional.
      *  Only implement it if modification times can be accessed faster than loading the complete cached content.}}
      *
-     * @param  string $id         unique cache content identifier
-     * @param  string $name       template name
-     * @param  string $cache_id   cache id
+     * @param  string $id unique cache content identifier
+     * @param  string $name template name
+     * @param  string $cache_id cache id
      * @param  string $compile_id compile id
      * @return integer|boolean timestamp (epoch) the template was modified, or false if not found
      */
@@ -90,12 +90,12 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
     /**
      * Save content to cache
      *
-     * @param  string $id         unique cache content identifier
-     * @param  string $name       template name
-     * @param  string $cache_id   cache id
+     * @param  string $id unique cache content identifier
+     * @param  string $name template name
+     * @param  string $cache_id cache id
      * @param  string $compile_id compile id
-     * @param  integer|null $exp_time   seconds till expiration or null
-     * @param  string $content    content to cache
+     * @param  integer|null $exp_time seconds till expiration or null
+     * @param  string $content content to cache
      * @return boolean      success
      */
     abstract protected function save($id, $name, $cache_id, $compile_id, $exp_time, $content);
@@ -103,10 +103,10 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
     /**
      * Delete content from cache
      *
-     * @param  string $name       template name
-     * @param  string $cache_id   cache id
+     * @param  string $name template name
+     * @param  string $cache_id cache id
      * @param  string $compile_id compile id
-     * @param  integer|null $exp_time   seconds till expiration time in seconds or null
+     * @param  integer|null $exp_time seconds till expiration time in seconds or null
      * @return integer      number of deleted caches
      */
     abstract protected function delete($name, $cache_id, $compile_id, $exp_time);
@@ -135,7 +135,7 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
     /**
      * get timestamp and exists from Resource
      *
-     * @param  Smarty $smarty     Smarty object
+     * @param  Smarty $smarty Smarty object
      * @param $filepath
      * @param $timestamp
      * @param $exists
@@ -204,7 +204,7 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
     /**
      * Empty cache
      *
-     * @param  Smarty $smarty   Smarty object
+     * @param  Smarty $smarty Smarty object
      * @param  integer $exp_time expiration time (number of seconds, not timestamp)
      * @return integer number of cache files deleted
      */
@@ -216,11 +216,11 @@ abstract class Smarty_Resource_Cache_Custom extends Smarty_Resource_Cache_File
     /**
      * Empty cache for a specific template
      *
-     * @param  Smarty $smarty        Smarty object
+     * @param  Smarty $smarty Smarty object
      * @param  string $resource_name template name
-     * @param  string $cache_id      cache id
-     * @param  string $compile_id    compile id
-     * @param  integer $exp_time      expiration time (number of seconds, not timestamp)
+     * @param  string $cache_id cache id
+     * @param  string $compile_id compile id
+     * @param  integer $exp_time expiration time (number of seconds, not timestamp)
      * @return integer number of cache files deleted
      */
     public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)

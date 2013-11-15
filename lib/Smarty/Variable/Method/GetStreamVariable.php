@@ -16,33 +16,15 @@
  */
 class Smarty_Variable_Method_GetStreamVariable
 {
-
-    /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct($smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
     /**
      * gets  a stream variable
      *
      * @api
-     * @param  string $variable the stream of the variable
+     * @param Smarty | Smarty_Template | Smarty_Data $object master object
      * @throws Smarty_Exception
      * @return mixed            the value of the stream variable
      */
-    public function getStreamVariable($variable)
+    public function getStreamVariable($object, $variable)
     {
         $_result = '';
         $fp = fopen($variable, 'r+');
@@ -55,7 +37,8 @@ class Smarty_Variable_Method_GetStreamVariable
             return $_result;
         }
 
-        if ($this->smarty->error_unassigned) {
+        $smarty = isset($object->smarty) ? $object->smarty : $object;
+        if ($smarty->error_unassigned) {
             throw new Smarty_Exception('getStreamVariable(): Undefined stream variable "' . $variable . '"');
         } else {
             return null;

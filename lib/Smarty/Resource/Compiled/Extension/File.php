@@ -19,11 +19,11 @@ class Smarty_Resource_Compiled_Extension_File
     /**
      * Delete compiled template file
      *
-     * @param  Smarty $smarty            Smarty instance
+     * @param  Smarty $smarty Smarty instance
      * @param  string $template_resource template name
-     * @param  string $compile_id        compile id
-     * @param  integer $exp_time          expiration time
-     * @param  boolean $isConfig         true if a config file
+     * @param  string $compile_id compile id
+     * @param  integer $exp_time expiration time
+     * @param  boolean $isConfig true if a config file
      * @return integer number of template files deleted
      */
     public static function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time, $isConfig)
@@ -36,7 +36,7 @@ class Smarty_Resource_Compiled_Extension_File
             $context = $smarty->_getContext($template_resource);
             if ($context->exists) {
                 // set basename if not specified
-                $_basename = $context->getBasename();
+                $_basename = $context->handler->getBasename($context);
                 if ($_basename === null) {
                     $_basename = basename(preg_replace('![^\w\/]+!', '_', $context->name));
                 }

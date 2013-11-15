@@ -16,33 +16,17 @@
 class Smarty_Method_UnregisterCacheResource
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-    /**
      * Unregisters a cache resource
      *
      * @api
+     * @param Smarty $smarty smarty object
      * @param  string $type name of cache resource type
      * @return Smarty
      */
-    public function unregisterCacheResource($type)
+    public function unregisterCacheResource(Smarty $smarty, $type)
     {
-        if (isset($this->smarty->_registered['resource'][Smarty::CACHE][$type])) {
-            unset($this->smarty->_registered['resource'][Smarty::CACHE][$type]);
+        if (isset($smarty->_registered['resource'][Smarty::CACHE][$type])) {
+            unset($smarty->_registered['resource'][Smarty::CACHE][$type]);
         }
 
         return $this;

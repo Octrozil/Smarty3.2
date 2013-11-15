@@ -17,9 +17,9 @@
  * @link http://www.smarty.net/docs/en/language.modifier.regex.replace.tpl
  *          regex_replace (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
- * @param string $string   input string
- * @param string|array $search   regular expression(s) to search for
- * @param string|array $replace  string(s) that should be replaced
+ * @param string $string input string
+ * @param string|array $search regular expression(s) to search for
+ * @param string|array $replace string(s) that should be replaced
  * @return string
  */
 function smarty_modifier_regex_replace($string, $search, $replace)

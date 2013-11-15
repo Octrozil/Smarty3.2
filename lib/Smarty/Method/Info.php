@@ -93,7 +93,7 @@ class Smarty_Method_Info
      */
     public function __construct(Smarty $smarty)
     {
-        $this->smarty = $smarty;
+        $smarty = $smarty;
     }
 
 
@@ -101,7 +101,7 @@ class Smarty_Method_Info
      * Get Smarty Configuration Information
      *
      * @api
-     * @param  boolean $html  return formatted HTML, array else
+     * @param  boolean $html return formatted HTML, array else
      * @param  integer $flags see Smarty_Internal_Info constants
      * @return string|array configuration information
      */
@@ -124,7 +124,7 @@ class Smarty_Method_Info
         $tpl = new Smarty();
         $tpl->assign('data', $this->data);
         $tpl->assign('info', $this);
-        $tpl->assign('_smarty', $this->smarty);
+        $tpl->assign('_smarty', $smarty);
         $tpl->assign('_template', $this->template);
         // don't litter any template_c around
 //        $template = file_get_contents(dirname(__FILE__).'/info.tpl');
@@ -139,7 +139,7 @@ class Smarty_Method_Info
         $this->data = array(
             'na' => self::NOT_AVAILABLE,
             'version' => Smarty::SMARTY_VERSION,
-            'bc' => $this->smarty instanceof SmartyBC,
+            'bc' => $smarty instanceof SmartyBC,
         );
 
         if (!$flags || $flags & self::PHP) {
@@ -313,7 +313,7 @@ class Smarty_Method_Info
 
         $_clean_smarty = new Smarty();
         $template = null;
-        $smarty = new ReflectionClass($this->smarty);
+        $smarty = new ReflectionClass($smarty);
         if ($this->template) {
             $template = new ReflectionClass($this->template);
         }
@@ -350,7 +350,7 @@ class Smarty_Method_Info
             }
 
             try {
-                $_smarty_value = $this->sanitizeValue($name, $property->getValue($this->smarty), $type);
+                $_smarty_value = $this->sanitizeValue($name, $property->getValue($smarty), $type);
             } catch (ReflectionException $e) {
                 $_smarty_value = self::NOT_AVAILABLE;
             }
@@ -401,7 +401,7 @@ class Smarty_Method_Info
             $this->properties['right_delimiter']['error'] = $message;
         }
 
-        if ($this->smarty->security_policy && $this->smarty->security_policy->php_handling != $this->smarty->php_handling) {
+        if ($smarty->security_policy && $smarty->security_policy->php_handling != $smarty->php_handling) {
             $message = 'Smarty_Security::$php_handling superseeds Smarty::$php_handling';
             $this->warnings['properties-php_handling'] = $message;
             $this->properties['php_handling']['warning'] = $message;
@@ -422,8 +422,8 @@ class Smarty_Method_Info
             'plugins_dir' => array(),
         );
 
-        foreach ($this->smarty->getTemplateDir() as $key => $path) {
-            $t = $this->analyzeDirectory($path, false, $this->smarty->use_include_path);
+        foreach ($smarty->getTemplateDir() as $key => $path) {
+            $t = $this->analyzeDirectory($path, false, $smarty->use_include_path);
             $t['key'] = $key;
             $this->filesystem['template_dir'][] = $t;
             if ($t['error']) {
@@ -431,8 +431,8 @@ class Smarty_Method_Info
             }
         }
 
-        foreach ($this->smarty->getConfigDir() as $key => $path) {
-            $t = $this->analyzeDirectory($path, false, $this->smarty->use_include_path);
+        foreach ($smarty->getConfigDir() as $key => $path) {
+            $t = $this->analyzeDirectory($path, false, $smarty->use_include_path);
             $t['key'] = $key;
             $this->filesystem['config_dir'][] = $t;
             if ($t['error']) {
@@ -440,27 +440,27 @@ class Smarty_Method_Info
             }
         }
 
-        $_plugins_dir = $this->smarty->getPluginsDir();
-        if (!$this->smarty->disable_core_plugins) {
+        $_plugins_dir = $smarty->getPluginsDir();
+        if (!$smarty->disable_core_plugins) {
             $_plugins_dir[] = Smarty::$_SMARTY_PLUGINS_DIR;
         }
 
         foreach ($_plugins_dir as $key => $path) {
-            $t = $this->analyzeDirectory($path, false, $this->smarty->use_include_path);
+            $t = $this->analyzeDirectory($path, false, $smarty->use_include_path);
             $this->filesystem['plugins_dir'][] = $t;
             if ($t['error']) {
                 $this->errors['filesystem-plugins_dir'] = "Plugin Directories";
             }
         }
 
-        $path = $this->smarty->getCompileDir();
+        $path = $smarty->getCompileDir();
         $t = $this->analyzeDirectory($path, true);
         $this->filesystem['compile_dir'][] = $t;
         if ($t['error']) {
             $this->errors['filesystem-compile_dir'] = "Compile Directory";
         }
 
-        $path = $this->smarty->getCacheDir();
+        $path = $smarty->getCacheDir();
         $t = $this->analyzeDirectory($path, true);
         $this->filesystem['cache_dir'][] = $t;
         if ($t['error']) {
@@ -566,15 +566,15 @@ class Smarty_Method_Info
 
                 $autoload = false;
                 // autoload_filters
-                if (isset($type[6]) && substr($type, -6) == 'filter' && $this->smarty->autoload_filters) {
+                if (isset($type[6]) && substr($type, -6) == 'filter' && $smarty->autoload_filters) {
                     $filter = substr($type, 0, -6);
-                    if (isset($this->smarty->autoload_filters[$filter]) && in_array($name, $this->smarty->autoload_filters[$filter])) {
+                    if (isset($smarty->autoload_filters[$filter]) && in_array($name, $smarty->autoload_filters[$filter])) {
                         $autoload = true;
                     }
                 }
 
                 // default_modifiers
-                if ($type == 'modifier' && $this->smarty->default_modifiers && in_array($name, $this->smarty->default_modifiers)) {
+                if ($type == 'modifier' && $smarty->default_modifiers && in_array($name, $smarty->default_modifiers)) {
                     $autoload = true;
                 }
 
@@ -611,8 +611,8 @@ class Smarty_Method_Info
         }
 
         // scan _registered['plugin']
-        if (isset($this->smarty->_registered['plugin'])) {
-            foreach ($this->smarty->_registered['plugin'] as $type => $plugins) {
+        if (isset($smarty->_registered['plugin'])) {
+            foreach ($smarty->_registered['plugin'] as $type => $plugins) {
                 if (!isset($this->plugins[$type])) {
                     continue;
                 }
@@ -650,8 +650,8 @@ class Smarty_Method_Info
         }
 
         // scan _registered['filter]
-        if (isset($this->smarty->_registered['filter'])) {
-            foreach ($this->smarty->_registered['filter'] as $type => $filters) {
+        if (isset($smarty->_registered['filter'])) {
+            foreach ($smarty->_registered['filter'] as $type => $filters) {
                 $type .= 'filter';
                 if (!isset($this->plugins[$type])) {
                     continue;
@@ -707,8 +707,8 @@ class Smarty_Method_Info
         );
 
         // analyze _registered['class']
-        if (isset($this->smarty->_registered['class'])) {
-            foreach ($this->smarty->_registered['class'] as $name => $class) {
+        if (isset($smarty->_registered['class'])) {
+            foreach ($smarty->_registered['class'] as $name => $class) {
                 $registered['classes'][$name] = array(
                     'name' => $name,
                     'class' => $class,
@@ -730,7 +730,7 @@ class Smarty_Method_Info
 
         // TODO: analyzeDefaults()
 
-        foreach ($this->smarty->default_modifiers as $callback) {
+        foreach ($smarty->default_modifiers as $callback) {
             $function = $this->reflectedFunctionOfCallable($callback);
         }
 
@@ -748,8 +748,8 @@ class Smarty_Method_Info
             'properties' => array(),
         );
 
-        if ($this->smarty->security_policy) {
-            $smarty = $this->smarty->security_policy;
+        if ($smarty->security_policy) {
+            $smarty = $smarty->security_policy;
             $_smarty = new ReflectionClass($smarty);
             $this->security['class'] = get_class($smarty);
         } else {

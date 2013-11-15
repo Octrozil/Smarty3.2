@@ -17,7 +17,7 @@
  * @link http://www.smarty.net/docs/en/language.modifier.string.format.tpl string_format (Smarty online manual)
  * @author Uwe Tews
  *
- * @param mixed $input  input string to be formated
+ * @param mixed $input input string to be formated
  * @param string $format format string
  * @return string with compiled code
  */

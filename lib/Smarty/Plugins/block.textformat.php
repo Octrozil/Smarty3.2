@@ -20,10 +20,10 @@
  * @package Plugins\Block
  * @link http://www.smarty.net/docs/en/language.function.textformat.tpl {textformat}
  *       (Smarty online manual)
- * @param array $params   parameters
- * @param string $content  contents of the block
+ * @param array $params parameters
+ * @param string $content contents of the block
  * @param Smarty $tpl_obj template object
- * @param boolean &$repeat  repeat flag
+ * @param boolean &$repeat repeat flag
  * @return string content re-formatted
  * @author Monte Ohrt <monte at ohrt dot com>
  */

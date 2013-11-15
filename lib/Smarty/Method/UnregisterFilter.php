@@ -15,43 +15,27 @@
  */
 class Smarty_Method_UnregisterFilter
 {
-    /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
 
     /**
      * Unregisters a filter function
      *
      * @api
-     * @param  string $type     filter type
+     * @param Smarty $smarty smarty object
+     * @param  string $type filter type
      * @param  callback $callback
      * @return Smarty
      */
-    public function unregisterFilter($type, $callback)
+    public function unregisterFilter(Smarty $smarty, $type, $callback)
     {
-        if (!isset($this->smarty->_registered['filter'][$type])) {
-            return $this->smarty;
+        if (!isset($smarty->_registered['filter'][$type])) {
+            return $smarty;
         }
         if ($callback instanceof Closure) {
-            foreach ($this->smarty->_registered['filter'][$type] as $key => $_callback) {
+            foreach ($smarty->_registered['filter'][$type] as $key => $_callback) {
                 if ($callback === $_callback) {
-                    unset($this->smarty->_registered['filter'][$type][$key]);
+                    unset($smarty->_registered['filter'][$type][$key]);
 
-                    return $this->smarty;
+                    return $smarty;
                 }
             }
         } else {
@@ -59,12 +43,12 @@ class Smarty_Method_UnregisterFilter
                 $callback = array($callback, '__invoke');
             }
             $name = $this->_getFilterName($callback);
-            if (isset($this->smarty->_registered['filter'][$type][$name])) {
-                unset($this->smarty->_registered['filter'][$type][$name]);
+            if (isset($smarty->_registered['filter'][$type][$name])) {
+                unset($smarty->_registered['filter'][$type][$name]);
             }
         }
 
-        return $this->smarty;
+        return $smarty;
     }
 
     /**

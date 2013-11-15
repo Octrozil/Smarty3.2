@@ -43,7 +43,7 @@
  * @version 1.1
  * @link http://www.smarty.net/docs/en/language.function.html.table.tpl {html_table}
  *          (Smarty online manual)
- * @param array $params   parameters
+ * @param array $params parameters
  * @param Smarty $tpl_obj template object
  * @return string
  */

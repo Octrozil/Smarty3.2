@@ -16,30 +16,14 @@
 class Smarty_Method_GetGlobal
 {
     /**
-     *  Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-
-    /**
-     *  Constructor
-     *
-     * @param Smarty $smarty Smarty object
-     */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
-    }
-
-
-    /**
      * Returns a single or all global  variables
      *
+     * @api
+     * @param Smarty $smarty smarty object
      * @param  string $varname variable name or null
-     * @return string variable value or or array of variables
+     * @return mixed variable value or or array of variables
      */
-    public function getGlobal($varname = null)
+    public function getGlobal(Smarty $smarty, $varname = null)
     {
         if (isset($varname)) {
             if (isset(Smarty::$_global_tpl_vars->{$varname}->value)) {

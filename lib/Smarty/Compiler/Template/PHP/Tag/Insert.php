@@ -46,7 +46,7 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
     /**
      * Compiles code for the {insert} tag
      *
-     * @param  array $args     array with attributes from parser
+     * @param  array $args array with attributes from parser
      * @param  object $compiler compiler object
      * @return string compiled code
      */

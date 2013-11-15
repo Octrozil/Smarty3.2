@@ -19,9 +19,9 @@
  * @author Rodney Rehm
  *
  * @param  Smarty_Compiler_Template_Php_Compiler $compiler compiler object
- * @param string $input     output string
- * @param string $esc_type  escape type
- * @param string $char_set      character set
+ * @param string $input output string
+ * @param string $esc_type escape type
+ * @param string $char_set character set
  * @return string with compiled code
  */
 // NOTE: The parser does pass all parameter as strings which could be directly inserted into the compiled code string
