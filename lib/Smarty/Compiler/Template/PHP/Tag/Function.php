@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Function
- *
  * Compiles the {function} {/function} tags
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Function Class
- *
  *
  * @package Compiler
  */
@@ -46,9 +43,10 @@ class Smarty_Compiler_Template_Php_Tag_Function extends Smarty_Compiler_Template
     /**
      * Compiles code for the {function} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return boolean true
      */
     public function compile($args, $compiler, $parameter)
@@ -76,7 +74,6 @@ class Smarty_Compiler_Template_Php_Tag_Function extends Smarty_Compiler_Template
 /**
  * Smarty Internal Plugin Compile Functionclose Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Functionclose extends Smarty_Compiler_Template_Php_Tag
@@ -85,9 +82,10 @@ class Smarty_Compiler_Template_Php_Tag_Functionclose extends Smarty_Compiler_Tem
     /**
      * Compiles code for the {/function} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return boolean true
      */
     public function compile($args, $compiler, $parameter)
@@ -106,19 +104,19 @@ class Smarty_Compiler_Template_Php_Tag_Functionclose extends Smarty_Compiler_Tem
         }
         // if caching save template function for possible nocache call
         if ($compiler->context->caching) {
-            if (!empty($compiler->called_template_functions)) {
+            if (! empty($compiler->called_template_functions)) {
                 $compiler->template_functions[$_name]['called_functions'] = $compiler->called_template_functions;
                 $compiler->called_template_functions = array();
             }
             $plugins = array();
             foreach ($compiler->required_plugins['compiled'] as $plugin => $tmp) {
-                if (!isset($saved_data[4]['compiled'][$plugin])) {
+                if (! isset($saved_data[4]['compiled'][$plugin])) {
                     foreach ($tmp as $data) {
                         $plugins[$data['file']] = $data['function'];
                     }
                 }
             }
-            if (!empty($plugins)) {
+            if (! empty($plugins)) {
                 $compiler->template_functions[$_name]['used_plugins'] = $plugins;
             }
         }

@@ -4,7 +4,7 @@
  * Smarty Internal Plugin
  *
  * @package Smarty\Resource\Cache
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -17,12 +17,14 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
 
     /**
      * Code Object
+     *
      * @var Smarty_Compiler_Code
      */
     public $template_code = null;
 
     /**
      * required plugins
+     *
      * @var array
      * @internal
      */
@@ -115,7 +117,8 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
 
     /**
      * @param  Smarty_Context $context
-     * @param  bool $isSubtemplate call from subtemplate
+     * @param  bool           $isSubtemplate call from subtemplate
+     *
      * @return string   rendered template HTML output
      */
     public function _renderCacheSubTemplate(Smarty_Context $context, $isSubtemplate = false)
@@ -132,7 +135,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
             return $_output;
         }
         // write to cache when necessary
-        if (!$context->handler->recompiled) {
+        if (! $context->handler->recompiled) {
             $this->_createCacheFile($context, $_output);
         }
         unset($_output);
@@ -142,6 +145,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * Find template object of cache file and return Smarty_template_Cached
      *
      * @param  Smarty $tpl_obj current template
+     *
      * @return Smarty_template_Cached
      */
     public static function _getCachedObject($tpl_obj)
@@ -161,7 +165,8 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * Create new cache file
      *
      * @param  Smarty_Context $context
-     * @param  string $output cache file content
+     * @param  string         $output cache file content
+     *
      * @throws Exception
      * @return string
      */
@@ -178,7 +183,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         unset($output);
         // loop over items, stitch back together
         foreach ($cache_split as $curr_idx => $curr_split) {
-            if (!empty($curr_split)) {
+            if (! empty($curr_split)) {
                 $this->template_code->php("echo ")->string($curr_split)->raw(";\n");
             }
             if (isset($cache_parts[0][$curr_idx])) {
@@ -187,11 +192,11 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
                 $this->template_code->formatPHP($cache_parts[1][$curr_idx]);
             }
         }
-        if (!$context->no_output_filter && !$this->has_nocache_code && (isset($context->smarty->autoload_filters['output']) || isset($context->smarty->_registered['filter']['output']))) {
+        if (! $context->no_output_filter && ! $this->has_nocache_code && (isset($context->smarty->autoload_filters['output']) || isset($context->smarty->_registered['filter']['output']))) {
             $this->template_code->buffer = $context->smarty->runFilter('output', $this->template_code->buffer, $this);
         }
         // write cache file content
-        if (!$context->handler->recompiled && ($context->caching == Smarty::CACHING_LIFETIME_CURRENT || $context->caching == Smarty::CACHING_LIFETIME_SAVED)) {
+        if (! $context->handler->recompiled && ($context->caching == Smarty::CACHING_LIFETIME_CURRENT || $context->caching == Smarty::CACHING_LIFETIME_SAVED)) {
             $this->template_code = $this->_createSmartyContentClass($context->smarty);
             $this->cache_obj->writeCache($context->smarty, $this->filepath, $this->template_code->buffer);
             $this->template_code = null;
@@ -204,7 +209,8 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
             try {
                 $level = ob_get_level();
                 $output = $cache_obj->template_obj->_renderTemplate($tpl_obj, $_scope);
-            } catch (Exception $e) {
+            }
+            catch (Exception $e) {
                 while (ob_get_level() > $level) {
                     ob_end_clean();
                 }
@@ -222,6 +228,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * Create Smarty content class for cache files
      *
      * @param  Smarty $tpl_obj template object
+     *
      * @return string
      */
     public function _createSmartyContentClass(Smarty $tpl_obj)
@@ -231,25 +238,25 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         // content class name
         $class = '_SmartyTemplate_' . str_replace('.', '_', uniqid('', true));
         $template_code->php("if (!class_exists('{$class}',false)) {")->newline()->indent();
-        $template_code->php("class {$class} extends Smarty_Template" . (!empty($this->inheritance_blocks_code) ? "_Inheritance" : '') . " {")->newline()->indent();
+        $template_code->php("class {$class} extends Smarty_Template" . (! empty($this->inheritance_blocks_code) ? "_Inheritance" : '') . " {")->newline()->indent();
         $template_code->php("public \$version = '" . Smarty::SMARTY_VERSION . "';")->newline();
         $template_code->php("public \$has_nocache_code = " . ($this->has_nocache_code ? 'true' : 'false') . ";")->newline();
         $template_code->php("public \$filepath = '{$this->filepath}';")->newline();
         $template_code->php("public \$timestamp = " . time() . ";")->newline();
-        if (!empty($tpl_obj->cached_subtemplates)) {
+        if (! empty($tpl_obj->cached_subtemplates)) {
             $template_code->php("public \$cached_subtemplates = ")->repr($tpl_obj->cached_subtemplates, false)->raw(";")->newline();
         }
         $template_code->php("public \$is_cache = true;")->newline();
         $template_code->php("public \$cache_lifetime = {$tpl_obj->cache_lifetime};")->newline();
         $template_code->php("public \$file_dependency = ")->repr($this->file_dependency, false)->raw(";")->newline();
-        if (!empty($this->required_plugins)) {
+        if (! empty($this->required_plugins)) {
             $template_code->php("public \$required_plugins = ")->repr($this->required_plugins, false)->raw(";")->newline();
         }
-        if (!empty($this->template_functions)) {
+        if (! empty($this->template_functions)) {
             $template_code->php("public \$template_functions = ")->repr($this->template_functions, false)->raw(";")->newline();
         }
         $this->template_functions = array();
-        if (!empty($this->inheritance_blocks)) {
+        if (! empty($this->inheritance_blocks)) {
             $template_code->php("public \$inheritance_blocks = ")->repr($this->inheritance_blocks, false)->raw(';')->newline();
         }
         $template_code->newline()->php("function _renderTemplate (\$_scope) {")->newline()->indent();
@@ -287,7 +294,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         $this->file_dependency = array_merge($this->file_dependency, $comp_obj->template_obj->file_dependency);
         $this->has_nocache_code = $this->has_nocache_code || $comp_obj->template_obj->has_nocache_code;
 
-        if (!empty($comp_obj->template_obj->called_nocache_template_functions)) {
+        if (! empty($comp_obj->template_obj->called_nocache_template_functions)) {
             foreach ($comp_obj->template_obj->called_nocache_template_functions as $name => $dummy) {
                 self::_mergeNocacheTemplateFunction($tpl_obj, $name);
             }
@@ -299,7 +306,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * Merge plugin info, dependencies and nocache template functions into cache
      *
      * @param Smarty $template current template
-     * @param string $name name of template function
+     * @param string $name     name of template function
      */
     public function _mergeNocacheTemplateFunction($template, $name)
     {
@@ -307,7 +314,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
             return;
         }
         $ptr = $tpl = $template;
-        while ($ptr != null && !isset($ptr->compiled->template_obj->template_functions[$name])) {
+        while ($ptr != null && ! isset($ptr->compiled->template_obj->template_functions[$name])) {
             $ptr = $ptr->template_function_chain;
             if ($ptr == null && ($tpl->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE || $tpl->parent->_usage == Smarty::IS_CONFIG)) {
                 $ptr = $tpl = $tpl->parent;
@@ -327,7 +334,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
             $start = $refFunc->getStartLine() - 1;
             $end = $refFunc->getEndLine();
             $source = file($file);
-            for ($i = $start; $i < $end; $i++) {
+            for ($i = $start; $i < $end; $i ++) {
                 if (preg_match("!/\*%%SmartyNocache%%\*/!", $source[$i])) {
                     $this->template_code->formatPHP(stripcslashes(preg_replace("!echo\s(\"|')/\*%%SmartyNocache%%\*/|/\*/%%SmartyNocache%%\*/(\"|');!", '', $source[$i])));
                 } else {
@@ -348,8 +355,9 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * Creates an inheritance block in cache file
      *
      * @param  object $current_tpl calling template
-     * @param  string $name name of block
-     * @param  object $scope_tpl blocks must be processed in this variable scope
+     * @param  string $name        name of block
+     * @param  object $scope_tpl   blocks must be processed in this variable scope
+     *
      * @return string
      */
     // TODO has to be finished
@@ -373,7 +381,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
                 $status = 1;
             }
             $current_tpl = $current_tpl->parent;
-            if ($current_tpl === null || $current_tpl->_usage != Smarty::IS_SMARTY_TPL_CLONE || ($status == 1 && !$current_tpl->is_inheritance_child && !$current_tpl->compiled->template_obj->is_inheritance_child)) {
+            if ($current_tpl === null || $current_tpl->_usage != Smarty::IS_SMARTY_TPL_CLONE || ($status == 1 && ! $current_tpl->is_inheritance_child && ! $current_tpl->compiled->template_obj->is_inheritance_child)) {
                 // quit at first child of current inheritance chain
                 break;
             }
@@ -384,8 +392,9 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * Creates an inheritance block in cache file
      *
      * @param  object $current_tpl calling template
-     * @param  string $name name of block
-     * @param  object $scope_tpl blocks must be processed in this variable scope
+     * @param  string $name        name of block
+     * @param  object $scope_tpl   blocks must be processed in this variable scope
+     *
      * @return string
      */
     public function _createNocacheInheritanceBlock($current_tpl, $name, $scope_tpl)
@@ -414,7 +423,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
                 $status = 1;
             }
             $current_tpl = $current_tpl->parent;
-            if ($current_tpl === null || $current_tpl->_usage != Smarty::IS_SMARTY_TPL_CLONE || ($status == 1 && !$current_tpl->is_inheritance_child && !$current_tpl->compiled->template_obj->is_inheritance_child)) {
+            if ($current_tpl === null || $current_tpl->_usage != Smarty::IS_SMARTY_TPL_CLONE || ($status == 1 && ! $current_tpl->is_inheritance_child && ! $current_tpl->compiled->template_obj->is_inheritance_child)) {
                 // quit at first child of current inheritance chain
                 break;
             }
@@ -452,7 +461,8 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
      * Get block method source
      *
      * @param  object $template_obj Smarty content object
-     * @param  string $function method name of block
+     * @param  string $function     method name of block
+     *
      * @return string source code
      */
     public function _getInheritanceBlockMethodSource($template_obj, $function)
@@ -464,7 +474,7 @@ class Smarty_Resource_Cache_Extension_Create extends Smarty_Exception_Magic
         $start = $refFunc->getStartLine() - 1;
         $end = $refFunc->getEndLine();
         $source = file($file);
-        for ($i = $start; $i < $end; $i++) {
+        for ($i = $start; $i < $end; $i ++) {
             if (preg_match("!/\*%%SmartyNocache%%\*/!", $source[$i])) {
                 $template_code->formatPHP(stripcslashes(preg_replace("!echo\s(\"|')/\*%%SmartyNocache%%\*/|/\*/%%SmartyNocache%%\*/(\"|');!", '', $source[$i])));
             } else {

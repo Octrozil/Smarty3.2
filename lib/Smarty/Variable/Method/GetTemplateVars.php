@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Variable
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,10 +19,12 @@ class Smarty_Variable_Method_GetTemplateVars
      * Returns a single or all template variables
      *
      * @api
-     * @param Smarty | Smarty_Template | Smarty_Data $object master object
-     * @param  string $varname variable name or null
-     * @param  string $_ptr optional pointer to data object
-     * @param  boolean $search_parents include parent templates?
+     *
+     * @param Smarty | Smarty_Template | Smarty_Data $object         master object
+     * @param  string                                $varname        variable name or null
+     * @param  string                                $_ptr           optional pointer to data object
+     * @param  boolean                               $search_parents include parent templates?
+     *
      * @return string  variable value or or array of variables
      */
     public function getTemplateVars($object, $varname = null, $_ptr = null, $search_parents = true)
@@ -43,7 +44,7 @@ class Smarty_Variable_Method_GetTemplateVars
             }
             while ($_ptr !== null) {
                 foreach ($_ptr->_tpl_vars AS $varname => $data) {
-                    if (strpos($varname, '___') !== 0 && !isset($_result[$varname])) {
+                    if (strpos($varname, '___') !== 0 && ! isset($_result[$varname])) {
                         $_result[$varname] = $data->value;
                     }
                 }
@@ -56,7 +57,7 @@ class Smarty_Variable_Method_GetTemplateVars
             }
             if ($search_parents && isset(Smarty::$_global_tpl_vars)) {
                 foreach (Smarty::$_global_tpl_vars AS $varname => $data) {
-                    if (strpos($varname, '___') !== 0 && !isset($_result[$varname])) {
+                    if (strpos($varname, '___') !== 0 && ! isset($_result[$varname])) {
                         $_result[$varname] = $data->value;
                     }
                 }

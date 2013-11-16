@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Debug
- *
  * Class to collect data for the Smarty Debugging Consol
  *
- *
  * @package Debug
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Debug Class
- *
  *
  * @package Debug
  */
@@ -177,6 +174,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
      * Recursively gets variables from all template/data scopes
      *
      * @param  Smarty|Smarty_Data $obj object to debug
+     *
      * @return StdClass
      */
     public static function get_debug_vars($obj)
@@ -202,7 +200,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
         } else {
             foreach (Smarty::$_global_tpl_vars as $key => $var) {
                 if (strpos($key, '___template_ptr') !== 0) {
-                    if (!isset($tpl_vars[$key])) {
+                    if (! isset($tpl_vars[$key])) {
                         if (strpos($key, '___smarty_conf_') !== 0) {
                             $tpl_vars[$key] = $var;
                             $tpl_vars[$key]->context = 'Smarty global';
@@ -221,6 +219,7 @@ class Smarty_Debug extends Smarty_Variable_Methods
      * Return key into $_template_data for template
      *
      * @param  Smarty_Context $context
+     *
      * @return string          key into $_template_data
      */
     private static function get_key(Smarty_Context $context)
@@ -251,15 +250,15 @@ class Smarty_Debug extends Smarty_Variable_Methods
 
 /**
  * Smarty debug_print_var modifier
- *
  * Type:     modifier<br>
  * Name:     debug_print_var<br>
  * Purpose:  formats variable contents for display in the console
  *
- * @param array|object $var variable to be formatted
- * @param integer $depth maximum recursion depth if $var is an array
- * @param integer $length maximum string length if $var is a string
- * @param bool $root flag true if called in debug.tpl
+ * @param array|object $var    variable to be formatted
+ * @param integer      $depth  maximum recursion depth if $var is an array
+ * @param integer      $length maximum string length if $var is a string
+ * @param bool         $root   flag true if called in debug.tpl
+ *
  * @return string
  */
 function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40, $root = true)
@@ -280,21 +279,21 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40, $root =
                 $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
                     . '<b>' . strtr($curr_key, $_replace) . '</b> =&gt; '
                     . smarty_modifier_debug_print_var($curr_val, ++$depth, $length, false);
-                $depth--;
+                $depth --;
             }
             break;
 
         case 'object' :
             $object_vars = get_object_vars($var);
             $results = '';
-            if (!$root) {
+            if (! $root) {
                 $results = '<b>' . get_class($var) . ' Object (' . count($object_vars) . ')</b><br>';
             }
             foreach ($object_vars as $curr_key => $curr_val) {
                 $results .= str_repeat('&nbsp;', $depth * 2)
                     . '<b> -&gt;' . strtr($curr_key, $_replace) . '</b> = '
                     . smarty_modifier_debug_print_var($curr_val, ++$depth, $length, false) . '<br>';
-                $depth--;
+                $depth --;
             }
             break;
 

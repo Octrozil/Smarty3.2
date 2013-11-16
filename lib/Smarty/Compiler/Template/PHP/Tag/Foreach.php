@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Foreach
- *
  * Compiles the {foreach} {foreachelse} {/foreach} tags
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Foreach Class
- *
  *
  * @package Compiler
  */
@@ -46,9 +43,10 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {foreach} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -58,7 +56,7 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
 
         $from = $_attr['from'];
         $item = trim($_attr['item'], '\'"');
-        if ($item == substr($from, 24, -7)) {
+        if ($item == substr($from, 24, - 7)) {
             $compiler->error("'item' variable '\${$item}' may not be the same variable as at 'from'", $compiler->lex->taglineno);
         }
 
@@ -187,7 +185,6 @@ class Smarty_Compiler_Template_Php_Tag_Foreach extends Smarty_Compiler_Template_
 /**
  * Smarty Internal Plugin Compile Foreachelse Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Foreachelse extends Smarty_Compiler_Template_Php_Tag
@@ -196,9 +193,10 @@ class Smarty_Compiler_Template_Php_Tag_Foreachelse extends Smarty_Compiler_Templ
     /**
      * Compiles code for the {foreachelse} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -222,7 +220,6 @@ class Smarty_Compiler_Template_Php_Tag_Foreachelse extends Smarty_Compiler_Templ
 /**
  * Smarty Internal Plugin Compile Foreachclose Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Foreachclose extends Smarty_Compiler_Template_Php_Tag
@@ -231,9 +228,10 @@ class Smarty_Compiler_Template_Php_Tag_Foreachclose extends Smarty_Compiler_Temp
     /**
      * Compiles code for the {/foreach} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)

@@ -4,13 +4,12 @@
  * Smarty Resource Cache File
  *
  * @package Smarty\Resource\Cache
- * @author Rodney Rehm
- * @author Uwe Tews
+ * @author  Rodney Rehm
+ * @author  Uwe Tews
  */
 
 /**
  * This class does contain all necessary methods for the HTML cache on file system
- *
  * Implements the file system as resource for the HTML cache Version using nocache inserts.
  *
  * @package Smarty\Resource\Cache
@@ -20,12 +19,14 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
 
     /**
      * Id for cache locking
+     *
      * @var string
      */
     public $lock_id = null;
 
     /**
      * flag that cache is locked by this instance
+     *
      * @var bool
      */
     public $is_locked = false;
@@ -34,6 +35,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
      * populate Compiled Object with compiled filepath
      *
      * @param  Smarty_Context $context
+     *
      * @return string
      */
     public function buildFilepath(Smarty_Context $context)
@@ -49,7 +51,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
                 $_cache_id_last = count($_cache_id_parts) - 1;
                 $_cache_id_hash = md5($_cache_id_parts[$_cache_id_last]);
                 if ($_cache_id_last > 0) {
-                    for ($i = 0; $i < $_cache_id_last; $i++) {
+                    for ($i = 0; $i < $_cache_id_last; $i ++) {
                         $_filepath .= $_cache_id_parts[$i] . '/';
                     }
                 }
@@ -66,7 +68,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
         if ($context->smarty->cache_locking) {
             // create locking file name
             // relative file name?
-            if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_cache_dir)) {
+            if (! preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_cache_dir)) {
                 $_lock_dir = rtrim(getcwd(), '/\\') . '/' . $_cache_dir;
             } else {
                 $_lock_dir = $_cache_dir;
@@ -81,6 +83,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
      * Load cached template
      *
      * @param Smarty_Context $context
+     *
      * @throws Exception
      * @returns Smarty_Template
      */
@@ -92,7 +95,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
         try {
             $level = ob_get_level();
             $isValid = false;
-            if ($exists && !$context->smarty->force_compile && !$context->smarty->force_cache && $timestamp >= $context->timestamp) {
+            if ($exists && ! $context->smarty->force_compile && ! $context->smarty->force_cache && $timestamp >= $context->timestamp) {
                 $template_class_name = '';
                 // load existing compiled template class
                 $template_class_name = $this->loadTemplateClass($filepath);
@@ -101,7 +104,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
                     $isValid = $template_obj->isValid;
                 }
             }
-            if (!$isValid) {
+            if (! $isValid) {
                 // rebuild cache file
                 $obj = new Smarty_Resource_Cache_Extension_Create($this, $filepath);
                 $obj->_renderCacheSubTemplate($context);
@@ -121,11 +124,12 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
                         }
                     }
                 }
-                if (!$isValid) {
+                if (! $isValid) {
                     throw new Smarty_Exception("Unable to load cached template file '{$filepath}'");
                 }
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
@@ -139,8 +143,9 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
     /**
      * Check timestamp of browser cache against timestamp of individually cached subtemplates
      *
-     * @param  Smarty $smarty template object
+     * @param  Smarty  $smarty                   template object
      * @param  integer $_last_modified_timestamp browser cache timestamp
+     *
      * @return bool    true if browser cache is valid
      */
     private function checkSubtemplateCache($smarty, $_last_modified_timestamp)
@@ -155,8 +160,8 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
             $tpl->compile_id = $subtpl[2];
             $tpl->caching = $subtpl[3];
             $tpl->cache_lifetime = $subtpl[4];
-            if (!$tpl->cached->valid || $tpl->has_nocache_code || $tpl->cached->timestamp > $_last_modified_timestamp ||
-                !$this->checkSubtemplateCache($tpl, $_last_modified_timestamp)
+            if (! $tpl->cached->valid || $tpl->has_nocache_code || $tpl->cached->timestamp > $_last_modified_timestamp ||
+                ! $this->checkSubtemplateCache($tpl, $_last_modified_timestamp)
             ) {
                 // browser cache invalid
                 return false;
@@ -171,6 +176,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
      * load cache template class
      *
      * @param $filepath
+     *
      * @return string  template class name
      */
     public function loadTemplateClass($filepath)
@@ -184,9 +190,10 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
      * get timestamp and exists from Resource
      *
      * @param  Smarty $smarty Smarty object
-     * @param $filepath
-     * @param $timestamp
-     * @param $exists
+     * @param         $filepath
+     * @param         $timestamp
+     * @param         $exists
+     *
      * @return boolean  true if file exits
      */
     public function populateTimestamp(Smarty $smarty, $filepath, &$timestamp, &$exists)
@@ -202,9 +209,10 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
     /**
      * Write the rendered template output to cache
      *
-     * @param  Smarty $tpl_obj template object
+     * @param  Smarty $tpl_obj  template object
      * @param  string $filepath filepath
-     * @param  string $content content to cache
+     * @param  string $content  content to cache
+     *
      * @return boolean success
      */
     public function writeCache(Smarty $tpl_obj, $filepath, $content)
@@ -215,8 +223,9 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
     /**
      * Empty cache
      *
-     * @param  Smarty $smarty Smarty object
+     * @param  Smarty  $smarty   Smarty object
      * @param  integer $exp_time expiration time (number of seconds, not timestamp)
+     *
      * @return integer number of cache files deleted
      */
     public function clearAll(Smarty $smarty, $exp_time = null)
@@ -233,11 +242,12 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
     /**
      * Empty cache for a specific template
      *
-     * @param  Smarty $smarty Smarty object
-     * @param  string $resource_name template name
-     * @param  string $cache_id cache id
-     * @param  string $compile_id compile id
-     * @param  integer $exp_time expiration time (number of seconds, not timestamp)
+     * @param  Smarty  $smarty        Smarty object
+     * @param  string  $resource_name template name
+     * @param  string  $cache_id      cache id
+     * @param  string  $compile_id    compile id
+     * @param  integer $exp_time      expiration time (number of seconds, not timestamp)
+     *
      * @return integer number of cache files deleted
      */
     public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
@@ -250,6 +260,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
      * Check is cache is locked for this template
      *
      * @param  Smarty $smarty Smarty object
+     *
      * @return bool   true or false if cache is locked
      */
     public function hasLock(Smarty $smarty)
@@ -268,6 +279,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
      * Lock cache for this template
      *
      * @param  Smarty $smarty Smarty object
+     *
      * @return void
      */
     public function acquireLock(Smarty $smarty)
@@ -280,6 +292,7 @@ class Smarty_Resource_Cache_File //extends Smarty_Exception_Magic
      * Unlock cache for this template
      *
      * @param  Smarty $smarty Smarty object
+     *
      * @return void
      */
     public function releaseLock(Smarty $smarty)

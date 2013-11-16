@@ -4,12 +4,11 @@
  * Smarty Magic Error Exception
  *
  * @package Smarty\Exception
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Magic Error
- *
  * Throws error on on defined properties or methods
  *
  * @package Smarty\Exception
@@ -19,6 +18,7 @@ class Smarty_Exception_Magic
 
     /**
      * <<magic>> Generic getter.
+     *
      * @throws Smarty_Exception
      */
     public function __get($property_name)
@@ -28,6 +28,7 @@ class Smarty_Exception_Magic
 
     /**
      * <<magic>> Generic Setter.
+     *
      * @throws Smarty_Exception
      */
     public function __set($property_name, $value)
@@ -37,6 +38,7 @@ class Smarty_Exception_Magic
 
     /**
      * <<magic>> Generic Methods.
+     *
      * @throws Smarty_Exception
      */
     public function __call($name, $args)
@@ -46,6 +48,7 @@ class Smarty_Exception_Magic
 
     /**
      * <<magic>> Generic Methods.
+     *
      * @throws Smarty_Exception
      */
     public function __destruct()

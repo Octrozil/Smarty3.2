@@ -3,9 +3,7 @@
 /**
  * Autoloader implementation that implements the technical interoperability
  * standards for PHP 5.3 namespaces and class names.
- *
  * http://groups.google.com/group/php-standards/web/final-proposal
- *
  *     // Example which loads classes for the Doctrine Common package in the
  *     // Doctrine\Common namespace.
  *     $classLoader = new SplClassLoader('Doctrine\Common', '/path/to/doctrine');
@@ -30,7 +28,7 @@ class SplClassLoader
      * specified namespace.
      *
      * @param string $ns The namespace to use.
-     * @param null $includePath
+     * @param null   $includePath
      */
     public function __construct($ns = null, $includePath = null)
     {
@@ -123,6 +121,7 @@ class SplClassLoader
      * Loads the given class or interface.
      *
      * @param string $className The name of the class to load.
+     *
      * @return void
      */
     public function loadClass($className)

@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Registered Block
- *
  * Compiles code for the execution of a registered block function
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Registered Block Class
- *
  *
  * @package Compiler
  */
@@ -30,15 +27,16 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
     /**
      * Compiles code for the execution of a block function
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
-     * @param  string $tag name of block function
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     * @param  string $tag       name of block function
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter, $tag)
     {
-        if (!isset($tag[5]) || substr($tag, -5) != 'close') {
+        if (! isset($tag[5]) || substr($tag, - 5) != 'close') {
             // opening tag of block plugin
             // check and get attributes
             $_attr = $this->getAttributes($compiler, $args);
@@ -57,7 +55,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
 
             $this->openTag($compiler, $tag, array($par_string, $compiler->nocache));
             // maybe nocache because of nocache variables or nocache plugin
-            $compiler->nocache = !$tag_info[1] | $compiler->nocache | $compiler->tag_nocache;
+            $compiler->nocache = ! $tag_info[1] | $compiler->nocache | $compiler->tag_nocache;
             // compile code
             $this->iniTagCode($compiler);
 
@@ -67,7 +65,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
                 // old style with params array
                 if ($function instanceof Closure) {
                     $this->php("echo \$this->smarty->_registered['plugin']['block']['{$tag}'][0]({$par_string['par']}, null, {$par_string['obj']}, \$_block_repeat);")->newline();
-                } elseif (!is_array($function)) {
+                } elseif (! is_array($function)) {
                     $this->php("echo {$function}({$par_string['par']}, null, {$par_string['obj']}, \$_block_repeat);")->newline();
                 } elseif (is_object($function[0])) {
                     $this->php("echo \$this->smarty->_registered['plugin']['block']['{$tag}'][0][0]->{$function[1]}({$par_string['par']}, null, {$par_string['obj']}, \$_block_repeat);")->newline();
@@ -81,7 +79,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
                 $this->php("\$this->smarty->_tag_stack[] = array('{$tag}', {$par_string});")->newline();
                 if ($function instanceof Closure) {
                     $this->php("echo \$this->smarty->_registered['plugin']['block']['{$tag}'][0]({$par_string});")->newline();
-                } elseif (!is_array($function)) {
+                } elseif (! is_array($function)) {
                     $this->php("echo {$function}({$par_string});")->newline();
                 } elseif (is_object($function[0])) {
                     $this->php("echo \$this->smarty->_registered['plugin']['block']['{$tag}'][0][0]->{$function[1]}({$par_string});")->newline();
@@ -96,7 +94,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
             if ($compiler->nocache) {
                 $compiler->tag_nocache = true;
             }
-            $base_tag = substr($tag, 0, -5);
+            $base_tag = substr($tag, 0, - 5);
             // closing tag of block plugin, restore nocache
             list($par_string, $compiler->nocache) = $this->closeTag($compiler, $base_tag);
             // This tag does create output
@@ -118,7 +116,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
                 // old style with params array
                 if ($function instanceof Closure) {
                     $this->php("echo \$this->smarty->_registered['plugin']['block']['{$base_tag}'][0]({$par_string['par']}, \$_block_content, {$par_string['obj']}, \$_block_repeat);")->newline();
-                } elseif (!is_array($function)) {
+                } elseif (! is_array($function)) {
                     $this->php("echo {$function}({$par_string['par']}, \$_block_content, {$par_string['obj']}, \$_block_repeat);")->newline();
                 } elseif (is_object($function[0])) {
                     $this->php("echo \$this->smarty->_registered['plugin']['block']['{$base_tag}'][0][0]->{$function[1]}({$par_string['par']}, \$_block_content, {$par_string['obj']}, \$_block_repeat);")->newline();
@@ -130,7 +128,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_RegisteredBlock extends Smarty_C
                 $par_string = str_replace('__content__', '$_block_content', $par_string);
                 if ($function instanceof Closure) {
                     $this->php("echo \$this->smarty->_registered['plugin']['block']['{$base_tag}'][0]({$par_string});")->newline();
-                } elseif (!is_array($function)) {
+                } elseif (! is_array($function)) {
                     $this->php("echo {$function}({$par_string});")->newline();
                 } elseif (is_object($function[0])) {
                     $this->php("echo \$this->smarty->_registered['plugin']['block']['{$base_tag}'][0][0]->{$function[1]}({$par_string});")->newline();

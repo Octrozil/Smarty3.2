@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -37,13 +36,15 @@ class Smarty_Method_SetDebugTemplate
      * set the debug template
      *
      * @api
+     *
      * @param  string $tpl_name
+     *
      * @return Smarty           current Smarty instance for chaining
      * @throws Smarty_Exception if file is not readable
      */
     public function setDebugTemplate($tpl_name)
     {
-        if (!is_readable($tpl_name)) {
+        if (! is_readable($tpl_name)) {
             throw new Smarty_Exception("setDebugTemplate(): Unknown file '{$tpl_name}'");
         }
         $this->debug_tpl = $tpl_name;

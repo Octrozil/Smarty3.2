@@ -4,13 +4,12 @@
  * Smarty Resource Source File Plugin
  *
  * @package Smarty\Resource\Source
- * @author Uwe Tews
- * @author Rodney Rehm
+ * @author  Uwe Tews
+ * @author  Rodney Rehm
  */
 
 /**
  * Smarty Resource Source File Plugin
- *
  * Implements the file system as resource for Smarty templates
  *
  * @package Smarty\Resource\Source
@@ -41,6 +40,7 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
 
     /**
      * compiler class names
+     *
      * @var array
      */
     public $compiler_class_names = array('Template' => array('Smarty_Compiler_Template_Php_Compiler', 'Smarty_Compiler_Template_Lexer', 'Smarty_Compiler_Template_Php_Parser'),
@@ -67,6 +67,7 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
      * build template filepath by traversing the template_dir array
      *
      * @param Smarty_Context $context
+     *
      * @throws Smarty_Exception_RelativeSourceNotFound
      * @throws Smarty_Exception_DefaultHandlerNotCallable
      * @throws Smarty_Exception_IllegalRelativePath
@@ -81,19 +82,19 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
         if ($_file_is_dotted && isset($context->parent) &&
             ($context->parent->_usage == Smarty::IS_SMARTY_TPL_CLONE || $context->parent->_usage == Smarty::IS_TEMPLATE)
         ) {
-            if (!isset($context->parent->context->handler->_allow_relative_path)) {
+            if (! isset($context->parent->context->handler->_allow_relative_path)) {
                 throw new Smarty_Exception_IllegalRelativePath($file, $context->parent->context->type);
             }
             // get absolute path relative to given template
             $file = dirname($context->parent->context->filepath) . '/' . $file;
             $_file_exact_match = true;
             // TODO  can this be remove?
-            if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
+            if (! preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
                 // the path gained from the parent template is relative to the current working directory
                 // as expansions (like include_path) have already been done
                 $file = getcwd() . '/' . $file;
             }
-        } else if (!isset($_file_exact_match) && ($file[0] == '/' || $file[0] == '\\' || ($file[1] == ':' && preg_match('/^([a-zA-Z]:[\/\\\\])/', $file)))) {
+        } else if (! isset($_file_exact_match) && ($file[0] == '/' || $file[0] == '\\' || ($file[1] == ':' && preg_match('/^([a-zA-Z]:[\/\\\\])/', $file)))) {
             // was absolute path
             $_file_exact_match = true;
         }
@@ -164,7 +165,7 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
             $_default_handler = $context->smarty->default_template_handler_func;
         }
         if ($_default_handler) {
-            if (!is_callable($_default_handler)) {
+            if (! is_callable($_default_handler)) {
                 if ($context->smarty->_usage == Smarty::IS_CONFIG) {
                     throw new Smarty_Exception_DefaultHandlerNotCallable('config');
                 } else {
@@ -195,6 +196,7 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
      * Normalize Paths "foo/../bar" to "bar"
      *
      * @param  string $path path to normalize
+     *
      * @return string  normalized path
      */
     function normalizePath($path)
@@ -204,8 +206,10 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
         }
         $out = array();
         foreach (explode('/', $path) as $i => $fold) {
-            if ($fold == '' || $fold == '.') continue;
-            if ($fold == '..' && $i > 0 && end($out) != '..') array_pop($out);
+            if ($fold == '' || $fold == '.')
+                continue;
+            if ($fold == '..' && $i > 0 && end($out) != '..')
+                array_pop($out);
             else $out[] = $fold;
         }
         return ($path{0} == '/' ? '/' : '') . join('/', $out);
@@ -216,6 +220,7 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
      * read file content
      *
      * @param Smarty_Context $context
+     *
      * @return boolean false|string
      */
     public function getContent(Smarty_Context $context)
@@ -230,6 +235,7 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
      * Determine basename for compiled filename
      *
      * @param Smarty_Context $context
+     *
      * @return string resource's basename
      */
     public function getBasename(Smarty_Context $context)
@@ -245,8 +251,9 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
     /**
      * test is file exists and save timestamp
      *
-     * @param  string $file file name
+     * @param  string         $file file name
      * @param  Smarty_Context $context
+     *
      * @return bool   true if file exists
      */
     public function fileExists($file, Smarty_Context $context)
@@ -260,9 +267,10 @@ class Smarty_Resource_Source_File //extends Smarty_Exception_Magic
     /**
      * return unique name for this resource
      *
-     * @param  Smarty $smarty Smarty instance
-     * @param  string $template_resource resource_name to make unique
+     * @param  Smarty        $smarty            Smarty instance
+     * @param  string        $template_resource resource_name to make unique
      * @param  Smarty | null $parent
+     *
      * @return string unique resource name
      */
     public function buildUniqueResourceName(Smarty $smarty, $template_resource, $parent = null)

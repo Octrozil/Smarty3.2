@@ -8,7 +8,6 @@
 
 /**
  * Smarty {html_table} function plugin
- *
  * Type:     function<br>
  * Name:     html_table<br>
  * Date:     Feb 17, 2003<br>
@@ -37,14 +36,16 @@
  * {table loop=$data cols="first,second,third" tr_attr=$colors}
  * </pre>
  *
- * @author Monte Ohrt <monte at ohrt dot com>
- * @author credit to Messju Mohr <messju at lammfellpuschen dot de>
- * @author credit to boots <boots dot smarty at yahoo dot com>
+ * @author  Monte Ohrt <monte at ohrt dot com>
+ * @author  credit to Messju Mohr <messju at lammfellpuschen dot de>
+ * @author  credit to boots <boots dot smarty at yahoo dot com>
  * @version 1.1
- * @link http://www.smarty.net/docs/en/language.function.html.table.tpl {html_table}
+ * @link    http://www.smarty.net/docs/en/language.function.html.table.tpl {html_table}
  *          (Smarty online manual)
- * @param array $params parameters
+ *
+ * @param array  $params  parameters
  * @param Smarty $tpl_obj template object
+ *
  * @return string
  */
 function smarty_function_html_table($params, $tpl_obj)
@@ -62,7 +63,7 @@ function smarty_function_html_table($params, $tpl_obj)
     $caption = '';
     $loop = null;
 
-    if (!isset($params['loop'])) {
+    if (! isset($params['loop'])) {
         trigger_error("html_table: missing 'loop' parameter", E_USER_WARNING);
 
         return;
@@ -75,13 +76,13 @@ function smarty_function_html_table($params, $tpl_obj)
                 break;
 
             case 'cols':
-                if (is_array($_value) && !empty($_value)) {
+                if (is_array($_value) && ! empty($_value)) {
                     $cols = $_value;
                     $cols_count = count($_value);
-                } elseif (!is_numeric($_value) && is_string($_value) && !empty($_value)) {
+                } elseif (! is_numeric($_value) && is_string($_value) && ! empty($_value)) {
                     $cols = explode(',', $_value);
                     $cols_count = count($cols);
-                } elseif (!empty($_value)) {
+                } elseif (! empty($_value)) {
                     $cols_count = (int)$_value;
                 } else {
                     $cols_count = $cols;
@@ -114,7 +115,7 @@ function smarty_function_html_table($params, $tpl_obj)
         /* no rows specified */
         $rows = ceil($loop_count / $cols_count);
     } elseif (empty($params['cols'])) {
-        if (!empty($params['rows'])) {
+        if (! empty($params['rows'])) {
             /* no cols specified, but rows */
             $cols_count = ceil($loop_count / $rows);
         }
@@ -122,7 +123,7 @@ function smarty_function_html_table($params, $tpl_obj)
 
     $output = "<table $table_attr>\n";
 
-    if (!empty($caption)) {
+    if (! empty($caption)) {
         $output .= '<caption>' . $caption . "</caption>\n";
     }
 
@@ -130,7 +131,7 @@ function smarty_function_html_table($params, $tpl_obj)
         $cols = ($hdir == 'right') ? $cols : array_reverse($cols);
         $output .= "<thead><tr>\n";
 
-        for ($r = 0; $r < $cols_count; $r++) {
+        for ($r = 0; $r < $cols_count; $r ++) {
             $output .= '<th' . smarty_function_html_table_cycle('th', $th_attr, $r) . '>';
             $output .= $cols[$r];
             $output .= "</th>\n";
@@ -139,11 +140,11 @@ function smarty_function_html_table($params, $tpl_obj)
     }
 
     $output .= "<tbody>\n";
-    for ($r = 0; $r < $rows; $r++) {
+    for ($r = 0; $r < $rows; $r ++) {
         $output .= "<tr" . smarty_function_html_table_cycle('tr', $tr_attr, $r) . ">\n";
         $rx = ($vdir == 'down') ? $r * $cols_count : ($rows - 1 - $r) * $cols_count;
 
-        for ($c = 0; $c < $cols_count; $c++) {
+        for ($c = 0; $c < $cols_count; $c ++) {
             $x = ($hdir == 'right') ? $rx + $c : $rx + $cols_count - 1 - $c;
             if ($inner != 'cols') {
                 /* shuffle x to loop over rows */
@@ -166,7 +167,7 @@ function smarty_function_html_table($params, $tpl_obj)
 
 function smarty_function_html_table_cycle($name, $var, $no)
 {
-    if (!is_array($var)) {
+    if (! is_array($var)) {
         $ret = $var;
     } else {
         $ret = $var[$no % count($var)];

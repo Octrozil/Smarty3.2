@@ -3,14 +3,12 @@
 /**
  * Smarty Internal Plugin
  *
- *
  * @package Exception
  */
 
 /**
  * Smarty runtime exception class
  * loads template source and displays line where error did occur
- *
  *
  * @package Exception
  */
@@ -26,21 +24,19 @@ class Smarty_Exception extends Exception
 
     /**
      * Constructor.
-     *
      * Set both the line number and the filename to false to
      * disable automatic guessing of the original template name
      * and line number.
-     *
      * Set the line number to -1 to enable its automatic guessing.
      * Set the filename to null to enable its automatic guessing.
-     *
      * By default, automatic guessing is enabled.
      *
-     * @param string $message The error message
-     * @param integer $lineno The template line where the error occurred
-     * @param null $context
-     * @param null $lex
+     * @param string    $message  The error message
+     * @param integer   $lineno   The template line where the error occurred
+     * @param null      $context
+     * @param null      $lex
      * @param Exception $previous The previous exception
+     *
      * @internal param \Smarty_Resource_Source_File $source The template source object
      */
     public function __construct($message, $lineno = -1, $context = null, $lex = null, Exception $previous = null)
@@ -60,7 +56,7 @@ class Smarty_Exception extends Exception
             $this->filename = $this->context->type . ':' . $this->context->filepath;
         }
 
-        if (-1 === $this->lineno || null === $this->filename) {
+        if (- 1 === $this->lineno || null === $this->filename) {
             //           $this->guessTemplateInfo();
         }
 
@@ -132,11 +128,10 @@ class Smarty_Exception extends Exception
     /**
      * For PHP < 5.3.0, provides access to the getPrevious() method.
      *
-     * @param string $method The method name
-     * @param array $arguments The parameters to be passed to the method
+     * @param string $method    The method name
+     * @param array  $arguments The parameters to be passed to the method
      *
      * @return Exception The previous exception or null
-     *
      * @throws BadMethodCallException
      */
     public function __call($method, $arguments)
@@ -153,8 +148,8 @@ class Smarty_Exception extends Exception
         $this->message = $this->rawMessage;
 
         $dot = false;
-        if ('.' === substr($this->message, -1)) {
-            $this->message = substr($this->message, 0, -1);
+        if ('.' === substr($this->message, - 1)) {
+            $this->message = substr($this->message, 0, - 1);
             $dot = true;
         }
 
@@ -207,7 +202,7 @@ class Smarty_Exception extends Exception
             $this->filename = $template->source->filepath;
         }
 
-        if (null === $template || $this->lineno > -1) {
+        if (null === $template || $this->lineno > - 1) {
             return;
         }
 
@@ -222,7 +217,7 @@ class Smarty_Exception extends Exception
         while ($e = array_pop($exceptions)) {
             $traces = $e->getTrace();
             while ($trace = array_shift($traces)) {
-                if (!isset($trace['file']) || !isset($trace['line']) || $file != $trace['file']) {
+                if (! isset($trace['file']) || ! isset($trace['line']) || $file != $trace['file']) {
                     continue;
                 }
 

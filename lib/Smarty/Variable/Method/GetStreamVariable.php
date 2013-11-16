@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Variable
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,7 +19,9 @@ class Smarty_Variable_Method_GetStreamVariable
      * gets  a stream variable
      *
      * @api
+     *
      * @param Smarty | Smarty_Template | Smarty_Data $object master object
+     *
      * @throws Smarty_Exception
      * @return mixed            the value of the stream variable
      */
@@ -29,7 +30,7 @@ class Smarty_Variable_Method_GetStreamVariable
         $_result = '';
         $fp = fopen($variable, 'r+');
         if ($fp) {
-            while (!feof($fp) && ($current_line = fgets($fp)) !== false) {
+            while (! feof($fp) && ($current_line = fgets($fp)) !== false) {
                 $_result .= $current_line;
             }
             fclose($fp);

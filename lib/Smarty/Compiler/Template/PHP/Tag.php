@@ -3,14 +3,12 @@
 /**
  * Smarty Internal Plugin CompileBase
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * This class does extend all internal compile plugins
- *
  *
  * @package Compiler
  */
@@ -48,14 +46,14 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
 
     /**
      * This function checks if the attributes passed are valid
-     *
      * The attributes passed for the tag to compile are checked against the list of required and
      * optional attributes. Required attributes must be present. Optional attributes are check against
      * the corresponding list. The keyword '_any' specifies that any attribute will be accepted
      * as valid
      *
-     * @param  object $compiler compiler object
-     * @param  array $attributes attributes applied to the tag
+     * @param  object $compiler   compiler object
+     * @param  array  $attributes attributes applied to the tag
+     *
      * @return array  of mapped attributes for further processing
      */
     public function getAttributes($compiler, $attributes)
@@ -64,7 +62,7 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
         // loop over attributes
         foreach ($attributes as $key => $mixed) {
             // shorthand ?
-            if (!is_array($mixed)) {
+            if (! is_array($mixed)) {
                 // option flag ?
                 if (in_array(trim($mixed, '\'"'), $this->option_flags)) {
                     $_indexed_attr[trim($mixed, '\'"')] = true;
@@ -106,7 +104,7 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
         }
         // check if all required attributes present
         foreach ($this->required_attributes as $attr) {
-            if (!isset($_indexed_attr[$attr])) {
+            if (! isset($_indexed_attr[$attr])) {
                 $compiler->error("missing \"" . $attr . "\" attribute", $compiler->lex->taglineno);
             }
         }
@@ -114,14 +112,14 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
         if ($this->optional_attributes != array('_any')) {
             $tmp_array = array_merge($this->required_attributes, $this->optional_attributes, $this->option_flags);
             foreach ($_indexed_attr as $key => $dummy) {
-                if (!in_array($key, $tmp_array) && $key !== 0) {
+                if (! in_array($key, $tmp_array) && $key !== 0) {
                     $compiler->error("unexpected \"" . $key . "\" attribute", $compiler->lex->taglineno);
                 }
             }
         }
         // default 'false' for all option flags not set
         foreach ($this->option_flags as $flag) {
-            if (!isset($_indexed_attr[$flag])) {
+            if (! isset($_indexed_attr[$flag])) {
                 $_indexed_attr[$flag] = false;
             }
         }
@@ -131,12 +129,11 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
 
     /**
      * Push opening tag name on stack
-     *
      * Optionally additional data can be saved on stack
      *
      * @param object $compiler compiler object
-     * @param string $openTag the opening tag's name
-     * @param mixed $data optional data saved
+     * @param string $openTag  the opening tag's name
+     * @param mixed  $data     optional data saved
      */
     public function openTag($compiler, $openTag, $data = null)
     {
@@ -145,11 +142,11 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
 
     /**
      * Pop closing tag
-     *
      * Raise an error if this stack-top doesn't match with expected opening tags
      *
-     * @param  object $compiler compiler object
+     * @param  object       $compiler    compiler object
      * @param  array|string $expectedTag the expected opening tag names
+     *
      * @return mixed        any type the opening tag's name or saved data
      */
     public function closeTag($compiler, $expectedTag)
@@ -181,8 +178,9 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
     /**
      * Get Annotation From PHPdoc comments
      *
-     * @param mixed callback function or class method to be parsed
+     * @param         mixed      callback function or class method to be parsed
      * @param  string $parameter name
+     *
      * @return mixed  data
      */
     public function getAnnotation($callback, $parameter)
@@ -205,16 +203,17 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
     /**
      * Find object position by type-hint
      *
-     * @param mixed callback function or class method to be parsed
-     * @param  array $objects array of class name to look for
+     * @param        mixed     callback function or class method to be parsed
+     * @param  array $objects  array of class name to look for
      * @param  mixed $position int => check specified position; null => scan all parameter
+     *
      * @return mixed false if failed, array of call found and position
      */
     public function injectObject($callback, $objects, $position = null)
     {
         // get list of parameters
         $args = $this->buildReflection($callback)->getParameters();
-        if (!$args) {
+        if (! $args) {
             return false;
         }
         if ($position != null) {
@@ -229,7 +228,7 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
             }
         }
         // search for objects
-        for ($pos = 0, $count = count($args); $pos < $count; $pos++) {
+        for ($pos = 0, $count = count($args); $pos < $count; $pos ++) {
             $arg = $args[$pos];
             $class = $arg->getClass();
             if ($class) {
@@ -246,10 +245,11 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
      * Get create plugin parameter string
      *
      * @param  callback $callback of plugin
-     * @param  array $params parameter from template
-     * @param  object $compiler compiler object
-     * @param  boolean $block true if block plugin
-     * @param  null $cache_attr
+     * @param  array    $params   parameter from template
+     * @param  object   $compiler compiler object
+     * @param  boolean  $block    true if block plugin
+     * @param  null     $cache_attr
+     *
      * @return mixed    data
      */
     public function getPluginParameterString($callback, $params, $compiler, $block, $cache_attr = null)
@@ -295,7 +295,7 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
                 foreach ($params as $key => $value) {
                     if (is_int($key)) {
                         $par_array[] = "$key=>$value";
-                    } elseif (!isset($par_names[$key])) {
+                    } elseif (! isset($par_names[$key])) {
                         $compiler->error("plugin does not define parameter '{$name}'", $compiler->lex->taglineno);
                     }
                 }
@@ -329,6 +329,7 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
      * Get number of required parameters
      *
      * @param mixed callback function or class method to be parsed
+     *
      * @return int                       number of required parameter
      * @throws Smarty_Exception_Compiler
      */
@@ -341,6 +342,7 @@ class Smarty_Compiler_Template_Php_Tag extends Smarty_Compiler_Code
      * Build reflection object dependent of callback
      *
      * @param $callback callback function or class method to be parsed
+     *
      * @throws Smarty_Exception
      * @return object           refelction object
      */

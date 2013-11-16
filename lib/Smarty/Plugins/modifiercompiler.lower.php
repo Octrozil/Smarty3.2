@@ -2,22 +2,23 @@
 
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
 
 /**
  * Smarty lower modifier plugin
- *
  * Type:     modifier<br>
  * Name:     lower<br>
  * Purpose:  convert string to lowercase
  *
- * @link http://www.smarty.net/docs/en/language.modifier.lower.tpl lower (Smarty online manual)
+ * @link   http://www.smarty.net/docs/en/language.modifier.lower.tpl lower (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Uwe Tews
  *
  * @param string $input input string
+ *
  * @return string with compiled code
  */
 // NOTE: The parser does pass all parameter as strings which could be directly inserted into the compiled code string

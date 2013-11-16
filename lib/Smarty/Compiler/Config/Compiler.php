@@ -2,18 +2,15 @@
 
 /**
  * Smarty Internal Plugin Config Compiler
- *
  * This is the config compiler class. It calls the lexer and parser to
  * perform the compiling.
  *
- *
  * @package Config
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Main config file compiler class
- *
  *
  * @package Config
  */
@@ -85,10 +82,10 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
     /**
      * Initialize compiler
      *
-     * @param string $lexer_class config lexer class name
-     * @param string $parser_class config parser class name
-     * @param Smarty_Context $context context object
-     * @param $compiled_filepath
+     * @param string         $lexer_class  config lexer class name
+     * @param string         $parser_class config parser class name
+     * @param Smarty_Context $context      context object
+     * @param                $compiled_filepath
      */
     public function __construct($lexer_class, $parser_class, Smarty_Context $context, $compiled_filepath)
     {
@@ -159,13 +156,12 @@ class Smarty_Compiler_Config_Compiler extends Smarty_Compiler_Code
 
     /**
      * display compiler error messages without dying
-     *
      * If parameter $args is empty it is a parser detected syntax error.
      * In this case the parser is called to obtain information about exspected tokens.
-     *
      * If parameter $args contains a string this is used as error message
      *
      * @param  string $args individual error message or null
+     *
      * @throws Smarty_Exception_Compiler
      */
     public function error($args = null)

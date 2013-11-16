@@ -3,25 +3,25 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
 
 /**
  * Smarty wordwrap modifier plugin
- *
  * Type:     modifier<br>
  * Name:     wordwrap<br>
  * Purpose:  wrap a string of text at a given length
  *
- * @link http://www.smarty.net/docs/en/language.modifier.wordwrap.tpl wordwrap (Smarty online manual)
+ * @link   http://www.smarty.net/docs/en/language.modifier.wordwrap.tpl wordwrap (Smarty online manual)
  * @author Uwe Tews
  *
  * @param  Smarty_Compiler_Template_Php_Compiler $compiler compiler object
- * @param string $input input string
- * @param int $columns number of columns before wrap
- * @param string $wrap string to use to wrap
- * @param bool|string $cut if true wrap exact at column count
+ * @param string                                 $input    input string
+ * @param int                                    $columns  number of columns before wrap
+ * @param string                                 $wrap     string to use to wrap
+ * @param bool|string                            $cut      if true wrap exact at column count
+ *
  * @return string with compiled code
  */
 // NOTE: The parser does pass all parameter as strings which could be directly inserted into the compiled code string

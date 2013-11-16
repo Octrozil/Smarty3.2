@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Variable
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,8 +19,10 @@ class Smarty_Variable_Method_ClearConfig
      * Deassigns a single or all config variables
      *
      * @api
-     * @param Smarty | Smarty_Template | Smarty_Data $object master object
-     * @param  string $varname variable name or null
+     *
+     * @param Smarty | Smarty_Template | Smarty_Data $object  master object
+     * @param  string                                $varname variable name or null
+     *
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function clearConfig($object, $varname = null)

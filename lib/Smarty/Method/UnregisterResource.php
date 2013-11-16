@@ -1,11 +1,10 @@
 <?php
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -19,8 +18,10 @@ class Smarty_Method_UnregisterResource
      * Unregisters a resource
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string $type name of resource type
+     *
+     * @param Smarty  $smarty smarty object
+     * @param  string $type   name of resource type
+     *
      * @return Smarty
      */
     public function unregisterResource(Smarty $smarty, $type)

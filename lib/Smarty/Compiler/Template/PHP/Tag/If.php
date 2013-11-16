@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile If
- *
  * Compiles the {if} {else} {elseif} {/if} tags
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile If Class
- *
  *
  * @package Compiler
  */
@@ -22,9 +19,10 @@ class Smarty_Compiler_Template_Php_Tag_If extends Smarty_Compiler_Template_Php_T
     /**
      * Compiles code for the {if} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -35,7 +33,7 @@ class Smarty_Compiler_Template_Php_Tag_If extends Smarty_Compiler_Template_Php_T
         // must whole block be nocache ?
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
 
-        if (!array_key_exists("if condition", $parameter)) {
+        if (! array_key_exists("if condition", $parameter)) {
             $compiler->error("missing if condition", $compiler->lex->taglineno);
         }
 
@@ -77,7 +75,6 @@ class Smarty_Compiler_Template_Php_Tag_If extends Smarty_Compiler_Template_Php_T
 /**
  * Smarty Internal Plugin Compile Else Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Else extends Smarty_Compiler_Template_Php_Tag
@@ -86,9 +83,10 @@ class Smarty_Compiler_Template_Php_Tag_Else extends Smarty_Compiler_Template_Php
     /**
      * Compiles code for the {else} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -108,7 +106,6 @@ class Smarty_Compiler_Template_Php_Tag_Else extends Smarty_Compiler_Template_Php
 /**
  * Smarty Internal Plugin Compile ElseIf Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Elseif extends Smarty_Compiler_Template_Php_Tag
@@ -117,9 +114,10 @@ class Smarty_Compiler_Template_Php_Tag_Elseif extends Smarty_Compiler_Template_P
     /**
      * Compiles code for the {elseif} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -129,7 +127,7 @@ class Smarty_Compiler_Template_Php_Tag_Elseif extends Smarty_Compiler_Template_P
 
         list($nesting, $compiler->tag_nocache) = $this->closeTag($compiler, array('if', 'elseif'));
 
-        if (!array_key_exists("if condition", $parameter)) {
+        if (! array_key_exists("if condition", $parameter)) {
             $compiler->error("missing elseif condition", $compiler->lex->taglineno);
         }
 
@@ -215,7 +213,6 @@ class Smarty_Compiler_Template_Php_Tag_Elseif extends Smarty_Compiler_Template_P
 /**
  * Smarty Internal Plugin Compile Ifclose Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Ifclose extends Smarty_Compiler_Template_Php_Tag
@@ -224,9 +221,10 @@ class Smarty_Compiler_Template_Php_Tag_Ifclose extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {/if} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -239,7 +237,7 @@ class Smarty_Compiler_Template_Php_Tag_Ifclose extends Smarty_Compiler_Template_
 
         $this->iniTagCode($compiler);
 
-        for ($i = 0; $i < $nesting; $i++) {
+        for ($i = 0; $i < $nesting; $i ++) {
             $this->outdent()->php("}")->newline();
         }
 

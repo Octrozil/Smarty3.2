@@ -1,11 +1,10 @@
 <?php
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -19,7 +18,9 @@ class Smarty_Method_UnregisterDefaultConfigHandler
      * Unregisters a default config handler
      *
      * @api
+     *
      * @param Smarty $smarty smarty object
+     *
      * @return Smarty
      */
     public function unregisterDefaultConfigHandler(Smarty $smarty)

@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -38,7 +37,9 @@ class Smarty_Method_SetDefaultModifiers
      * Set default modifiers
      *
      * @api
+     *
      * @param  array|string $modifiers modifier or list of modifiers to set
+     *
      * @return Smarty       current Smarty instance for chaining
      */
     public function setDefaultModifiers($modifiers)

@@ -8,16 +8,17 @@
 
 /**
  * Smarty {fetch} plugin
- *
  * Type:     function<br>
  * Name:     fetch<br>
  * Purpose:  fetch file, web or ftp data and display results
  *
- * @link http://www.smarty.net/docs/en/language.function.fetch.tpl {fetch}
- *       (Smarty online manual)
+ * @link   http://www.smarty.net/docs/en/language.function.fetch.tpl {fetch}
+ *         (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
- * @param array $params parameters
+ *
+ * @param array  $params  parameters
  * @param Smarty $tpl_obj template object
+ *
  * @throws Smarty_Exception
  * @return string|null if the assign parameter is passed, Smarty assigns the result to a template variable
  */
@@ -42,12 +43,12 @@ function smarty_function_fetch($params, $tpl_obj)
     if (isset($tpl_obj->security_policy)) {
         if ($protocol) {
             // remote resource (or php stream, �)
-            if (!$tpl_obj->security_policy->isTrustedUri($params['file'])) {
+            if (! $tpl_obj->security_policy->isTrustedUri($params['file'])) {
                 return;
             }
         } else {
             // local file
-            if (!$tpl_obj->security_policy->isTrustedResourceDir($params['file'])) {
+            if (! $tpl_obj->security_policy->isTrustedResourceDir($params['file'])) {
                 return;
             }
         }
@@ -63,18 +64,18 @@ function smarty_function_fetch($params, $tpl_obj)
             $accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*";
             $agent = "Smarty Template Engine " . Smarty::SMARTY_VERSION;
             $referer = "";
-            $uri = !empty($uri_parts['path']) ? $uri_parts['path'] : '/';
-            $uri .= !empty($uri_parts['query']) ? '?' . $uri_parts['query'] : '';
+            $uri = ! empty($uri_parts['path']) ? $uri_parts['path'] : '/';
+            $uri .= ! empty($uri_parts['query']) ? '?' . $uri_parts['query'] : '';
             $_is_proxy = false;
             if (empty($uri_parts['port'])) {
                 $port = 80;
             } else {
                 $port = $uri_parts['port'];
             }
-            if (!empty($uri_parts['user'])) {
+            if (! empty($uri_parts['user'])) {
                 $user = $uri_parts['user'];
             }
-            if (!empty($uri_parts['pass'])) {
+            if (! empty($uri_parts['pass'])) {
                 $pass = $uri_parts['pass'];
             }
             // loop through parameters, setup headers
@@ -85,23 +86,23 @@ function smarty_function_fetch($params, $tpl_obj)
                     case "assign_headers":
                         break;
                     case "user":
-                        if (!empty($param_value)) {
+                        if (! empty($param_value)) {
                             $user = $param_value;
                         }
                         break;
                     case "pass":
-                        if (!empty($param_value)) {
+                        if (! empty($param_value)) {
                             $pass = $param_value;
                         }
                         break;
                     case "accept":
-                        if (!empty($param_value)) {
+                        if (! empty($param_value)) {
                             $accept = $param_value;
                         }
                         break;
                     case "header":
-                        if (!empty($param_value)) {
-                            if (!preg_match('![\w\d-]+: .+!', $param_value)) {
+                        if (! empty($param_value)) {
+                            if (! preg_match('![\w\d-]+: .+!', $param_value)) {
                                 trigger_error("[plugin function.fetch] invalid header format '" . $param_value . "'", E_USER_NOTICE);
 
                                 return;
@@ -111,12 +112,12 @@ function smarty_function_fetch($params, $tpl_obj)
                         }
                         break;
                     case "proxy_host":
-                        if (!empty($param_value)) {
+                        if (! empty($param_value)) {
                             $proxy_host = $param_value;
                         }
                         break;
                     case "proxy_port":
-                        if (!preg_match('!\D!', $param_value)) {
+                        if (! preg_match('!\D!', $param_value)) {
                             $proxy_port = (int)$param_value;
                         } else {
                             trigger_error("[plugin function.fetch] invalid value for attribute '" . $param_key . "'", E_USER_NOTICE);
@@ -125,17 +126,17 @@ function smarty_function_fetch($params, $tpl_obj)
                         }
                         break;
                     case "agent":
-                        if (!empty($param_value)) {
+                        if (! empty($param_value)) {
                             $agent = $param_value;
                         }
                         break;
                     case "referer":
-                        if (!empty($param_value)) {
+                        if (! empty($param_value)) {
                             $referer = $param_value;
                         }
                         break;
                     case "timeout":
-                        if (!preg_match('!\D!', $param_value)) {
+                        if (! preg_match('!\D!', $param_value)) {
                             $timeout = (int)$param_value;
                         } else {
                             trigger_error("[plugin function.fetch] invalid value for attribute '" . $param_key . "'", E_USER_NOTICE);
@@ -149,14 +150,14 @@ function smarty_function_fetch($params, $tpl_obj)
                         return;
                 }
             }
-            if (!empty($proxy_host) && !empty($proxy_port)) {
+            if (! empty($proxy_host) && ! empty($proxy_port)) {
                 $_is_proxy = true;
                 $fp = fsockopen($proxy_host, $proxy_port, $errno, $errstr, $timeout);
             } else {
                 $fp = fsockopen($server_name, $port, $errno, $errstr, $timeout);
             }
 
-            if (!$fp) {
+            if (! $fp) {
                 trigger_error("[plugin function.fetch] unable to fetch: $errstr ($errno)", E_USER_NOTICE);
 
                 return;
@@ -166,16 +167,16 @@ function smarty_function_fetch($params, $tpl_obj)
                 } else {
                     fputs($fp, "GET $uri HTTP/1.0\r\n");
                 }
-                if (!empty($host)) {
+                if (! empty($host)) {
                     fputs($fp, "Host: $host\r\n");
                 }
-                if (!empty($accept)) {
+                if (! empty($accept)) {
                     fputs($fp, "Accept: $accept\r\n");
                 }
-                if (!empty($agent)) {
+                if (! empty($agent)) {
                     fputs($fp, "User-Agent: $agent\r\n");
                 }
-                if (!empty($referer)) {
+                if (! empty($referer)) {
                     fputs($fp, "Referer: $referer\r\n");
                 }
                 if (isset($extra_headers) && is_array($extra_headers)) {
@@ -183,12 +184,12 @@ function smarty_function_fetch($params, $tpl_obj)
                         fputs($fp, $curr_header . "\r\n");
                     }
                 }
-                if (!empty($user) && !empty($pass)) {
+                if (! empty($user) && ! empty($pass)) {
                     fputs($fp, "Authorization: BASIC " . base64_encode("$user:$pass") . "\r\n");
                 }
 
                 fputs($fp, "\r\n");
-                while (!feof($fp)) {
+                while (! feof($fp)) {
                     $content .= fgets($fp, 4096);
                 }
                 fclose($fp);
@@ -196,7 +197,7 @@ function smarty_function_fetch($params, $tpl_obj)
 
                 $content = $csplit[1];
 
-                if (!empty($params['assign_headers'])) {
+                if (! empty($params['assign_headers'])) {
                     $tpl_obj->assign($params['assign_headers'], preg_split("!\r\n!", $csplit[0]));
                 }
             }
@@ -212,7 +213,7 @@ function smarty_function_fetch($params, $tpl_obj)
         }
     }
 
-    if (!empty($params['assign'])) {
+    if (! empty($params['assign'])) {
         $tpl_obj->assign($params['assign'], $content);
     } else {
         return $content;

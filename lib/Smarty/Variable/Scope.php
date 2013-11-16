@@ -1,17 +1,14 @@
 <?php
 /**
  * Smarty Variable Scope
- *
  * This file contains the Class for a variable scope
  *
- *
  * @package Smarty\Variable
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * class for a variable scope
- *
  * This class holds all assigned variables
  *
  * @package Smarty\Variable
@@ -22,6 +19,7 @@ class Smarty_Variable_Scope
      * magic __get function called at access of unknown or global variable
      *
      * @param  string $varname name of variable
+     *
      * @return mixed  Smarty_Variable object | null
      */
     public function __get($varname)

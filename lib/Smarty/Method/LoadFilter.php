@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,15 +19,17 @@ class Smarty_Method_LoadFilter
      * load a filter of specified type and name
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string $type filter type
-     * @param  string $name filter name
+     *
+     * @param Smarty  $smarty smarty object
+     * @param  string $type   filter type
+     * @param  string $name   filter name
+     *
      * @throws Smarty_Exception
      * @return bool
      */
     public function loadFilter(Smarty $smarty, $type, $name)
     {
-        if (!in_array($type, array('pre', 'post', 'output', 'variable'))) {
+        if (! in_array($type, array('pre', 'post', 'output', 'variable'))) {
             throw new Smarty_Exception("loadFilter(): Invalid filter type \"{$type}\"");
         }
         $_plugin = "smarty_{$type}filter_{$name}";

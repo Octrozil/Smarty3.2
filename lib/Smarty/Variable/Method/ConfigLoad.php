@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Variable
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,10 +19,12 @@ class Smarty_Variable_Method_ConfigLoad
      * load a config file, optionally load just selected sections
      *
      * @api
-     * @param Smarty | Smarty_Template | Smarty_Data $object master object
-     * @param  string $config_file filename
-     * @param  mixed $sections array of section names, single section or null
-     * @param int $scope_type template scope into which config file shall be loaded
+     *
+     * @param Smarty | Smarty_Template | Smarty_Data $object      master object
+     * @param  string                                $config_file filename
+     * @param  mixed                                 $sections    array of section names, single section or null
+     * @param int                                    $scope_type  template scope into which config file shall be loaded
+     *
      * @throws Smarty_Exception_SourceNotFound
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
@@ -32,7 +33,7 @@ class Smarty_Variable_Method_ConfigLoad
         $smarty = isset($object->smarty) ? $object->smarty : $object;
         // parse template_resource into name and type
         $parts = explode(':', $config_file, 2);
-        if (!isset($parts[1]) || !isset($parts[0][1])) {
+        if (! isset($parts[1]) || ! isset($parts[0][1])) {
             // no resource given, use default
             // or single character before the colon is not a resource type, but part of the filepath
             $type = $smarty->default_resource_type;
@@ -43,7 +44,7 @@ class Smarty_Variable_Method_ConfigLoad
         }
         $context = new Smarty_Context($smarty, $name, $type, $object, true);
         // checks if source exists
-        if (!$context->exists) {
+        if (! $context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
         }
         // create template object without caching it
@@ -53,7 +54,7 @@ class Smarty_Variable_Method_ConfigLoad
         // load global variables
         if (isset($template_obj->config_data['vars'])) {
             foreach ($template_obj->config_data['vars'] as $var => $value) {
-                if (!$smarty->config_overwrite && isset($scope->$var)) {
+                if (! $smarty->config_overwrite && isset($scope->$var)) {
                     $value = array_merge((array)$scope->{$var}, (array)$value);
                 }
                 if ($target->_usage == Smarty::IS_TEMPLATE || $scope_type != Smarty::SCOPE_LOCAL) {
@@ -68,7 +69,7 @@ class Smarty_Variable_Method_ConfigLoad
             foreach ((array)$sections as $section) {
                 if (isset($template_obj->config_data['sections'][$section])) {
                     foreach ($template_obj->config_data['sections'][$section]['vars'] as $var => $value) {
-                        if (!$smarty->config_overwrite && isset($scope->$var)) {
+                        if (! $smarty->config_overwrite && isset($scope->$var)) {
                             $value = array_merge((array)$scope->{$var}, (array)$value);
                         }
                         if ($target->_usage == Smarty::IS_TEMPLATE || $scope_type != Smarty::SCOPE_LOCAL) {

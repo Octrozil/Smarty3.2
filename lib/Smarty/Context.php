@@ -4,12 +4,11 @@
  * Smarty Context Object
  *
  * @package Smarty\Core
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Context Object
- *
  * Storage for Source and Context properties
  *
  * @package Smarty\Core
@@ -39,12 +38,14 @@ class Smarty_Context //extends Smarty_Exception_Magic
 
     /**
      * Resource Timestamp
+     *
      * @var integer
      */
     public $timestamp = null;
 
     /**
      * Resource Existence
+     *
      * @var boolean
      */
     public $exists = false;
@@ -55,6 +56,7 @@ class Smarty_Context //extends Smarty_Exception_Magic
 
     /**
      * usage of this resource
+     *
      * @var mixed
      */
     public $_usage = Smarty::IS_TEMPLATE;
@@ -132,7 +134,6 @@ class Smarty_Context //extends Smarty_Exception_Magic
     /**
      * scope_type
      *
-     *
      * @var int
      */
     public $scope_type = 0;
@@ -140,13 +141,11 @@ class Smarty_Context //extends Smarty_Exception_Magic
     /**
      * variable pairs
      *
-     *
      * @var array
      */
     public $data = null;
 
     /**
-     *
      * force cache
      *
      * @var bool
@@ -154,7 +153,6 @@ class Smarty_Context //extends Smarty_Exception_Magic
     public $force_caching = false;
 
     /**
-     *
      * storage for source content used by some resource
      *
      * @var string
@@ -179,10 +177,10 @@ class Smarty_Context //extends Smarty_Exception_Magic
      * Create source object and populate is it source info
      *
      * @param Smarty $smarty smarty object
-     * @param string $name name part of template specification
-     * @param string $type type of source resource handler
+     * @param string $name   name part of template specification
+     * @param string $type   type of source resource handler
      * @param object $parent
-     * @param bool $isConfig
+     * @param bool   $isConfig
      */
     public function __construct(Smarty $smarty, $name, $type, $parent = null, $isConfig = false)
     {
@@ -202,7 +200,7 @@ class Smarty_Context //extends Smarty_Exception_Magic
         // parent needed in populate for relative template path
         $this->parent = $parent;
         $this->handler->populate($this);
-        $this->_key = self::$_key_counter++;
+        $this->_key = self::$_key_counter ++;
         return $this;
     }
 

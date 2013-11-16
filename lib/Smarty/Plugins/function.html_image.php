@@ -8,7 +8,6 @@
 
 /**
  * Smarty {html_image} function plugin
- *
  * Type:     function<br>
  * Name:     html_image<br>
  * Date:     Feb 24, 2003<br>
@@ -24,16 +23,18 @@
  * - path_prefix - prefix for path output (optional, default empty)
  * </pre>
  *
- * @link http://www.smarty.net/docs/en/language.function.html.image.tpl {html_image}
- *      (Smarty online manual)
- * @author Monte Ohrt <monte at ohrt dot com>
- * @author credits to Duda <duda@big.hu>
+ * @link    http://www.smarty.net/docs/en/language.function.html.image.tpl {html_image}
+ *          (Smarty online manual)
+ * @author  Monte Ohrt <monte at ohrt dot com>
+ * @author  credits to Duda <duda@big.hu>
  * @version 1.0
- * @param array $params parameters
+ *
+ * @param array  $params  parameters
  * @param Smarty $tpl_obj template object
+ *
  * @throws Smarty_Exception
  * @return string
- * @uses smarty_function_escape_special_chars()
+ * @uses    smarty_function_escape_special_chars()
  */
 function smarty_function_html_image($params, $tpl_obj)
 {
@@ -60,7 +61,7 @@ function smarty_function_html_image($params, $tpl_obj)
                 break;
 
             case 'alt':
-                if (!is_array($_val)) {
+                if (! is_array($_val)) {
                     $$_key = smarty_function_escape_special_chars($_val);
                 } else {
                     throw new Smarty_Exception("{html_image}: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
@@ -74,7 +75,7 @@ function smarty_function_html_image($params, $tpl_obj)
                 break;
 
             default:
-                if (!is_array($_val)) {
+                if (! is_array($_val)) {
                     $extra .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_val) . '"';
                 } else {
                     throw new Smarty_Exception("{html_image}: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
@@ -108,25 +109,25 @@ function smarty_function_html_image($params, $tpl_obj)
     if (isset($tpl_obj->security_policy)) {
         if ($protocol) {
             // remote resource (or php stream, �)
-            if (!$tpl_obj->security_policy->isTrustedUri($params['file'])) {
+            if (! $tpl_obj->security_policy->isTrustedUri($params['file'])) {
                 return;
             }
         } else {
             // local file
-            if (!$tpl_obj->security_policy->isTrustedResourceDir($params['file'])) {
+            if (! $tpl_obj->security_policy->isTrustedResourceDir($params['file'])) {
                 return;
             }
         }
     }
 
-    if (!isset($params['width']) || !isset($params['height'])) {
+    if (! isset($params['width']) || ! isset($params['height'])) {
         // FIXME: (rodneyrehm) getimagesize() loads the complete file off a remote resource, use custom [jpg,png,gif]header reader!
-        if (!$_image_data = @getimagesize($_image_path)) {
-            if (!file_exists($_image_path)) {
+        if (! $_image_data = @getimagesize($_image_path)) {
+            if (! file_exists($_image_path)) {
                 trigger_error("{html_image}: unable to find '$_image_path'", E_USER_NOTICE);
 
                 return;
-            } elseif (!is_readable($_image_path)) {
+            } elseif (! is_readable($_image_path)) {
                 trigger_error("{html_image}: unable to read '$_image_path'", E_USER_NOTICE);
 
                 return;
@@ -137,10 +138,10 @@ function smarty_function_html_image($params, $tpl_obj)
             }
         }
 
-        if (!isset($params['width'])) {
+        if (! isset($params['width'])) {
             $width = $_image_data[0];
         }
-        if (!isset($params['height'])) {
+        if (! isset($params['height'])) {
             $height = $_image_data[1];
         }
     }

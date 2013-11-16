@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -23,10 +22,11 @@ class Smarty_Method_UnregisterTraceCallback
     */
 
     /**
-     *
      * @api
-     * @param Smarty $smarty smarty object
+     *
+     * @param Smarty        $smarty smarty object
      * @param  string|array $event
+     *
      * @return Smarty
      */
     public function unregisterTraceCallback(Smarty $smarty, $event = null)

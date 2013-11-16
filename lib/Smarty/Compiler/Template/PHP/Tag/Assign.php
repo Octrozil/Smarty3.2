@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Assign
- *
  * Compiles the {assign} tag
  *
- *
  * @package Smarty\Compiler\PHP\Tag
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Assign Class
- *
  *
  * @package Smarty\Compiler\PHP\Tag
  */
@@ -22,9 +19,10 @@ class Smarty_Compiler_Template_Php_Tag_Assign extends Smarty_Compiler_Template_P
     /**
      * Compiles code for the {assign} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -85,7 +83,7 @@ class Smarty_Compiler_Template_Php_Tag_Assign extends Smarty_Compiler_Template_P
             if (isset($parameter['smarty_internal_index'])) {
                 $compiler->error('cannot assign to array with "cachevalue" option', $compiler->lex->taglineno);
             } else {
-                if (!$compiler->tag_nocache && !$compiler->nocache) {
+                if (! $compiler->tag_nocache && ! $compiler->nocache) {
                     $this->php("echo '/*%%SmartyNocache%%*/\$_scope->_tpl_vars->{$var} = new Smarty_Variable (' . \$this->_exportCacheValue({$_attr['value']}) . ');/*/%%SmartyNocache%%*/';")->newline();
                 } else {
                     $compiler->error('cannot assign with "cachevalue" option inside nocache section', $compiler->lex->taglineno);

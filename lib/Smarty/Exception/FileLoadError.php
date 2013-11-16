@@ -14,7 +14,7 @@
 class Smarty_Exception_FileLoadError extends Smarty_Exception_Runtime
 {
     /**
-     * @param string $type
+     * @param string   $type
      * @param int|null $file
      */
     public function __construct($type, $file)

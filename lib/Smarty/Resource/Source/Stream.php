@@ -2,21 +2,18 @@
 
 /**
  * Smarty Resource Source Stream Plugin
- *
  * Implements the streams as resource for Smarty template
  *
  * @package Smarty\Resource\Source
- * @author Uwe Tews
- * @author Rodney Rehm
+ * @author  Uwe Tews
+ * @author  Rodney Rehm
  */
 
 /**
  * Smarty Resource Source Stream Plugin
- *
  * Implements the streams as resource for Smarty template
  *
- * @link http://php.net/streams
- *
+ * @link    http://php.net/streams
  * @package Smarty\Resource\Source
  */
 class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
@@ -59,6 +56,7 @@ class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
      * build template filepath by traversing the template_dir array
      *
      * @param  Smarty_Context $context
+     *
      * @return string           fully qualified filepath
      */
     public function buildFilepath(Smarty_Context $context)
@@ -80,6 +78,7 @@ class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
      * Load template's source from stream into current template object
      *
      * @param Smarty_Context $context
+     *
      * @return boolean false|string
      */
     public function getContent(Smarty_Context $context)
@@ -90,7 +89,7 @@ class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
         // the availability of the stream has already been checked in Smarty_Resource_Source::fetch()
         $fp = fopen($context->filepath, 'r+');
         if ($fp) {
-            while (!feof($fp) && ($current_line = fgets($fp)) !== false) {
+            while (! feof($fp) && ($current_line = fgets($fp)) !== false) {
                 $context->content .= $current_line;
             }
             fclose($fp);
@@ -104,10 +103,10 @@ class Smarty_Resource_Source_Stream extends Smarty_Resource_Source_File
 
     /**
      * Determine basename for compiled filename
-     *
      * Always returns an empty string.
      *
      * @param Smarty_Context $context
+     *
      * @return string resource's basename
      */
     public function getBasename(Smarty_Context $context)

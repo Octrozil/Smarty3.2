@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -21,14 +20,16 @@ class Smarty_Method_AssignCached
      * Save value to persistent cache storage
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string|array $key key to store data under, or array of key => values to store
-     * @param  mixed $value value to store for $key, ignored if key is an array
+     *
+     * @param Smarty        $smarty smarty object
+     * @param  string|array $key    key to store data under, or array of key => values to store
+     * @param  mixed        $value  value to store for $key, ignored if key is an array
+     *
      * @return Smarty       $this for chaining
      */
     public function assignCached(Smarty $smarty, $key, $value = null)
     {
-        if (!$smarty->rootTemplate) {
+        if (! $smarty->rootTemplate) {
             $smarty->findRootTemplate();
         }
 

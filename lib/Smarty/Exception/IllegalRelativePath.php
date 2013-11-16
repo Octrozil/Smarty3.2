@@ -14,7 +14,7 @@
 class Smarty_Exception_IllegalRelativePath extends Smarty_Exception_Runtime
 {
     /**
-     * @param string $file
+     * @param string   $file
      * @param int|null $type
      */
     public function __construct($file, $type)

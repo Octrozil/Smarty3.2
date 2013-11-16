@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile For
- *
  * Compiles the {for} {forelse} {/for} tags
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile For Class
- *
  *
  * @package Compiler
  */
@@ -21,21 +18,18 @@ class Smarty_Compiler_Template_Php_Tag_For extends Smarty_Compiler_Template_Php_
 
     /**
      * Compiles code for the {for} tag
-     *
      * Smarty 3 does implement two different syntax's:
-     *
      * - {for $var in $array}
      * For looping over arrays or iterators
-     *
      * - {for $x=0; $x<$y; $x++}
      * For general loops
-     *
      * The parser is generating different sets of attribute by which this compiler can
      * determine which syntax is used.
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -94,7 +88,6 @@ class Smarty_Compiler_Template_Php_Tag_For extends Smarty_Compiler_Template_Php_
 /**
  * Smarty Internal Plugin Compile Forelse Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Forelse extends Smarty_Compiler_Template_Php_Tag
@@ -103,9 +96,10 @@ class Smarty_Compiler_Template_Php_Tag_Forelse extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {forelse} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -129,7 +123,6 @@ class Smarty_Compiler_Template_Php_Tag_Forelse extends Smarty_Compiler_Template_
 /**
  * Smarty Internal Plugin Compile Forclose Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Forclose extends Smarty_Compiler_Template_Php_Tag
@@ -138,9 +131,10 @@ class Smarty_Compiler_Template_Php_Tag_Forclose extends Smarty_Compiler_Template
     /**
      * Compiles code for the {/for} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)

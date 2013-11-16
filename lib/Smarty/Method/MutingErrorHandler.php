@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 /*
 error muting is done because some people implemented custom error_handlers using
@@ -35,6 +34,7 @@ class Smarty_Method_MutingErrorHandler
 
     /**
      * Flag if Smarty_Dir has been added to muted directories
+     *
      * @internal
      * @var bool
      */
@@ -45,16 +45,18 @@ class Smarty_Method_MutingErrorHandler
      *
      * @api
      * @link http://php.net/set_error_handler
+     *
      * @param integer $errno Error level
-     * @param $errstr
-     * @param $errfile
-     * @param $errline
-     * @param $errcontext
+     * @param         $errstr
+     * @param         $errfile
+     * @param         $errline
+     * @param         $errcontext
+     *
      * @return boolean
      */
     public static function mutingErrorHandler($errno, $errstr, $errfile, $errline, $errcontext)
     {
-        if (!self::$has_smarty_dir) {
+        if (! self::$has_smarty_dir) {
             // add the SMARTY_DIR to the list of muted directories
             $smarty_dir = realpath(Smarty_Autoloader::$Smarty_Dir);
             if ($smarty_dir !== false) {
@@ -69,7 +71,7 @@ class Smarty_Method_MutingErrorHandler
         $_is_muted_directory = false;
 
         // add the SMARTY_DIR to the list of muted directories
-        if (!isset(Smarty::$_muted_directories[Smarty_Autoloader::$Smarty_Dir])) {
+        if (! isset(Smarty::$_muted_directories[Smarty_Autoloader::$Smarty_Dir])) {
             $smarty_dir = realpath(Smarty_Autoloader::$Smarty_Dir);
             if ($smarty_dir !== false) {
                 Smarty::$_muted_directories[Smarty_Autoloader::$Smarty_Dir] = array(
@@ -81,7 +83,7 @@ class Smarty_Method_MutingErrorHandler
 
         // walk the muted directories and test against $errfile
         foreach (Smarty::$_muted_directories as $key => &$dir) {
-            if (!$dir) {
+            if (! $dir) {
                 // resolve directory and length for speedy comparisons
                 $file = realpath($key);
                 if ($file === false) {
@@ -102,7 +104,7 @@ class Smarty_Method_MutingErrorHandler
 
         // pass to next error handler if this error did not occur inside Smarty_Autoloader::$smarty_path
         // or the error was within smarty but masked to be ignored
-        if (!$_is_muted_directory || ($errno && $errno & error_reporting())) {
+        if (! $_is_muted_directory || ($errno && $errno & error_reporting())) {
             if (Smarty::$_previous_error_handler) {
                 return call_user_func(Smarty::$_previous_error_handler, $errno, $errstr, $errfile, $errline, $errcontext);
             } else {

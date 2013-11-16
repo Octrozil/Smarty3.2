@@ -2,19 +2,15 @@
 
 /**
  * Smarty Data
- *
  * This file contains the Smarty Data Class
  *
- *
  * @package Template
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * class for the Smarty data object
- *
  * The Smarty data object will hold Smarty variables in the current scope
- *
  *
  * @package Smarty
  */
@@ -50,9 +46,10 @@ class Smarty_Data extends Smarty_Variable_Methods
     /**
      * create Smarty data object
      *
-     * @param  Smarty $smarty object of Smarty instance
-     * @param  Smarty_Variable_Methods|array $parent parent object or variable array
-     * @param  string $scope_name name of variable scope
+     * @param  Smarty                        $smarty     object of Smarty instance
+     * @param  Smarty_Variable_Methods|array $parent     parent object or variable array
+     * @param  string                        $scope_name name of variable scope
+     *
      * @throws Smarty_Exception
      */
     public function __construct(Smarty $smarty, $parent = null, $scope_name = 'Data unnamed')
@@ -85,7 +82,8 @@ class Smarty_Data extends Smarty_Variable_Methods
      *  - load extensions for external variable methods
      *
      * @param  string $name unknown method-name
-     * @param  array $args argument array
+     * @param  array  $args argument array
+     *
      * @throws Smarty_Exception
      * @return mixed    function results
      */

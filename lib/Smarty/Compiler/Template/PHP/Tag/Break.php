@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Break
- *
  * Compiles the {break} tag
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Break Class
- *
  *
  * @package Compiler
  */
@@ -38,9 +35,10 @@ class Smarty_Compiler_Template_Php_Tag_Break extends Smarty_Compiler_Template_Ph
     /**
      * Compiles code for the {break} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -54,7 +52,7 @@ class Smarty_Compiler_Template_Php_Tag_Break extends Smarty_Compiler_Template_Ph
         }
 
         if (isset($_attr['levels'])) {
-            if (!is_numeric($_attr['levels'])) {
+            if (! is_numeric($_attr['levels'])) {
                 $compiler->error('level attribute must be a numeric constant', $compiler->lex->taglineno);
             }
             $_levels = $_attr['levels'];
@@ -65,9 +63,9 @@ class Smarty_Compiler_Template_Php_Tag_Break extends Smarty_Compiler_Template_Ph
         $stack_count = count($compiler->_tag_stack) - 1;
         while ($level_count > 0 && $stack_count >= 0) {
             if (isset($_is_loopy[$compiler->_tag_stack[$stack_count][0]])) {
-                $level_count--;
+                $level_count --;
             }
-            $stack_count--;
+            $stack_count --;
         }
         if ($level_count != 0) {
             $compiler->error("cannot break {$_levels} level(s)", $compiler->lex->taglineno);

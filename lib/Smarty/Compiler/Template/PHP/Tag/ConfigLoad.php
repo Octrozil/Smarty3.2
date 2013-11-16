@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Config Load
- *
  * Compiles the {config load} tag
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Config Load Class
- *
  *
  * @package Compiler
  */
@@ -46,8 +43,9 @@ class Smarty_Compiler_Template_Php_Tag_ConfigLoad extends Smarty_Compiler_Templa
     /**
      * Compiles code for the {config_load} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)

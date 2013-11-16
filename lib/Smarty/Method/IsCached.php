@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,17 +19,19 @@ class Smarty_Method_IsCached
      * test if cache is valid
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string|object $template the resource handle of the template file or template object
-     * @param  mixed $cache_id cache id to be used with this template
-     * @param  mixed $compile_id compile id to be used with this template
-     * @param  object $parent next higher level of Smarty variables
+     *
+     * @param Smarty         $smarty     smarty object
+     * @param  string|object $template   the resource handle of the template file or template object
+     * @param  mixed         $cache_id   cache id to be used with this template
+     * @param  mixed         $compile_id compile id to be used with this template
+     * @param  object        $parent     next higher level of Smarty variables
+     *
      * @throws Smarty_Exception
      * @return boolean       cache status
      */
     public function isCached(Smarty $smarty, $template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
-        if ($smarty->force_cache || $smarty->force_compile || !($smarty->caching == Smarty::CACHING_LIFETIME_CURRENT || $smarty->caching == Smarty::CACHING_LIFETIME_SAVED)) {
+        if ($smarty->force_cache || $smarty->force_compile || ! ($smarty->caching == Smarty::CACHING_LIFETIME_CURRENT || $smarty->caching == Smarty::CACHING_LIFETIME_SAVED)) {
             // caching is disabled
             return false;
         }
@@ -40,7 +41,7 @@ class Smarty_Method_IsCached
         //get source object from cache  or create new one
         $context = $smarty->_getContext($template, $cache_id, $compile_id, $parent, true);
         // checks if source exists
-        if (!$context->exists) {
+        if (! $context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
         }
         if ($context->handler->recompiled) {
@@ -52,7 +53,7 @@ class Smarty_Method_IsCached
         $timestamp = $exists = false;
         $filepath = $res_obj->buildFilepath($context);
         $res_obj->populateTimestamp($tpl_obj, $filepath, $timestamp, $exists);
-        if (!$exists || $timestamp < $context->timestamp) {
+        if (! $exists || $timestamp < $context->timestamp) {
             return false;
         }
         $template_class_name = $res_obj->loadTemplateClass($filepath);

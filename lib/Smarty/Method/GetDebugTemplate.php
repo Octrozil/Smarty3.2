@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,7 +19,9 @@ class Smarty_Method_GetDebugTemplate
      * return name of debugging template
      *
      * @api
+     *
      * @param Smarty $smarty smarty object
+     *
      * @return string
      */
     public function getDebugTemplate(Smarty $smarty)

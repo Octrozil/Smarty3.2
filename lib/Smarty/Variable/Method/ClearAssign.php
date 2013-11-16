@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Variable
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,8 +19,10 @@ class Smarty_Variable_Method_ClearAssign
      * clear the given assigned template variable.
      *
      * @api
-     * @param Smarty | Smarty_Template | Smarty_Data $object master object
-     * @param  string|array $tpl_var the template variable(s) to clear
+     *
+     * @param Smarty | Smarty_Template | Smarty_Data $object  master object
+     * @param  string|array                          $tpl_var the template variable(s) to clear
+     *
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function clearAssign($object, $tpl_var)

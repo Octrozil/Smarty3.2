@@ -1,11 +1,10 @@
 <?php
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -19,9 +18,11 @@ class Smarty_Method_UnregisterPlugin
      * Unregister Plugin
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string $type of plugin
-     * @param  string $tag name of plugin
+     *
+     * @param Smarty  $smarty smarty object
+     * @param  string $type   of plugin
+     * @param  string $tag    name of plugin
+     *
      * @return Smarty
      */
     public function unregisterPlugin(Smarty $smarty, $type, $tag)

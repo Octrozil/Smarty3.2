@@ -1,11 +1,10 @@
 <?php
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -19,9 +18,11 @@ class Smarty_Method_UnloadFilter
      * unload a filter of specified type and name
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string $type filter type
-     * @param  string $name filter name
+     *
+     * @param Smarty  $smarty smarty object
+     * @param  string $type   filter type
+     * @param  string $name   filter name
+     *
      * @return Smarty
      */
     public function unloadFilter(Smarty $smarty, $type, $name)

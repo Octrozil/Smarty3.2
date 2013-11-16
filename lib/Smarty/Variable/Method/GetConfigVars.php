@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Variable
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,9 +19,11 @@ class Smarty_Variable_Method_GetConfigVars
      * Returns a single or all config variables
      *
      * @api
-     * @param Smarty | Smarty_Template | Smarty_Data $object master object
-     * @param  string $varname variable name or null
-     * @param  boolean $search_parents include parent templates?
+     *
+     * @param Smarty | Smarty_Template | Smarty_Data $object         master object
+     * @param  string                                $varname        variable name or null
+     * @param  boolean                               $search_parents include parent templates?
+     *
      * @return string  variable value or or array of variables
      */
     public function getConfigVars($object, $varname = null, $search_parents = true)
@@ -37,7 +38,7 @@ class Smarty_Variable_Method_GetConfigVars
             while ($_ptr !== null) {
                 foreach ($_ptr->_tpl_vars AS $varname => $data) {
                     $real_varname = substr($varname, 14);
-                    if (strpos($varname, '___config_var_') === 0 && !isset($_result[$real_varname])) {
+                    if (strpos($varname, '___config_var_') === 0 && ! isset($_result[$real_varname])) {
                         $_result[$real_varname] = $data;
                     }
                 }

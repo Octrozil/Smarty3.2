@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,11 +19,13 @@ class Smarty_Method_CompileAllConfig
      * Compile all config files
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string $extension extension of config file names
-     * @param  bool $force_compile force all to recompile
-     * @param  int $time_limit set maximum execution time
-     * @param  int $max_errors set maximum allowed errors
+     *
+     * @param Smarty  $smarty        smarty object
+     * @param  string $extension     extension of config file names
+     * @param  bool   $force_compile force all to recompile
+     * @param  int    $time_limit    set maximum execution time
+     * @param  int    $max_errors    set maximum allowed errors
+     *
      * @return integer number of config files compiled
      */
     public function compileAllConfig(Smarty $smarty, $extension, $force_compile, $time_limit, $max_errors)
@@ -44,9 +45,9 @@ class Smarty_Method_CompileAllConfig
                 $_file = $_fileinfo->getFilename();
                 if (substr(basename($_fileinfo->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false)
                     continue;
-                if (!substr_compare($_file, $extension, -strlen($extension)) == 0)
+                if (! substr_compare($_file, $extension, - strlen($extension)) == 0)
                     continue;
-                if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
+                if ($_fileinfo->getPath() == substr($_dir, 0, - 1)) {
                     $_config_file = $_file;
                 } else {
                     $_config_file = substr($_fileinfo->getPath(), strlen($_dir)) . '/' . $_file;
@@ -60,7 +61,7 @@ class Smarty_Method_CompileAllConfig
                     if ($_tpl->mustCompile) {
                         $_tpl->compiler->compileTemplateSource();
                         $_tpl->cleanPointer();
-                        $_count++;
+                        $_count ++;
                         echo ' compiled in  ', microtime(true) - $_start_time, ' seconds';
                         echo '<br>' . memory_get_usage(true);
                         flush();
@@ -68,9 +69,10 @@ class Smarty_Method_CompileAllConfig
                         echo ' is up to date';
                         flush();
                     }
-                } catch (Exception $e) {
+                }
+                catch (Exception $e) {
                     echo 'Error: ', $e->getMessage(), "<br><br>";
-                    $_error_count++;
+                    $_error_count ++;
                 }
                 // free memory
                 Smarty::$_resource_cache = array();

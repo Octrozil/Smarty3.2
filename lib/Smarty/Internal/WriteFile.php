@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -19,6 +18,7 @@ class Smarty_Internal_WriteFile
 {
     /**
      * Flag if we are running on Windows
+     *
      * @var boolean
      */
     static $_IS_WINDOWS = null;
@@ -27,15 +27,17 @@ class Smarty_Internal_WriteFile
      * Writes compiled or cache file in a safe way to disk
      *
      * @internal
-     * @param  Smarty $smarty smarty object
+     *
+     * @param  Smarty $smarty    smarty object
      * @param  string $_filepath complete filepath
      * @param  string $_contents file content
+     *
      * @throws Smarty_Exception
      * @return boolean          true
      */
     public function _writeFile(Smarty $smarty, $_filepath, $_contents)
     {
-        if (!isset(self::$_IS_WINDOWS)) {
+        if (! isset(self::$_IS_WINDOWS)) {
             self::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
         }
         $_error_reporting = error_reporting();
@@ -46,13 +48,13 @@ class Smarty_Internal_WriteFile
 
         $_dirpath = dirname($_filepath);
         // if subdirs, create dir structure
-        if ($_dirpath !== '.' && !file_exists($_dirpath)) {
+        if ($_dirpath !== '.' && ! file_exists($_dirpath)) {
             mkdir($_dirpath, $smarty->_dir_perms === null ? 0777 : $smarty->_dir_perms, true);
         }
 
         // write to tmp file, then move to overt file lock race condition
         $_tmp_file = $_dirpath . '/' . uniqid('wrt', true);
-        if (!file_put_contents($_tmp_file, $_contents)) {
+        if (! file_put_contents($_tmp_file, $_contents)) {
             error_reporting($_error_reporting);
             throw new Smarty_Exception("unable to write file {$_tmp_file}");
         }
@@ -74,7 +76,7 @@ class Smarty_Internal_WriteFile
         } else {
             // rename tmp file
             $success = @rename($_tmp_file, $_filepath);
-            if (!$success) {
+            if (! $success) {
                 // remove original file
                 @unlink($_filepath);
                 // rename tmp file
@@ -82,7 +84,7 @@ class Smarty_Internal_WriteFile
             }
         }
 
-        if (!$success) {
+        if (! $success) {
             error_reporting($_error_reporting);
             throw new Smarty_Exception("unable to write file {$_filepath}");
         }

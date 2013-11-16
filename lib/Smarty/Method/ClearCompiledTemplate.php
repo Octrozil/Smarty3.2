@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 /**
  * Class for clearCompiledTemplate method
@@ -19,11 +18,13 @@ class Smarty_Method_ClearCompiledTemplate
      * Delete compiled template file
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string $resource_name template name
-     * @param  string $compile_id compile id
-     * @param  integer $exp_time expiration time
-     * @param  string $type resource type
+     *
+     * @param Smarty   $smarty        smarty object
+     * @param  string  $resource_name template name
+     * @param  string  $compile_id    compile id
+     * @param  integer $exp_time      expiration time
+     * @param  string  $type          resource type
+     *
      * @return integer number of template files deleted
      */
     public function clearCompiledTemplate(Smarty $smarty, $resource_name = null, $compile_id = null, $exp_time = null, $type = null)

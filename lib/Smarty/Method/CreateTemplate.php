@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,21 +19,23 @@ class Smarty_Method_CreateTemplate
      * creates a template object
      *
      * @api
-     * @param Smarty | Smarty_Template $object master object
-     * @param  string $template_resource the resource handle of the template file
-     * @param  mixed $cache_id cache id to be used with this template
-     * @param  mixed $compile_id compile id to be used with this template
-     * @param  object $parent next higher level of Smarty variables
+     *
+     * @param Smarty | Smarty_Template $object            master object
+     * @param  string                  $template_resource the resource handle of the template file
+     * @param  mixed                   $cache_id          cache id to be used with this template
+     * @param  mixed                   $compile_id        compile id to be used with this template
+     * @param  object                  $parent            next higher level of Smarty variables
+     *
      * @throws Smarty_Exception
      * @return Smarty           template object
      */
     public function createTemplate(Smarty $smarty, $template_resource, $cache_id = null, $compile_id = null, $parent = null)
     {
-        if (!empty($cache_id) && (is_object($cache_id) || is_array($cache_id))) {
+        if (! empty($cache_id) && (is_object($cache_id) || is_array($cache_id))) {
             $parent = $cache_id;
             $cache_id = null;
         }
-        if (!empty($parent) && is_array($parent)) {
+        if (! empty($parent) && is_array($parent)) {
             $data = $parent;
             $parent = null;
         } else {
@@ -52,7 +53,7 @@ class Smarty_Method_CreateTemplate
         //get context object from cache  or create new one
         $context = $tpl_obj->_getContext($template_resource);
         // checks if source exists
-        if (!$context->exists) {
+        if (! $context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
         }
         $tpl_obj->source = $context;

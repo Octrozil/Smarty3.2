@@ -1,11 +1,10 @@
 <?php
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -17,17 +16,18 @@ class Smarty_Method_RunFilter
 {
     /**
      * Run filters over content
-     *
      * The filters will be lazy loaded if required
      * class name format: Smarty_FilterType_FilterName
      * plugin filename format: filtertype.filtername.php
      * Smarty2 filter plugins could be used
      *
      * @internal
-     * @param Smarty $smarty smarty object
-     * @param  string $type the type of filter ('pre','post','output') which shall run
+     *
+     * @param Smarty  $smarty  smarty object
+     * @param  string $type    the type of filter ('pre','post','output') which shall run
      * @param  string $content the content which shall be processed by the filters
-     * @param  object $obj template or compiler object
+     * @param  object $obj     template or compiler object
+     *
      * @throws Smarty_Exception
      * @return string           the filtered content
      */
@@ -35,7 +35,7 @@ class Smarty_Method_RunFilter
     {
         $output = $content;
         // loop over autoload filters of specified type
-        if (!empty($smarty->autoload_filters[$type])) {
+        if (! empty($smarty->autoload_filters[$type])) {
             foreach ((array)$smarty->autoload_filters[$type] as $name) {
                 $plugin_name = "Smarty_{$type}filter_{$name}";
                 if ($smarty->_loadPlugin($plugin_name)) {
@@ -58,7 +58,7 @@ class Smarty_Method_RunFilter
             }
         }
         // loop over registered filters of specified type
-        if (!empty($smarty->_registered['filter'][$type])) {
+        if (! empty($smarty->_registered['filter'][$type])) {
             foreach ($smarty->_registered['filter'][$type] as $name => $dummy) {
                 if (is_array($smarty->_registered['filter'][$type][$name])) {
                     $output = call_user_func($smarty->_registered['filter'][$type][$name], $output, $smarty);

@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Variable
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,18 +19,20 @@ class Smarty_Variable_Method_Append
      * appends values to template variables
      *
      * @api
-     * @param  Smarty | Smarty_Template | Smarty_Data $object master object
-     * @param  array|string $tpl_var the template variable name(s)
-     * @param  mixed $value the value to append
-     * @param  boolean $merge flag if array elements shall be merged
-     * @param  boolean $nocache if true any output of this variable will be not cached
-     * @param int $scope_type
+     *
+     * @param  Smarty | Smarty_Template | Smarty_Data $object  master object
+     * @param  array|string                           $tpl_var the template variable name(s)
+     * @param  mixed                                  $value   the value to append
+     * @param  boolean                                $merge   flag if array elements shall be merged
+     * @param  boolean                                $nocache if true any output of this variable will be not cached
+     * @param int                                     $scope_type
+     *
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function append($object, $tpl_var, $value = null, $merge = false, $nocache = false, $scope_type = Smarty::SCOPE_LOCAL)
     {
-        if (!is_array($tpl_var)) {
-            if ($tpl_var == '' || !isset($value)) {
+        if (! is_array($tpl_var)) {
+            if ($tpl_var == '' || ! isset($value)) {
                 return $object;
             }
             $tpl_var = array($tpl_var => $value);
@@ -39,7 +40,7 @@ class Smarty_Variable_Method_Append
 
         foreach ($tpl_var as $varname => $_val) {
             if ($varname != '') {
-                if (!isset($object->_tpl_vars->$varname)) {
+                if (! isset($object->_tpl_vars->$varname)) {
                     $_var = $object->_getVariable($varname, null, true, false);
                     if ($_var === null) {
                         $_var = new Smarty_Variable(null, $nocache);
@@ -49,7 +50,7 @@ class Smarty_Variable_Method_Append
                 } else {
                     $_var = $object->_tpl_vars->$varname;
                 }
-                if (!(is_array($_var->value) || $_var->value instanceof ArrayAccess)) {
+                if (! (is_array($_var->value) || $_var->value instanceof ArrayAccess)) {
                     settype($_var->value, 'array');
                 }
                 if ($merge && is_array($_val)) {

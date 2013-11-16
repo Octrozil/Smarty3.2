@@ -2,7 +2,6 @@
 
 /**
  * Smarty {textformat}{/textformat} block plugin
- *
  * Type:     block function<br>
  * Name:     textformat<br>
  * Purpose:  format text a certain way with preset styles
@@ -18,14 +17,16 @@
  * </pre>
  *
  * @package Plugins\Block
- * @link http://www.smarty.net/docs/en/language.function.textformat.tpl {textformat}
- *       (Smarty online manual)
- * @param array $params parameters
- * @param string $content contents of the block
- * @param Smarty $tpl_obj template object
+ * @link    http://www.smarty.net/docs/en/language.function.textformat.tpl {textformat}
+ *          (Smarty online manual)
+ *
+ * @param array   $params  parameters
+ * @param string  $content contents of the block
+ * @param Smarty  $tpl_obj template object
  * @param boolean &$repeat repeat flag
+ *
  * @return string content re-formatted
- * @author Monte Ohrt <monte at ohrt dot com>
+ * @author  Monte Ohrt <monte at ohrt dot com>
  */
 function smarty_block_textformat($params, $content, $tpl_obj, &$repeat)
 {
@@ -73,7 +74,7 @@ function smarty_block_textformat($params, $content, $tpl_obj, &$repeat)
     $_paragraphs = preg_split('![\r\n]{2}!', $content);
 
     foreach ($_paragraphs as &$_paragraph) {
-        if (!$_paragraph) {
+        if (! $_paragraph) {
             continue;
         }
         // convert mult. spaces & special chars to single space

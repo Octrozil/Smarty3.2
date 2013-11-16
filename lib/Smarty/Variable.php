@@ -2,17 +2,14 @@
 
 /**
  * Smarty Variable
- *
  * This file contains the class of a template variable.
  *
- *
  * @package Smarty\Variable
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * class for the Smarty variable object
- *
  * This class defines the Smarty variable object
  *
  * @package Smarty\Variable
@@ -37,7 +34,7 @@ class Smarty_Variable
     /**
      * create Smarty variable object
      *
-     * @param mixed $value the value to assign
+     * @param mixed   $value   the value to assign
      * @param boolean $nocache if true any output of this variable will be not cached
      */
     public function __construct($value = null, $nocache = false)

@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Special Smarty Variable
- *
  * Compiles the special $smarty variables
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile special Smarty Variable Class
- *
  *
  * @package Compiler
  */
@@ -22,9 +19,10 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
     /**
      * Compiles code for the special $smarty variables
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
      * @param  string $parameter string with optional array indexes
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -36,7 +34,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
             case 'foreach':
             case 'section':
                 $name = 'smarty';
-                for ($i = 0; $i < count($_index) - 1; $i++) {
+                for ($i = 0; $i < count($_index) - 1; $i ++) {
                     $name .= '_' . trim($_index[$i], "'");
                 }
                 $last = end($_index);
@@ -46,7 +44,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
             case 'now':
                 return 'time()';
             case 'cookies':
-                if (isset($compiler->context->smarty->security_policy) && !$compiler->context->smarty->security_policy->allow_super_globals) {
+                if (isset($compiler->context->smarty->security_policy) && ! $compiler->context->smarty->security_policy->allow_super_globals) {
                     $compiler->error("(secure mode) super globals not permitted");
                     break;
                 }
@@ -59,7 +57,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
             case 'server':
             case 'session':
             case 'request':
-                if (isset($compiler->context->smarty->security_policy) && !$compiler->context->smarty->security_policy->allow_super_globals) {
+                if (isset($compiler->context->smarty->security_policy) && ! $compiler->context->smarty->security_policy->allow_super_globals) {
                     $compiler->error("(secure mode) super globals not permitted");
                     break;
                 }
@@ -85,7 +83,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_SpecialVariable extends Smarty_C
                 return "'$_version'";
 
             case 'const':
-                if (isset($compiler->context->smarty->security_policy) && !$compiler->context->smarty->security_policy->allow_constants) {
+                if (isset($compiler->context->smarty->security_policy) && ! $compiler->context->smarty->security_policy->allow_constants) {
                     $compiler->error("(secure mode) constants not permitted");
                     break;
                 }

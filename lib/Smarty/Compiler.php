@@ -2,12 +2,10 @@
 
 /**
  * Smarty Compiler
- *
  * This file contains the root compiler class
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 /**
  * @ignore
@@ -16,7 +14,6 @@
 /**
  * Class Smarty_Compiler
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler extends Smarty_Compiler_Code
@@ -24,6 +21,7 @@ class Smarty_Compiler extends Smarty_Compiler_Code
 
     /**
      * internal flag to enable parser debugging
+     *
      * @var boolean
      * @internal
      */
@@ -31,6 +29,7 @@ class Smarty_Compiler extends Smarty_Compiler_Code
 
     /**
      * plugin search order
+     *
      * @var array
      * @internal
      */
@@ -38,7 +37,8 @@ class Smarty_Compiler extends Smarty_Compiler_Code
 
     /**
      * @param Smarty_Context $context
-     * @param string $filepath
+     * @param string         $filepath
+     *
      * @return mixed
      */
     public static function  load($context, $filepath)

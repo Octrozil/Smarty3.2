@@ -4,17 +4,14 @@
  * Smarty Resource Source String Plugin
  *
  * @package Smarty\Resource\Source
- * @author Uwe Tews
- * @author Rodney Rehm
+ * @author  Uwe Tews
+ * @author  Rodney Rehm
  */
 
 /**
  * Smarty Resource Source String Plugin
- *
  * Implements the strings as resource for Smarty template
- *
  * {@internal unlike eval-resources the compiled state of string-resources is saved for subsequent access}}
- *
  *
  * @package Smarty\Resource\Source
  */
@@ -58,7 +55,9 @@ class Smarty_Resource_Source_String extends Smarty_Resource_Source_File
      * Load template's source from $resource_name into current template object
      *
      * @uses decode() to decode base64 and urlencoded template_resources
+     *
      * @param Smarty_Context $context
+     *
      * @return string template source
      */
     public function getContent(Smarty_Context $context)
@@ -70,6 +69,7 @@ class Smarty_Resource_Source_String extends Smarty_Resource_Source_File
      * decode base64 and urlencode
      *
      * @param  string $string template_resource to decode
+     *
      * @return string decoded template_resource
      */
     protected function decode($string)
@@ -87,10 +87,10 @@ class Smarty_Resource_Source_String extends Smarty_Resource_Source_File
 
     /**
      * Determine basename for compiled filename
-     *
      * Always returns an empty string.
      *
      * @param Smarty_Context $context
+     *
      * @return string ''
      */
     public function getBasename(Smarty_Context $context)

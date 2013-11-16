@@ -4,36 +4,33 @@
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
  * SVN:         $Id: Smarty.class.php 4745 2013-06-17 18:27:16Z Uwe.Tews@googlemail.com $
- *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  * For questions, help, comments, discussion, etc., please join the
  * Smarty mailing list. Send a blank e-mail to
  * smarty-discussion-subscribe@googlegroups.com
  *
- * @link http://www.smarty.net/
+ * @link      http://www.smarty.net/
  * @copyright 2008 New Digital Group, Inc.
- * @author Monte Ohrt <monte at ohrt dot com>
- * @author Uwe Tews
- * @author Rodney Rehm
- * @package Smarty
- * @version 3.2-DEV
+ * @author    Monte Ohrt <monte at ohrt dot com>
+ * @author    Uwe Tews
+ * @author    Rodney Rehm
+ * @package   Smarty
+ * @version   3.2-DEV
  */
 
 /**
  * This is the main Smarty class
+ *
  * @package Smarty
  */
 class Smarty extends Smarty_Variable_Methods
@@ -77,7 +74,7 @@ class Smarty extends Smarty_Variable_Methods
     /**
      * define constant for clearing cache files be saved expiration datees
      */
-    const CLEAR_EXPIRED = -1;
+    const CLEAR_EXPIRED = - 1;
 
     /**
      * define compile check modes
@@ -126,6 +123,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * assigned template vars
+     *
      * @internal
      * @var Smarty_Variable_Scope
      */
@@ -141,6 +139,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * assigned global tpl vars
+     *
      * @internal
      * @var stdClass
      */
@@ -148,6 +147,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * Flag denoting if Multibyte String functions are available
+     *
      * @internal
      * @var bool
      */
@@ -155,6 +155,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * The character set to adhere to (e.g. "UTF-8")
+     *
      * @var string
      */
     public static $_CHARSET = "UTF-8";
@@ -162,12 +163,14 @@ class Smarty extends Smarty_Variable_Methods
     /**
      * The date format to be used internally
      * (accepts date() and strftime())
+     *
      * @var string
      */
     public static $_DATE_FORMAT = '%b %e, %Y';
 
     /**
      * Flag denoting if PCRE should run in UTF-8 mode
+     *
      * @internal
      * @var string
      */
@@ -175,6 +178,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * Folder of Smarty build in plugins
+     *
      * @internal
      * @var string
      */
@@ -185,6 +189,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * auto literal on delimiters with whitspace
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/variable.auto.literal.tpl
      */
@@ -192,6 +197,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * display error on not assigned variables
+     *
      * @var integer
      * @link <missing>
      * @uses UNASSIGNED_IGNORE as possible value
@@ -202,6 +208,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * template directory
+     *
      * @var array
      * @internal
      * @link http://www.smarty.net/docs/en/variable.template.dir.tpl
@@ -210,6 +217,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * joined template directory string used in cache keys
+     *
      * @var string
      * @internal
      */
@@ -217,6 +225,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * config directory
+     *
      * @var array
      * @internal
      * @link http://www.smarty.net/docs/en/variable.fooobar.tpl
@@ -225,6 +234,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * compile directory
+     *
      * @var string
      * @internal
      * @link http://www.smarty.net/docs/en/variable.compile.dir.tpl
@@ -233,6 +243,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * plugins directory
+     *
      * @var array
      * @internal
      * @link http://www.smarty.net/docs/en/variable.plugins.dir.tpl
@@ -241,6 +252,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * cache directory
+     *
      * @var string
      * @internal
      * @link http://www.smarty.net/docs/en/variable.cache.dir.tpl
@@ -249,6 +261,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * disable core plugins in {@link loadPlugin()}
+     *
      * @var boolean
      * @link <missing>
      */
@@ -256,6 +269,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * force template compiling?
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/variable.force.compile.tpl
      */
@@ -263,6 +277,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * check template for modifications?
+     *
      * @var int
      * @link http://www.smarty.net/docs/en/variable.compile.check.tpl
      * @uses COMPILECHECK_OFF as possible value
@@ -287,6 +302,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * use sub dirs for compiled/cached files?
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/variable.use.sub.dirs.tpl
      */
@@ -294,6 +310,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * allow ambiguous resources (that are made unique by the resource handler)
+     *
      * @var boolean
      */
     public $allow_ambiguous_resources = false;
@@ -310,6 +327,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * merge compiled includes
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/variable.merge.compiled.includes.tpl
      */
@@ -317,6 +335,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * cache lifetime in seconds
+     *
      * @var integer
      * @link http://www.smarty.net/docs/en/variable.cache.lifetime.tpl
      */
@@ -324,6 +343,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * force cache file creation
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/variable.force.cache.tpl
      */
@@ -332,6 +352,7 @@ class Smarty extends Smarty_Variable_Methods
     /**
      * Set this if you want different sets of cache files for the same
      * templates.
+     *
      * @var string
      * @link http://www.smarty.net/docs/en/variable.cache.id.tpl
      */
@@ -340,6 +361,7 @@ class Smarty extends Smarty_Variable_Methods
     /**
      * Set this if you want different sets of compiled files for the same
      * templates.
+     *
      * @var string
      * @link http://www.smarty.net/docs/en/variable.compile.id.tpl
      */
@@ -347,6 +369,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * template left-delimiter
+     *
      * @var string
      * @link http://www.smarty.net/docs/en/variable.left.delimiter.tpl
      */
@@ -354,6 +377,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * template right-delimiter
+     *
      * @var string
      * @link http://www.smarty.net/docs/en/variable.right.delimiter.tpl
      */
@@ -361,6 +385,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * default template handler
+     *
      * @var callable
      * @link http://www.smarty.net/docs/en/variable.default.template.handler.func.tpl
      */
@@ -368,6 +393,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * default config handler
+     *
      * @var callable
      * @link http://www.smarty.net/docs/en/variable.default.config.handler.func.tpl
      */
@@ -375,6 +401,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * default plugin handler
+     *
      * @var callable
      * @link <missing>
      */
@@ -382,6 +409,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * default variable handler
+     *
      * @var callable
      * @link <missing>
      */
@@ -389,6 +417,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * default config variable handler
+     *
      * @var callable
      * @link <missing>
      */
@@ -401,24 +430,26 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * class name
-     *
      * This should be instance of Smarty_Security.
+     *
      * @var string
-     * @see Smarty_Security
+     * @see  Smarty_Security
      * @link <missing>
      */
     public $security_class = 'Smarty_Security';
 
     /**
      * implementation of security class
+     *
      * @var Smarty_Security
-     * @see Smarty_Security
+     * @see  Smarty_Security
      * @link <missing>
      */
     public $security_policy = null;
 
     /**
      * controls handling of PHP-blocks
+     *
      * @var integer
      * @link http://www.smarty.net/docs/en/variable.php.handling.tpl
      * @uses PHP_PASSTHRU as possible value
@@ -430,6 +461,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * controls if the php template file resource is allowed
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/api.variables.tpl#variable.allow.php.templates
      */
@@ -439,7 +471,6 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * debug mode
-     *
      * Setting this to true enables the debug-console.
      *
      * @var boolean
@@ -453,6 +484,7 @@ class Smarty extends Smarty_Variable_Methods
      *  <li>NONE => no debugging control allowed</li>
      *  <li>URL => enable debugging when SMARTY_DEBUG is found in the URL.</li>
      * </ul>
+     *
      * @var string
      * @link http://www.smarty.net/docs/en/variable.debugging.ctrl.tpl
      */
@@ -462,6 +494,7 @@ class Smarty extends Smarty_Variable_Methods
      * Name of debugging URL-param.
      * Only used when $debugging_ctrl is set to 'URL'.
      * The name of the URL-parameter that activates debugging.
+     *
      * @var string
      * @link http://www.smarty.net/docs/en/variable.smarty.debug.id.tpl
      */
@@ -469,6 +502,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * Path of debug template.
+     *
      * @var string
      * @link http://www.smarty.net/docs/en/variable.debugtpl_obj.tpl
      */
@@ -476,18 +510,21 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * Path of error template.
+     *
      * @var string
      */
     public $error_tpl = null;
 
     /**
      * enable error processing
+     *
      * @var boolean
      */
     public $error_processing = true;
 
     /**
      * When set, smarty uses this value as error_reporting-level.
+     *
      * @var integer
      * @link http://www.smarty.net/docs/en/variable.error.reporting.tpl
      */
@@ -507,6 +544,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * Controls whether variables with the same name overwrite each other.
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/variable.config.overwrite.tpl
      */
@@ -514,6 +552,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * Controls whether config values of on/true/yes and off/false/no get converted to boolean.
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/variable.config.booleanize.tpl
      */
@@ -521,6 +560,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * Controls whether hidden config sections/vars are read from the file.
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/variable.config.read.hidden.tpl
      */
@@ -534,6 +574,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * locking concurrent compiles
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/variable.compile.locking.tpl
      */
@@ -541,6 +582,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * Controls whether cache resources should emply locking mechanism
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/variable.cache.locking.tpl
      */
@@ -548,6 +590,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * seconds to wait for acquiring a lock before ignoring the write lock
+     *
      * @var float
      * @link http://www.smarty.net/docs/en/variable.locking.timeout.tpl
      */
@@ -557,6 +600,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * global template functions
+     *
      * @var array
      * @internal
      */
@@ -573,6 +617,7 @@ class Smarty extends Smarty_Variable_Methods
     /**
      * caching type
      * Must be an element of $cache_resource_types.
+     *
      * @var string
      * @link http://www.smarty.net/docs/en/variable.caching.type.tpl
      */
@@ -581,6 +626,7 @@ class Smarty extends Smarty_Variable_Methods
     /**
      * compiled type
      * Must be an element of $cache_resource_types.
+     *
      * @var string
      * @link http://www.smarty.net/docs/en/variable.caching.type.tpl
      */
@@ -588,6 +634,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * internal config properties
+     *
      * @var array
      * @internal
      */
@@ -595,6 +642,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * config type
+     *
      * @var string
      * @link http://www.smarty.net/docs/en/variable.default.config.type.tpl
      */
@@ -602,6 +650,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * check If-Modified-Since headers
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/variable.cache.modified.check.tpl
      */
@@ -609,6 +658,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * autoload filter
+     *
      * @var array
      * @link http://www.smarty.net/docs/en/variable.autoload.filters.tpl
      */
@@ -616,6 +666,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * default modifier
+     *
      * @var array
      * @link http://www.smarty.net/docs/en/variable.default.modifiers.tpl
      */
@@ -623,6 +674,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * autoescape variable output
+     *
      * @var boolean
      * @link http://www.smarty.net/docs/en/variable.escape.html.tpl
      */
@@ -630,12 +682,14 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * global internal smarty vars
+     *
      * @var array
      */
     public static $_smarty_vars = array();
 
     /**
      * start time for execution time calculation
+     *
      * @var integer
      * @internal
      */
@@ -643,6 +697,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * default file permissions (octal)
+     *
      * @var integer
      * @internal
      */
@@ -650,6 +705,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * default dir permissions (octal)
+     *
      * @var integer
      * @internal
      */
@@ -657,6 +713,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * block tag hierarchy
+     *
      * @var array
      * @internal
      */
@@ -664,6 +721,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * required by the compiler for BC
+     *
      * @var string
      * @internal
      */
@@ -678,12 +736,14 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * individually cached subtemplates
+     *
      * @var array
      */
     public $cached_subtemplates = array();
 
     /**
      * Template resource
+     *
      * @var string
      * @internal
      */
@@ -698,6 +758,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * variable filters
+     *
      * @var array
      * @internal
      */
@@ -705,6 +766,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * internal flag to allow relative path in child template blocks
+     *
      * @var boolean
      * @internal
      */
@@ -712,6 +774,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * internal flag to allow object caching
+     *
      * @var boolean
      * @internal
      */
@@ -743,12 +806,14 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * error handler returned by set_error_hanlder() in self::muteExpectedErrors()
+     *
      * @internal
      */
     public static $_previous_error_handler = null;
 
     /**
      * contains directories outside of SMARTY_DIR that are to be muted by muteExpectedErrors()
+     *
      * @internal
      * @var array
      */
@@ -756,6 +821,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * contains trace callbacks to invoke on events
+     *
      * @internal
      * @var array
      */
@@ -816,7 +882,7 @@ class Smarty extends Smarty_Variable_Methods
 
     /**
      * Initialize new Smarty object
-     *
+
      */
     public function __construct()
     {
@@ -843,16 +909,18 @@ class Smarty extends Smarty_Variable_Methods
      * fetches a rendered Smarty template
      *
      * @api
-     * @param  string $template the resource handle of the template file or template object
-     * @param  mixed $cache_id cache id to be used with this template
-     * @param  mixed $compile_id compile id to be used with this template
-     * @param  Smarty $parent next higher level of Smarty variables
-     * @param  bool $display true: display, false: fetch
-     * @param  bool $no_output_filter if true do not run output filter
-     * @param  null $data
-     * @param  int $scope_type
-     * @param  null $caching
+     *
+     * @param  string   $template         the resource handle of the template file or template object
+     * @param  mixed    $cache_id         cache id to be used with this template
+     * @param  mixed    $compile_id       compile id to be used with this template
+     * @param  Smarty   $parent           next higher level of Smarty variables
+     * @param  bool     $display          true: display, false: fetch
+     * @param  bool     $no_output_filter if true do not run output filter
+     * @param  null     $data
+     * @param  int      $scope_type
+     * @param  null     $caching
      * @param  null|int $cache_lifetime
+     *
      * @throws Smarty_Exception
      * @throws Smarty_Exception_Runtime
      * @return string   rendered template HTML output
@@ -863,17 +931,17 @@ class Smarty extends Smarty_Variable_Methods
         if ($template === null && ($this->_usage == self::IS_SMARTY_TPL_CLONE || $this->_usage == self::IS_CONFIG)) {
             $template = $this;
         }
-        if (!empty($cache_id) && is_object($cache_id)) {
+        if (! empty($cache_id) && is_object($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
         }
-        if ($parent === null && !is_object($template)) {
+        if ($parent === null && ! is_object($template)) {
             $parent = $this;
         }
         //get context object from cache  or create new one
         $context = $this->_getContext($template, $cache_id, $compile_id, $parent, false, $no_output_filter, $data, $scope_type, $caching, $cache_lifetime);
         // checks if source exists
-        if (!$context->exists) {
+        if (! $context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
         }
         $tpl_obj = $context->smarty;
@@ -881,9 +949,9 @@ class Smarty extends Smarty_Variable_Methods
         if (isset($tpl_obj->error_reporting) && $tpl_obj->_fetch_nesting_level == 0) {
             $_smarty_old_error_level = error_reporting($tpl_obj->error_reporting);
         }
-        $tpl_obj->_fetch_nesting_level++;
+        $tpl_obj->_fetch_nesting_level ++;
         // check URL debugging control
-        if (!$tpl_obj->debugging && $tpl_obj->debugging_ctrl == 'URL') {
+        if (! $tpl_obj->debugging && $tpl_obj->debugging_ctrl == 'URL') {
             Smarty_Debug::checkURLDebug($tpl_obj);
         }
 
@@ -901,7 +969,7 @@ class Smarty extends Smarty_Variable_Methods
             //render template
             $_output = $template_obj->_getRenderedTemplate($context);
         }
-        $tpl_obj->_fetch_nesting_level--;
+        $tpl_obj->_fetch_nesting_level --;
         if (isset($tpl_obj->error_reporting) && $tpl_obj->_fetch_nesting_level == 0) {
             error_reporting($_smarty_old_error_level);
         }
@@ -909,11 +977,11 @@ class Smarty extends Smarty_Variable_Methods
         // display or fetch
         if ($display) {
             if ($tpl_obj->caching && $tpl_obj->cache_modified_check) {
-                if (!$browser_cache_valid) {
+                if (! $browser_cache_valid) {
                     switch (PHP_SAPI) {
                         case 'cli':
                             if ( /* ^phpunit */
-                            !empty($_SERVER['SMARTY_PHPUNIT_DISABLE_HEADERS']) /* phpunit$ */
+                            ! empty($_SERVER['SMARTY_PHPUNIT_DISABLE_HEADERS']) /* phpunit$ */
                             ) {
                                 $_SERVER['SMARTY_PHPUNIT_HEADERS'][] = 'Last-Modified: ' . gmdate('D, d M Y H:i:s', $tpl_obj->cached->timestamp) . ' GMT';
                             }
@@ -944,10 +1012,11 @@ class Smarty extends Smarty_Variable_Methods
      * displays a Smarty template
      *
      * @api
-     * @param string $template the resource handle of the template file or template object
-     * @param mixed $cache_id cache id to be used with this template
-     * @param mixed $compile_id compile id to be used with this template
-     * @param object $parent next higher level of Smarty variables
+     *
+     * @param string $template   the resource handle of the template file or template object
+     * @param mixed  $cache_id   cache id to be used with this template
+     * @param mixed  $compile_id compile id to be used with this template
+     * @param object $parent     next higher level of Smarty variables
      */
     public function display($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
@@ -959,7 +1028,9 @@ class Smarty extends Smarty_Variable_Methods
      * Loads security class and enables security
      *
      * @api
+     *
      * @param  string|Smarty_Security $security_class if a string is used, it must be class-name
+     *
      * @return Smarty                 current Smarty instance for chaining
      * @throws Smarty_Exception       when an invalid class name is provided
      */
@@ -987,7 +1058,9 @@ class Smarty extends Smarty_Variable_Methods
      * Set template directory
      *
      * @api
+     *
      * @param  string|array $template_dir directory(s) of template sources
+     *
      * @return Smarty       current Smarty instance for chaining
      */
     public function setTemplateDir($template_dir)
@@ -1000,8 +1073,10 @@ class Smarty extends Smarty_Variable_Methods
      * Add template directory(s)
      *
      * @api
+     *
      * @param  string|array $template_dir directory(s) of template sources
-     * @param  string $key of the array element to assign the template dir to
+     * @param  string       $key          of the array element to assign the template dir to
+     *
      * @return Smarty       current Smarty instance for chaining
      */
     public function addTemplateDir($template_dir, $key = null)
@@ -1014,7 +1089,9 @@ class Smarty extends Smarty_Variable_Methods
      * Get template directories
      *
      * @api
+     *
      * @param  mixed $index of directory to get, null to get all
+     *
      * @return array|string list of template directories, or directory of $index
      */
     public function getTemplateDir($index = null)
@@ -1030,7 +1107,9 @@ class Smarty extends Smarty_Variable_Methods
      * Set config directory
      *
      * @api
+     *
      * @param  array|string $config_dir directory(s) of configuration sources
+     *
      * @return Smarty       current Smarty instance for chaining
      */
     public function setConfigDir($config_dir)
@@ -1043,8 +1122,10 @@ class Smarty extends Smarty_Variable_Methods
      * Add config directory(s)
      *
      * @api
+     *
      * @param  string|array $config_dir directory(s) of config sources
-     * @param  string $key of the array element to assign the config dir to
+     * @param  string       $key        of the array element to assign the config dir to
+     *
      * @return Smarty       current Smarty instance for chaining
      */
     public function addConfigDir($config_dir, $key = null)
@@ -1057,7 +1138,9 @@ class Smarty extends Smarty_Variable_Methods
      * Get config directory
      *
      * @api
+     *
      * @param  mixed $index of directory to get, null to get all
+     *
      * @return array|string configuration directory
      */
     public function getConfigDir($index = null)
@@ -1075,7 +1158,9 @@ class Smarty extends Smarty_Variable_Methods
      * Set plugins directory
      *
      * @api
+     *
      * @param  string|array $plugins_dir directory(s) of plugins
+     *
      * @return Smarty       current Smarty instance for chaining
      */
     public function setPluginsDir($plugins_dir)
@@ -1088,7 +1173,9 @@ class Smarty extends Smarty_Variable_Methods
      * Adds directory of plugin files
      *
      * @api
+     *
      * @param  string|array $plugins_dir plugin folder names
+     *
      * @return Smarty       current Smarty instance for chaining
      */
     public function addPluginsDir($plugins_dir)
@@ -1113,7 +1200,9 @@ class Smarty extends Smarty_Variable_Methods
      * Set compile directory
      *
      * @api
+     *
      * @param  string $compile_dir directory to store compiled templates in
+     *
      * @return Smarty current Smarty instance for chaining
      */
     public function setCompileDir($compile_dir)
@@ -1137,7 +1226,9 @@ class Smarty extends Smarty_Variable_Methods
      * Set cache directory
      *
      * @api
+     *
      * @param  string $cache_dir directory to store cached templates in
+     *
      * @return Smarty current Smarty instance for chaining
      */
     public function setCacheDir($cache_dir)
@@ -1161,10 +1252,10 @@ class Smarty extends Smarty_Variable_Methods
      * Set  directory
      *
      * @internal
-     * @param  string|array $dir directory(s) of  sources
-     * @param  string $dirprop name of directory property
-     * @param bool $do_join true if joined directory property must be updated
      *
+     * @param  string|array $dir     directory(s) of  sources
+     * @param  string       $dirprop name of directory property
+     * @param bool          $do_join true if joined directory property must be updated
      */
     private function _setDir($dir, $dirprop, $do_join = true)
     {
@@ -1182,10 +1273,11 @@ class Smarty extends Smarty_Variable_Methods
      * Add  directory(s)
      *
      * @internal
-     * @param  string|array $dir directory(s)
-     * @param  string $key of the array element to assign the dir to
-     * @param  string $dirprop name of directory property
-     * @param bool $do_join true if joined directory property must be updated
+     *
+     * @param  string|array $dir     directory(s)
+     * @param  string       $key     of the array element to assign the dir to
+     * @param  string       $dirprop name of directory property
+     * @param bool          $do_join true if joined directory property must be updated
      */
     private function _addDir($dir, $key = null, $dirprop, $do_join = true)
     {
@@ -1220,13 +1312,14 @@ class Smarty extends Smarty_Variable_Methods
      * Set  muted directory
      *
      * @internal
-     * @param  string $dir directory
+     *
+     * @param  string $dir     directory
      * @param  string $dirprop name of directory property
      */
     private function _setMutedDir($dir, $dirprop)
     {
         $this->$dirprop = $this->_checkDir($dir);
-        if (!isset(self::$_muted_directories[$this->$dirprop])) {
+        if (! isset(self::$_muted_directories[$this->$dirprop])) {
             self::$_muted_directories[$this->$dirprop] = null;
         }
 
@@ -1237,7 +1330,9 @@ class Smarty extends Smarty_Variable_Methods
      *  function to check directory path
      *
      * @internal
+     *
      * @param  string $path directory
+     *
      * @return string           trimmed filepath
      */
     private function _checkDir($path)
@@ -1278,18 +1373,19 @@ class Smarty extends Smarty_Variable_Methods
      * Get context object from cache or create new one
      * then populate it with current data
      *
-     *
      * @internal
-     * @param  null | string $resource template resource name
-     * @param  mixed $cache_id cache id to be used with this template
-     * @param  mixed $compile_id compile id to be used with this template
-     * @param  Smarty|Smarty_Data|Smarty_Template $parent next higher level of Smarty variables
-     * @param  bool $cache_context if true force caching of context block (need for isCached() calls
-     * @param  bool $no_output_filter if true do not run output filter
-     * @param  null $data
-     * @param  int $scope_type
-     * @param  null $caching
-     * @param  null|int $cache_lifetime
+     *
+     * @param  null | string                      $resource         template resource name
+     * @param  mixed                              $cache_id         cache id to be used with this template
+     * @param  mixed                              $compile_id       compile id to be used with this template
+     * @param  Smarty|Smarty_Data|Smarty_Template $parent           next higher level of Smarty variables
+     * @param  bool                               $cache_context    if true force caching of context block (need for isCached() calls
+     * @param  bool                               $no_output_filter if true do not run output filter
+     * @param  null                               $data
+     * @param  int                                $scope_type
+     * @param  null                               $caching
+     * @param  null|int                           $cache_lifetime
+     *
      * @return Smarty_Context
      */
     public function _getContext($resource, $cache_id = null, $compile_id = null, $parent = null, $cache_context = false, $no_output_filter = false, $data = null, $scope_type = self::SCOPE_LOCAL, $caching = null, $cache_lifetime = null)
@@ -1306,7 +1402,7 @@ class Smarty extends Smarty_Variable_Methods
                 $resource = $this->template_resource;
             }
             if ($this->object_caching || $cache_context) {
-                if (!($this->allow_ambiguous_resources || isset($this->handler_allow_relative_path))) {
+                if (! ($this->allow_ambiguous_resources || isset($this->handler_allow_relative_path))) {
                     $_cacheKey = $this->_joined_template_dir . '#' . $resource;
                     if (isset($_cacheKey[150])) {
                         $_cacheKey = sha1($_cacheKey);
@@ -1317,7 +1413,7 @@ class Smarty extends Smarty_Variable_Methods
                 if ($context_obj == null && isset($this->handler_allow_relative_path)) {
                     // parse template_resource into name and type
                     $parts = explode(':', $resource, 2);
-                    if (!isset($parts[1]) || !isset($parts[0][1])) {
+                    if (! isset($parts[1]) || ! isset($parts[0][1])) {
                         // no resource given, use default
                         // or single character before the colon is not a resource type, but part of the filepath
                         $type = $this->default_resource_type;
@@ -1346,10 +1442,10 @@ class Smarty extends Smarty_Variable_Methods
                 }
             }
             if ($context_obj == null) {
-                if (!isset($name)) {
+                if (! isset($name)) {
                     // parse template_resource into name and type
                     $parts = explode(':', $resource, 2);
-                    if (!isset($parts[1]) || !isset($parts[0][1])) {
+                    if (! isset($parts[1]) || ! isset($parts[0][1])) {
                         // no resource given, use default
                         // or single character before the colon is not a resource type, but part of the filepath
                         $type = $this->default_resource_type;
@@ -1382,18 +1478,19 @@ class Smarty extends Smarty_Variable_Methods
     }
 
     /**
-     *
      * @internal
-     * @param  int $resource_group SOURCE|COMPILED|CACHE
-     * @param  Smarty_Context $context context object
-     * @param bool $nocache flag that template object shall not be cached
-     * @param string $tpl_class_name class name if inline template class
+     *
+     * @param  int            $resource_group SOURCE|COMPILED|CACHE
+     * @param  Smarty_Context $context        context object
+     * @param bool            $nocache        flag that template object shall not be cached
+     * @param string          $tpl_class_name class name if inline template class
+     *
      * @return Smarty_Template  template object
      */
     public function _getTemplateObject($resource_group, Smarty_Context $context, $nocache = false, $tpl_class_name = null)
     {
         $nocache = $nocache || $context->_usage == self::IS_CONFIG;
-        $do_cache = $context->force_caching && !$nocache;
+        $do_cache = $context->force_caching && ! $nocache;
         if ($context->handler->recompiled && $resource_group == self::CACHE) {
             // we can't render from cache
             $resource_group = self::COMPILED;
@@ -1408,7 +1505,7 @@ class Smarty extends Smarty_Variable_Methods
                 } else {
                     $compiled_type = $context->smarty->compiled_type;
                 }
-                if ($this->object_caching && !$nocache && isset(self::$_compiled_object_cache[$key])) {
+                if ($this->object_caching && ! $nocache && isset(self::$_compiled_object_cache[$key])) {
                     return self::$_compiled_object_cache[$key];
                 }
                 if ($tpl_class_name != null) {
@@ -1418,7 +1515,7 @@ class Smarty extends Smarty_Variable_Methods
                     $res_obj = isset(self::$_resource_cache[self::COMPILED][$compiled_type]) ? self::$_resource_cache[self::COMPILED][$compiled_type] : $this->_loadResource(self::COMPILED, $compiled_type);
                     $template_obj = $res_obj->instanceTemplate($context);
                 }
-                if ($this->object_caching && !$nocache) {
+                if ($this->object_caching && ! $nocache) {
                     self::$_compiled_object_cache[$key] = $template_obj;
                 }
                 return $template_obj;
@@ -1445,8 +1542,9 @@ class Smarty extends Smarty_Variable_Methods
     /**
      *  Get handler and create resource object
      *
-     * @param  int $resource_group SOURCE|COMPILED|CACHE
-     * @param  string $type resource handler type
+     * @param  int    $resource_group SOURCE|COMPILED|CACHE
+     * @param  string $type           resource handler type
+     *
      * @throws Smarty_Exception
      * @return Smarty_Resource_xxx | false
      */
@@ -1462,7 +1560,7 @@ class Smarty extends Smarty_Variable_Methods
         $type = strtolower($type);
         $res_obj = null;
 
-        if (!$res_obj) {
+        if (! $res_obj) {
             $resource_class = self::$_resource_class_prefix[$resource_group] . ucfirst($type);
             if (isset($this->_registered['resource'][$resource_group][$type])) {
                 // TODO  true?
@@ -1479,7 +1577,6 @@ class Smarty extends Smarty_Variable_Methods
                 } elseif ($resource_group == self::SOURCE) {
                     /**
                      * @TODO  This must be rewritten
-                     *
                      */
                     $this->registerResource($type, array(
                         "smarty_resource_{$type}_source",
@@ -1516,18 +1613,19 @@ class Smarty extends Smarty_Variable_Methods
     }
 
     /**
-     *
      * Load API or internal method dynamicly if not in memory.
      * If loaded call it
-     * @param Smarty | Smarty_Template | Smarty_Data $caller calling object
-     * @param string $name method name
-     * @param array $args parameter array
-     * @param int $var_method set to 1 when only variable methods shall be loaded
+     *
+     * @param Smarty | Smarty_Template | Smarty_Data $caller     calling object
+     * @param string                                 $name       method name
+     * @param array                                  $args       parameter array
+     * @param int                                    $var_method set to 1 when only variable methods shall be loaded
+     *
      * @return mixed
      */
     public function _callExtention($caller, $name, $args, $var_method = 0)
     {
-        if (!isset(self::$_autoloaded[$name])) {
+        if (! isset(self::$_autoloaded[$name])) {
             if ($name[0] == '_') {
                 $postfix = ucfirst(substr($name, 1));
                 $offset = 0 + $var_method;
@@ -1535,7 +1633,7 @@ class Smarty extends Smarty_Variable_Methods
                 $postfix = ucfirst($name);
                 $offset = 2 + $var_method;
             }
-            for ($i = $offset; $i < 2 + $offset; $i++) {
+            for ($i = $offset; $i < 2 + $offset; $i ++) {
                 $class = self::$_extension_prefix[$i] . $postfix;
                 if (class_exists($class, true)) {
                     $obj = new $class();
@@ -1553,10 +1651,10 @@ class Smarty extends Smarty_Variable_Methods
     }
 
     /**
-     *
      * @internal
+     *
      * @param string $event string event
-     * @param mixed $data
+     * @param mixed  $data
      */
     public function _triggerTraceCallback($event, $data = array())
     {
@@ -1595,6 +1693,7 @@ class Smarty extends Smarty_Variable_Methods
      * Get Smarty property
      *
      * @param  string $property_name property name
+     *
      * @throws Smarty_Exception
      * @return mixed
      */
@@ -1613,7 +1712,7 @@ class Smarty extends Smarty_Variable_Methods
             case 'cached':
                 return $this->resourceStatus(self::CACHE);
             case 'mustCompile':
-                return !$this->isCompiled();
+                return ! $this->isCompiled();
 
         }
         switch ($property_name) {
@@ -1633,7 +1732,8 @@ class Smarty extends Smarty_Variable_Methods
      * Set Smarty property
      *
      * @param  string $property_name property name
-     * @param  mixed $value value
+     * @param  mixed  $value         value
+     *
      * @throws Smarty_Exception
      */
     public function __set($property_name, $value)
@@ -1670,7 +1770,8 @@ class Smarty extends Smarty_Variable_Methods
      *  - call generic getter/setter
      *
      * @param  string $name unknown method-name
-     * @param  array $args argument array
+     * @param  array  $args argument array
+     *
      * @throws Smarty_Exception
      * @return mixed    function results
      */
@@ -1681,7 +1782,7 @@ class Smarty extends Smarty_Variable_Methods
             array_unshift($args, $this);
             return call_user_func_array(array(self::$_autoloaded[$name], $name), $args);
         }
-        if ($name[0] != '_' && !isset(self::$_in_extension[$name])) {
+        if ($name[0] != '_' && ! isset(self::$_in_extension[$name])) {
             // see if this is a set/get for a property
             $first3 = strtolower(substr($name, 0, 3));
             if (isset(self::$_set_get_prefixes[$first3]) && isset($name[3]) && $name[3] !== '_') {
@@ -1710,6 +1811,7 @@ class Smarty extends Smarty_Variable_Methods
      * preg_replace callback to convert camelcase getter/setter to underscore property names
      *
      * @param  string $match match string
+     *
      * @return string replacemant
      */
     private function replaceCamelcase($match)

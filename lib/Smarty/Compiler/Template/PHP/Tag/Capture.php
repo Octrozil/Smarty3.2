@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Capture
- *
  * Compiles the {capture} tag
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Capture Class
- *
  *
  * @package Compiler
  */
@@ -45,8 +42,9 @@ class Smarty_Compiler_Template_Php_Tag_Capture extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {capture} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -75,7 +73,6 @@ class Smarty_Compiler_Template_Php_Tag_Capture extends Smarty_Compiler_Template_
 /**
  * Smarty Internal Plugin Compile Captureclose Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_CaptureClose extends Smarty_Compiler_Template_Php_Tag
@@ -84,8 +81,9 @@ class Smarty_Compiler_Template_Php_Tag_CaptureClose extends Smarty_Compiler_Temp
     /**
      * Compiles code for the {/capture} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)

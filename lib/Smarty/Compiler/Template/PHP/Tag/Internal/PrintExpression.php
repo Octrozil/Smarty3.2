@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Print Expression
- *
  * Compiles any tag which will output an expression or variable
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Print Expression Class
- *
  *
  * @package Compiler
  */
@@ -38,9 +35,10 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
     /**
      * Compiles code for gererting output from any expression
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @throws Smarty_Exception
      * @return string           compiled code
      */
@@ -67,17 +65,17 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
             // display value
             $output = $parameter['value'];
             // tag modifier
-            if (!empty($parameter['modifier_list'])) {
+            if (! empty($parameter['modifier_list'])) {
                 $output = $compiler->compileTag('Internal_Modifier', array(), array('modifier_list' => $parameter['modifier_list'], 'value' => $output));
             }
-            if (!$_attr['nofilter']) {
+            if (! $_attr['nofilter']) {
                 // default modifier
-                if (!empty($compiler->context->smarty->default_modifiers)) {
+                if (! empty($compiler->context->smarty->default_modifiers)) {
                     if (empty($compiler->default_modifier_list)) {
                         $modifierlist = array();
                         foreach ($compiler->context->smarty->default_modifiers as $key => $single_default_modifier) {
                             preg_match_all('/(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|:|[^:]+)/', $single_default_modifier, $mod_array);
-                            for ($i = 0, $count = count($mod_array[0]); $i < $count; $i++) {
+                            for ($i = 0, $count = count($mod_array[0]); $i < $count; $i ++) {
                                 if ($mod_array[0][$i] != ':') {
                                     $modifierlist[$key][] = $mod_array[0][$i];
                                 }
@@ -92,11 +90,11 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
                     $output = "htmlspecialchars({$output}, ENT_QUOTES, '" . addslashes(Smarty::$_CHARSET) . "')";
                 }
                 // loop over registerd filters
-                if (!empty($compiler->context->smarty->_registered['filter'][Smarty::FILTER_VARIABLE])) {
+                if (! empty($compiler->context->smarty->_registered['filter'][Smarty::FILTER_VARIABLE])) {
                     foreach ($compiler->context->smarty->_registered['filter'][Smarty::FILTER_VARIABLE] as $key => $function) {
                         if ($function instanceof Closure) {
                             $output = "\$this->smarty->_registered['filter'][Smarty::FILTER_VARIABLE]['{$key}']({$output},\$this->smarty)";
-                        } elseif (!is_array($function)) {
+                        } elseif (! is_array($function)) {
                             $output = "{$function}({$output},\$this->smarty)";
                         } elseif (is_object($function[0])) {
                             $output = "\$this->smarty->_registered['filter'][Smarty::FILTER_VARIABLE]['{$key}'][0]->{$function[1]}({$output},\$this->smarty)";
@@ -137,8 +135,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PrintExpression extends Smarty_C
 
     /**
      * @param  object $compiler compiler object
-     * @param  string $name name of variable filter
-     * @param  string $output embedded output
+     * @param  string $name     name of variable filter
+     * @param  string $output   embedded output
+     *
      * @return string
      */
     private function compile_output_filter($compiler, $name, $output)

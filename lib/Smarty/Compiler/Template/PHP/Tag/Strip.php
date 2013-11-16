@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Strip
- *
  * Compiles the {strip} {/strip} tags.
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Strip Class
- *
  *
  * @package Compiler
  */
@@ -21,11 +18,11 @@ class Smarty_Compiler_Template_Php_Tag_Strip extends Smarty_Compiler_Template_Ph
 
     /**
      * Compiles code for the {strip} tag
-     *
      * This tag does not generate compiled output. It only sets a compiler flag.
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return bool
      */
     public function compile($args, $compiler)
@@ -49,7 +46,6 @@ class Smarty_Compiler_Template_Php_Tag_Strip extends Smarty_Compiler_Template_Ph
 /**
  * Smarty Internal Plugin Compile Stripclose Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Stripclose extends Smarty_Compiler_Template_Php_Tag
@@ -57,11 +53,11 @@ class Smarty_Compiler_Template_Php_Tag_Stripclose extends Smarty_Compiler_Templa
 
     /**
      * Compiles code for the {/strip} tag
-     *
      * This tag does not generate compiled output. It only sets a compiler flag.
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return bool
      */
     public function compile($args, $compiler)

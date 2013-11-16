@@ -1,11 +1,10 @@
 <?php
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -19,7 +18,9 @@ class Smarty_Method_UnregisterDefaultVariableHandler
      * Unregisters a default variable handler
      *
      * @api
+     *
      * @param Smarty $smarty smarty object
+     *
      * @return Smarty
      */
     public function unregisterDefaultVariableHandler(Smarty $smarty)

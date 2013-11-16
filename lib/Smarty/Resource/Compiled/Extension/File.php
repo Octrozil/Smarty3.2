@@ -3,15 +3,14 @@
 /**
  * Smarty Resource Compiled File Plugin
  *
- *
  * @package Smarty\Resource\Compiled * @author Uwe Tews
  */
 
 /**
  * Smarty Resource Compiled File Extension
- *
- *
- *
+
+
+
  */
 class Smarty_Resource_Compiled_Extension_File
 {
@@ -19,11 +18,12 @@ class Smarty_Resource_Compiled_Extension_File
     /**
      * Delete compiled template file
      *
-     * @param  Smarty $smarty Smarty instance
-     * @param  string $template_resource template name
-     * @param  string $compile_id compile id
-     * @param  integer $exp_time expiration time
-     * @param  boolean $isConfig true if a config file
+     * @param  Smarty  $smarty            Smarty instance
+     * @param  string  $template_resource template name
+     * @param  string  $compile_id        compile id
+     * @param  integer $exp_time          expiration time
+     * @param  boolean $isConfig          true if a config file
+     *
      * @return integer number of template files deleted
      */
     public static function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time, $isConfig)
@@ -64,7 +64,8 @@ class Smarty_Resource_Compiled_Extension_File
         try {
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             // NOTE: UnexpectedValueException thrown for PHP >= 5.3
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             return 0;
         }
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
@@ -75,18 +76,18 @@ class Smarty_Resource_Compiled_Extension_File
             $_filepath = str_replace('\\', '/', (string)$_file);
 
             if ($_file->isDir()) {
-                if (!$_compile->isDot()) {
+                if (! $_compile->isDot()) {
                     // delete folder if empty
                     @rmdir($_file->getPathname());
                 }
             } else {
                 $unlink = false;
-                if ((!isset($_compile_id) || strpos($_filepath, $_compile_id_part) === 0)
-                    && (!isset($template_resource)
+                if ((! isset($_compile_id) || strpos($_filepath, $_compile_id_part) === 0)
+                    && (! isset($template_resource)
                         || (isset($_filepath[$_resource_part_1_length])
-                            && substr_compare($_filepath, $_resource_part_1, -$_resource_part_1_length, $_resource_part_1_length) == 0)
+                            && substr_compare($_filepath, $_resource_part_1, - $_resource_part_1_length, $_resource_part_1_length) == 0)
                         || (isset($_filepath[$_resource_part_2_length])
-                            && substr_compare($_filepath, $_resource_part_2, -$_resource_part_2_length, $_resource_part_2_length) == 0))
+                            && substr_compare($_filepath, $_resource_part_2, - $_resource_part_2_length, $_resource_part_2_length) == 0))
                 ) {
                     if (isset($exp_time)) {
                         if (time() - @filemtime($_filepath) >= $exp_time) {
@@ -98,7 +99,7 @@ class Smarty_Resource_Compiled_Extension_File
                 }
 
                 if ($unlink && @unlink($_filepath)) {
-                    $_count++;
+                    $_count ++;
                     if ($smarty->enable_trace) {
                         // notify listeners of deleted file
                         $smarty->_triggerTraceCallback('filesystem:delete', array($smarty, $_filepath));

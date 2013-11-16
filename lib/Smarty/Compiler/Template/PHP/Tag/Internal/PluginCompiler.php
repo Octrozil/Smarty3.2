@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Compiler Plugin
- *
  * Compiles code of a compiler plugin
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Compiler Plugin Class
- *
  *
  * @package Compiler
  */
@@ -38,11 +35,12 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginCompiler extends Smarty_Co
     /**
      * Compiles code for the execution of function plugin
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
-     * @param  string $tag name of function plugin
-     * @param  string $function PHP function name
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     * @param  string $tag       name of function plugin
+     * @param  string $function  PHP function name
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter, $tag, $function)
@@ -68,17 +66,17 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginCompiler extends Smarty_Co
         $plugin = 'smarty_compiler_' . $tag;
         if (isset($compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_COMPILER][$tag]) || isset($compiler->default_handler_plugins[Smarty::PLUGIN_COMPILER][$tag])) {
             if (isset($compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_COMPILER][$tag])) {
-                if (!$compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_COMPILER][$tag][1]) {
+                if (! $compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_COMPILER][$tag][1]) {
                     $this->tag_nocache = true;
                 }
                 $function = $compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_COMPILER][$tag][0];
             } else {
-                if (!$compiler->default_handler_plugins[Smarty::PLUGIN_COMPILER][$tag][1]) {
+                if (! $compiler->default_handler_plugins[Smarty::PLUGIN_COMPILER][$tag][1]) {
                     $this->tag_nocache = true;
                 }
                 $function = $compiler->default_handler_plugins[Smarty::PLUGIN_COMPILER][$tag][0];
             }
-            if (!is_array($function)) {
+            if (! is_array($function)) {
                 $raw_code = $function($new_args, $this);
             } elseif (is_object($function[0])) {
                 $raw_code = $compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_COMPILER][$tag][0][0]->$function[1]($new_args, $this);
@@ -119,7 +117,6 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginCompiler extends Smarty_Co
 /**
  * Smarty Internal Plugin Compile Compiler Plugin Close Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Internal_PluginCompilerClose extends Smarty_Compiler_Template_Php_Tag
@@ -144,11 +141,12 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginCompilerClose extends Smar
     /**
      * Compiles code for the execution of function plugin
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
-     * @param  string $tag name of function plugin
-     * @param  string $function PHP function name
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     * @param  string $tag       name of function plugin
+     * @param  string $function  PHP function name
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter, $tag, $function)
@@ -160,7 +158,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginCompilerClose extends Smar
         $_attr = $this->getAttributes($compiler, $args);
 
         $compiler->tag_nocache = $compiler->nocache;
-        $compiler->nocache = $this->closeTag($compiler, array(substr($tag, 0, -5)));
+        $compiler->nocache = $this->closeTag($compiler, array(substr($tag, 0, - 5)));
 
         $new_args = array();
 
@@ -171,7 +169,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginCompilerClose extends Smar
             } else {
                 $function = $compiler->default_handler_plugins[Smarty::PLUGIN_COMPILER][$tag][0];
             }
-            if (!is_array($function)) {
+            if (! is_array($function)) {
                 $raw_code = $function($new_args, $this);
             } elseif (is_object($function[0])) {
                 $raw_code = $compiler->context->smarty->_registered['plugin'][Smarty::PLUGIN_COMPILER][$tag][0][0]->$function[1]($new_args, $this);

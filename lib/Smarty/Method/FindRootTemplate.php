@@ -1,11 +1,10 @@
 <?php
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -19,7 +18,9 @@ class Smarty_Method_FindRootTemplate
      * Identify and get top-level template instance
      *
      * @api
+     *
      * @param Smarty $smarty smarty object
+     *
      * @return Smarty root template object
      */
     public function findRootTemplate(Smarty $smarty)

@@ -2,17 +2,14 @@
 
 /**
  * Smarty Template
- *
  * This file contains the basic shared methods for precessing content of compiled and cached templates
  *
- *
  * @package Smarty\Template
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Class Smarty Internal Template
- *
  * For backward compatibility to Smarty 3.1
  */
 class Smarty_Internal_Template extends Smarty_Variable_Methods
@@ -22,7 +19,6 @@ class Smarty_Internal_Template extends Smarty_Variable_Methods
 /**
  * Class Smarty Template
  *
- *
  * @package Smarty\Template
  */
 class  Smarty_Template extends Smarty_Internal_Template
@@ -30,6 +26,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * flag if class is valid
+     *
      * @var boolean
      * @internal
      */
@@ -37,6 +34,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * flag if class was updated
+     *
      * @var boolean
      * @internal
      */
@@ -44,24 +42,28 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * Smarty object
+     *
      * @var Smarty
      */
     public $smarty = null;
 
     /**
      * Parent object
+     *
      * @var Smarty|Smarty_Data|Smarty_Template
      */
     public $parent = null;
 
     /**
      * Context object
+     *
      * @var Smarty_Context
      */
     public $context = null;
 
     /**
      * Local variable scope
+     *
      * @var Smarty_Variable_Scope
      */
     public $_tpl_vars = null;
@@ -76,6 +78,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * flag if class is from cache file
+     *
      * @var boolean
      * @internal
      */
@@ -83,6 +86,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * flag if content does contain nocache code
+     *
      * @var boolean
      * @internal
      */
@@ -90,6 +94,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * saved cache lifetime
+     *
      * @var int
      * @internal
      */
@@ -97,6 +102,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * names of cached subtemplates
+     *
      * @var array
      * @internal
      */
@@ -104,6 +110,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * required plugins
+     *
      * @var array
      * @internal
      */
@@ -111,6 +118,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * required plugins of nocache code
+     *
      * @var array
      * @internal
      */
@@ -125,6 +133,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * template functions called nocache
+     *
      * @var array
      */
     public $called_nocache_template_functions = array();
@@ -138,6 +147,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * Smarty version class was compiled with
+     *
      * @var string
      * @internal
      */
@@ -152,6 +162,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * Timestamp
+     *
      * @var integer
      */
     public $timestamp = null;
@@ -165,30 +176,35 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * Template Compile Id (Smarty::$compile_id)
+     *
      * @var string
      */
     public $compile_id = null;
 
     /**
      * Template Cache Id (Smarty::cache_id)
+     *
      * @var string
      */
     public $cache_id = null;
 
     /**
      * Flag if caching enabled
+     *
      * @var boolean
      */
     public $caching = false;
 
     /**
      * Array of template functions
+     *
      * @var array
      */
     public $template_functions = array();
 
     /**
      * internal capture runtime stack
+     *
      * @var array
      */
     public $_capture_stack = array(0 => array());
@@ -202,6 +218,7 @@ class  Smarty_Template extends Smarty_Internal_Template
 
     /**
      * call stack
+     *
      * @var array
      */
     public static $call_stack = array();
@@ -215,7 +232,7 @@ class  Smarty_Template extends Smarty_Internal_Template
     {
         $this->smarty = $context->smarty;
         $this->context = $context;
-        if (!$this->isValid) {
+        if (! $this->isValid) {
             // check if class is still valid
             if ($this->version != Smarty::SMARTY_VERSION) {
                 // not valid because new Smarty version
@@ -226,7 +243,7 @@ class  Smarty_Template extends Smarty_Internal_Template
                 return;
             }
 
-            if ((!$this->is_cache && $this->smarty->compile_check) || ($this->is_cache && ($this->smarty->compile_check === true || $this->smarty->compile_check === Smarty::COMPILECHECK_ON)) && !empty($this->file_dependency)) {
+            if ((! $this->is_cache && $this->smarty->compile_check) || ($this->is_cache && ($this->smarty->compile_check === true || $this->smarty->compile_check === Smarty::COMPILECHECK_ON)) && ! empty($this->file_dependency)) {
                 foreach ($this->file_dependency as $_file_to_check) {
                     if ($_file_to_check[2] == 'file' || $_file_to_check[2] == 'php') {
                         if ($this->context->filepath == $_file_to_check[0]) {
@@ -242,25 +259,25 @@ class  Smarty_Template extends Smarty_Internal_Template
                         $context = new Smarty_Context($this->smarty, $_file_to_check[0], $_file_to_check[2]);
                         $mtime = $context->timestamp;
                     }
-                    if (!$mtime || $mtime > $_file_to_check[1]) {
+                    if (! $mtime || $mtime > $_file_to_check[1]) {
                         // not valid because newer dependent resource/file
                         return;
                     }
                 }
             }
             foreach ($this->required_plugins as $file => $call) {
-                if (!is_callable($call)) {
+                if (! is_callable($call)) {
                     include $file;
                 }
             }
             $this->isValid = true;
         }
-        if (!$this->is_cache) {
+        if (! $this->is_cache) {
 //            if (!empty($this->template_functions) && isset($this->parent) && $this->parent->_usage == Smarty::IS_TEMPLATE) {
 //                $this->parent->template_function_chain = $this;
 //            }
             // TODO template function chain
-            if (!empty($this->template_functions)) {
+            if (! empty($this->template_functions)) {
                 $this->smarty->template_functions = array_merge($this->smarty->template_functions, $this->template_functions);
             }
         }
@@ -269,8 +286,9 @@ class  Smarty_Template extends Smarty_Internal_Template
     /**
      * get rendered template output from compiled template
      *
-     * @param Smarty_Context $context
+     * @param Smarty_Context         $context
      * @param  Smarty_Template_Scope $_scope
+     *
      * @throws Exception
      * @return string
      */
@@ -318,7 +336,7 @@ class  Smarty_Template extends Smarty_Internal_Template
                 $this->smarty->_triggerTraceCallback('render:time:start', array($this));
             }
             $output = $this->_renderTemplate($template_scope);
-            if (!$context->no_output_filter && (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->_registered['filter']['output']))) {
+            if (! $context->no_output_filter && (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->_registered['filter']['output']))) {
                 $output = $this->smarty->runFilter('output', $output, $this);
             }
             if ($this->smarty->enable_trace && isset(Smarty::$_trace_callbacks['render:time:end'])) {
@@ -337,7 +355,8 @@ class  Smarty_Template extends Smarty_Internal_Template
                 throw new Smarty_Exception_CaptureError();
             }
             array_shift($this->_capture_stack);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
@@ -361,10 +380,11 @@ class  Smarty_Template extends Smarty_Internal_Template
     /**
      * Template runtime function to call a template function
      *
-     * @param  string $name name of template function
+     * @param  string                $name   name of template function
      * @param  Smarty_Template_Scope $_scope
-     * @param  array $params array with calling parameter
-     * @param  string $assign optional template variable for result
+     * @param  array                 $params array with calling parameter
+     * @param  string                $assign optional template variable for result
+     *
      * @throws Smarty_Exception_Runtime
      * @return bool
      */
@@ -378,7 +398,7 @@ class  Smarty_Template extends Smarty_Internal_Template
             foreach ($template_object->template_functions[$name]['parameter'] as $key => $value) {
                 $this->_tpl_vars->$key = new Smarty_Variable($value);
             }
-            if (!empty($assign)) {
+            if (! empty($assign)) {
                 ob_start();
             }
             $func_name = "_renderTemplateFunction_{$name}";
@@ -386,7 +406,7 @@ class  Smarty_Template extends Smarty_Internal_Template
             $restore = array_pop(self::$call_stack);
             $this->_tpl_vars = $_scope->_tpl_vars = $restore[1];
             $this->scope_type = $restore[3];
-            if (!empty($assign)) {
+            if (! empty($assign)) {
                 $this->_tpl_vars->$assign = ob_get_clean();
             }
             return;
@@ -398,6 +418,7 @@ class  Smarty_Template extends Smarty_Internal_Template
      * [util function] counts an array, arrayaccess/traversable or PDOStatement object
      *
      * @param  mixed $value
+     *
      * @return int   the count for arrays and objects that implement countable, 1 for other objects that don't, and 0 for empty elements
      */
     public function _count($value)
@@ -429,8 +450,8 @@ class  Smarty_Template extends Smarty_Internal_Template
      * Template code runtime function to create a local Smarty variable for array assignments
      *
      * @param string $varname template variable name
-     * @param bool $nocache cache mode of variable
-     * @param int $scope_type
+     * @param bool   $nocache cache mode of variable
+     * @param int    $scope_type
      */
     public function _createLocalArrayVariable($varname, $nocache = false, $scope_type = Smarty::SCOPE_LOCAL)
     {
@@ -439,7 +460,7 @@ class  Smarty_Template extends Smarty_Internal_Template
         if (isset($_scope->{$varname})) {
             $variable_obj = clone $_scope->{$varname};
             $variable_obj->nocache = $nocache;
-            if (!(is_array($variable_obj->value) || $variable_obj->value instanceof ArrayAccess)) {
+            if (! (is_array($variable_obj->value) || $variable_obj->value instanceof ArrayAccess)) {
                 settype($variable_obj->value, 'array');
             }
         } else {
@@ -452,15 +473,16 @@ class  Smarty_Template extends Smarty_Internal_Template
     /**
      * Template code runtime function to get subtemplate content
      *
-     * @param  string $template_resource the resource handle of the template file
-     * @param  mixed $cache_id cache id to be used with this template
-     * @param  mixed $compile_id compile id to be used with this template
-     * @param  integer $caching cache mode
-     * @param  integer $cache_lifetime life time of cache data
-     * @param  array $data array with parameter template variables
-     * @param  int $scope_type scope in which {include} should execute
+     * @param  string                $template_resource the resource handle of the template file
+     * @param  mixed                 $cache_id          cache id to be used with this template
+     * @param  mixed                 $compile_id        compile id to be used with this template
+     * @param  integer               $caching           cache mode
+     * @param  integer               $cache_lifetime    life time of cache data
+     * @param  array                 $data              array with parameter template variables
+     * @param  int                   $scope_type        scope in which {include} should execute
      * @param  Smarty_Template_Scope $_scope
-     * @param  string $content_class optional name of inline content class
+     * @param  string                $content_class     optional name of inline content class
+     *
      * @throws Smarty_Exception_SourceNotFound
      * @return string                template content
      */
@@ -472,7 +494,7 @@ class  Smarty_Template extends Smarty_Internal_Template
         //get source object from cache  or create new one
         $context = $this->smarty->_getContext($template_resource, $cache_id, $compile_id, $this, false, false, $data, $scope_type, $caching, $cache_lifetime);
         // checks if source exists
-        if (!$context->exists) {
+        if (! $context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
         }
         if ($caching == Smarty::CACHING_NOCACHE_CODE) {
@@ -489,12 +511,13 @@ class  Smarty_Template extends Smarty_Internal_Template
      * cachevalue optionflag of {assign} tag
      *
      * @param  mixed $var Smarty variable value
+     *
      * @throws Smarty_Exception
      * @return string           PHP inline code
      */
     public function _exportCacheValue($var)
     {
-        if (is_int($var) || is_float($var) || is_bool($var) || is_string($var) || (is_array($var) && !is_object($var) && !array_reduce($var, array($this, '_checkAarrayCallback')))) {
+        if (is_int($var) || is_float($var) || is_bool($var) || is_string($var) || (is_array($var) && ! is_object($var) && ! array_reduce($var, array($this, '_checkAarrayCallback')))) {
             return var_export($var, true);
         }
         if (is_resource($var)) {
@@ -507,8 +530,9 @@ class  Smarty_Template extends Smarty_Internal_Template
     /**
      * callback used by _export_cache_value to check arrays recursively
      *
-     * @param  bool $flag status of previous elements
+     * @param  bool  $flag    status of previous elements
      * @param  mixed $element array element to check
+     *
      * @throws Smarty_Exception
      * @return bool             status
      */
@@ -517,7 +541,7 @@ class  Smarty_Template extends Smarty_Internal_Template
         if (is_resource($element)) {
             throw new Smarty_Exception('Cannot serialize resource');
         }
-        $flag = $flag || is_object($element) || (!is_int($element) && !is_float($element) && !is_bool($element) && !is_string($element) && (is_array($element) && array_reduce($element, array($this, '_checkAarrayCallback'))));
+        $flag = $flag || is_object($element) || (! is_int($element) && ! is_float($element) && ! is_bool($element) && ! is_string($element) && (is_array($element) && array_reduce($element, array($this, '_checkAarrayCallback'))));
 
         return $flag;
     }
@@ -527,7 +551,8 @@ class  Smarty_Template extends Smarty_Internal_Template
      *  - try to Smarty methods
      *
      * @param  string $name unknown method-name
-     * @param  array $args argument array
+     * @param  array  $args argument array
+     *
      * @return mixed    function results
      */
     public function __call($name, $args)

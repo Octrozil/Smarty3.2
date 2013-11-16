@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Modifier
- *
  * Compiles code for modifier execution
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Modifier Class
- *
  *
  * @package Compiler
  */
@@ -22,9 +19,10 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
     /**
      * Compiles code for modifier execution
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -52,7 +50,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                             $object = $this->testParameter($modifier, $function, $single_modifier, $compiler);
                             if ($function instanceof Closure) {
                                 $output = '$this->smarty->_registered[\'plugin\'][Smarty::PLUGIN_MODIFIER][\'' . $modifier . '\'][0](' . $object . $params . ')';
-                            } elseif (!is_array($function)) {
+                            } elseif (! is_array($function)) {
                                 $output = "{$function}({$object}{$params})";
                             } else {
                                 if (is_object($function[0])) {
@@ -77,7 +75,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                         // modifiercompiler plugin
                         if ($compiler->context->smarty->_loadPlugin('smarty_modifiercompiler_' . $modifier)) {
                             // check if modifier allowed
-                            if (!is_object($compiler->context->smarty->security_policy) || $compiler->context->smarty->security_policy->isTrustedModifier($modifier, $compiler)) {
+                            if (! is_object($compiler->context->smarty->security_policy) || $compiler->context->smarty->security_policy->isTrustedModifier($modifier, $compiler)) {
                                 $plugin = 'smarty_modifiercompiler_' . $modifier;
                                 if ($this->getNoOfRequiredParameter($plugin) == 0) {
                                     // NOTE: This covers the modifier like 'default' and 'cat' which can take any number of parameter
@@ -101,7 +99,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                         if ($function = $compiler->getPlugin($modifier, Smarty::PLUGIN_MODIFIER)) {
                             $object = $this->testParameter($modifier, $function, $single_modifier, $compiler);
                             // check if modifier allowed
-                            if (!is_object($compiler->context->smarty->security_policy) || $compiler->context->smarty->security_policy->isTrustedModifier($modifier, $compiler)) {
+                            if (! is_object($compiler->context->smarty->security_policy) || $compiler->context->smarty->security_policy->isTrustedModifier($modifier, $compiler)) {
                                 $output = "{$function}({$object}{$params})";
                             }
                             $compiler->known_modifier_type[$modifier] = $type;
@@ -113,7 +111,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                         if (is_callable($modifier)) {
                             $object = $this->testParameter($modifier, $modifier, $single_modifier, $compiler);
                             // check if modifier allowed
-                            if (!is_object($compiler->context->smarty->security_policy) || $compiler->context->smarty->security_policy->isTrustedPhpModifier($modifier, $compiler)) {
+                            if (! is_object($compiler->context->smarty->security_policy) || $compiler->context->smarty->security_policy->isTrustedPhpModifier($modifier, $compiler)) {
                                 $output = "{$modifier}({$object}{$params})";
                             }
                             $compiler->known_modifier_type[$modifier] = $type;
@@ -129,8 +127,8 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                             //if ($function instanceof Callable) {
                             if (false) {
                                 // TODO default_handler_plugins closure
-                            } elseif (!is_object($compiler->context->smarty->security_policy) || $compiler->context->smarty->security_policy->isTrustedModifier($modifier, $compiler)) {
-                                if (!is_array($function)) {
+                            } elseif (! is_object($compiler->context->smarty->security_policy) || $compiler->context->smarty->security_policy->isTrustedModifier($modifier, $compiler)) {
+                                if (! is_array($function)) {
                                     $output = "{$function}({$params})";
                                 } else {
                                     if (is_object($function[0])) {
@@ -150,7 +148,7 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
                         }
                 }
             }
-            if (!isset($compiler->known_modifier_type[$modifier])) {
+            if (! isset($compiler->known_modifier_type[$modifier])) {
                 $compiler->error("unknown modifier \"" . $modifier . "\"", $compiler->lex->taglineno);
             }
         }
@@ -161,10 +159,11 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
     /**
      * Check number of required modifier parameter oand optionally return context object
      *
-     * @param  string $modifier modifier name
+     * @param  string   $modifier modifier name
      * @param  callback $callback modifier callback
-     * @param  array $params parameter array
-     * @param  object $compiler compiler object
+     * @param  array    $params   parameter array
+     * @param  object   $compiler compiler object
+     *
      * @return string   variable with context object or empty
      */
     private function testParameter($modifier, $callback, $params, $compiler)
@@ -187,12 +186,12 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Modifier extends Smarty_Compiler
             $i = 0;
             $names = array();
             foreach ($parameters as $parameter) {
-                $i++;
-                if ($i > $no_supplied && !$parameter->isOptional()) {
+                $i ++;
+                if ($i > $no_supplied && ! $parameter->isOptional()) {
                     $names[] = $parameter->getName();
                 }
             }
-            if (!empty($names)) {
+            if (! empty($names)) {
                 $names = join(', ', $names);
                 $compiler->error("Modifier '{$modifier}': Missing required parameter '{$names}'", $compiler->lex->taglineno);
             }

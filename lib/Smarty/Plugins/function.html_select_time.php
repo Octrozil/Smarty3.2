@@ -16,19 +16,20 @@ require_once(Smarty::$_SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
 
 /**
  * Smarty {html_select_time} function plugin
- *
  * Type:     function<br>
  * Name:     html_select_time<br>
  * Purpose:  Prints the dropdowns for time selection
  *
- * @link http://www.smarty.net/docs/en/language.function.html.select.time.tpl {html_select_time}
+ * @link    http://www.smarty.net/docs/en/language.function.html.select.time.tpl {html_select_time}
  *          (Smarty online manual)
- * @author Roberto Berto <roberto@berto.net>
- * @author Monte Ohrt <monte AT ohrt DOT com>
- * @param array $params parameters
+ * @author  Roberto Berto <roberto@berto.net>
+ * @author  Monte Ohrt <monte AT ohrt DOT com>
+ *
+ * @param array  $params  parameters
  * @param Smarty $tpl_obj template object
+ *
  * @return string
- * @uses smarty_make_timestamp()
+ * @uses    smarty_make_timestamp()
  */
 function smarty_function_html_select_time($params, $tpl_obj)
 {
@@ -81,7 +82,7 @@ function smarty_function_html_select_time($params, $tpl_obj)
     foreach ($params as $_key => $_value) {
         switch ($_key) {
             case 'time':
-                if (!is_array($_value) && $_value !== null) {
+                if (! is_array($_value) && $_value !== null) {
                     $time = smarty_make_timestamp($_value);
                 }
                 break;
@@ -138,7 +139,7 @@ function smarty_function_html_select_time($params, $tpl_obj)
                 break;
 
             default:
-                if (!is_array($_value)) {
+                if (! is_array($_value)) {
                     $extra_attrs .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_value) . '"';
                 } else {
                     trigger_error("html_select_date: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
@@ -209,12 +210,12 @@ function smarty_function_html_select_time($params, $tpl_obj)
 
         $start = $use_24_hours ? 0 : 1;
         $end = $use_24_hours ? 23 : 12;
-        for ($i = $start; $i <= $end; $i++) {
+        for ($i = $start; $i <= $end; $i ++) {
             $_val = sprintf('%02d', $i);
             $_text = $hour_format == '%02d' ? $_val : sprintf($hour_format, $i);
             $_value = $hour_value_format == '%02d' ? $_val : sprintf($hour_value_format, $i);
 
-            if (!$use_24_hours) {
+            if (! $use_24_hours) {
                 $_hour12 = $_hour == 0 ? 12 : ($_hour <= 12 ? $_hour : $_hour - 12);
             }
 
@@ -308,7 +309,7 @@ function smarty_function_html_select_time($params, $tpl_obj)
     }
 
     // generate meridian <select>
-    if ($display_meridian && !$use_24_hours) {
+    if ($display_meridian && ! $use_24_hours) {
         $_html_meridian = '';
         $_extra = '';
         $_name = $field_array ? ($field_array . '[' . $prefix . 'Meridian]') : ($prefix . 'Meridian');

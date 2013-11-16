@@ -1,11 +1,11 @@
 <?php
 /**
  * Smarty Config Lexer
- *
  * This is the lexer to break the config file source into tokens
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage Config
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 /**
  * Smarty Compiler Config Lexer
@@ -88,17 +88,17 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
             if ($this->mbstring_overload ? preg_match($yy_global_pattern, mb_substr($this->data, $this->counter, 2000000000, 'latin1'), $yymatches) : preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
-                if (!count($yymatches)) {
+                if (! count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                        ' an empty string.  Input "' . substr($this->data,
-                            $this->counter, 5) . '... state BOM');
+                                        ' an empty string.  Input "' . substr($this->data,
+                                                                              $this->counter, 5) . '... state BOM');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
                     $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                        $tokenMap[$this->token]);
+                                                $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -124,7 +124,7 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
-                    ': ' . $this->data[$this->counter]);
+                                    ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -170,17 +170,17 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
             if ($this->mbstring_overload ? preg_match($yy_global_pattern, mb_substr($this->data, $this->counter, 2000000000, 'latin1'), $yymatches) : preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
-                if (!count($yymatches)) {
+                if (! count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                        ' an empty string.  Input "' . substr($this->data,
-                            $this->counter, 5) . '... state START');
+                                        ' an empty string.  Input "' . substr($this->data,
+                                                                              $this->counter, 5) . '... state START');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
                     $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                        $tokenMap[$this->token]);
+                                                $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -206,7 +206,7 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
-                    ': ' . $this->data[$this->counter]);
+                                    ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -290,17 +290,17 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
             if ($this->mbstring_overload ? preg_match($yy_global_pattern, mb_substr($this->data, $this->counter, 2000000000, 'latin1'), $yymatches) : preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
-                if (!count($yymatches)) {
+                if (! count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                        ' an empty string.  Input "' . substr($this->data,
-                            $this->counter, 5) . '... state VALUE');
+                                        ' an empty string.  Input "' . substr($this->data,
+                                                                              $this->counter, 5) . '... state VALUE');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
                     $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                        $tokenMap[$this->token]);
+                                                $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -326,7 +326,7 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
-                    ': ' . $this->data[$this->counter]);
+                                    ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -380,7 +380,7 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
     function yy_r3_7($yy_subpatterns)
     {
 
-        if (!$this->compiler->context->smarty->config_booleanize || !in_array(strtolower($this->value), Array("true", "false", "on", "off", "yes", "no"))) {
+        if (! $this->compiler->context->smarty->config_booleanize || ! in_array(strtolower($this->value), Array("true", "false", "on", "off", "yes", "no"))) {
             $this->yypopstate();
             $this->yypushstate(self::NAKED_STRING_VALUE);
             return true; //reprocess in new state
@@ -420,17 +420,17 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
             if ($this->mbstring_overload ? preg_match($yy_global_pattern, mb_substr($this->data, $this->counter, 2000000000, 'latin1'), $yymatches) : preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
-                if (!count($yymatches)) {
+                if (! count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                        ' an empty string.  Input "' . substr($this->data,
-                            $this->counter, 5) . '... state NAKED_STRING_VALUE');
+                                        ' an empty string.  Input "' . substr($this->data,
+                                                                              $this->counter, 5) . '... state NAKED_STRING_VALUE');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
                     $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                        $tokenMap[$this->token]);
+                                                $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -456,7 +456,7 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
-                    ': ' . $this->data[$this->counter]);
+                                    ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -490,17 +490,17 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
             if ($this->mbstring_overload ? preg_match($yy_global_pattern, mb_substr($this->data, $this->counter, 2000000000, 'latin1'), $yymatches) : preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
-                if (!count($yymatches)) {
+                if (! count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                        ' an empty string.  Input "' . substr($this->data,
-                            $this->counter, 5) . '... state COMMENT');
+                                        ' an empty string.  Input "' . substr($this->data,
+                                                                              $this->counter, 5) . '... state COMMENT');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
                     $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                        $tokenMap[$this->token]);
+                                                $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -526,7 +526,7 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
-                    ': ' . $this->data[$this->counter]);
+                                    ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -571,17 +571,17 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
             if ($this->mbstring_overload ? preg_match($yy_global_pattern, mb_substr($this->data, $this->counter, 2000000000, 'latin1'), $yymatches) : preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
-                if (!count($yymatches)) {
+                if (! count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                        ' an empty string.  Input "' . substr($this->data,
-                            $this->counter, 5) . '... state SECTION');
+                                        ' an empty string.  Input "' . substr($this->data,
+                                                                              $this->counter, 5) . '... state SECTION');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
                     $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                        $tokenMap[$this->token]);
+                                                $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -607,7 +607,7 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
-                    ': ' . $this->data[$this->counter]);
+                                    ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -646,17 +646,17 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
             if ($this->mbstring_overload ? preg_match($yy_global_pattern, mb_substr($this->data, $this->counter, 2000000000, 'latin1'), $yymatches) : preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
-                if (!count($yymatches)) {
+                if (! count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                        ' an empty string.  Input "' . substr($this->data,
-                            $this->counter, 5) . '... state TRIPPLE');
+                                        ' an empty string.  Input "' . substr($this->data,
+                                                                              $this->counter, 5) . '... state TRIPPLE');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
                     $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                        $tokenMap[$this->token]);
+                                                $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -682,7 +682,7 @@ class Smarty_Compiler_Config_Lexer extends Smarty_Exception_Magic
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
-                    ': ' . $this->data[$this->counter]);
+                                    ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);

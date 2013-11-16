@@ -3,26 +3,26 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsModifier
  */
 
 /**
  * Smarty escape modifier plugin
  * NOTE: This plugin is called only when smarty_modifiercompiler_escape() is not able to produce inline code
- *
  * Type:     modifier<br>
  * Name:     escape<br>
  * Purpose:  escape string for output
  *
- * @link http://www.smarty.net/docs/en/language.modifier.escape.tpl (Smarty online manual)
+ * @link   http://www.smarty.net/docs/en/language.modifier.escape.tpl (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
  *
- * @param Smarty $tpl_obj template object
- * @param string $string input string
- * @param string $esc_type escape type
- * @param string $char_set character set, used for htmlspecialchars() or htmlentities()
+ * @param Smarty  $tpl_obj       template object
+ * @param string  $string        input string
+ * @param string  $esc_type      escape type
+ * @param string  $char_set      character set, used for htmlspecialchars() or htmlentities()
  * @param boolean $double_encode encode already encoded entitites again, used for htmlspecialchars() or htmlentities()
+ *
  * @throws Smarty_Exception_Runtime
  * @return string escaped input string
  */
@@ -32,7 +32,7 @@ function smarty_modifier_escape(Smarty $tpl_obj, $string, $esc_type = 'html', $c
     if ($_double_encode === null) {
         $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');
     }
-    if (!$char_set) {
+    if (! $char_set) {
         $char_set = Smarty::$_CHARSET;
     }
 
@@ -108,7 +108,7 @@ function smarty_modifier_escape(Smarty $tpl_obj, $string, $esc_type = 'html', $c
             // Note that the UTF-8 encoded character ä will be represented as %c3%a4
             $return = '';
             $_length = strlen($string);
-            for ($x = 0; $x < $_length; $x++) {
+            for ($x = 0; $x < $_length; $x ++) {
                 $return .= '%' . bin2hex($string[$x]);
             }
 
@@ -127,7 +127,7 @@ function smarty_modifier_escape(Smarty $tpl_obj, $string, $esc_type = 'html', $c
             }
             // no MBString fallback
             $_length = strlen($string);
-            for ($x = 0; $x < $_length; $x++) {
+            for ($x = 0; $x < $_length; $x ++) {
                 $return .= '&#x' . bin2hex($string[$x]) . ';';
             }
 
@@ -146,7 +146,7 @@ function smarty_modifier_escape(Smarty $tpl_obj, $string, $esc_type = 'html', $c
             }
             // no MBString fallback
             $_length = strlen($string);
-            for ($x = 0; $x < $_length; $x++) {
+            for ($x = 0; $x < $_length; $x ++) {
                 $return .= '&#' . ord($string[$x]) . ';';
             }
 
@@ -182,7 +182,7 @@ function smarty_modifier_escape(Smarty $tpl_obj, $string, $esc_type = 'html', $c
             }
 
             $_length = strlen($string);
-            for ($_i = 0; $_i < $_length; $_i++) {
+            for ($_i = 0; $_i < $_length; $_i ++) {
                 $_ord = ord(substr($string, $_i, 1));
                 // non-standard char, escape it
                 if ($_ord >= 126) {

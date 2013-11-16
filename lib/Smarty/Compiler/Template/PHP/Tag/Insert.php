@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Insert
- *
  * Compiles the {insert} tag
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Insert Class
- *
  *
  * @package Compiler
  */
@@ -46,8 +43,9 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
     /**
      * Compiles code for the {insert} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -75,7 +73,7 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
             $_function = "smarty_insert_{$_name}";
             $_filepath = false;
             eval('$_script = ' . $_attr['script'] . ';');
-            if (!isset($compiler->context->smarty->security_policy) && is_file($_script)) {
+            if (! isset($compiler->context->smarty->security_policy) && is_file($_script)) {
                 $_filepath = $_script;
             } else {
                 if (isset($compiler->context->smarty->security_policy)) {
@@ -83,7 +81,7 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
                 } else {
                     $_dir = $compiler->context->smarty->trusted_dir;
                 }
-                if (!empty($_dir)) {
+                if (! empty($_dir)) {
                     foreach ((array)$_dir as $_script_dir) {
                         $_script_dir = rtrim($_script_dir, '/\\') . '/';
                         if (is_file($_script_dir . $_script)) {
@@ -99,15 +97,15 @@ class Smarty_Compiler_Template_Php_Tag_Insert extends Smarty_Compiler_Template_P
             // code for script file loading
             $this->php("require_once '{$_filepath}';")->newline();
             require_once $_filepath;
-            if (!is_callable($_function)) {
+            if (! is_callable($_function)) {
                 $compiler->error(" {insert} function '{$_function}' is not callable in script file '{$_script}'", $compiler->lex->taglineno);
             }
         } else {
             $_function = "insert_{$_name}";
             // function in PHP script ?
-            if (!is_callable($_function)) {
+            if (! is_callable($_function)) {
                 // try plugin
-                if (!$_function = $compiler->getPlugin($_name, 'insert')) {
+                if (! $_function = $compiler->getPlugin($_name, 'insert')) {
                     $compiler->error("{insert} no function or plugin found for '{$_name}'", $compiler->lex->taglineno);
                 }
             }

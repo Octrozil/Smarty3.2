@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,14 +19,16 @@ class Smarty_Method_RegisterFilter
      * Registers a filter function
      *
      * @api
-     * @param Smarty $smarty smarty object
+     *
+     * @param Smarty    $smarty smarty object
      * @param  callback $callback
+     *
      * @throws Smarty_Exception
      * @return Smarty
      */
     public function registerFilter(Smarty $smarty, $type, $callback)
     {
-        if (!in_array($type, array('pre', 'post', 'output', 'variable'))) {
+        if (! in_array($type, array('pre', 'post', 'output', 'variable'))) {
             throw new Smarty_Exception("registerFilter(): Invalid filter type \"{$type}\"");
         }
         if (is_callable($callback)) {
@@ -50,7 +51,9 @@ class Smarty_Method_RegisterFilter
      * Return internal filter name
      *
      * @internal
+     *
      * @param  callback $function_name
+     *
      * @return string
      */
     public function _getFilterName($function_name)

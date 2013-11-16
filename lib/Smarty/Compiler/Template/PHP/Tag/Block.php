@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Block
- *
  * Compiles the {block}{/block} tags
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Block Class
- *
  *
  * @package Compiler
  */
@@ -46,8 +43,9 @@ class Smarty_Compiler_Template_Php_Tag_Block extends Smarty_Compiler_Template_Ph
     /**
      * Compiles code for the {block} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return boolean true
      */
     public function compile($args, $compiler)
@@ -66,11 +64,11 @@ class Smarty_Compiler_Template_Php_Tag_Block extends Smarty_Compiler_Template_Ph
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
 
         //nesting level
-        $compiler->block_nesting_level++;
+        $compiler->block_nesting_level ++;
         if ($compiler->block_nesting_level == 1) {
             $int_name = $name;
         } else {
-            $compiler->block_name_index++;
+            $compiler->block_name_index ++;
             $int_name = $name . '_' . $compiler->block_name_index;
         }
         array_unshift($compiler->block_nesting_info, array('name' => $name, 'int_name' => $int_name, 'function' => '_renderInteritanceBlock_' . $int_name . '_' . str_replace('.', '_', uniqid('', true))));
@@ -86,7 +84,6 @@ class Smarty_Compiler_Template_Php_Tag_Block extends Smarty_Compiler_Template_Ph
 /**
  * Smarty Internal Plugin Compile BlockClose Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Blockclose extends Smarty_Compiler_Template_Php_Tag
@@ -95,8 +92,9 @@ class Smarty_Compiler_Template_Php_Tag_Blockclose extends Smarty_Compiler_Templa
     /**
      * Compiles code for the {/block} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -128,10 +126,14 @@ class Smarty_Compiler_Template_Php_Tag_Blockclose extends Smarty_Compiler_Templa
             }
         }
 
-        if ($saved_data[0]['hide']) $compiler->block_nesting_info[0]['hide'] = true;
-        if ($saved_data[0]['prepend']) $compiler->block_nesting_info[0]['prepend'] = true;
-        if ($saved_data[0]['append']) $compiler->block_nesting_info[0]['append'] = true;
-        if ($saved_data[0]['overwrite']) $compiler->block_nesting_info[0]['overwrite'] = true;
+        if ($saved_data[0]['hide'])
+            $compiler->block_nesting_info[0]['hide'] = true;
+        if ($saved_data[0]['prepend'])
+            $compiler->block_nesting_info[0]['prepend'] = true;
+        if ($saved_data[0]['append'])
+            $compiler->block_nesting_info[0]['append'] = true;
+        if ($saved_data[0]['overwrite'])
+            $compiler->block_nesting_info[0]['overwrite'] = true;
 
         $block_code = new Smarty_Compiler_Code(2);
         $block_code->php("public function " . $compiler->block_nesting_info[0]['function'] . " (\$this->smarty, \$_scope) {")->newline()->indent();
@@ -175,7 +177,7 @@ class Smarty_Compiler_Template_Php_Tag_Blockclose extends Smarty_Compiler_Templa
         }
         $compiler->inheritance_blocks[$int_name] = $compiler->block_nesting_info[0];
         array_shift($compiler->block_nesting_info);
-        $compiler->block_nesting_level--;
+        $compiler->block_nesting_level --;
 
         $compiler->has_nocache_code = $compiler->has_nocache_code | $saved_data[4];
 
@@ -189,7 +191,6 @@ class Smarty_Compiler_Template_Php_Tag_Blockclose extends Smarty_Compiler_Templa
 /**
  * Smarty Internal Plugin Compile Block Parent Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Internal_Block_Parent extends Smarty_Compiler_Template_Php_Tag
@@ -198,8 +199,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Block_Parent extends Smarty_Comp
     /**
      * Compiles code for the {$smart.block.parent} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -222,7 +224,6 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Block_Parent extends Smarty_Comp
 /**
  * Smarty Internal Plugin Compile Block Parent Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Internal_Block_Child extends Smarty_Compiler_Template_Php_Tag
@@ -231,8 +232,9 @@ class Smarty_Compiler_Template_Php_Tag_Internal_Block_Child extends Smarty_Compi
     /**
      * Compiles code for the {$smart.block.child} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)

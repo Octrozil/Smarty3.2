@@ -3,23 +3,23 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
 
 /**
  * Smarty count_characters modifier plugin
- *
  * Type:     modifier<br>
  * Name:     count_characteres<br>
  * Purpose:  count the number of characters in a text
  *
- * @link http://www.smarty.net/docs/en/language.modifier.count.characters.tpl count_characters (Smarty online manual)
+ * @link   http://www.smarty.net/docs/en/language.modifier.count.characters.tpl count_characters (Smarty online manual)
  * @author Uwe Tews
  *
- * @param  Smarty_Compiler_Template_Php_Compiler $compiler compiler object
- * @param string $input input string
- * @param bool|string $whitespace flag count whitespaces
+ * @param  Smarty_Compiler_Template_Php_Compiler $compiler   compiler object
+ * @param string                                 $input      input string
+ * @param bool|string                            $whitespace flag count whitespaces
+ *
  * @return string with compiled code
  */
 // NOTE: The parser does pass all parameter as strings which could be directly inserted into the compiled code string

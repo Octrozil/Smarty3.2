@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,10 +19,12 @@ class Smarty_Method_IsCompiled
      * test if compiled template is valid
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string|object $template the resource handle of the template file or template object
-     * @param  mixed $compile_id compile id to be used with this template
-     * @param  null $caching
+     *
+     * @param Smarty         $smarty     smarty object
+     * @param  string|object $template   the resource handle of the template file or template object
+     * @param  mixed         $compile_id compile id to be used with this template
+     * @param  null          $caching
+     *
      * @throws Smarty_Exception_SourceNotFound
      * @throws Exception
      * @return boolean       compilation status
@@ -39,7 +40,7 @@ class Smarty_Method_IsCompiled
         //get source object from cache  or create new one
         $context = $smarty->_getContext($template, null, $compile_id, null, false, null, null, null, $caching);
         // checks if source exists
-        if (!$context->exists) {
+        if (! $context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
         }
         if ($context->handler->recompiled) {
@@ -54,7 +55,7 @@ class Smarty_Method_IsCompiled
         $timestamp = $exists = false;
         $filepath = $res_obj->buildFilepath($context);
         $res_obj->populateTimestamp($smarty, $filepath, $timestamp, $exists);
-        if (!$exists || $timestamp < $context->timestamp) {
+        if (! $exists || $timestamp < $context->timestamp) {
             return false;
         }
         try {
@@ -63,7 +64,8 @@ class Smarty_Method_IsCompiled
                 return false;
             }
             return $template_obj->isValid;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             throw $e;
         }
     }

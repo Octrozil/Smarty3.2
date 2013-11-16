@@ -4,12 +4,11 @@
  * Smarty Resource Source Recompiled Class
  *
  * @package Smarty\Resource\Source
- * @author Rodney Rehm
+ * @author  Rodney Rehm
  */
 
 /**
  * Smarty Resource Source Recompiled Class
- *
  * Base implementation for resource plugins that don't compile cache
  *
  * @package Smarty\Resource\Source

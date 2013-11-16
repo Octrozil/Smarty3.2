@@ -4,13 +4,12 @@
  * Smarty Resource Source PHP File Plugin
  *
  * @package Smarty\Resource\Source
- * @author Uwe Tews
- * @author Rodney Rehm
+ * @author  Uwe Tews
+ * @author  Rodney Rehm
  */
 
 /**
  * Smarty Resource Source PHP File Plugin
- *
  * Implements the file system as resource for PHP templates
  *
  * @package Smarty\Resource\Source
@@ -20,13 +19,14 @@ class Smarty_Resource_Source_Php extends Smarty_Resource_Source_File
 
     /**
      * container for short_open_tag directive's value before executing PHP templates
+     *
      * @var string
      */
     protected $short_open_tag;
 
     /**
      * Create a new PHP Resource
-     *
+
      */
     public function __construct()
     {
@@ -52,6 +52,7 @@ class Smarty_Resource_Source_Php extends Smarty_Resource_Source_File
      * Render and output the template (without using the compiler)
      *
      * @param  Smarty $tpl_obj template object
+     *
      * @return void
      * @throws Smarty_Exception if template cannot be loaded or allow_php_templates is disabled
      */
@@ -59,10 +60,10 @@ class Smarty_Resource_Source_Php extends Smarty_Resource_Source_File
     {
         $_smarty_tpl = $tpl_obj;
 
-        if (!$tpl_obj->allow_php_templates) {
+        if (! $tpl_obj->allow_php_templates) {
             throw new Smarty_Exception("PHP templates are disabled");
         }
-        if (!$this->exists) {
+        if (! $this->exists) {
             if ($tpl_obj->parent instanceof Smarty) {
                 $parent_resource = " in '{$tpl_obj->parent->template_resource}'";
             } else {

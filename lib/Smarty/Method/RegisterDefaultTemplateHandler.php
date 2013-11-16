@@ -1,11 +1,10 @@
 <?php
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -19,8 +18,10 @@ class Smarty_Method_RegisterDefaultTemplateHandler
      * Registers a default template handler
      *
      * @api
-     * @param Smarty $smarty smarty object
+     *
+     * @param Smarty    $smarty   smarty object
      * @param  callable $callback class/method name
+     *
      * @return Smarty
      * @throws Smarty_Exception if $callback is not callable
      */

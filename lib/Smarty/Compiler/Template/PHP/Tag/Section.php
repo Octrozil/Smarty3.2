@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Section
- *
  * Compiles the {section} {sectionelse} {/section} tags
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Section Class
- *
  *
  * @package Compiler
  */
@@ -46,8 +43,9 @@ class Smarty_Compiler_Template_Php_Tag_Section extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {section} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -94,15 +92,15 @@ class Smarty_Compiler_Template_Php_Tag_Section extends Smarty_Compiler_Template_
             }
         }
 
-        if (!isset($_attr['show'])) {
+        if (! isset($_attr['show'])) {
             $this->php("{$section_props}['show'] = true;")->newline();
         }
 
-        if (!isset($_attr['loop'])) {
+        if (! isset($_attr['loop'])) {
             $this->php("{$section_props}['loop'] = 1;")->newline();
         }
 
-        if (!isset($_attr['max'])) {
+        if (! isset($_attr['max'])) {
             $this->php("{$section_props}['max'] = {$section_props}['loop'];")->newline();
         } else {
             $this->php("if ({$section_props}['max'] < 0) {")->newline()->indent();
@@ -110,11 +108,11 @@ class Smarty_Compiler_Template_Php_Tag_Section extends Smarty_Compiler_Template_
             $this->outdent()->php("}")->newline();
         }
 
-        if (!isset($_attr['step'])) {
+        if (! isset($_attr['step'])) {
             $this->php("{$section_props}['step'] = 1;")->newline();
         }
 
-        if (!isset($_attr['start'])) {
+        if (! isset($_attr['start'])) {
             $this->php("{$section_props}['start'] = {$section_props}['step'] > 0 ? 0 : {$section_props}['loop']-1;")->newline();
         } else {
             $this->php("if ({$section_props}['start'] < 0) {")->newline()->indent();
@@ -125,7 +123,7 @@ class Smarty_Compiler_Template_Php_Tag_Section extends Smarty_Compiler_Template_
         }
 
         $this->php("if ({$section_props}['show']) {")->newline()->indent();
-        if (!isset($_attr['start']) && !isset($_attr['step']) && !isset($_attr['max'])) {
+        if (! isset($_attr['start']) && ! isset($_attr['step']) && ! isset($_attr['max'])) {
             $this->php("{$section_props}['total'] = {$section_props}['loop'];")->newline();
         } else {
             $this->php("{$section_props}['total'] = min(ceil(({$section_props}['step'] > 0 ? {$section_props}['loop'] - {$section_props}['start'] : {$section_props}['start']+1)/abs({$section_props}['step'])), {$section_props}['max']);")->newline();
@@ -153,7 +151,6 @@ class Smarty_Compiler_Template_Php_Tag_Section extends Smarty_Compiler_Template_
 /**
  * Smarty Internal Plugin Compile Sectionelse Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Sectionelse extends Smarty_Compiler_Template_Php_Tag
@@ -162,8 +159,9 @@ class Smarty_Compiler_Template_Php_Tag_Sectionelse extends Smarty_Compiler_Templ
     /**
      * Compiles code for the {sectionelse} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -187,7 +185,6 @@ class Smarty_Compiler_Template_Php_Tag_Sectionelse extends Smarty_Compiler_Templ
 /**
  * Smarty Internal Plugin Compile Sectionclose Class
  *
- *
  * @package Compiler
  */
 class Smarty_Compiler_Template_Php_Tag_Sectionclose extends Smarty_Compiler_Template_Php_Tag
@@ -196,8 +193,9 @@ class Smarty_Compiler_Template_Php_Tag_Sectionclose extends Smarty_Compiler_Temp
     /**
      * Compiles code for the {/section} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)

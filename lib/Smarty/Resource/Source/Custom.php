@@ -3,14 +3,12 @@
 /**
  * Smarty Resource Source Custom Class
  *
- *
  * @package Smarty\Resource\Source
- * @author Rodney Rehm
+ * @author  Rodney Rehm
  */
 
 /**
  * Smarty Smarty Resource Source Custom Class
- *
  * Wrapper Implementation for custom source resource plugins
  *
  * @package Smarty\Resource\Source
@@ -27,19 +25,19 @@ abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source_File
     /**
      * fetch template and its modification time from data source
      *
-     * @param string $name template name
-     * @param string &$source template source
-     * @param integer &$mtime template modification timestamp (epoch)
+     * @param string  $name    template name
+     * @param string  &$source template source
+     * @param integer &$mtime  template modification timestamp (epoch)
      */
     abstract protected function fetch($name, &$source, &$mtime);
 
     /**
      * Fetch template's modification timestamp from data source
-     *
      * {@internal implementing this method is optional.
      *  Only implement it if modification times can be accessed faster than loading the complete template source.}}
      *
      * @param  string $name template name
+     *
      * @return integer|boolean timestamp (epoch) the template was modified, or false if not found
      */
     protected function fetchTimestamp($name)
@@ -66,7 +64,7 @@ abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source_File
             if (isset($content))
                 $context->content = $content;
         }
-        $context->exists = !!$context->timestamp;
+        $context->exists = ! ! $context->timestamp;
     }
 
 
@@ -74,6 +72,7 @@ abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source_File
      * populate Source Object filepath
      *
      * @param  Smarty_Context $context
+     *
      * @return void
      */
     public function buildFilepath(Smarty_Context $context)
@@ -84,6 +83,7 @@ abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source_File
      * Load template's source into current template object
      *
      * @param  Smarty_Context $context
+     *
      * @return string           template source
      * @throws Smarty_Exception if source cannot be loaded
      */
@@ -101,6 +101,7 @@ abstract class Smarty_Resource_Source_Custom extends Smarty_Resource_Source_File
      * Determine basename for compiled filename
      *
      * @param  Smarty_Context $context
+     *
      * @return string resource's basename
      */
     public function getBasename(Smarty_Context $context)

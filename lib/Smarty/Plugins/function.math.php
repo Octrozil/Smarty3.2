@@ -2,23 +2,24 @@
 
 /**
  * Smarty plugin
- *
  * This plugin is only for Smarty2 BC
+ *
  * @package Plugins\Function
  */
 
 /**
  * Smarty {math} function plugin
- *
  * Type:     function<br>
  * Name:     math<br>
  * Purpose:  handle math computations in template
  *
- * @link http://www.smarty.net/docs/en/language.function.math.tpl {math}
- *          (Smarty online manual)
+ * @link     http://www.smarty.net/docs/en/language.function.math.tpl {math}
+ *           (Smarty online manual)
  * @author   Monte Ohrt <monte at ohrt dot com>
- * @param array $params parameters
+ *
+ * @param array  $params  parameters
  * @param Smarty $tpl_obj template object
+ *
  * @return string|null
  */
 function smarty_function_math($params, $tpl_obj)
@@ -48,7 +49,7 @@ function smarty_function_math($params, $tpl_obj)
     preg_match_all("!(?:0x[a-fA-F0-9]+)|([a-zA-Z][a-zA-Z0-9_]*)!", $equation, $match);
 
     foreach ($match[1] as $curr_var) {
-        if ($curr_var && !isset($params[$curr_var]) && !isset($_allowed_funcs[$curr_var])) {
+        if ($curr_var && ! isset($params[$curr_var]) && ! isset($_allowed_funcs[$curr_var])) {
             trigger_error("math: function call $curr_var not allowed", E_USER_WARNING);
 
             return;
@@ -63,7 +64,7 @@ function smarty_function_math($params, $tpl_obj)
 
                 return;
             }
-            if (!is_numeric($val)) {
+            if (! is_numeric($val)) {
                 trigger_error("math: parameter $key: is not numeric", E_USER_WARNING);
 
                 return;

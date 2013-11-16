@@ -2,22 +2,21 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsModifier
  */
 
 /**
  * Smarty capitalize modifier plugin
- *
  * Type:     modifier<br>
  * Name:     capitalize<br>
  * Purpose:  capitalize words in the string
- *
  * {@internal {$string|capitalize:true:true} is the fastest option for MBString enabled systems }}
  *
- * @param string $string string to capitalize
+ * @param string  $string    string to capitalize
  * @param boolean $uc_digits also capitalize "x123" to "X123"
- * @param boolean $lc_rest capitalize first letters, lowercase all following letters "aAa" to "Aaa"
+ * @param boolean $lc_rest   capitalize first letters, lowercase all following letters "aAa" to "Aaa"
+ *
  * @return string capitalized string
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Rodney Rehm
@@ -33,7 +32,7 @@ function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = fals
             $upper_string = preg_replace_callback("!(^|[^\p{L}'])([\p{Ll}])!S" . Smarty::$_UTF8_MODIFIER, create_function('$matches', 'return stripslashes($matches[1]).mb_convert_case(stripslashes($matches[2]),MB_CASE_UPPER, "' . addslashes(Smarty::$_CHARSET) . '");'), $string);
         }
         // check uc_digits case
-        if (!$uc_digits) {
+        if (! $uc_digits) {
             if (preg_match_all("!\b([\p{L}]*[\p{N}]+[\p{L}]*)\b!" . Smarty::$_UTF8_MODIFIER, $string, $matches, PREG_OFFSET_CAPTURE)) {
                 foreach ($matches[1] as $match) {
                     $upper_string = substr_replace($upper_string, mb_strtolower($match[0], Smarty::$_CHARSET), $match[1], strlen($match[0]));
@@ -52,7 +51,7 @@ function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = fals
     // uppercase (including hyphenated words)
     $upper_string = preg_replace_callback("!(^|[^\p{L}'])([\p{Ll}])!S" . Smarty::$_UTF8_MODIFIER, create_function('$matches', 'return stripslashes($matches[1]).ucfirst(stripslashes($matches[2]));'), $string);
     // check uc_digits case
-    if (!$uc_digits) {
+    if (! $uc_digits) {
         if (preg_match_all("!\b([\p{L}]*[\p{N}]+[\p{L}]*)\b!" . Smarty::$_UTF8_MODIFIER, $string, $matches, PREG_OFFSET_CAPTURE)) {
             foreach ($matches[1] as $match) {
                 $upper_string = substr_replace($upper_string, strtolower($match[0]), $match[1], strlen($match[0]));

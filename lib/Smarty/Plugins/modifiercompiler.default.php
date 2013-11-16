@@ -3,21 +3,21 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
 
 /**
  * Smarty default modifier plugin
- *
  * Type:     modifier<br>
  * Name:     default<br>
  * Purpose:  designate default value for empty variables
  *
- * @link http://www.smarty.net/docs/en/language.modifier.default.tpl default (Smarty online manual)
+ * @link   http://www.smarty.net/docs/en/language.modifier.default.tpl default (Smarty online manual)
  * @author Uwe Tews
  *
  * @param n x mixed $params any number of parameter                    }
+ *
  * @return string with compiled code
  */
 // NOTE: The parser does pass all parameter as strings which could be directly inserted into the compiled code string
@@ -25,7 +25,7 @@ function smarty_modifiercompiler_default()
 {
     $params = func_get_args();
     $output = $params[0];
-    if (!isset($params[1])) {
+    if (! isset($params[1])) {
         $params[1] = "''";
     }
     $first = true;

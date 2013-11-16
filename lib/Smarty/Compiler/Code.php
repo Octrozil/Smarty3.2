@@ -1,20 +1,17 @@
 <?php
 
-ini_set('pcre.backtrack_limit', -1);
+ini_set('pcre.backtrack_limit', - 1);
 
 /**
  * Smarty Code generator
  *
- *
  * @package Smarty\Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Code generator
- *
  * Methods to manage code output buffer
- *
  *
  * @package Smarty\Compiler
  */
@@ -46,6 +43,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
      * init tag code block.
      *
      * @param  object $compiler compiler object
+     *
      * @return object the current  instance
      */
     public function iniTagCode($compiler)
@@ -53,7 +51,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
         $this->buffer = '';
         $this->sourceLineNo = $compiler->lex->taglineno;
         $this->indentation = $this->savedIndentation = $compiler->template_code->indentation;
-        $this->noIndent = !$compiler->suppressNocacheProcessing && $compiler->context->caching && ($compiler->nocache || $compiler->tag_nocache || $compiler->forceNocache);
+        $this->noIndent = ! $compiler->suppressNocacheProcessing && $compiler->context->caching && ($compiler->nocache || $compiler->tag_nocache || $compiler->forceNocache);
 
         return $this;
     }
@@ -62,6 +60,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
      * return tag code.
      *
      * @param  object $compiler compiler object
+     *
      * @return string of compiled code
      */
     public function returnTagCode($compiler)
@@ -74,7 +73,9 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
 
     /**
      * Adds source line number
+     *
      * @param  int $lineNo source line number
+     *
      * @return Smarty_Compiler_code
      */
     public function addSourceLineNo($lineNo)
@@ -91,7 +92,9 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
 
     /**
      * Merge trackeback
+     *
      * @param  array $traceback
+     *
      * @return Smarty_Compiler_code
      */
     public function mergeTraceBackInfo($traceback)
@@ -107,7 +110,9 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
 
     /**
      * Merge other code buffer into current
+     *
      * @param  Smarty_Compiler_Code $code
+     *
      * @return Smarty_Compiler_code
      */
     public function mergeCode($code)
@@ -143,7 +148,6 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
     /**
      * Enable indentation
      *
-     *
      * @return object the current instance
      */
     public function indentOn()
@@ -155,7 +159,6 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
 
     /**
      * Enable indentation
-     *
      *
      * @return object the current instance
      */
@@ -170,6 +173,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
      * Adds a raw string to the compiled code.
      *
      * @param  string $string The string
+     *
      * @return object the current instance
      */
     public function raw($string)
@@ -186,7 +190,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
      */
     public function addIndentation()
     {
-        if ($this->indentOn && !$this->noIndent) {
+        if ($this->indentOn && ! $this->noIndent) {
             $this->buffer .= str_repeat(' ', $this->indentation * 4);
         }
 
@@ -200,7 +204,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
      */
     public function newline()
     {
-        if (!$this->noIndent) {
+        if (! $this->noIndent) {
             $this->buffer .= "\n";
         }
 
@@ -211,6 +215,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
      * Add a line of PHP code to output.
      *
      * @param  string $value PHP source
+     *
      * @return object the current instance
      */
     public function php($value)
@@ -224,8 +229,9 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
     /**
      * Adds a quoted string to the compiled code.
      *
-     * @param string $value The string
-     * @param bool $double_quote flag if double quotes shall be used
+     * @param string $value        The string
+     * @param bool   $double_quote flag if double quotes shall be used
+     *
      * @return object the current instance
      */
     public function string($value, $double_quote = true)
@@ -263,8 +269,9 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
     /**
      * Adds the PHP representation of a given value to the current buffer
      *
-     * @param  mixed $value The value to convert
-     * @param  bool $double_qoute flag to use double quotes on strings
+     * @param  mixed $value        The value to convert
+     * @param  bool  $double_qoute flag to use double quotes on strings
+     *
      * @return object the current instance
      */
     public function repr($value, $double_qoute = true)
@@ -287,7 +294,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
             $this->raw("array(\n")->indent(2)->addIndentation();
             $i = 0;
             foreach ($value as $key => $val) {
-                if ($i++) {
+                if ($i ++) {
                     $this->raw(",\n")->addIndentation();
                 }
                 $this->repr($key, $double_qoute);
@@ -306,6 +313,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
      * Indents the generated code.
      *
      * @param  integer $step The number of indentation to add
+     *
      * @return object  the current instance
      */
     public function indent($step = 1)
@@ -338,6 +346,7 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
      * Format and add aPHP code block to current buffer.
      *
      * @param  string $value PHP source to format
+     *
      * @return object the current instance
      */
     public function formatPHP($value)
@@ -355,46 +364,47 @@ class Smarty_Compiler_Code extends Smarty_Exception_Magic
      * preg_replace callback function to process PHP output
      *
      * @param  string $match match string
+     *
      * @return string replacement
      */
     public function _processPHPoutput($match)
     {
-        if (empty($match[0]) || !empty($match[2])) {
+        if (empty($match[0]) || ! empty($match[2])) {
             return;
         }
 //        if ($this->indentOn) {
 //            $this->raw("\n");
 //        }
-        if (!empty($match[7])) {
+        if (! empty($match[7])) {
             return;
         }
-        if (!empty($match[1])) {
+        if (! empty($match[1])) {
             $this->raw($match[1]);
 
             return;
         }
-        if (!empty($match[4])) {
+        if (! empty($match[4])) {
             $this->raw(";\n");
             $this->indentOn = true;
 
             return;
         }
-        if (!empty($match[5])) {
+        if (! empty($match[5])) {
             $this->raw("{\n")->indent();
             $this->indentOn = true;
 
             return;
         }
-        if (!empty($match[6])) {
+        if (! empty($match[6])) {
             $this->outdent()->addIndentation()->raw("}\n");
             return;
         }
-        if (!empty($match[9])) {
+        if (! empty($match[9])) {
             $this->addSourceLineNo($match[9]);
 
             return;
         }
-        if (!empty($match[10])) {
+        if (! empty($match[10])) {
             if ($this->indentOn) {
                 $this->addIndentation();
             }

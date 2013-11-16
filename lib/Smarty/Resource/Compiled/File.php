@@ -3,14 +3,13 @@
 /**
  * Smarty Resource Compiled File Plugin
  *
- *
  * @package Smarty\Resource\Compiled * @author Uwe Tews
  */
 
 /**
  * Smarty Resource Compiled File Plugin
  * Meta Data Container for Compiled Template Files
- *
+
  */
 class Smarty_Resource_Compiled_File //extends Smarty_Exception_Magic
 {
@@ -18,6 +17,7 @@ class Smarty_Resource_Compiled_File //extends Smarty_Exception_Magic
      * populate Compiled Object with compiled filepath
      *
      * @param  Smarty_Context $context
+     *
      * @return string
      */
     public function buildFilepath(Smarty_Context $context)
@@ -61,10 +61,10 @@ class Smarty_Resource_Compiled_File //extends Smarty_Exception_Magic
     /**
      * get timestamp and exists from Resource
      *
-     * @param  Smarty $smarty Smarty object
+     * @param  Smarty $smarty   Smarty object
      * @param  string $filepath
-     * @param  reference integer $timestamp
-     * @param  reference boolean $exists
+     * @param         reference integer $timestamp
+     * @param         reference boolean $exists
      */
     public function populateTimestamp(Smarty $smarty, $filepath, &$timestamp, &$exists)
     {
@@ -80,6 +80,7 @@ class Smarty_Resource_Compiled_File //extends Smarty_Exception_Magic
      * load compiled template class
      *
      * @param string $filepath
+     *
      * @return string  template class name
      */
     public function loadTemplateClass($filepath)
@@ -93,6 +94,7 @@ class Smarty_Resource_Compiled_File //extends Smarty_Exception_Magic
      * Load compiled template
      *
      * @param Smarty_Context $context
+     *
      * @throws Exception
      * @returns Smarty_Template
      */
@@ -105,7 +107,7 @@ class Smarty_Resource_Compiled_File //extends Smarty_Exception_Magic
         try {
             $level = ob_get_level();
             $isValid = false;
-            if ($exists && !$context->smarty->force_compile && $timestamp >= $context->timestamp) {
+            if ($exists && ! $context->smarty->force_compile && $timestamp >= $context->timestamp) {
                 $template_class_name = '';
                 // load existing compiled template class
                 $template_class_name = $this->loadTemplateClass($filepath);
@@ -114,7 +116,7 @@ class Smarty_Resource_Compiled_File //extends Smarty_Exception_Magic
                     $isValid = $template_obj->isValid;
                 }
             }
-            if (!$isValid) {
+            if (! $isValid) {
                 $template_class_name = '';
                 // we must compile from source
                 if ($context->smarty->debugging) {
@@ -133,11 +135,12 @@ class Smarty_Resource_Compiled_File //extends Smarty_Exception_Magic
                     $template_obj->isUpdated = true;
                     $isValid = $template_obj->isValid;
                 }
-                if (!$isValid) {
+                if (! $isValid) {
                     throw new Smarty_Exception_FileLoadError('compiled template', $filepath);
                 }
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
@@ -151,11 +154,13 @@ class Smarty_Resource_Compiled_File //extends Smarty_Exception_Magic
      * Delete compiled template file
      *
      * @internal
-     * @param  Smarty $smarty Smarty instance
-     * @param  string $template_resource template name
-     * @param  string $compile_id compile id
-     * @param  integer $exp_time expiration time
+     *
+     * @param  Smarty  $smarty            Smarty instance
+     * @param  string  $template_resource template name
+     * @param  string  $compile_id        compile id
+     * @param  integer $exp_time          expiration time
      * @param  boolean $isConfig
+     *
      * @return integer number of template files deleted
      */
     public function clear(Smarty $smarty, $template_resource, $compile_id, $exp_time, $isConfig)

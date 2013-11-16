@@ -1,11 +1,10 @@
 <?php
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,14 +19,16 @@ class Smarty_Method_UnregisterFilter
      * Unregisters a filter function
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string $type filter type
+     *
+     * @param Smarty    $smarty smarty object
+     * @param  string   $type   filter type
      * @param  callback $callback
+     *
      * @return Smarty
      */
     public function unregisterFilter(Smarty $smarty, $type, $callback)
     {
-        if (!isset($smarty->_registered['filter'][$type])) {
+        if (! isset($smarty->_registered['filter'][$type])) {
             return $smarty;
         }
         if ($callback instanceof Closure) {
@@ -55,7 +56,9 @@ class Smarty_Method_UnregisterFilter
      * Return internal filter name
      *
      * @internal
+     *
      * @param  callback $function_name
+     *
      * @return string
      */
     public function _getFilterName($function_name)

@@ -16,11 +16,9 @@ require_once(Smarty::$_SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
 
 /**
  * Smarty {html_select_date} plugin
- *
  * Type:     function<br>
  * Name:     html_select_date<br>
  * Purpose:  Prints the dropdowns for date selection.
- *
  * ChangeLog:
  * <pre>
  *            - 1.0 initial release
@@ -40,14 +38,16 @@ require_once(Smarty::$_SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
  *              added attributes month_names, *_id
  * </pre>
  *
- * @link http://www.smarty.net/docs/en/language.function.html.select.date.tpl {html_select_date}
- *      (Smarty online manual)
+ * @link    http://www.smarty.net/docs/en/language.function.html.select.date.tpl {html_select_date}
+ *          (Smarty online manual)
  * @version 2.0
- * @author Andrei Zmievski
- * @author Monte Ohrt <monte at ohrt dot com>
- * @author Rodney Rehm
- * @param array $params parameters
+ * @author  Andrei Zmievski
+ * @author  Monte Ohrt <monte at ohrt dot com>
+ * @author  Rodney Rehm
+ *
+ * @param array  $params  parameters
  * @param Smarty $tpl_obj template object
+ *
  * @return string
  */
 function smarty_function_html_select_date($params, $tpl_obj)
@@ -58,7 +58,7 @@ function smarty_function_html_select_date($params, $tpl_obj)
     if ($_month_timestamps === null) {
         $_current_year = date('Y');
         $_month_timestamps = array();
-        for ($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= 12; $i ++) {
             $_month_timestamps[$i] = mktime(0, 0, 0, $i, 1, 2000);
         }
     }
@@ -115,7 +115,7 @@ function smarty_function_html_select_date($params, $tpl_obj)
     foreach ($params as $_key => $_value) {
         switch ($_key) {
             case 'time':
-                if (!is_array($_value) && $_value !== null) {
+                if (! is_array($_value) && $_value !== null) {
                     $time = smarty_make_timestamp($_value);
                 }
                 break;
@@ -166,7 +166,7 @@ function smarty_function_html_select_date($params, $tpl_obj)
                 break;
 
             default:
-                if (!is_array($_value)) {
+                if (! is_array($_value)) {
                     $extra_attrs .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_value) . '"';
                 } else {
                     trigger_error("html_select_date: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
@@ -223,7 +223,7 @@ function smarty_function_html_select_date($params, $tpl_obj)
     }
 
     // flip for ascending or descending
-    if (($start_year > $end_year && !$reverse_years) || ($start_year < $end_year && $reverse_years)) {
+    if (($start_year > $end_year && ! $reverse_years) || ($start_year < $end_year && $reverse_years)) {
         $t = $end_year;
         $end_year = $start_year;
         $start_year = $t;
@@ -259,7 +259,7 @@ function smarty_function_html_select_date($params, $tpl_obj)
                 $_html_years .= '<option value="">' . (isset($year_empty) ? $year_empty : $all_empty) . '</option>' . $option_separator;
             }
 
-            $op = $start_year > $end_year ? -1 : 1;
+            $op = $start_year > $end_year ? - 1 : 1;
             for ($i = $start_year; $op > 0 ? $i <= $end_year : $i >= $end_year; $i += $op) {
                 $_html_years .= '<option value="' . $i . '"'
                     . ($_year == $i ? ' selected="selected"' : '')
@@ -297,7 +297,7 @@ function smarty_function_html_select_date($params, $tpl_obj)
             $_html_months .= '<option value="">' . (isset($month_empty) ? $month_empty : $all_empty) . '</option>' . $option_separator;
         }
 
-        for ($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= 12; $i ++) {
             $_val = sprintf('%02d', $i);
             $_text = isset($month_names) ? smarty_function_escape_special_chars($month_names[$i]) : ($month_format == "%m" ? $_val : strftime($month_format, $_month_timestamps[$i]));
             $_value = $month_value_format == "%m" ? $_val : strftime($month_value_format, $_month_timestamps[$i]);
@@ -336,7 +336,7 @@ function smarty_function_html_select_date($params, $tpl_obj)
             $_html_days .= '<option value="">' . (isset($day_empty) ? $day_empty : $all_empty) . '</option>' . $option_separator;
         }
 
-        for ($i = 1; $i <= 31; $i++) {
+        for ($i = 1; $i <= 31; $i ++) {
             $_val = sprintf('%02d', $i);
             $_text = $day_format == '%02d' ? $_val : sprintf($day_format, $i);
             $_value = $day_value_format == '%02d' ? $_val : sprintf($day_value_format, $i);
@@ -350,7 +350,7 @@ function smarty_function_html_select_date($params, $tpl_obj)
 
     // order the fields for output
     $_html = '';
-    for ($i = 0; $i <= 2; $i++) {
+    for ($i = 0; $i <= 2; $i ++) {
         switch ($field_order[$i]) {
             case 'Y':
             case 'y':

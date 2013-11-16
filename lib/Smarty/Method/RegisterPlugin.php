@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,12 +19,14 @@ class Smarty_Method_RegisterPlugin
      * Registers plugin to be used in templates
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string $type plugin type
-     * @param  string $tag name of template tag
-     * @param  callback $callback PHP callback to register
-     * @param  boolean $cacheable if true (default) this fuction is cachable
-     * @param  array $cache_attr caching attributes if any
+     *
+     * @param Smarty    $smarty     smarty object
+     * @param  string   $type       plugin type
+     * @param  string   $tag        name of template tag
+     * @param  callback $callback   PHP callback to register
+     * @param  boolean  $cacheable  if true (default) this fuction is cachable
+     * @param  array    $cache_attr caching attributes if any
+     *
      * @return Smarty
      * @throws Smarty_Exception when the plugin tag is invalid
      */
@@ -33,7 +34,7 @@ class Smarty_Method_RegisterPlugin
     {
         if (isset($smarty->_registered['plugin'][$type][$tag])) {
             throw new Smarty_Exception("registerPlugin(): Plugin tag \"{$tag}\" already registered");
-        } elseif (!is_callable($callback)) {
+        } elseif (! is_callable($callback)) {
             throw new Smarty_Exception("registerPlugin(): Plugin \"{$tag}\" not callable");
         } else {
             if (is_object($callback)) {

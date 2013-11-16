@@ -1,12 +1,12 @@
 <?php
 /**
  * Smarty Internal Plugin Configfile Parser
- *
  * This is the config file parser.
  * It is generated from the internal.configfile_parser.y file
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 class TPC_yyToken implements ArrayAccess
 {
@@ -122,7 +122,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
     {
         $escaped_string = substr($qstr, 1, strlen($qstr) - 2); //remove outer quotes
 
-        $ss = preg_split('/(\\\\.)/', $escaped_string, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $ss = preg_split('/(\\\\.)/', $escaped_string, - 1, PREG_SPLIT_DELIM_CAPTURE);
 
         $str = "";
         foreach ($ss as $s) {
@@ -154,7 +154,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
         $key = $var["key"];
         $value = $var["value"];
 
-        if ($this->compiler->context->smarty->config_overwrite || !isset($target_array['vars'][$key])) {
+        if ($this->compiler->context->smarty->config_overwrite || ! isset($target_array['vars'][$key])) {
             $target_array['vars'][$key] = $value;
         } else {
             settype($target_array['vars'][$key], 'array');
@@ -164,7 +164,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
 
     private function add_global_vars(Array $vars)
     {
-        if (!isset($this->compiler->config_data['vars'])) {
+        if (! isset($this->compiler->config_data['vars'])) {
             $this->compiler->config_data['vars'] = Array();
         }
         foreach ($vars as $var) {
@@ -174,7 +174,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
 
     private function add_section_vars($section_name, Array $vars)
     {
-        if (!isset($this->compiler->config_data['sections'][$section_name]['vars'])) {
+        if (! isset($this->compiler->config_data['sections'][$section_name]['vars'])) {
             $this->compiler->config_data['sections'][$section_name]['vars'] = Array();
         }
         foreach ($vars as $var) {
@@ -227,21 +227,21 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
         /*    30 */
         23, 1, 24, 17, 2, 25, 22, 25,
     );
-    const YY_SHIFT_USE_DFLT = -8;
+    const YY_SHIFT_USE_DFLT = - 8;
     const YY_SHIFT_MAX = 19;
     static public $yy_shift_ofst = array(
         /*     0 */
-        -8, 1, 1, 1, -7, -3, -3, 30, -8, -8,
+        - 8, 1, 1, 1, - 7, - 3, - 3, 30, - 8, - 8,
         /*    10 */
-        -8, 19, 5, 3, 15, 16, 24, 25, 32, 20,
+        - 8, 19, 5, 3, 15, 16, 24, 25, 32, 20,
     );
-    const YY_REDUCE_USE_DFLT = -21;
+    const YY_REDUCE_USE_DFLT = - 21;
     const YY_REDUCE_MAX = 10;
     static public $yy_reduce_ofst = array(
         /*     0 */
-        -10, -1, -1, -1, -20, 10, 12, 8, 14, 7,
+        - 10, - 1, - 1, - 1, - 20, 10, 12, 8, 14, 7,
         /*    10 */
-        -11,
+        - 11,
     );
     static public $yyExpectedTokens = array(
         /* 0 */
@@ -338,9 +338,9 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
 
     public static function Trace($TraceFILE, $zTracePrompt)
     {
-        if (!$TraceFILE) {
+        if (! $TraceFILE) {
             $zTracePrompt = 0;
-        } elseif (!$zTracePrompt) {
+        } elseif (! $zTracePrompt) {
             $TraceFILE = 0;
         }
         self::$yyTraceFILE = $TraceFILE;
@@ -438,18 +438,18 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
 
     public function yy_pop_parser_stack()
     {
-        if (!count($this->yystack)) {
+        if (! count($this->yystack)) {
             return;
         }
         $yytos = array_pop($this->yystack);
         if (self::$yyTraceFILE && $this->yyidx >= 0) {
             fwrite(self::$yyTraceFILE,
-                self::$yyTracePrompt . 'Popping ' . $this->yyTokenName[$yytos->major] .
-                "\n");
+                   self::$yyTracePrompt . 'Popping ' . $this->yyTokenName[$yytos->major] .
+                   "\n");
         }
         $yymajor = $yytos->major;
         self::yy_destructor($yymajor, $yytos->minor);
-        $this->yyidx--;
+        $this->yyidx --;
 
         return $yymajor;
     }
@@ -479,7 +479,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
                 // reduce action
                 $done = 0;
                 do {
-                    if ($done++ == 100) {
+                    if ($done ++ == 100) {
                         $this->yyidx = $yyidx;
                         $this->yystack = $stack;
                         // too much recursion prevents proper detection
@@ -494,7 +494,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
                     if (isset(self::$yyExpectedTokens[$nextstate])) {
                         $expected = array_merge($expected, self::$yyExpectedTokens[$nextstate]);
                         if (in_array($token,
-                            self::$yyExpectedTokens[$nextstate], true)
+                                     self::$yyExpectedTokens[$nextstate], true)
                         ) {
                             $this->yyidx = $yyidx;
                             $this->yystack = $stack;
@@ -504,7 +504,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
                     }
                     if ($nextstate < self::YYNSTATE) {
                         // we need to shift a non-terminal
-                        $this->yyidx++;
+                        $this->yyidx ++;
                         $x = new TPC_yyStackEntry;
                         $x->stateno = $nextstate;
                         $x->major = self::$yyRuleInfo[$yyruleno]['lhs'];
@@ -552,7 +552,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
                 // reduce action
                 $done = 0;
                 do {
-                    if ($done++ == 100) {
+                    if ($done ++ == 100) {
                         $this->yyidx = $yyidx;
                         $this->yystack = $stack;
                         // too much recursion prevents proper detection
@@ -574,7 +574,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
                     }
                     if ($nextstate < self::YYNSTATE) {
                         // we need to shift a non-terminal
-                        $this->yyidx++;
+                        $this->yyidx ++;
                         $x = new TPC_yyStackEntry;
                         $x->stateno = $nextstate;
                         $x->major = self::$yyRuleInfo[$yyruleno]['lhs'];
@@ -583,7 +583,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
                     } elseif ($nextstate == self::YYNSTATE + self::YYNRULE + 1) {
                         $this->yyidx = $yyidx;
                         $this->yystack = $stack;
-                        if (!$token) {
+                        if (! $token) {
                             // end of input: this is valid
                             return true;
                         }
@@ -614,7 +614,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
         $stateno = $this->yystack[$this->yyidx]->stateno;
 
         /* if ($this->yyidx < 0) return self::YY_NO_ACTION;  */
-        if (!isset(self::$yy_shift_ofst[$stateno])) {
+        if (! isset(self::$yy_shift_ofst[$stateno])) {
             // no shift actions
             return self::$yy_default[$stateno];
         }
@@ -634,8 +634,8 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
             ) {
                 if (self::$yyTraceFILE) {
                     fwrite(self::$yyTraceFILE, self::$yyTracePrompt . "FALLBACK " .
-                        $this->yyTokenName[$iLookAhead] . " => " .
-                        $this->yyTokenName[$iFallback] . "\n");
+                                             $this->yyTokenName[$iLookAhead] . " => " .
+                                             $this->yyTokenName[$iFallback] . "\n");
                 }
 
                 return $this->yy_find_shift_action($iFallback);
@@ -651,7 +651,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
     {
         /* $stateno = $this->yystack[$this->yyidx]->stateno; */
 
-        if (!isset(self::$yy_reduce_ofst[$stateno])) {
+        if (! isset(self::$yy_reduce_ofst[$stateno])) {
             return self::$yy_default[$stateno];
         }
         $i = self::$yy_reduce_ofst[$stateno];
@@ -673,9 +673,9 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
 
     public function yy_shift($yyNewState, $yyMajor, $yypMinor)
     {
-        $this->yyidx++;
+        $this->yyidx ++;
         if ($this->yyidx >= self::YYSTACKDEPTH) {
-            $this->yyidx--;
+            $this->yyidx --;
             if (self::$yyTraceFILE) {
                 fprintf(self::$yyTraceFILE, "%sStack Overflow!\n", self::$yyTracePrompt);
             }
@@ -697,11 +697,11 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
         array_push($this->yystack, $yytos);
         if (self::$yyTraceFILE && $this->yyidx > 0) {
             fprintf(self::$yyTraceFILE, "%sShift %d\n", self::$yyTracePrompt,
-                $yyNewState);
+                    $yyNewState);
             fprintf(self::$yyTraceFILE, "%sStack:", self::$yyTracePrompt);
-            for ($i = 1; $i <= $this->yyidx; $i++) {
+            for ($i = 1; $i <= $this->yyidx; $i ++) {
                 fprintf(self::$yyTraceFILE, " %s",
-                    $this->yyTokenName[$this->yystack[$i]->major]);
+                        $this->yyTokenName[$this->yystack[$i]->major]);
             }
             fwrite(self::$yyTraceFILE, "\n");
         }
@@ -775,7 +775,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
 #line 142 "Smarty_Compiler_Config_Parser.y"
     function yy_r4()
     {
-        $this->add_section_vars($this->yystack[$this->yyidx + -3]->minor, $this->yystack[$this->yyidx + 0]->minor);
+        $this->add_section_vars($this->yystack[$this->yyidx + - 3]->minor, $this->yystack[$this->yyidx + 0]->minor);
         $this->_retvalue = null;
     }
 
@@ -784,7 +784,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
     function yy_r5()
     {
         if ($this->compiler->context->smarty->config_read_hidden) {
-            $this->add_section_vars($this->yystack[$this->yyidx + -3]->minor, $this->yystack[$this->yyidx + 0]->minor);
+            $this->add_section_vars($this->yystack[$this->yyidx + - 3]->minor, $this->yystack[$this->yyidx + 0]->minor);
         }
         $this->_retvalue = null;
     }
@@ -793,14 +793,14 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
 #line 155 "Smarty_Compiler_Config_Parser.y"
     function yy_r6()
     {
-        $this->_retvalue = $this->yystack[$this->yyidx + -1]->minor;
+        $this->_retvalue = $this->yystack[$this->yyidx + - 1]->minor;
     }
 
 #line 692 "Smarty_Compiler_Config_Parser.php"
 #line 159 "Smarty_Compiler_Config_Parser.y"
     function yy_r7()
     {
-        $this->_retvalue = array_merge($this->yystack[$this->yyidx + -1]->minor, Array($this->yystack[$this->yyidx + 0]->minor));
+        $this->_retvalue = array_merge($this->yystack[$this->yyidx + - 1]->minor, Array($this->yystack[$this->yyidx + 0]->minor));
     }
 
 #line 697 "Smarty_Compiler_Config_Parser.php"
@@ -814,7 +814,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
 #line 169 "Smarty_Compiler_Config_Parser.y"
     function yy_r9()
     {
-        $this->_retvalue = Array("key" => '___config_var_' . $this->yystack[$this->yyidx + -2]->minor, "value" => $this->yystack[$this->yyidx + 0]->minor);
+        $this->_retvalue = Array("key" => '___config_var_' . $this->yystack[$this->yyidx + - 2]->minor, "value" => $this->yystack[$this->yyidx + 0]->minor);
     }
 
 #line 707 "Smarty_Compiler_Config_Parser.php"
@@ -856,7 +856,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
 #line 194 "Smarty_Compiler_Config_Parser.y"
     function yy_r15()
     {
-        $this->_retvalue = self::parse_tripple_double_quoted_string($this->yystack[$this->yyidx + -1]->minor);
+        $this->_retvalue = self::parse_tripple_double_quoted_string($this->yystack[$this->yyidx + - 1]->minor);
     }
 
 #line 737 "Smarty_Compiler_Config_Parser.php"
@@ -884,8 +884,8 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
             && $yyruleno < count(self::$yyRuleName)
         ) {
             fprintf(self::$yyTraceFILE, "%sReduce (%d) [%s].\n",
-                self::$yyTracePrompt, $yyruleno,
-                self::$yyRuleName[$yyruleno]);
+                    self::$yyTracePrompt, $yyruleno,
+                    self::$yyRuleName[$yyruleno]);
         }
 
         $this->_retvalue = $yy_lefthand_side = null;
@@ -898,14 +898,14 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
         $yygoto = self::$yyRuleInfo[$yyruleno]['lhs'];
         $yysize = self::$yyRuleInfo[$yyruleno]['rhs'];
         $this->yyidx -= $yysize;
-        for ($i = $yysize; $i; $i--) {
+        for ($i = $yysize; $i; $i --) {
             // pop all of the right-hand side parameters
             array_pop($this->yystack);
         }
         $yyact = $this->yy_find_reduce_action($this->yystack[$this->yyidx]->stateno, $yygoto);
         if ($yyact < self::YYNSTATE) {
-            if (!self::$yyTraceFILE && $yysize) {
-                $this->yyidx++;
+            if (! self::$yyTraceFILE && $yysize) {
+                $this->yyidx ++;
                 $x = new TPC_yyStackEntry;
                 $x->stateno = $yyact;
                 $x->major = $yygoto;
@@ -949,7 +949,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
         }
 #line 103 "Smarty_Compiler_Config_Parser.y"
 
-        $this->successful = !$this->internalError;
+        $this->successful = ! $this->internalError;
         $this->internalError = false;
         $this->retvalue = $this->_retvalue;
         //echo $this->retvalue."\n\n";
@@ -962,7 +962,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
 
         if ($this->yyidx === null || $this->yyidx < 0) {
             $this->yyidx = 0;
-            $this->yyerrcnt = -1;
+            $this->yyerrcnt = - 1;
             $x = new TPC_yyStackEntry;
             $x->stateno = 0;
             $x->major = 0;
@@ -973,20 +973,20 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
 
         if (self::$yyTraceFILE) {
             fprintf(self::$yyTraceFILE, "%sInput %s\n",
-                self::$yyTracePrompt, $this->yyTokenName[$yymajor]);
+                    self::$yyTracePrompt, $this->yyTokenName[$yymajor]);
         }
 
         do {
             $yyact = $this->yy_find_shift_action($yymajor);
             if ($yymajor < self::YYERRORSYMBOL &&
-                !$this->yy_is_expected_token($yymajor)
+                ! $this->yy_is_expected_token($yymajor)
             ) {
                 // force a syntax error
                 $yyact = self::YY_ERROR_ACTION;
             }
             if ($yyact < self::YYNSTATE) {
                 $this->yy_shift($yyact, $yymajor, $yytokenvalue);
-                $this->yyerrcnt--;
+                $this->yyerrcnt --;
                 if ($yyendofinput && $this->yyidx >= 0) {
                     $yymajor = 0;
                 } else {
@@ -997,7 +997,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
             } elseif ($yyact == self::YY_ERROR_ACTION) {
                 if (self::$yyTraceFILE) {
                     fprintf(self::$yyTraceFILE, "%sSyntax Error!\n",
-                        self::$yyTracePrompt);
+                            self::$yyTracePrompt);
                 }
                 if (self::YYERRORSYMBOL) {
                     if ($this->yyerrcnt < 0) {
@@ -1007,7 +1007,7 @@ class Smarty_Compiler_Config_Parser extends Smarty_Exception_Magic #line 80 "Sma
                     if ($yymx == self::YYERRORSYMBOL || $yyerrorhit) {
                         if (self::$yyTraceFILE) {
                             fprintf(self::$yyTraceFILE, "%sDiscard input token %s\n",
-                                self::$yyTracePrompt, $this->yyTokenName[$yymajor]);
+                                    self::$yyTracePrompt, $this->yyTokenName[$yymajor]);
                         }
                         $this->yy_destructor($yymajor, $yytokenvalue);
                         $yymajor = self::YYNOCODE;

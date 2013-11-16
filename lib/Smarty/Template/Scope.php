@@ -1,24 +1,22 @@
 <?php
 /**
  * Smarty Template Scope
- *
  * This file contains the Class for a template scope
  *
- *
  * @package Smarty\Template
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * class for a template scope
- *
  * This class holds scope variables while rendering template
- *
+
  */
 class Smarty_Template_Scope //extends Smarty_Exception_Magic
 {
     /**
      * Local variable scope
+     *
      * @var Smarty_Variable_Scope
      */
     public $_tpl_vars = null;
@@ -32,6 +30,7 @@ class Smarty_Template_Scope //extends Smarty_Exception_Magic
 
     /**
      * merged template functions
+     *
      * @var array
      */
     public $template_functions = array();
@@ -60,7 +59,7 @@ class Smarty_Template_Scope //extends Smarty_Exception_Magic
                 }
                 // merge global variables
                 foreach (Smarty::$_global_tpl_vars as $var => $obj) {
-                    if (!isset($this->_tpl_vars->$var)) {
+                    if (! isset($this->_tpl_vars->$var)) {
                         $this->_tpl_vars->$var = $obj;
                     }
                 }
@@ -70,11 +69,12 @@ class Smarty_Template_Scope //extends Smarty_Exception_Magic
     }
 
     /**
-     *
      *  merge recursively template variables into one scope
      *
      * @internal
+     *
      * @param   Smarty|Smarty_Data|Smarty_Template $ptr
+     *
      * @return Smarty_Variable_Scope    merged tpl vars
      */
     public function _mergeScopes($ptr)

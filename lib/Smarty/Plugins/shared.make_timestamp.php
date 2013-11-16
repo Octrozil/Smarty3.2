@@ -3,7 +3,7 @@
 /**
  * Smarty shared plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsShared
  */
 
@@ -12,7 +12,9 @@
  * Purpose:  used by other smarty functions to make a timestamp from a string.
  *
  * @author   Monte Ohrt <monte at ohrt dot com>
+ *
  * @param DateTime|int|string $string date object, timestamp or string that can be converted using strtotime()
+ *
  * @return int
  */
 function smarty_make_timestamp($string)
@@ -31,7 +33,7 @@ function smarty_make_timestamp($string)
     } else {
         // strtotime should handle it
         $time = strtotime($string);
-        if ($time == -1 || $time === false) {
+        if ($time == - 1 || $time === false) {
             // strtotime() was not able to parse $string, use "now":
             return time();
         }

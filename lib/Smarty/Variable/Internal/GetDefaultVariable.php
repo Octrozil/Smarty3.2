@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Variable
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,9 +19,11 @@ class Smarty_Variable_Internal_GetDefaultVariable
      * try to get variable from registered default handler, create error or return null value
      *
      * @internal
-     * @param Smarty | Smarty_Template | Smarty_Data $object master object
-     * @param  string $varname the name of the Smarty variable
-     * @param bool $error_enable
+     *
+     * @param Smarty | Smarty_Template | Smarty_Data $object  master object
+     * @param  string                                $varname the name of the Smarty variable
+     * @param bool                                   $error_enable
+     *
      * @throws Smarty_Exception_Runtime
      * @return mixed                  null|Smarty_variable object|property of variable
      */

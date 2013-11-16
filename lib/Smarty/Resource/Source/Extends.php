@@ -4,13 +4,12 @@
  * Smarty Resource Source Extends Plugin
  *
  * @package Smarty\Resource\Source
- * @author Uwe Tews
- * @author Rodney Rehm
+ * @author  Uwe Tews
+ * @author  Rodney Rehm
  */
 
 /**
  * Smarty Resource Source Extends Plugin
- *
  * Implements the file system as resource for Smarty which {extend}s a chain of template files templates
  *
  * @package Smarty\Resource\Source
@@ -22,6 +21,7 @@ class Smarty_Resource_Source_Extends extends Smarty_Resource_Source_File
      * populate Source Object with meta data from Resource
      *
      * @param Smarty $smarty Smarty object
+     *
      * @throws Smarty_Exception_SourceNotFound
      * @throws IllegalInheritanceResourceType
      */
@@ -34,7 +34,7 @@ class Smarty_Resource_Source_Extends extends Smarty_Resource_Source_File
         foreach ($components as $component) {
             $context = $smarty->_getContext($component);
             // checks if source exists
-            if (!$context->exists) {
+            if (! $context->exists) {
                 throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
             }
             if ($context->type == 'php') {
@@ -60,7 +60,7 @@ class Smarty_Resource_Source_Extends extends Smarty_Resource_Source_File
 
     /**
      * populate Source Object with timestamp and exists from Resource
-     *
+
      */
     public function populateTimestamp()
     {

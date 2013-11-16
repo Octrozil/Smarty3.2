@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Include
- *
  * Compiles the {include} tag
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Include Class
- *
  *
  * @package Compiler
  */
@@ -54,9 +51,10 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
     /**
      * Compiles code for the {include} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -90,7 +88,7 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
 //            $_caching = Smarty::CACHING_OFF;
 //        }
         // default for included templates
-        if ($compiler->context->caching && !$compiler->nocache && !$compiler->tag_nocache) {
+        if ($compiler->context->caching && ! $compiler->nocache && ! $compiler->tag_nocache) {
             $_caching = Smarty::CACHING_NOCACHE_CODE;
         }
         /*
@@ -130,8 +128,8 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
         $code->iniTagCode($compiler);
 
         $has_compiledtpl_obj = false;
-        if (($compiler->context->smarty->merge_compiled_includes || $_attr['inline'] === true) && !$compiler->context->handler->recompiled
-            && !($compiler->context->caching && ($compiler->tag_nocache || $compiler->nocache || $compiler->nocache_nolog)) && $_caching != Smarty::CACHING_LIFETIME_CURRENT
+        if (($compiler->context->smarty->merge_compiled_includes || $_attr['inline'] === true) && ! $compiler->context->handler->recompiled
+            && ! ($compiler->context->caching && ($compiler->tag_nocache || $compiler->nocache || $compiler->nocache_nolog)) && $_caching != Smarty::CACHING_LIFETIME_CURRENT
         ) {
             // check if compiled code can be merged (contains no variable part)
             if ((substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2)
@@ -149,10 +147,10 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
                 }
                 // create context
                 $context = $tpl->_getContext($tpl_name);
-                if (!isset(Smarty_Compiler_Template_Php_Compiler::$merged_inline_content_classes[$context->uid])) {
+                if (! isset(Smarty_Compiler_Template_Php_Compiler::$merged_inline_content_classes[$context->uid])) {
                     // make sure whole chain gets compiled
                     $tpl->force_compile = true;
-                    if (!$context->handler->uncompiled && $context->exists) {
+                    if (! $context->handler->uncompiled && $context->exists) {
                         $comp = Smarty_Compiler::load($context, null);
                         // get compiled code
                         $comp->suppressTemplatePropertyHeader = true;
@@ -164,7 +162,7 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
                         $compiler->required_plugins['nocache'] = array_merge($compiler->required_plugins['nocache'], $comp->required_plugins['nocache']);
                         $comp->required_plugins = array();
                         // merge compiled code for {function} tags
-                        if (!empty($comp->template_functions)) {
+                        if (! empty($comp->template_functions)) {
                             $compiler->template_functions = array_merge($compiler->template_functions, $comp->template_functions);
                             $compiler->template_functions_code = array_merge($compiler->template_functions_code, $comp->template_functions_code);
                         }
@@ -186,7 +184,7 @@ class Smarty_Compiler_Template_Php_Tag_Include extends Smarty_Compiler_Template_
         // delete {include} standard attributes
         unset($_attr['file'], $_attr['assign'], $_attr['cache_id'], $_attr['compile_id'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']);
         // remaining attributes must be assigned as smarty variable
-        if (!empty($_attr)) {
+        if (! empty($_attr)) {
             if ($_parent_scope == Smarty::SCOPE_LOCAL || $_parent_scope == Smarty::SCOPE_NONE) {
                 // create variables
                 foreach ($_attr as $key => $value) {

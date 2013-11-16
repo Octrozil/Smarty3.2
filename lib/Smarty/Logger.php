@@ -2,19 +2,15 @@
 
 /**
  * Smarty Logger
- *
  * This file contains the Smarty Logger
  *
- *
  * @package Smarty
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * class for the Smarty Logger object
- *
  * This Class handles logging of events
- *
  *
  * @package Smarty
  */
@@ -65,7 +61,7 @@ class Smarty_Logger
         }
         $cur = $template_obj->_tpl_vars;
         foreach ($cur as $name => $value) {
-            if (!isset($old->$name) || $old->$name != $cur->$name) {
+            if (! isset($old->$name) || $old->$name != $cur->$name) {
                 $mod->$name = clone $value;
             }
         }
@@ -117,13 +113,13 @@ class Smarty_Logger
 
     public function _getSourcePtr($obj, $keys = null)
     {
-        if (!isset($keys)) {
+        if (! isset($keys)) {
             $keys = $this->_getKeysTemplate($obj);
         }
         if ($obj instanceof Smarty_Template) {
             $obj = $obj->source;
         }
-        if (!isset($this->template[$keys['source']])) {
+        if (! isset($this->template[$keys['source']])) {
             $ptr = $this->template[$keys['source']] = new stdClass();
             $ptr->source = new stdClass();
             $ptr->source->obj = $obj;
@@ -183,6 +179,7 @@ class Smarty_Logger
      * Recursively gets variables from all template/data scopes
      *
      * @param  Smarty_Variable_Scope $scope
+     *
      * @return array
      */
     public function _get_debug_vars($scope)
@@ -212,18 +209,18 @@ class Smarty_Logger
     }
 }
 
-if (!function_exists('smarty_modifier_logger_print_var')) {
+if (! function_exists('smarty_modifier_logger_print_var')) {
     /**
      * Smarty debug_print_var modifier
-     *
      * Type:     modifier<br>
      * Name:     debug_print_var<br>
      * Purpose:  formats variable contents for display in the console
      *
-     * @param array|object $var variable to be formatted
-     * @param integer $depth maximum recursion depth if $var is an array
-     * @param integer $length maximum string length if $var is a string
-     * @param bool $root flag true if called in debug.tpl
+     * @param array|object $var    variable to be formatted
+     * @param integer      $depth  maximum recursion depth if $var is an array
+     * @param integer      $length maximum string length if $var is a string
+     * @param bool         $root   flag true if called in debug.tpl
+     *
      * @return string
      */
     function smarty_modifier_logger_print_var($var, $depth = 0, $length = 40, $root = true)
@@ -244,21 +241,21 @@ if (!function_exists('smarty_modifier_logger_print_var')) {
                     $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
                         . '<b>' . strtr($curr_key, $_replace) . '</b> =&gt; '
                         . smarty_modifier_logger_print_var($curr_val, ++$depth, $length, false);
-                    $depth--;
+                    $depth --;
                 }
                 break;
 
             case 'object' :
                 $object_vars = get_object_vars($var);
                 $results = '';
-                if (!$root) {
+                if (! $root) {
                     $results = '<b>' . get_class($var) . ' Object (' . count($object_vars) . ')</b><br>';
                 }
                 foreach ($object_vars as $curr_key => $curr_val) {
                     $results .= str_repeat('&nbsp;', $depth * 2)
                         . '<b> -&gt;' . strtr($curr_key, $_replace) . '</b> = '
                         . smarty_modifier_logger_print_var($curr_val, ++$depth, $length, false) . '<br>';
-                    $depth--;
+                    $depth --;
                 }
                 break;
 

@@ -3,7 +3,7 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
 /**
@@ -12,19 +12,19 @@
 
 /**
  * Smarty escape modifier plugin
- *
  * Type:     modifier<br>
  * Name:     escape<br>
  * Purpose:  escape string for output
  *
- * @link http://www.smarty.net/docs/en/language.modifier.escape.tpl (Smarty online manual)
+ * @link   http://www.smarty.net/docs/en/language.modifier.escape.tpl (Smarty online manual)
  * @author Rodney Rehm
  *
- * @param  Smarty_Compiler_Template_Php_Compiler $compiler compiler object
- * @param string $input input string
- * @param string $esc_type escape type
- * @param string $char_set character set, used for htmlspecialchars() or htmlentities()
- * @param bool|string $double_encode encode already encoded entitites again, used for htmlspecialchars() or htmlentities()
+ * @param  Smarty_Compiler_Template_Php_Compiler $compiler      compiler object
+ * @param string                                 $input         input string
+ * @param string                                 $esc_type      escape type
+ * @param string                                 $char_set      character set, used for htmlspecialchars() or htmlentities()
+ * @param bool|string                            $double_encode encode already encoded entitites again, used for htmlspecialchars() or htmlentities()
+ *
  * @return string with compiled code
  */
 // NOTE: The parser does pass all parameter as strings which could be directly inserted into the compiled code string

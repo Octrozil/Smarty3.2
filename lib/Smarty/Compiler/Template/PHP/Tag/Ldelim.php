@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Ldelim
- *
  * Compiles the {ldelim} tag
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Ldelim Class
- *
  *
  * @package Compiler
  */
@@ -21,10 +18,11 @@ class Smarty_Compiler_Template_Php_Tag_Ldelim extends Smarty_Compiler_Template_P
 
     /**
      * Compiles code for the {ldelim} tag
-     *
      * This tag does output the left delimiter
-     * @param  array $args array with attributes from parser
+     *
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)

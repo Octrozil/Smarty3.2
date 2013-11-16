@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -23,11 +22,12 @@ class Smarty_Method_RegisterTraceCallback
     */
 
     /**
-     *
      * @api
-     * @param Smarty $smarty smarty object
+     *
+     * @param Smarty        $smarty   smarty object
      * @param  string|array $event
-     * @param  callable $callback class/method name
+     * @param  callable     $callback class/method name
+     *
      * @return Smarty
      * @throws Smarty_Exception
      */
@@ -35,13 +35,13 @@ class Smarty_Method_RegisterTraceCallback
     {
         if (is_array($event)) {
             foreach ($event as $_event => $_callback) {
-                if (!is_callable($_callback)) {
+                if (! is_callable($_callback)) {
                     throw new Smarty_Exception("registerCallback(): \"{$_event}\" not callable");
                 }
                 Smarty::$_trace_callbacks[$_event][] = $_callback;
             }
         } else {
-            if (!is_callable($callback)) {
+            if (! is_callable($callback)) {
                 throw new Smarty_Exception("registerCallback(): \"{$event}\" not callable");
             }
             Smarty::$_trace_callbacks[$event][] = $callback;

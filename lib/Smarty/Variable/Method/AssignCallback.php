@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Variable
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,18 +19,20 @@ class Smarty_Variable_Method_AssignCallback
      * assigns a variable hook
      *
      * @api
-     * @param Smarty | Smarty_Template | Smarty_Data $object master object
-     * @param  string $varname the variable name
-     * @param  callback $callback PHP callback to get variable value
-     * @param  boolean $nocache if true any output of this variable will be not cached
-     * @param int $scope_type
+     *
+     * @param Smarty | Smarty_Template | Smarty_Data $object   master object
+     * @param  string                                $varname  the variable name
+     * @param  callback                              $callback PHP callback to get variable value
+     * @param  boolean                               $nocache  if true any output of this variable will be not cached
+     * @param int                                    $scope_type
+     *
      * @throws Smarty_Exception
      * @return Smarty_Variable_Methods current Smarty_Variable_Methods (or Smarty) instance for chaining
      */
     public function assignCallback($object, $varname, $callback, $nocache = false, $scope_type = Smarty::SCOPE_LOCAL)
     {
         if ($varname != '') {
-            if (!is_callable($callback)) {
+            if (! is_callable($callback)) {
                 throw new Smarty_Exception("assignHook(): Hook for variable \"{$varname}\" not callable");
             } else {
                 if (is_object($callback)) {

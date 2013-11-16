@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,11 +19,13 @@ class Smarty_Method_CompileTemplate
      * test if compiled template is valid
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string|object $template the resource handle of the template file or template object
-     * @param  mixed $compile_id compile id to be used with this template
-     * @param  object $parent next higher level of Smarty variables
-     * @param  null $caching
+     *
+     * @param Smarty         $smarty     smarty object
+     * @param  string|object $template   the resource handle of the template file or template object
+     * @param  mixed         $compile_id compile id to be used with this template
+     * @param  object        $parent     next higher level of Smarty variables
+     * @param  null          $caching
+     *
      * @throws Smarty_Exception_SourceNotFound
      * @throws Exception
      * @return boolean      status of compilation
@@ -37,7 +38,7 @@ class Smarty_Method_CompileTemplate
         //get source object from cache  or create new one
         $context = $smarty->_getContext($template, null, $compile_id, $parent, false, null, null, null, $caching);
         // checks if source exists
-        if (!$context->exists) {
+        if (! $context->exists) {
             throw new Smarty_Exception_SourceNotFound($context->type, $context->name);
         }
         if ($context->handler->uncompiled) {
@@ -52,7 +53,8 @@ class Smarty_Method_CompileTemplate
             $key = $context->_key . '#' . (isset($context->compile_id) ? $context->compile_id : '') . '#' . (($context->caching) ? 1 : 0);
             unset(Smarty::$_compiled_object_cache[$key]);
             return true;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             throw $e;
         }
     }

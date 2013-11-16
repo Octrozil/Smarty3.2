@@ -117,45 +117,45 @@ class Smarty_Internal_Info
             'bc' => $this->smarty instanceof SmartyBC,
         );
 
-        if (!$flags || $flags & self::PHP) {
+        if (! $flags || $flags & self::PHP) {
             $this->analyzeEnvironment();
             $this->data['php'] = $this->php;
         }
-        if (!$flags || $flags & self::PROPERTIES) {
+        if (! $flags || $flags & self::PROPERTIES) {
             $this->analyzeProperties();
             $this->data['properties'] = $this->properties;
         }
-        if (!$flags || $flags & self::FILESYSTEM) {
+        if (! $flags || $flags & self::FILESYSTEM) {
             $this->analyzeFilesystem();
             $this->data['filesystem'] = $this->filesystem;
         }
-        if (!$flags || $flags & self::PLUGINS) {
+        if (! $flags || $flags & self::PLUGINS) {
             $this->analyzePlugins();
             $this->data['plugins'] = $this->plugins;
         }
-        if (!$flags || $flags & self::REGISTERED) {
+        if (! $flags || $flags & self::REGISTERED) {
             $this->analyzeRegistered();
             $this->data['registered'] = $this->registered;
         }
-        if (!$flags || $flags & self::DEFAULTS) {
+        if (! $flags || $flags & self::DEFAULTS) {
             $this->analyzeDefaults();
             $this->data['defaults'] = $this->defaults;
         }
-        if (!$flags || $flags & self::SECURITY) {
+        if (! $flags || $flags & self::SECURITY) {
             $this->analyzeSecurity();
             $this->data['security'] = $this->security;
         }
-        if (!$flags || $flags & self::CONSTANTS) {
+        if (! $flags || $flags & self::CONSTANTS) {
             $this->analyzeConstants();
             $this->data['constants'] = $this->constants;
         }
-        if (!$flags || $flags & self::STATICS) {
+        if (! $flags || $flags & self::STATICS) {
             $this->analyzeStatics();
             $this->data['statics'] = $this->statics;
         }
 
         // purge plugins_dir if loaded by other test
-        if ($flags && !($flags & self::FILESYSTEM)) {
+        if ($flags && ! ($flags & self::FILESYSTEM)) {
             $this->data['filesystem'] = array();
         }
 
@@ -209,7 +209,7 @@ class Smarty_Internal_Info
                             'name' => 'Backtrack Limit',
                             'href' => 'http://php.net/manual/en/pcre.configuration.php#ini.pcre.backtrack-limit',
                             'is_value' => ini_get('pcre.backtrack_limit'),
-                            'best_value' => -1,
+                            'best_value' => - 1,
                             'need_value' => null,
                         ),
                     ),
@@ -323,7 +323,8 @@ class Smarty_Internal_Info
 
             try {
                 $_smarty_value = $this->sanitizeValue($name, $property->getValue($this->smarty), $type);
-            } catch (ReflectionException $e) {
+            }
+            catch (ReflectionException $e) {
                 $_smarty_value = self::NOT_AVAILABLE;
             }
 
@@ -331,7 +332,8 @@ class Smarty_Internal_Info
                 try {
                     $_property = $template->getProperty($name);
                     $_template_value = $this->sanitizeValue($name, $_property->getValue($this->template), $type);
-                } catch (ReflectionException $e) {
+                }
+                catch (ReflectionException $e) {
                     $_template_value = self::NOT_AVAILABLE;
                 }
             } else {
@@ -413,7 +415,7 @@ class Smarty_Internal_Info
         }
 
         $_plugins_dir = $this->smarty->getPluginsDir();
-        if (!$this->smarty->disable_core_plugins) {
+        if (! $this->smarty->disable_core_plugins) {
             $_plugins_dir[] = Smarty::$_SMARTY_PLUGINS_DIR;
         }
 
@@ -446,7 +448,7 @@ class Smarty_Internal_Info
     {
         $includepath = null;
         $realpath = realpath($path);
-        if (!$realpath && $use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $path)) {
+        if (! $realpath && $use_include_path && ! preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $path)) {
             $includepath = Smarty_Misc_GetIncludePath::getIncludePath($path);
             if ($includepath) {
                 $realpath = realpath($includepath);
@@ -457,13 +459,13 @@ class Smarty_Internal_Info
         $_is_readable = $_is_directory && $realpath ? is_readable($realpath) : null;
         $_is_writable = $_is_directory && $realpath ? is_writable($realpath) : null;
 
-        if (!$realpath) {
+        if (! $realpath) {
             $error = 'Not Found';
-        } elseif (!$_is_directory) {
+        } elseif (! $_is_directory) {
             $error = 'Not a Directory';
-        } elseif (!$_is_readable) {
+        } elseif (! $_is_readable) {
             $error = 'Not Readable';
-        } elseif (!$_is_writable && $expect_writable) {
+        } elseif (! $_is_writable && $expect_writable) {
             $error = 'Not Writable';
         } else {
             $error = null;
@@ -504,7 +506,7 @@ class Smarty_Internal_Info
         );
 
         // import plugins_dir
-        if (!$this->filesystem) {
+        if (! $this->filesystem) {
             $this->analyzeFilesystem();
         }
 
@@ -515,7 +517,7 @@ class Smarty_Internal_Info
 
         // scan plugins_dir
         foreach ($directories as $dir) {
-            if (!$dir['realpath']) {
+            if (! $dir['realpath']) {
                 continue;
             }
 
@@ -527,7 +529,7 @@ class Smarty_Internal_Info
 
                 $parts = explode('.', $file->getFilename());
                 $type = strtolower($parts[0]);
-                if (count($parts) != 3 || !isset($this->plugins[$type])) {
+                if (count($parts) != 3 || ! isset($this->plugins[$type])) {
                     continue;
                 }
 
@@ -538,8 +540,8 @@ class Smarty_Internal_Info
 
                 $autoload = false;
                 // autoload_filters
-                if (isset($type[6]) && substr($type, -6) == 'filter' && $this->smarty->autoload_filters) {
-                    $filter = substr($type, 0, -6);
+                if (isset($type[6]) && substr($type, - 6) == 'filter' && $this->smarty->autoload_filters) {
+                    $filter = substr($type, 0, - 6);
                     if (isset($this->smarty->autoload_filters[$filter]) && in_array($name, $this->smarty->autoload_filters[$filter])) {
                         $autoload = true;
                     }
@@ -584,7 +586,7 @@ class Smarty_Internal_Info
 
         // scan _registered['plugin']
         foreach ($this->smarty->_registered['plugin'] as $type => $plugins) {
-            if (!isset($this->plugins[$type])) {
+            if (! isset($this->plugins[$type])) {
                 continue;
             }
             foreach ($plugins as $name => $_plugin) {
@@ -622,7 +624,7 @@ class Smarty_Internal_Info
         // scan _registered['filter]
         foreach ($this->smarty->_registered['filter'] as $type => $filters) {
             $type .= 'filter';
-            if (!isset($this->plugins[$type])) {
+            if (! isset($this->plugins[$type])) {
                 continue;
             }
 
@@ -754,7 +756,8 @@ class Smarty_Internal_Info
 
             try {
                 $_smarty_value = $this->sanitizeValue($name, $property->getValue($smarty), $type);
-            } catch (ReflectionException $e) {
+            }
+            catch (ReflectionException $e) {
                 $_smarty_value = self::NOT_AVAILABLE;
             }
 
@@ -821,7 +824,8 @@ class Smarty_Internal_Info
             $param .= '$' . $p->getName();
             try {
                 $param .= '=' . var_export($p->getDefaultValue(), true);
-            } catch (ReflectionException $e) {
+            }
+            catch (ReflectionException $e) {
 
             }
 
@@ -838,7 +842,7 @@ class Smarty_Internal_Info
         // Not sure if this is really such a great idea…
         // make sure we're not running into syntax errors
         $last = exec('php -l ' . escapeshellarg($filepath));
-        if (!$last) {
+        if (! $last) {
             return null;
         }
         if (strpos($last, 'Errors parsing') !== false) {
@@ -872,7 +876,8 @@ class Smarty_Internal_Info
 
                 return $reflection->getMethod('__invoke');
             }
-        } catch (ReflectionException $e) {
+        }
+        catch (ReflectionException $e) {
 
         }
 

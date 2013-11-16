@@ -5,8 +5,8 @@
 
 /**
  * Utility class
- *
- *
+
+
 
  */
 class Smarty_Misc_Utility
@@ -24,6 +24,7 @@ class Smarty_Misc_Utility
      * Return array of tag/attributes of all tags used by an template
      *
      * @param  Smarty $template template object
+     *
      * @return array  of tag/attributes
      */
     public static function getTags(Smarty $template)

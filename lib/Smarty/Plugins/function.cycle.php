@@ -8,7 +8,6 @@
 
 /**
  * Smarty {cycle} function plugin
- *
  * Type:     function<br>
  * Name:     cycle<br>
  * Date:     May 3, 2002<br>
@@ -31,15 +30,17 @@
  * {cycle name=row}
  * </pre>
  *
- * @link http://www.smarty.net/docs/en/language.function.cycle.tpl {cycle}
- *       (Smarty online manual)
- * @author Monte Ohrt <monte at ohrt dot com>
- * @author credit to Mark Priatel <mpriatel@rogers.com>
- * @author credit to Gerard <gerard@interfold.com>
- * @author credit to Jason Sweat <jsweat_php@yahoo.com>
+ * @link     http://www.smarty.net/docs/en/language.function.cycle.tpl {cycle}
+ *           (Smarty online manual)
+ * @author   Monte Ohrt <monte at ohrt dot com>
+ * @author   credit to Mark Priatel <mpriatel@rogers.com>
+ * @author   credit to Gerard <gerard@interfold.com>
+ * @author   credit to Jason Sweat <jsweat_php@yahoo.com>
  * @version  1.3
- * @param array $params parameters
+ *
+ * @param array  $params  parameters
  * @param Smarty $tpl_obj template object
+ *
  * @return string|null
  */
 function smarty_function_cycle($params, $tpl_obj)
@@ -51,8 +52,8 @@ function smarty_function_cycle($params, $tpl_obj)
     $advance = (isset($params['advance'])) ? (bool)$params['advance'] : true;
     $reset = (isset($params['reset'])) ? (bool)$params['reset'] : false;
 
-    if (!isset($params['values'])) {
-        if (!isset($cycle_vars[$name]['values'])) {
+    if (! isset($params['values'])) {
+        if (! isset($cycle_vars[$name]['values'])) {
             trigger_error("[plugin function.cycle] missing 'values' parameter");
 
             return;
@@ -68,7 +69,7 @@ function smarty_function_cycle($params, $tpl_obj)
 
     if (isset($params['delimiter'])) {
         $cycle_vars[$name]['delimiter'] = $params['delimiter'];
-    } elseif (!isset($cycle_vars[$name]['delimiter'])) {
+    } elseif (! isset($cycle_vars[$name]['delimiter'])) {
         $cycle_vars[$name]['delimiter'] = ',';
     }
 
@@ -78,7 +79,7 @@ function smarty_function_cycle($params, $tpl_obj)
         $cycle_array = explode($cycle_vars[$name]['delimiter'], $cycle_vars[$name]['values']);
     }
 
-    if (!isset($cycle_vars[$name]['index']) || $reset) {
+    if (! isset($cycle_vars[$name]['index']) || $reset) {
         $cycle_vars[$name]['index'] = 0;
     }
 
@@ -97,7 +98,7 @@ function smarty_function_cycle($params, $tpl_obj)
         if ($cycle_vars[$name]['index'] >= count($cycle_array) - 1) {
             $cycle_vars[$name]['index'] = 0;
         } else {
-            $cycle_vars[$name]['index']++;
+            $cycle_vars[$name]['index'] ++;
         }
     }
 

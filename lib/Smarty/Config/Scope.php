@@ -1,20 +1,17 @@
 <?php
 /**
  * Smarty Config Variable Scope
- *
  * This file contains the Class for a variable scope
  *
- *
  * @package Template
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * class for a variable scope
- *
  * This class holds all assigned variables
  * The special property ___attributes is used to store control information
- *
+
  */
 class Smarty_Config_Scope
 {
@@ -30,6 +27,7 @@ class Smarty_Config_Scope
      * magic __get function called at access of unknown variable
      *
      * @param  string $varname name of variable
+     *
      * @return mixed  Smarty_Variable object | null
      */
     public function __get($varname)

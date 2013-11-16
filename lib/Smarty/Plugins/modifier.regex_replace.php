@@ -3,23 +3,24 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsModifier
  */
 
 /**
  * Smarty regex_replace modifier plugin
- *
  * Type:     modifier<br>
  * Name:     regex_replace<br>
  * Purpose:  regular expression search/replace
  *
- * @link http://www.smarty.net/docs/en/language.modifier.regex.replace.tpl
+ * @link    http://www.smarty.net/docs/en/language.modifier.regex.replace.tpl
  *          regex_replace (Smarty online manual)
- * @author Monte Ohrt <monte at ohrt dot com>
- * @param string $string input string
- * @param string|array $search regular expression(s) to search for
+ * @author  Monte Ohrt <monte at ohrt dot com>
+ *
+ * @param string       $string  input string
+ * @param string|array $search  regular expression(s) to search for
  * @param string|array $replace string(s) that should be replaced
+ *
  * @return string
  */
 function smarty_modifier_regex_replace($string, $search, $replace)
@@ -37,6 +38,7 @@ function smarty_modifier_regex_replace($string, $search, $replace)
 
 /**
  * @param  string $search string(s) that should be replaced
+ *
  * @return string
  * @ignore
  */
@@ -49,7 +51,7 @@ function _smarty_regex_replace_check($search)
     }
     // remove eval-modifier from $search
     if (preg_match('!([a-zA-Z\s]+)$!s', $search, $match) && (strpos($match[1], 'e') !== false)) {
-        $search = substr($search, 0, -strlen($match[1])) . preg_replace('![e\s]+!', '', $match[1]);
+        $search = substr($search, 0, - strlen($match[1])) . preg_replace('![e\s]+!', '', $match[1]);
     }
 
     return $search;

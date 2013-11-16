@@ -1,11 +1,10 @@
 <?php
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -19,8 +18,10 @@ class Smarty_Method_GetGlobal
      * Returns a single or all global  variables
      *
      * @api
-     * @param Smarty $smarty smarty object
+     *
+     * @param Smarty  $smarty  smarty object
      * @param  string $varname variable name or null
+     *
      * @return mixed variable value or or array of variables
      */
     public function getGlobal(Smarty $smarty, $varname = null)

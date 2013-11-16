@@ -3,20 +3,21 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsFilter
  */
 
 /**
  * Smarty trimwhitespace outputfilter plugin
- *
  * Trim unnecessary whitespace from HTML markup.
  *
  * @author   Rodney Rehm
+ *
  * @param string $source input string
  * @param Smarty $smarty Smarty object
+ *
  * @return string filtered output
- * @todo substr_replace() is not overloaded by mbstring.func_overload - so this function might fail!
+ * @todo     substr_replace() is not overloaded by mbstring.func_overload - so this function might fail!
  */
 function smarty_outputfilter_trimwhitespace($source, Smarty $smarty)
 {
@@ -36,7 +37,7 @@ function smarty_outputfilter_trimwhitespace($source, Smarty $smarty)
             $source = substr_replace($source, $replace, $match[0][1] - $_offset, $_length);
 
             $_offset += $_length - strlen($replace);
-            $_store++;
+            $_store ++;
         }
     }
 
@@ -54,7 +55,7 @@ function smarty_outputfilter_trimwhitespace($source, Smarty $smarty)
             $source = substr_replace($source, $replace, $match[0][1] - $_offset, $_length);
 
             $_offset += $_length - strlen($replace);
-            $_store++;
+            $_store ++;
         }
     }
 
@@ -84,7 +85,7 @@ function smarty_outputfilter_trimwhitespace($source, Smarty $smarty)
             $source = substr_replace($source, $replace, $match[0][1] + $_offset, $_length);
 
             $_offset += strlen($replace) - $_length;
-            $_store++;
+            $_store ++;
         }
     }
 

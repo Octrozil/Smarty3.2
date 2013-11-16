@@ -3,16 +3,15 @@
 /**
  * Smarty Resource Cache File Plugin
  *
- *
  * @package Smarty\Resource\Cache
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Resource Cache File Extension
- *
- *
- *
+
+
+
  */
 class Smarty_Resource_Cache_Extension_File
 {
@@ -21,11 +20,13 @@ class Smarty_Resource_Cache_Extension_File
      * Delete cache file for a specific template
      *
      * @internal
-     * @param  Smarty $smarty Smarty object
-     * @param  string $resource_name template name
-     * @param  string $cache_id cache id
-     * @param  string $compile_id compile id
-     * @param  integer $exp_time expiration time (number of seconds, not timestamp)
+     *
+     * @param  Smarty  $smarty        Smarty object
+     * @param  string  $resource_name template name
+     * @param  string  $cache_id      cache id
+     * @param  string  $compile_id    compile id
+     * @param  integer $exp_time      expiration time (number of seconds, not timestamp)
+     *
      * @return integer number of cache files deleted
      */
     public static function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
@@ -55,7 +56,7 @@ class Smarty_Resource_Cache_Extension_File
                     $_preg_file = preg_quote($_basename);
                     $_dirtpl_obj = $_cache_dir . substr($context->uid, 0, 2) . '/' . $context->uid . '/';
                     // does subdir for template exits?
-                    if (!is_dir($_dirtpl_obj)) {
+                    if (! is_dir($_dirtpl_obj)) {
                         return 0;
                     }
                     // use template subdir as top level
@@ -71,16 +72,16 @@ class Smarty_Resource_Cache_Extension_File
         // if use_sub_dirs iterate over folder
         if ($smarty->use_sub_dirs) {
             // if no template was specified build top level array for all templates
-            if (!isset($resource_name)) {
+            if (! isset($resource_name)) {
                 $_dir_array = array();
                 $_dir_it1 = new DirectoryIterator($_cache_dir);
                 foreach ($_dir_it1 as $_dir1) {
-                    if (!$_dir1->isDir() || $_dir1->isDot() || substr(basename($_dir1->getPathname()), 0, 1) == '.') {
+                    if (! $_dir1->isDir() || $_dir1->isDot() || substr(basename($_dir1->getPathname()), 0, 1) == '.') {
                         continue;
                     }
                     $_dir_it2 = new DirectoryIterator($_dir1->getPathname());
                     foreach ($_dir_it2 as $_dir2) {
-                        if (!$_dir2->isDir() || $_dir2->isDot() || substr(basename($_dir2->getPathname()), 0, 1) == '.') {
+                        if (! $_dir2->isDir() || $_dir2->isDot() || substr(basename($_dir2->getPathname()), 0, 1) == '.') {
                             continue;
                         }
                         $_dir_array[] = $_dir2->getPathname() . '/';
@@ -95,7 +96,7 @@ class Smarty_Resource_Cache_Extension_File
                 $_cache_id_hash = md5($_cache_id_parts[$_cache_id_last]);
                 // lower levels of structured cache_id
                 if ($_cache_id_last > 0) {
-                    for ($i = 0; $i < $_cache_id_last; $i++) {
+                    for ($i = 0; $i < $_cache_id_last; $i ++) {
                         $_dir_cache_id .= $_cache_id_parts[$i] . '/';
                     }
                 }
@@ -111,9 +112,9 @@ class Smarty_Resource_Cache_Extension_File
             foreach ($_dir_array as $dir) {
                 $_dirs = array($dir . $_dir_cache_id, isset($_cache_id) ? $dir . $_dir_cache_id2 : null);
                 $_deleted = array(false, false);
-                for ($i = 0; $i < 2; $i++) {
+                for ($i = 0; $i < 2; $i ++) {
                     if ($i == 0) {
-                        if (!is_dir($_dirs[$i])) {
+                        if (! is_dir($_dirs[$i])) {
                             continue;
                         }
                         // folder for lower levels is present or no cache_id specified
@@ -121,7 +122,7 @@ class Smarty_Resource_Cache_Extension_File
                         $_cacheDirs = new RecursiveIteratorIterator($_cacheDirs1, RecursiveIteratorIterator::CHILD_FIRST);
                         $_preg_cache_id = '(.*)?';
                     } elseif (isset($_cache_id)) {
-                        if (!is_dir($_dirs[$i])) {
+                        if (! is_dir($_dirs[$i])) {
                             continue;
                         }
                         // folder with highest level hash is present
@@ -133,7 +134,7 @@ class Smarty_Resource_Cache_Extension_File
                         foreach ($_cacheDirs as $_file) {
                             // directory ?
                             if ($_file->isDir()) {
-                                if (!$_cacheDirs->isDot()) {
+                                if (! $_cacheDirs->isDot()) {
                                     // delete folder if empty
                                     @rmdir($_file->getPathname());
                                     continue;
@@ -145,7 +146,7 @@ class Smarty_Resource_Cache_Extension_File
                             }
                             $filename = str_replace('\\', '/', $path);
                             // does file match selections?
-                            if (!preg_match($regex, $filename, $matches)) {
+                            if (! preg_match($regex, $filename, $matches)) {
                                 continue;
                             }
                             // expired ?
@@ -166,7 +167,7 @@ class Smarty_Resource_Cache_Extension_File
                             if (@rmdir($_dir) === false) {
                                 break;
                             }
-                            $_dir = substr($_dir, 0, strrpos(substr($_dir, 0, -1), '/') + 1);
+                            $_dir = substr($_dir, 0, strrpos(substr($_dir, 0, - 1), '/') + 1);
                         }
                     }
                 }
@@ -185,7 +186,7 @@ class Smarty_Resource_Cache_Extension_File
                 $path = $_file->getPathname();
                 $filename = basename($path);
                 // does file match selections?
-                if (!preg_match($regex, $filename, $matches)) {
+                if (! preg_match($regex, $filename, $matches)) {
                     continue;
                 }
                 // expired ?

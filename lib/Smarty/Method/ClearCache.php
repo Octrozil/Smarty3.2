@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,12 +19,14 @@ class Smarty_Method_ClearCache
      * Empty cache for a specific template
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string $template_name template name
-     * @param  string $cache_id cache id
-     * @param  string $compile_id compile id
-     * @param  integer $exp_time expiration time
-     * @param  string $type resource type
+     *
+     * @param Smarty   $smarty        smarty object
+     * @param  string  $template_name template name
+     * @param  string  $cache_id      cache id
+     * @param  string  $compile_id    compile id
+     * @param  integer $exp_time      expiration time
+     * @param  string  $type          resource type
+     *
      * @return integer number of cache files deleted
      */
     public function clearCache(Smarty $smarty, $template_name = null, $cache_id = null, $compile_id = null, $exp_time = null, $type = null)

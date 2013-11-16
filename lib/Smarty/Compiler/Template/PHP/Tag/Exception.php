@@ -2,17 +2,14 @@
 
 /**
  * Smarty Compile a Runtime Exception
- *
  * Compiles the calls of user defined tags defined by {function}
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Function_Call Class
- *
  *
  * @package Compiler
  */
@@ -38,8 +35,9 @@ class Smarty_Compiler_Template_Php_Tag_Exception extends Smarty_Compiler_Templat
     /**
      * Compiles the calls of user defined tags defined by {function}
      *
-     * @param  array $args array with attributes from parser
+     * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)

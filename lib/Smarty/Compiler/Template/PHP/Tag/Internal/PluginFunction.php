@@ -2,17 +2,14 @@
 
 /**
  * Smarty Internal Plugin Compile Function Plugin
- *
  * Compiles code for the execution of function plugin
  *
- *
  * @package Compiler
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Function Plugin Class
- *
  *
  * @package Compiler
  */
@@ -38,11 +35,12 @@ class Smarty_Compiler_Template_Php_Tag_Internal_PluginFunction extends Smarty_Co
     /**
      * Compiles code for the execution of function plugin
      *
-     * @param  array $args array with attributes from parser
-     * @param  object $compiler compiler object
-     * @param  array $parameter array with compilation parameter
-     * @param  string $tag name of function plugin
-     * @param  string $function PHP function name
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     * @param  string $tag       name of function plugin
+     * @param  string $function  PHP function name
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter, $tag, $function)

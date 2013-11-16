@@ -3,13 +3,12 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
 
 /**
  * Smarty strip modifier plugin
- *
  * Type:     modifier<br>
  * Name:     strip<br>
  * Purpose:  Replace all repeated spaces, newlines, tabs
@@ -17,11 +16,12 @@
  * Example:  {$var|strip} {$var|strip:"&nbsp;"}<br>
  * Date:     September 25th, 2002
  *
- * @link http://www.smarty.net/docs/en/language.modifier.strip.tpl strip (Smarty online manual)
+ * @link   http://www.smarty.net/docs/en/language.modifier.strip.tpl strip (Smarty online manual)
  * @author Uwe Tews
  *
- * @param string $input input string
+ * @param string $input       input string
  * @param string $replacement replacement string
+ *
  * @return string with compiled code
  */
 // NOTE: The parser does pass all parameter as strings which could be directly inserted into the compiled code string

@@ -1,11 +1,10 @@
 <?php
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -19,8 +18,10 @@ class Smarty_Method_UnregisterCacheResource
      * Unregisters a cache resource
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string $type name of cache resource type
+     *
+     * @param Smarty  $smarty smarty object
+     * @param  string $type   name of cache resource type
+     *
      * @return Smarty
      */
     public function unregisterCacheResource(Smarty $smarty, $type)

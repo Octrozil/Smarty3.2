@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Variable
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,12 +19,14 @@ class Smarty_Variable_Internal_GetVariable
      * gets the object of a template variable
      *
      * @internal
-     * @param Smarty | Smarty_Template | Smarty_Data $object master object
-     * @param  string $varname the name of the Smarty variable
-     * @param  object $_ptr optional pointer to data object
-     * @param  boolean $search_parents search also in parent data
-     * @param  boolean $error_enable enable error handling
-     * @param  boolean $disable_default if true disable default handler
+     *
+     * @param Smarty | Smarty_Template | Smarty_Data $object          master object
+     * @param  string                                $varname         the name of the Smarty variable
+     * @param  object                                $_ptr            optional pointer to data object
+     * @param  boolean                               $search_parents  search also in parent data
+     * @param  boolean                               $error_enable    enable error handling
+     * @param  boolean                               $disable_default if true disable default handler
+     *
      * @return mixed   Smarty_variable object|property of variable
      */
     public function _getVariable($object, $varname, $_ptr = null, $search_parents = true, $error_enable = true, $disable_default = false)

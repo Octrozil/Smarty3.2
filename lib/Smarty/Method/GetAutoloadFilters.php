@@ -2,11 +2,10 @@
 
 /**
  * Smarty Extension
- *
  * Smarty class methods
  *
  * @package Smarty\Extension
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 
 /**
@@ -20,8 +19,10 @@ class Smarty_Method_GetAutoloadFilters
      * Get autoload filters
      *
      * @api
-     * @param Smarty $smarty smarty object
-     * @param  string $type type of filter to get autoloads for. Defaults to all autoload filters
+     *
+     * @param Smarty  $smarty smarty object
+     * @param  string $type   type of filter to get autoloads for. Defaults to all autoload filters
+     *
      * @return array  array( 'type1' => array( 'filter1', 'filter2', … ) ) or array( 'filter1', 'filter2', …) if $type was specified
      */
     public function getAutoloadFilters(Smarty $smarty, $type = null)
